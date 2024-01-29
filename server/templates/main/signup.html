@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{%block head%}
+  <title>회원가입</title>
+{% endblock %}
+
+{%block content%}
+<div class="content-wrapper">
+  <div class="wrapper-header">
+    <h2>Post Register</h2>
+    <p>회원가입 페이지입니다!</p>
+  </div>
+  <form
+    action="{% url 'main:signup' %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {%csrf_token%} {{form.as_p}}
+    <button class="btn btn-success">등록하기</button>
+</div>
+{%endblock%}
