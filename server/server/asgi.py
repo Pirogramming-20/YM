@@ -10,8 +10,10 @@ https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
 import os
 from django.core.asgi import get_asgi_application
 import socketio
-
-
+   # 추가
+import site
+   # 추가
+site.addsitedir(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
 # socketio.AsyncServer 인스턴스를 생성하고, 비동기식으로 작동하도록 설정
 sio = socketio.AsyncServer(async_mode='asgi')
