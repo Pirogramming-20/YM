@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figure</title>
+    <link rel="stylesheet" href="{%static 'css/nomalize.css'%}">  
+    <link rel="stylesheet" href="{%static 'css/figure.css'%}">
+    <script defer src="{%static '/js/figure.js'%}"></script>
+</head>
+<body>
+    <h1>인물 퀴즈</h1>
+    <button onclick="startCountdown()">시작</button>
+    <div class="image-container">
+        <div id="image-cover">
+            <span id="countdown">사진</span>
+        </div>
+        <img id="figure-image" src="{{figure.image_path}}">
+        
+    </div>
+    <script>
+        function startCountdown() {
+            const imageCover = document.getElementById('image-cover');
+            const countdownElement = document.getElementById('countdown');
+            let count = 6;
+    
+            function updateCountdown() {
+                countdownElement.innerHTML=count-3;
+                count--;
+                if (count >=0 && count < 3) {
+                    imageCover.style.display = "none";
+                }
+                else if (count < 0) {
+                    clearInterval(countdownInterval);
+                    imageCover.style.display = "flex";
+                    countdownElement.innerHTML="stop!";
+                }
+            }
+    
+            updateCountdown();
+    
+            const countdownInterval = setInterval(updateCountdown, 1000);
+        }
+    </script>
+
+</body>
+</html>
