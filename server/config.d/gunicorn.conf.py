@@ -6,4 +6,4 @@ max_requests_jitter = 1_000
 accesslog = "-"
 errorlog = "-"
 limit_request_line = 0
-# worker_class = "uvicorn.workers.UvicornWorker"
+worker_class = "uvicorn.workers.UvicornWorker"
