@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat Room</title>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+    <div class="connect-user-hi">
+      <span>{{user.username}} </span> 님이 로그인중
+    </div>
+    <a class="menu-btn" href="{% url 'rooms:create' %}">게임방 만들기</a>
+    <a href="{% url 'main:logout' %}">
+      <div class="header-btn">로그아웃</div>
+    </a>
+    {% endif %}
+
+    <div class="posts_list">
+      {% for room in rooms %}
+      <div class="room">
+        <a class="room_name" href="{% url 'rooms:detail' room.pk %}"
+          >제목 : {{room.room_name}}</a
+        >
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
