@@ -1,0 +1,10 @@
+header{
+    padding: 0px;
+    display: flex;
+    flex-flow: column;
+    margin: 0px;
+    height: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    border-bottom: 1px solid black;
+}
