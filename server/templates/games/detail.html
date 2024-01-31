@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{%block head%}
+  <title>회원가입</title>
+{% endblock %}
+
+{%block content%}
+<div class="content-wrapper">
+  <div class="wrapper-header">
+    <h2>Post Register</h2>
+    <p>게임 페이지입니다!</p>
+  </div>
+  <form
+    action="{% url 'games:image' %}"
+    enctype="multipart/form-data"
+  >
+    {%csrf_token%} {{form.as_p}}
+    <button class="btn btn-success">시작하기</button>
+</div>
+{%endblock%}
