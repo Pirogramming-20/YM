@@ -39,8 +39,7 @@ def movie_game_main(request):
     return render(request, 'movieGames/movie_game_main.html')
 
 # 2. 영화 장면 보여주는 페이지
-# 3. 정답 보여주는 페이지 (정답 버튼을 누르면 이 함수 실행) : ajax로 구현 ->css로 처리?
-# 4. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
+# 3. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
 def movie_game_start(request):
     QuizList.objects.all().delete()
     movie_game_ids = random.sample(range(1, len(MovieGame.objects.all()) + 1), 10)

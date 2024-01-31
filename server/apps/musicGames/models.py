@@ -4,6 +4,7 @@ from django.db import models
 class MusicGame(models.Model):
     title = models.CharField('노래제목', max_length=30)
     music = models.TextField('노래 파일 경로')
+    singer = models.CharField('가수', max_length=20)
 
     def __str__(self):
         return self.title
