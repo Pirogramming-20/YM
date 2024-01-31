@@ -7,11 +7,6 @@ from django.http import JsonResponse
 
 # Create your views here.
 
-
-# 5. 게임 종료 페이지 : db 비우기
-
-
-
 # 0. 영화 명대사 db에 create 하는 함수
 # 1-1. 영화 명대사 게임 표지 페이지
 # 1-2. 영화 명대사 게임 규칙 설명
