@@ -5,6 +5,18 @@
     <title>Chat Room</title>
   </head>
   <body>
+    <style>
+      ul {
+        padding: 0;
+      }
+      li {
+        display: flex;
+        margin: 2px 20px;
+      }
+      .my_chat {
+        flex-direction: row-reverse;
+      }
+    </style>
     <div id="info_room_num">{{room.id}}</div>
     <div id="info_room">{{room.room_name}}</div>
     {% if user.is_authenticated %}
@@ -50,6 +62,9 @@
           document.createTextNode(" : "),
           document.createTextNode(data[0])
         );
+        if (data[1] == username) {
+          li.className += "my_chat";
+        }
         document.getElementById("messages").appendChild(li);
       });
 
