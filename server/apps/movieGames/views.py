@@ -27,21 +27,31 @@ def movie_game_main(request):
     for data in quiz_data:
         MovieGame.objects.get_or_create(title=data['title'], scene=data['scene'], line=data['line'])
 
-    movie_game_ids = random.sample(range(1, len(quiz_data) + 1), 10)
-    movie_game_query = MovieGame.objects.all()
-    first_quiz = movie_game_query.first()
-    first_quiz_id = int(first_quiz.id)
+    # movie_game_ids = random.sample(range(1, len(quiz_data) + 1), 10)
+    # movie_game_query = MovieGame.objects.all()
+    # first_movie = movie_game_query.first()
+    # first_movie_id = int(first_movie.id)
 
-    for movie_game_id in movie_game_ids:
-        movie_game = MovieGame.objects.get(id=movie_game_id+first_quiz_id-1)
-        QuizList.objects.get_or_create(movie_game_id=movie_game)
+    # for movie_game_id in movie_game_ids:
+    #     movie_game = MovieGame.objects.get(id=movie_game_id+first_movie_id-1)
+    #     QuizList.objects.get_or_create(movie_game_id=movie_game)
     
     return render(request, 'movieGames/movie_game_main.html')
 
 # 2. 영화 장면 보여주는 페이지
-# 3. 정답 보여주는 페이지 (정답 버튼을 누르면 이 함수 실행) : ajax로 구현
+# 3. 정답 보여주는 페이지 (정답 버튼을 누르면 이 함수 실행) : ajax로 구현 ->css로 처리?
 # 4. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
 def movie_game_start(request):
+    QuizList.objects.all().delete()
+    movie_game_ids = random.sample(range(1, len(MovieGame.objects.all()) + 1), 10)
+    movie_game_query = MovieGame.objects.all()
+    first_movie = movie_game_query.first()
+    first_movie_id = int(first_movie.id)
+
+    for movie_game_id in movie_game_ids:
+        movie_game = MovieGame.objects.get(id=movie_game_id+first_movie_id-1)
+        QuizList.objects.get_or_create(movie_game_id=movie_game)
+
     quiz_list = QuizList.objects.all()
     quiz = quiz_list.first()
     ctx = {
