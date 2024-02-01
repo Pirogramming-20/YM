@@ -6,6 +6,8 @@ from django.contrib import auth
 # Create your views here.
 
 def main(request):
+    if request.user.is_authenticated:
+        return redirect('rooms:main')  # Use the name you've defined in your urls.py for chattings:main
     return render(request, "main/main.html")
 
 def signup(request):
