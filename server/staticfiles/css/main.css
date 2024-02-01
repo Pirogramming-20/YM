@@ -1,0 +1,16 @@
+.main-container {
+    width: 90%;  
+}
+.title :first-child{
+    margin-right: 4.8rem; /* space bet 요즘 & MT */
+
+}
+.sub-title{
+    margin-bottom: 4rem;
+    font-size: 6rem;
+}
+.log-in-sign-up-btn{
+    display: flex;
+    justify-content: space-around;
+    margin: 10rem 0;
+}
