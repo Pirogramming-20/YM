@@ -8,3 +8,4 @@ from django.shortcuts import render
 
 # 2. 첫 문제 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 : ajax로 구현
+# 4. 우선 게임 종료 시 게임 표지 페이지로 이동 : ajax로 구현
