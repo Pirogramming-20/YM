@@ -34,6 +34,8 @@ body {
     /* img fixed during scroll */
     /* background-attachment: fixed;  */
   }
+
+
 main{
     min-height: calc(100vh - 24vh);
     margin: 0 6rem;
@@ -81,7 +83,7 @@ footer{
 
 .text3, form label, form input{
     color: var(--text-color);
-    text-shadow: 0px 0px 4px var(--secondary-color);
+    text-shadow: 0 0 0.4rem var(--secondary-color);
     -webkit-text-stroke-width: 0.1rem;
     -webkit-text-stroke-color: var(--secondary-color);
     font-family: var(--font-family);
@@ -117,7 +119,7 @@ footer{
 }
 
 
-.box-no-fill, form input{
+.box-no-fill, form input, .team, .individual{
     background-color: transparent;
     flex-shrink: 0;
     border: 0.2rem solid var(--primary-color); /* width, style, color */

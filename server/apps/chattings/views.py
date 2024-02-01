@@ -43,3 +43,7 @@ def detail(request,pk):
     "room" : room,
   }
   return render(request, "chattings/detail.html", ctx)
+
+
+def choose(request):
+  return render(request, "chattings/choose.html")
