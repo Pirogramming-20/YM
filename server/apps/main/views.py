@@ -15,7 +15,6 @@ def signup(request):
             user = form.save()
             auth.login(request, user)
             return redirect('rooms:main')
-            # return redirect('main:main')
         else:
             ctx={
                 'form':form,

@@ -36,10 +36,9 @@ body {
   }
 main{
     min-height: calc(100vh - 24vh);
-    display: flex;
-    justify-content: center;
-    align-items: space-between;
-    /* align-items: center; */
+    margin: 0 6rem;
+    /* display: flex;
+    justify-content: center; */
 }
 
 header{
@@ -92,18 +91,19 @@ footer{
 }
 
 .main-btn{
-    width: 29rem;
-    height: 10.6rem;
+
     flex-shrink: 0;
-    filter: drop-shadow(0.4rem 0.4rem 1rem var(--secondary-color));
+    box-shadow: 0.4rem 0.4rem 1rem var(--secondary-color);
     border: 0.4rem solid var(--tertiary-color);
     background: var(--primary-color);
     font-size: 6.4rem;
+    padding: 1rem 3rem;
 
     /* center button text */
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+    white-space: nowrap; /* prevent text wrapping */
 }
 
 .sub-btn{
@@ -111,8 +111,7 @@ footer{
   height: 10.6rem;
   flex-shrink: 0;
   background: #FFF;
-  filter: drop-shadow(0.4rem 0.4rem 1rem var(--secondary-color));
-
+    box-shadow: 0.4rem 0.4rem 1rem var(--secondary-color);
   color: var(--primary-color);
   -webkit-text-stroke-color: #1E1E1E;
 }
@@ -121,8 +120,19 @@ footer{
 .box-no-fill, form input{
     background-color: transparent;
     flex-shrink: 0;
-    border: 0.2rem solid #6B46EE; /* width, style, color */
+    border: 0.2rem solid var(--primary-color); /* width, style, color */
     /* filter: drop-shadow(0.3rem 1rem 2rem #6B46EE); */
-    box-shadow: 0.3rem 1rem 2rem #6B46EE;
+    box-shadow: 0.3rem 1rem 2rem var(--primary-color);
+}
+
+.header-container{
+    height: 100%;   
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 4rem;
+}
+.logout-btn{
+    font-size: 2.5rem;
 }
 

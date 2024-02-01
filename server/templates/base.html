@@ -8,10 +8,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow&family=Dela+Gothic+One&family=Jua&family=Varela+Round&display=swap" rel="stylesheet">
+  <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
   <link rel="stylesheet" href="{%static 'css/nomalize.css'%}">  
   <link rel="stylesheet" href="{%static 'css/style.css'%}">  
   <link rel="stylesheet" href="{%static 'css/main.css'%}">  
   <link rel="stylesheet" href="{%static 'css/form.css'%}">  
+  <link rel="stylesheet" href="{%static 'css/chattings.css'%}">
 
   
   {%block head%}
@@ -20,7 +25,14 @@
   {% endblock %}    
 </head>
 <body>
-  <header></header>
+  <header>
+    {% if user.is_authenticated %}
+    <div class="header-container">
+      <a href={% url 'main:logout' %} class="logout-btn main-btn text3"> 로그아웃 </a>
+    </div>
+    {% endif %}
+    
+  </header>
   <main>
     {%block content%}
       
