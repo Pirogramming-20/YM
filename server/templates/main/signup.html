@@ -4,17 +4,27 @@
 {% endblock %}
 
 {%block content%}
-<div class="content-wrapper">
-  <div class="wrapper-header">
-    <h2>Post Register</h2>
-    <p>회원가입 페이지입니다!</p>
-  </div>
+
+
+<div class="form-container">
+  <div class="sub-title text2">회원가입</div>
   <form
-    action="{% url 'main:signup' %}"
-    method="post"
-    enctype="multipart/form-data"
+  action="{% url 'main:signup' %}"
+  method="post"
+  enctype="multipart/form-data"
   >
-    {%csrf_token%} {{form.as_p}}
-    <button class="btn btn-success">등록하기</button>
+      {% csrf_token %}
+      {% for field in form %}
+          <div class="form-row">
+              {{ field.label_tag }}
+              {{ field }}
+          </div>
+      {% endfor %}
+      <a href={% url 'main:login' %} class="navigate text3">
+          <span >이미 회원이신가요?  </span>
+          <span >로그인하기</span>
+      </a>
+      <button class="main-btn text3">등록하기</button>
+  </form>
 </div>
 {%endblock%}
