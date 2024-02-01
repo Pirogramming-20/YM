@@ -5,6 +5,18 @@
     <title>Chat Room</title>
   </head>
   <body>
+    <style>
+      ul {
+        padding: 0;
+      }
+      li {
+        display: flex;
+        margin: 2px 20px;
+      }
+      .my_chat {
+        flex-direction: row-reverse;
+      }
+    </style>
     <div id="info_room_num">{{room.id}}</div>
     <div id="info_room">{{room.room_name}}</div>
     {% if user.is_authenticated %}
@@ -14,6 +26,9 @@
     </div>
     <a href="{% url 'main:logout' %}">
       <div class="header-btn">로그아웃</div>
+    </a>
+    <a href="{% url 'movieGames:movie_game_start' %}">
+      <div class="header-btn">영화게임하기</div>
     </a>
     <!-- 채팅 입력 칸 생성 -->
     <input id="input" autocomplete="off" />
@@ -50,6 +65,9 @@
           document.createTextNode(" : "),
           document.createTextNode(data[0])
         );
+        if (data[1] == username) {
+          li.className += "my_chat";
+        }
         document.getElementById("messages").appendChild(li);
       });
 
