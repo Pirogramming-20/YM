@@ -15,7 +15,8 @@ def create(request):
   if request.method == 'POST':
     form = RoomForm(request.POST)
     if form.is_valid():
-      room = form.save(commit=False)  
+      room = form.save(commit=False) 
+      room.created_by = request.user  
       room.save() 
       
       return redirect('rooms:main')
@@ -37,13 +38,17 @@ def create(request):
 
 
 
-def detail(request,pk):
+def chatroom(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
   ctx = {
     "room" : room,
   }
-  return render(request, "chattings/detail.html", ctx)
+  return render(request, "chattings/chatroom.html", ctx)
 
 
-def choose(request):
+def choose(request,pk):
+  room = get_object_or_404(GameRoom, pk=pk)
+  ctx = {
+    "room" : room,
+  }
   return render(request, "chattings/choose.html")

@@ -6,6 +6,6 @@ app_name='rooms'
 urlpatterns = [
     path('',main,name = 'main'),
     path('/create',create,name='create'),
-    path('/detail/<int:pk>',detail,name='detail'),
-    path('/choose',choose,name='choose'),
+    path('/chatroom/<int:pk>',chatroom,name='chatroom'),
+    path('/choose/<int:pk>',choose,name='choose'),
 ]
