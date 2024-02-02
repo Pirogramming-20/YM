@@ -1,48 +1,129 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figure</title>
-    <link rel="stylesheet" href="{%static 'css/nomalize.css'%}">  
-    <link rel="stylesheet" href="{%static 'css/figure.css'%}">
-    <script defer src="{%static '/js/figure.js'%}"></script>
-</head>
+
+{% block head %}
+<title>Figure</title>
+{% endblock %}
+
+{%block content%}
 <body>
     <h1>인물 퀴즈</h1>
     <button onclick="startCountdown()">시작</button>
+
     <div class="image-container">
         <div id="image-cover">
             <span id="countdown">사진</span>
         </div>
-        <img id="figure-image" src="{{figure.image_path}}">
-        
+        <div class="figure-container">
+            <img id="figure-image" src="{{quiz_figure.figure_quiz_id.image_path}}">
+        </div> 
     </div>
-    <script>
-        function startCountdown() {
-            const imageCover = document.getElementById('image-cover');
-            const countdownElement = document.getElementById('countdown');
-            let count = 6;
-    
-            function updateCountdown() {
-                countdownElement.innerHTML=count-3;
-                count--;
-                if (count >=0 && count < 3) {
-                    imageCover.style.display = "none";
-                }
-                else if (count < 0) {
-                    clearInterval(countdownInterval);
-                    imageCover.style.display = "flex";
-                    countdownElement.innerHTML="stop!";
-                }
-            }
-    
-            updateCountdown();
-    
-            const countdownInterval = setInterval(updateCountdown, 1000);
-        }
-    </script>
 
-</body>
-</html>
+    <button class="btn-next-figure" onclick="onClickNext()">다음 문제</button>
+
+    <button class="figure_name" onclick="checkAnswer()">정답 보기</button>
+</body>      
+{%endblock%}
+
+{%block script%}
+<script>
+    // 카운트다운 js
+    const imageCover = document.getElementById('image-cover');
+    const countdownElement = document.getElementById('countdown');
+    let countdownInterval;
+
+    function startCountdown() {
+        let count = 3;
+
+        function updateCountdown() {
+            countdownElement.innerHTML=count;
+            count--;
+            if (count < 0) {
+                clearInterval(countdownInterval);
+                imageCover.style.display = "none";
+            }
+        }
+
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
+    }
+
+    // 정답 보기 js
+    const nameElement = document.querySelector('.figure_name');
+    let nextCnt = 0;
+    
+    function checkAnswer() {// 다음 문제로 넘겼을 때도 첫 문제랑 같은 정답 보여서 if문으로 구분
+        if (nextCnt === 0) {
+            onClickAnswer = () => {
+            nameElement.textContent = "{{quiz_figure.figure_quiz_id.name}}";
+            }
+            onClickAnswer();
+        }
+        else {
+            onClickNextAnswer();
+        }
+    }
+    
+
+    // 다음문제로 넘어가는 ajax
+    const requestNextQuiz = new XMLHttpRequest();
+    let currentFigureId = '{{quiz_figure.id}}';
+    const onClickNext = () => {
+        const url = "/figure/next_figure_ajax/";
+        requestNextQuiz.open("POST", url, true);
+        requestNextQuiz.setRequestHeader(
+            "Content-Type",
+            "application/json"
+        );
+        
+        requestNextQuiz.send(JSON.stringify({id: currentFigureId}));
+    };
+
+    requestNextQuiz.onreadystatechange = () => {
+        if(requestNextQuiz.readyState === XMLHttpRequest.DONE){
+            if(requestNextQuiz.status < 400) {
+                const {id, image_path, name} = JSON.parse(requestNextQuiz.response);
+                const imageElement = document.getElementById('figure-image');
+                const nameElement = document.querySelector('.figure_name');
+                
+                clearInterval(countdownInterval);
+                imageCover.style.display = 'flex';
+                countdownElement.textContent = '사진';
+                imageElement.src = image_path;
+                
+                nextCnt ++;
+                nameElement.textContent = "정답보기";
+                onClickNextAnswer = () => {
+                    nameElement.textContent = name;
+                }
+
+                currentFigureId = id;
+            }
+        }
+    }
+    
+</script>
+{%endblock%}
+
+<style>
+.image-container {
+    position: relative;
+    display: inline-block; /* 블록 요소가 아닌 인라인 블록으로 설정 */
+}
+#figure-image {
+    width: 200px;
+    height: 200px;
+    display: block; /* 블록 요소로 설정 */
+}
+#image-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* 투명한 검은 배경색 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+</style>
