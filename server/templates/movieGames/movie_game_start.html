@@ -118,6 +118,26 @@
     requestQuiz.send(JSON.stringify({ id: currentQuizId }));
   });
 
+    const requestQuiz = new XMLHttpRequest();
+    let currentQuizId = '{{ quiz.id }}';
+    const nextBtn = document.querySelector('.next-btn');
+    const gameOverBtn = document.querySelector('.game-over');
+    let cnt = 1;
+
+    nextBtn.addEventListener('click', function1 =>{
+        const url = "next";
+        requestQuiz.open("POST", url, true);
+        requestQuiz.setRequestHeader(
+            "Content-Type",
+            "application/json"
+        );
+        requestQuiz.setRequestHeader(
+            "X-CSRFToken",
+            csrftoken
+        );
+        requestQuiz.send(JSON.stringify({id: currentQuizId}));
+    });
+
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
