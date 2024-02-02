@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
+    <title>four_words_main</title>
 {% endblock %}
-{% block content %}
 
+{% block content %}
+    <h1>네 글자 게임 메인 페이지 입니다</h1>
+    <div>게임 설명 <br>
+        네 글자 게임은 두 글자가 주어지면 말이 되는 단어로 나머지 두 글자를 이어말하는 게임입니다 <br>
+        '시작' 버튼을 누르면 두 글자가 보입니다! <br>
+        이어지는 두 글자를 3초안에 말하세요<br>
+        시간 내에 말하지 못 하거나 말이 되지 않으면 자비없이 땡!!
+    </div>
+    <a href="{% url 'fourWords:fourWords_game' %}">게임시작</a>
 {% endblock %}

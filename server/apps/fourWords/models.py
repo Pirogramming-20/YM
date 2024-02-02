@@ -7,7 +7,7 @@ class Four(models.Model):
     def two_save(self):
         if self.answer and not self.two:
             self.two = self.answer[:2]
-            super().save()        
+            self.save()        
 
 class QuizFour(models.Model):
     four_quiz_id = models.ForeignKey(Four, on_delete=models.CASCADE)
