@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.main',
     'apps.figure',
+    'apps.fourWords',
 ]
 
 AUTH_USER_MODEL='main.User' # 유저모델 위치
