@@ -87,7 +87,25 @@
             onClickNextAnswer();
         }
     }
-    
+    //csrf token 생성, 주입
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
     // 다음문제로 넘어가는 ajax
     const requestNextQuiz = new XMLHttpRequest();
     let currentFigureId = '{{quiz_figure.id}}';
@@ -98,6 +116,7 @@
             "Content-Type",
             "application/json"
         );
+        requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
         
         requestNextQuiz.send(JSON.stringify({id: currentFigureId}));
     };
@@ -124,6 +143,5 @@
             }
         }
     }
-    
 </script>
 {%endblock%}

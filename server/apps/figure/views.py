@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from .models import Figure, QuizFigure
 import random
+import json
+from django.http import JsonResponse
+
 
 #0. create figure db
 #1. figure_game main page
@@ -51,11 +54,6 @@ def figure_game_start(request):
     
     return render(request, "games/figure_start.html", ctx)
 
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-
-@csrf_exempt
 def next_figure_ajax(request):
     req = json.loads(request.body)
     figure_id = int(req['id'])
