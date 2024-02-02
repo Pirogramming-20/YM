@@ -39,25 +39,41 @@
     //csrf 토큰 생성
     const csrftoken = getCookie('csrftoken');
 
-    document.querySelector('.btn-05').addEventListener("click", function(){
+    document.querySelector(".btn-05").addEventListener("click", function(){
         const audioPath = this.dataset.music;
-        //const audioPath = '{{ quiz.music_game_id.music }}'
         const audio = new Audio(audioPath);
         audio.loop = false;
         const play = audio.play();
-        play.then(setTimeout(function(){
-            audio.pause();
-        }, 500));
+
+        if(play !== undefined){
+            play.then(()=>{
+                setTimeout(function(){
+                    audio.pause();
+                }, 500);
+            })
+            .catch(error =>{
+                console.log('재생을 시작하지 못했습니다', error);
+            });
+        }
     });
+
 
     document.querySelector(".btn-10").addEventListener("click", function(){
         const audioPath = this.dataset.music;
         const audio = new Audio(audioPath);
         audio.loop = false;
         const play = audio.play();
-        play.then(setTimeout(function(){
-            audio.pause();
-        }, 1000));
+
+        if(play !== undefined){
+            play.then(()=>{
+                setTimeout(function(){
+                    audio.pause();
+                }, 1000);
+            })
+            .catch(error =>{
+                console.log('재생을 시작하지 못했습니다', error);
+            });
+        }
     });
 
 
