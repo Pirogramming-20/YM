@@ -2,7 +2,9 @@ from django.shortcuts import render
 from .models import Figure, QuizFigure
 import random
 
-def create_figure_model():
+#0. create figure db
+#1. figure_game main page
+def figure_main(request): #20개
     Figure.objects.get_or_create(name="강다니엘")
     Figure.objects.get_or_create(name="강하늘")
     Figure.objects.get_or_create(name="거미")
@@ -13,18 +15,29 @@ def create_figure_model():
     Figure.objects.get_or_create(name="김우빈")
     Figure.objects.get_or_create(name="나문희")
     Figure.objects.get_or_create(name="노사연")
+    Figure.objects.get_or_create(name="다현")
+    Figure.objects.get_or_create(name="디카프리오")
+    Figure.objects.get_or_create(name="라이언")
+    Figure.objects.get_or_create(name="마릴린먼로")
+    Figure.objects.get_or_create(name="모모")
+    Figure.objects.get_or_create(name="모차르트")
+    Figure.objects.get_or_create(name="문재인")
+    Figure.objects.get_or_create(name="박건후")
+    Figure.objects.get_or_create(name="박보검")
+    Figure.objects.get_or_create(name="방귀대장뿡뿡이")
 
     figures = Figure.objects.all()
     for figure in figures:
         figure.image_path = f"/static/image/figure/{figure.name}.jpg"
         figure.save()
+    
+    return render(request, "games/figure_main.html")
 
-def figure_quiz(request):
-    create_figure_model()
+def figure_game_start(request):
 
     QuizFigure.objects.all().delete()
 
-    quiz_id_list = random.sample(range(1,11), 5)
+    quiz_id_list = random.sample(range(1,21), 10)
 
     for quiz_id in quiz_id_list:
         figure_instance = Figure.objects.get(id=quiz_id)
@@ -36,7 +49,7 @@ def figure_quiz(request):
         'quiz_figure':quiz_figure
     }
     
-    return render(request, "games/figure.html", ctx)
+    return render(request, "games/figure_start.html", ctx)
 
 import json
 from django.http import JsonResponse
