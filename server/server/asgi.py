@@ -19,7 +19,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
 sio = socketio.AsyncServer(async_mode='asgi')
 application = get_asgi_application()
 asgi_app = get_asgi_application()
-
+# name1 = 'a'
+# room = ''
+# userList = ''
 
 # 이벤트 핸들러(연결)
 @sio.event
@@ -29,15 +31,28 @@ async def connect(sid, environ):
 
 @sio.event
 async def join(sid, room_name):
-    print('connect2222222', sid)
+    # global userList,name1,room
+    # room = room_name
+    # print(name1)
+    # print('join')
+    # name1 = username
+    # userList += username
+    # await sio.emit('joined',userList, room=room_name)
     await sio.enter_room(sid, room_name)
-    await sio.emit('joined', room=room_name)
+    
 
 @sio.event
 async def leave(sid, room_name):
-    await sio.leave_room(sid, room_name)
-    await sio.emit('left', room=room_name)
+    # global userList
+    # if userList in (' , ' + username):
+    #     userList.replace((' , ' + username),'')
+    # else:
+    #     userList.replace((username+' , '),'')    
+    # print('leave')
+    # print(userList)
 
+    await sio.leave_room(sid, room_name)
+    
 @sio.event
 async def message(sid, data,user,room_name):
     print('message ', data, user, room_name)
@@ -52,6 +67,10 @@ async def message(sid, data,user,room_name):
 # 이벤트 핸들러(연결 끊기)
 @sio.event
 async def disconnect(sid):
-    print('disconnect', sid)
+    # global userList,name1,room
+    
+    # await sio.emit('leave',[userList,name1], room=room)
+    print('disconnect')
+    
 
 application = socketio.ASGIApp(sio, asgi_app)

@@ -3,6 +3,7 @@ from .models import *
 import random
 import json
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -57,6 +58,7 @@ def movie_game_start(request):
     }
     return render(request, 'movieGames/movie_game_start.html', ctx)
 
+@csrf_exempt
 def next_quiz(request):
     req = json.loads(request.body)
     quiz_id = int(req['id'])
