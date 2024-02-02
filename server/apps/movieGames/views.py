@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import *
 import random
-from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import JsonResponse
 
@@ -58,7 +57,6 @@ def movie_game_start(request):
     }
     return render(request, 'movieGames/movie_game_start.html', ctx)
 
-@csrf_exempt
 def next_quiz(request):
     req = json.loads(request.body)
     quiz_id = int(req['id'])
