@@ -23,7 +23,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'
 SECRET_KEY = 'django-insecure-g3r!cjkx7op%fkc43*oh96x^!*=u@eap^omoa7vgfj9kp05=)1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
@@ -122,16 +122,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 
-
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static'),
 ]
-if DEBUG==True:
-    STATIC_ROOT=os.path.join(BASE_DIR, 'static')
-else:
-    STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
