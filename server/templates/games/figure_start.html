@@ -56,6 +56,7 @@
     let countdownInterval;
 
     function startCountdown() {
+        clearInterval(countdownInterval);
         let count = 3;
 
         function updateCountdown() {
