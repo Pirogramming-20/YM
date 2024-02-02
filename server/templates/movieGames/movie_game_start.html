@@ -114,7 +114,6 @@
     const url = "next";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
-    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
     requestQuiz.send(JSON.stringify({ id: currentQuizId }));
   });
 
