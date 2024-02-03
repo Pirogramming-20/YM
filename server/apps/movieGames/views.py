@@ -3,6 +3,7 @@ from .models import *
 import random
 import json
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -41,6 +42,7 @@ def movie_game_main(request):
 # 3. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
 def movie_game_start(request):
     QuizList.objects.all().delete()
+    #랜덤한 순서로 문제 뽑는 과정
     movie_game_ids = random.sample(range(1, len(MovieGame.objects.all()) + 1), 10)
     movie_game_query = MovieGame.objects.all()
     first_movie = movie_game_query.first()

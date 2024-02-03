@@ -23,9 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("apps.main.urls")),
     path('figure/',include("apps.figure.urls")),
+    path('fourWords/',include("apps.fourWords.urls")),
 
     path('chatting-room',include("apps.chattings.urls")),
     path('games', include("apps.movieGames.urls")),
+    path('games2', include("apps.musicGames.urls")),
     
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root':settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root':settings.STATIC_ROOT}),

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="title">전주 듣고 노래 맞추기 게임</div>
+    <div class="rule">전주를 듣고 해당 노래와 가수를 맞춰주세요!</div>
+</div>
+<div class="btn">
+    <a href="{% url 'musicGames:music_game_start_2000' %}">2000년대</a>
+    <a href="{% url 'musicGames:music_game_start_2010' %}">2010년대</a>
+    <a href="{% url 'musicGames:music_game_start_2020' %}">2020년대</a>
+</div>
+{% endblock %}
