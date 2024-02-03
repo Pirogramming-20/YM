@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("apps.main.urls")),
     path('figure/',include("apps.figure.urls")),
+    path('fourWords/',include("apps.fourWords.urls")),
 
     path('chatting-room',include("apps.chattings.urls")),
     path('games', include("apps.movieGames.urls")),

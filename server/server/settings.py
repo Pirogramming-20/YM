@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.musicGames',
     'apps.chattings',
     'apps.figure',
+    'apps.fourWords',
 ]
 
 AUTH_USER_MODEL='main.User' # 유저모델 위치

@@ -13,18 +13,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Figure',
+            name='Four',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=20)),
-                ('image_path', models.CharField(max_length=255, null=True)),
+                ('two', models.CharField(blank=True, max_length=20, null=True)),
+                ('answer', models.CharField(max_length=20)),
             ],
         ),
         migrations.CreateModel(
-            name='QuizFigure',
+            name='QuizFour',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('figure_quiz_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='figure.figure')),
+                ('four_quiz_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='fourWords.four')),
             ],
         ),
     ]
