@@ -43,11 +43,7 @@
     </a>
     <div>{{qrimg}}</div>
     <img src="{{qrimg}}" alt="qrcode" />
-    <img
-      src="{% static 'image/qrcode/qr{{room.pk}}.png' %}"
-      alt="이미지"
-      class="photo"
-    />
+    <img src="{% static 'image/qrcode/qr.png' %}" alt="이미지" class="photo" />
     <!-- 채팅 입력 칸 생성 -->
     <input id="input" autocomplete="off" />
     <div onclick="click1()">Send</div>
