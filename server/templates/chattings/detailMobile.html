@@ -28,26 +28,9 @@
       <div class="header-btn">로그아웃</div>
     </a>
     <!-- 접속중인 유저 표시 -->
-    <ul id="users"></ul>
-    <a href="{% url 'movieGames:movie_game_main' %}">
-      <div class="header-btn">영화게임하기</div>
-    </a>
-    <a href="{% url 'musicGames:music_game_main' %}">
-      <div class="header-btn">노래게임하기</div>
-    </a>
-    <a href="{% url 'figure:figure_main' %}">
-      <div class="header-btn">인물퀴즈</div>
-    </a>
-    <a href="{% url 'fourWords:figure_main' %}">
-      <div class="header-btn">네글자 게임</div>
-    </a>
-    <div>{{qrimg}}</div>
-    <img src="{{qrimg}}" alt="qrcode" />
-    <img
-      src="{% static 'image/qrcode/qr{{room.pk}}.png' %}"
-      alt="이미지"
-      class="photo"
-    />
+    <ul id="users">
+      안녕
+    </ul>
     <!-- 채팅 입력 칸 생성 -->
     <input id="input" autocomplete="off" />
     <div onclick="click1()">Send</div>

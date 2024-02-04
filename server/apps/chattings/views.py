@@ -34,12 +34,21 @@ def create(request):
 
 
 
-
-
-
+import qrcode
 def detail(request,pk):
+  room = get_object_or_404(GameRoom, pk=pk)
+  qrimg = qrcode.make("http://127.0.0.1:8000/chatting-room/detail-mobile/"+str(pk))
+  qrimg.save("C:\Users\user\Desktop\YM\server\static\image\qrcode/qr{}.png".format(pk))
+  ctx = {
+    "room" : room,
+  }
+
+  return render(request, "chattings/detail.html", ctx)
+
+
+def detailMobile(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
   ctx = {
     "room" : room,
   }
-  return render(request, "chattings/detail.html", ctx)
+  return render(request, "chattings/detailMobile.html", ctx)
