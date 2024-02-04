@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'apps.movieGames',
     'apps.musicGames',
     'apps.chattings',
+    'apps.figure',
+    'apps.fourWords',
 ]
 
 AUTH_USER_MODEL='main.User' # 유저모델 위치
@@ -139,5 +141,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-e.kr"]
 
+CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-e.kr"]

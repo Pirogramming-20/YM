@@ -7,4 +7,5 @@ urlpatterns = [
     path('',main,name = 'main'),
     path('/create',create,name='create'),
     path('/detail/<int:pk>',detail,name='detail'),
+    path('/detail-mobile/<int:pk>',detailMobile,name='detailMobile'),
 ]
