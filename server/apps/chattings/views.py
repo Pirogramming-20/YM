@@ -33,12 +33,13 @@ def create(request):
 
 
 
-
+from PIL import Image
 import qrcode
 def detail(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
   qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qrcode/qr.png")
+  qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr.png")
+
   ctx = {
     "room" : room,
   }
