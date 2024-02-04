@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 {%block head%}
-  <title>요즘MT</title>
 {% endblock %}
 
 {%block content%}
-    
+<div class="main-container">
+  <div class="title">
+    <span class="text1">요즘</span>
+    <span class="text2">MT</span>
+  </div>
+  <div class="sub-title text3">마감에 쫓기는 완벽주의자를 위한</div>
+    <div class="log-in-sign-up-btn">
+      <a href={% url 'main:login' %} class="main-btn text3"> 로그인 </a>
+      <a href={% url 'main:signup' %} class="main-btn text3"> 계정 등록</a>
+    </div>
+</div>
+  
 {%endblock%}

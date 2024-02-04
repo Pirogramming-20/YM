@@ -1,0 +1,152 @@
+{% extends 'base.html' %} {% block content %}{% load static %}
+<style>
+  .game {
+    display: flex;
+    gap: 30px;
+  }
+  ul {
+    padding: 0;
+  }
+  li {
+    display: flex;
+    margin: 2px 20px;
+  }
+  .my_chat {
+    flex-direction: row-reverse;
+  }
+</style>
+<span id="info_username">{{user.username}} </span>
+<div class="game">
+  <div class="quiz">
+    <div class="photo-container">
+      <img src="{{ quiz.movie_game_id.scene }}" alt="이미지" class="photo" />
+    </div>
+    <div class="answer">
+      <div class="title">{{ quiz.movie_game_id.title }}</div>
+      <div class="line">{{ quiz.movie_game_id.line }}</div>
+    </div>
+    <div class="btn">
+      <div class="next-btn">다음 문제</div>
+      <a class="game-over" href="{% url 'movieGames:movie_game_main' %}"></a>
+    </div>
+  </div>
+
+  <div class="chatting">
+    <input id="input" autocomplete="off" />
+    <div onclick="click1()">Send</div>
+    <!-- 입력된 채팅들이 기록될 공간 -->
+    <ul id="messages"></ul>
+  </div>
+</div>
+{% endblock %} {% block script %}
+<script
+  src="https://cdn.socket.io/4.0.1/socket.io.min.js"
+  crossorigin="anonymous"
+></script>
+<script>
+  const room_name = "movieGame";
+  const username = document.getElementById("info_username").innerText;
+  console.log(username);
+
+  let socket = io.connect(
+    location.protocol + "//" + document.domain + ":" + location.port
+  );
+  socket.emit("join", room_name);
+
+  // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
+  socket.on("message", function (data) {
+    console.log("msg");
+    console.log(data);
+    let li = document.createElement("li");
+    li.append(
+      document.createTextNode(data[1]),
+      document.createTextNode(" : "),
+      document.createTextNode(data[0])
+    );
+    if (data[1] == username) {
+      li.className += "my_chat";
+    }
+    document.getElementById("messages").appendChild(li);
+  });
+
+  // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
+  function click1() {
+    console.log("clk");
+    let text = document.getElementById("input").value;
+    console.log("clk2");
+    socket.emit("message", text, username, room_name);
+    document.getElementById("input").value = "";
+  }
+  document.getElementById("input").addEventListener("keydown", function (e) {
+    if (e.keyCode === 13) {
+      // 'Enter'키의 keyCode는 13입니다.
+      let text = e.target.value;
+
+      socket.emit("message", text, username, room_name);
+      e.target.value = "";
+    }
+  });
+</script>
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  const csrftoken = getCookie("csrftoken");
+  const requestQuiz = new XMLHttpRequest();
+  let currentQuizId = "{{ quiz.id }}";
+  const nextBtn = document.querySelector(".next-btn");
+  const gameOverBtn = document.querySelector(".game-over");
+  let cnt = 1;
+
+  nextBtn.addEventListener('click', function1 =>{
+    const url = "next";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader(
+      "Content-Type",
+      "application/json"
+    );
+    requestQuiz.setRequestHeader(
+      "X-CSRFToken",
+      csrftoken
+    );
+    requestQuiz.send(JSON.stringify({id: currentQuizId}));
+  });
+
+  requestQuiz.onreadystatechange = () => {
+    if (requestQuiz.readyState === XMLHttpRequest.DONE) {
+      if (requestQuiz.status < 400) {
+        const { id, scene, title, line } = JSON.parse(requestQuiz.response);
+
+        const photo_element = document.querySelector(".photo");
+        photo_element.src = scene;
+
+        const title_element = document.querySelector(".title");
+        title_element.innerHTML = title;
+
+        const line_element = document.querySelector(".line");
+        line_element.innerHTML = line;
+
+        currentQuizId = id;
+        cnt++;
+        if (cnt === 10) {
+          gameOverBtn.innerText = "게임종료";
+          nextBtn.innerText = "";
+        }
+      }
+    }
+  };
+</script>
+
+{% endblock %}

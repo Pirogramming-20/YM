@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 class SignupForm(UserCreationForm):
     password1 = forms.CharField(
-        label='비밀번호',
+        label='Password',
         widget=forms.PasswordInput(
             attrs={
                 'class' : 'signup-input'
@@ -12,7 +12,7 @@ class SignupForm(UserCreationForm):
         )
     )
     password2 = forms.CharField(
-        label='비밀번호 확인',
+        label='Password Confirm',
         widget=forms.PasswordInput(
             attrs={
                 'class' : 'signup-input'
