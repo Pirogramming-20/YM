@@ -37,8 +37,8 @@ def create(request):
 import qrcode
 def detail(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
-  qrimg = qrcode.make("http://127.0.0.1:8000/chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr.png")
+  qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
+  qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qrcode/qr.png")
   ctx = {
     "room" : room,
   }
