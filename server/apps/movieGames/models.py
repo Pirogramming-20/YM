@@ -11,4 +11,6 @@ class MovieGame(models.Model):
     
 
 class QuizList(models.Model):
+	# Tony: 이 ForeignKey 관계는 MovieGame 1개에 QuizList 여러개인 관계인데,
+	# Tony: 데이터 항목으로 보아할 때 자연스러운 관계 같지 않아보입니다.
     movie_game_id = models.ForeignKey(MovieGame, on_delete=models.CASCADE)

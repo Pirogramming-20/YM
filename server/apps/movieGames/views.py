@@ -62,6 +62,7 @@ def next_quiz(request):
     quiz_id = int(req['id'])
     quiz_id += 1
 
+    # Tony: quiz_id가 없으면?
     quiz = QuizList.objects.get(id=quiz_id)
     scene = quiz.movie_game_id.scene
     title = quiz.movie_game_id.title
