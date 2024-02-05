@@ -6,6 +6,15 @@
   </head>
   <body>
     <style>
+      body {
+        width: 100wh;
+      }
+      #notchat {
+        display: none;
+      }
+      #chat {
+        display: block;
+      }
       ul {
         padding: 0;
       }
@@ -19,25 +28,22 @@
     </style>
     <div id="info_room_num">{{room.id}}</div>
     <div id="info_room">{{room.room_name}}</div>
-    {% if user.is_authenticated %}
+    <span id="info_username"> </span>
+    <!-- 이름 입력 받기 -->
 
-    <div class="connect-user-hi">
-      <span id="info_username">{{user.username}} </span> 님이 로그인중
-    </div>
-    <a href="{% url 'main:logout' %}">
-      <div class="header-btn">로그아웃</div>
-    </a>
+    <input id="username" autocomplete="off" />
+    <div onclick="clickUser()">이름 입력/수정하기</div>
+
     <!-- 접속중인 유저 표시 -->
-    <ul id="users">
-      안녕
-    </ul>
+    <ul id="users"></ul>
     <!-- 채팅 입력 칸 생성 -->
-    <input id="input" autocomplete="off" />
-    <div onclick="click1()">Send</div>
+    <div class="chat" id="notchat">
+      <input id="input" autocomplete="off" />
+      <div onclick="click1()">Send</div>
+    </div>
+
     <!-- 입력된 채팅들이 기록될 공간 -->
     <ul id="messages"></ul>
-
-    {% endif %}
 
     <script
       src="https://cdn.socket.io/4.0.1/socket.io.min.js"
@@ -46,10 +52,24 @@
     <script>
       const room_num = document.getElementById("info_room_num").innerText;
       const room_name = document.getElementById("info_room").innerText;
-      const username = document.getElementById("info_username").innerText;
-      console.log(room_num);
-      console.log(room_name);
-      console.log(username);
+      // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
+      function clickUser() {
+        let text = document.getElementById("username").value;
+        document.getElementById("info_username").innerText = text;
+        document.querySelector(".chat").removeAttribute("id");
+        document.querySelector(".chat").id = "chat";
+      }
+
+      document
+        .getElementById("username")
+        .addEventListener("keydown", function (e) {
+          if (e.keyCode === 13) {
+            let text = e.target.value;
+            document.getElementById("info_username").innerText = text;
+            document.querySelector(".chat").removeAttribute("id");
+            document.querySelector(".chat").id = "chat";
+          }
+        });
 
       let socket = io.connect(
         location.protocol + "//" + document.domain + ":" + location.port
@@ -58,6 +78,7 @@
 
       // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
       socket.on("message", function (data) {
+        const username = document.getElementById("info_username").innerText;
         console.log("msg");
         console.log(data);
         let li = document.createElement("li");
@@ -74,6 +95,8 @@
 
       // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
       function click1() {
+        const username = document.getElementById("info_username").innerText;
+        room_name = room_name + username;
         console.log("clk");
         let text = document.getElementById("input").value;
         console.log("clk2");
@@ -84,6 +107,7 @@
         .getElementById("input")
         .addEventListener("keydown", function (e) {
           if (e.keyCode === 13) {
+            const username = document.getElementById("info_username").innerText;
             // 'Enter'키의 keyCode는 13입니다.
             let text = e.target.value;
 
