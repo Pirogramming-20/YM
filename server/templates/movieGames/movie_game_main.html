@@ -5,7 +5,17 @@
     <div class="title">영화 명대사 게임</div>
     <div class="rule">영화 장면을 보고 해당 장면의 명대사를 맞춰주세요!</div>
 </div>
-<div class="btn">
-    <a href="{% url 'movieGames:movie_game_start' %}">게임 시작하기</a>
+<div class="select-container">
+    <div class="rule">문제 개수를 선택해주세요!</div>
+    <form method="POST" action="{% url 'movieGames:movie_game_main' %}">
+        {% csrf_token %}
+        <div class="problem">
+            <p>문제 개수</p>
+            <input type="checkbox" name="count" value="5">5 문제
+            <input type="checkbox" name="count" value="10">10 문제
+            <input type="checkbox" name="count" value="15">15 문제
+        </div>
+        <input type="submit" value="게임 시작">
+    </form>
 </div>
 {% endblock %}

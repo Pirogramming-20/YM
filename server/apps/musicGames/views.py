@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 import random
 import json
@@ -35,15 +35,26 @@ def music_game_main(request):
     for data in quiz_data:
         MusicGame.objects.get_or_create(title=data['title'], music=data['music'], singer=data['singer'])
     
+    if request.method == 'POST':
+        count = int(request.POST.getlist('count')[0])
+        time = int(request.POST.getlist('time')[0])
+        if time == 2000:
+            return redirect('musicGames:music_game_start_2000', count)
+        elif time == 2010:
+            return redirect('musicGames:music_game_start_2010', count)
+        elif time == 2020:
+            return redirect('musicGames:music_game_start_2020', count)
+        
+    
     return render(request, 'musicGames/music_game_main.html')
 
 
 # 2. 첫 문제 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 : ajax로 구현
 # 4. 우선 게임 종료 시 게임 표지 페이지로 이동 : ajax로 구현
-def music_game_start_2000(request):
+def music_game_start_2000(request, count):
     QuizList.objects.all().delete()
-    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2000')) + 1), 5)
+    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2000')) + 1), count)
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2000')
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
@@ -57,12 +68,13 @@ def music_game_start_2000(request):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'count' : count,
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
-def music_game_start_2010(request):
+def music_game_start_2010(request, count):
     QuizList.objects.all().delete()
-    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2010')) + 1), 5)
+    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2010')) + 1), count)
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2010')
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
@@ -76,12 +88,13 @@ def music_game_start_2010(request):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'count' : count,
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
-def music_game_start_2020(request):
+def music_game_start_2020(request, count):
     QuizList.objects.all().delete()
-    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2020')) + 1), 5)
+    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2020')) + 1), count)
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2020')
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
@@ -95,6 +108,7 @@ def music_game_start_2020(request):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'count' : count,
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 

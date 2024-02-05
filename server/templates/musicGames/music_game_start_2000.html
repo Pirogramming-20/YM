@@ -84,7 +84,7 @@
   let cnt = 1;
 
   nextBtn.addEventListener("click", function () {
-    const url = "next";
+    const url = "../next";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
@@ -110,7 +110,7 @@
 
         currentQuizId = id;
         cnt++;
-        if (cnt === 5) {
+        if (cnt === parseInt("{{ count }}")) {
           gameOverBtn.innerText = "게임종료";
           nextBtn.innerText = "";
         }

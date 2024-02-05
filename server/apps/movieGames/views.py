@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 import random
 import json
@@ -26,24 +26,18 @@ def movie_game_main(request):
 
     for data in quiz_data:
         MovieGame.objects.get_or_create(title=data['title'], scene=data['scene'], line=data['line'])
-
-    # movie_game_ids = random.sample(range(1, len(quiz_data) + 1), 10)
-    # movie_game_query = MovieGame.objects.all()
-    # first_movie = movie_game_query.first()
-    # first_movie_id = int(first_movie.id)
-
-    # for movie_game_id in movie_game_ids:
-    #     movie_game = MovieGame.objects.get(id=movie_game_id+first_movie_id-1)
-    #     QuizList.objects.get_or_create(movie_game_id=movie_game)
     
+    if request.method == "POST":
+        count = int(request.POST.getlist('count')[0])
+        return redirect('movieGames:movie_game_start', count)
     return render(request, 'movieGames/movie_game_main.html')
 
 # 2. 영화 장면 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
-def movie_game_start(request):
+def movie_game_start(request, count):
     QuizList.objects.all().delete()
     #랜덤한 순서로 문제 뽑는 과정
-    movie_game_ids = random.sample(range(1, len(MovieGame.objects.all()) + 1), 10)
+    movie_game_ids = random.sample(range(1, len(MovieGame.objects.all()) + 1), count)
     movie_game_query = MovieGame.objects.all()
     first_movie = movie_game_query.first()
     first_movie_id = int(first_movie.id)
@@ -56,6 +50,7 @@ def movie_game_start(request):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'count' : count,
     }
     return render(request, 'movieGames/movie_game_start.html', ctx)
 

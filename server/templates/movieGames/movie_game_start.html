@@ -110,8 +110,8 @@
   const gameOverBtn = document.querySelector(".game-over");
   let cnt = 1;
 
-  nextBtn.addEventListener('click', function1 =>{
-    const url = "next";
+  nextBtn.addEventListener('click', function(){
+    const url = "../next";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader(
       "Content-Type",
@@ -140,7 +140,7 @@
 
         currentQuizId = id;
         cnt++;
-        if (cnt === 10) {
+        if (cnt === parseInt("{{ count }}")) {
           gameOverBtn.innerText = "게임종료";
           nextBtn.innerText = "";
         }
