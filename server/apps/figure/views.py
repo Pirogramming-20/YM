@@ -36,7 +36,7 @@ def figure_main(request): #20개
     
     return render(request, "games/figure_main.html")
 
-def figure_game_start(request):
+def figure_game_start(request,roomId):
 
     QuizFigure.objects.all().delete()
 
@@ -45,7 +45,7 @@ def figure_game_start(request):
     for quiz_id in quiz_id_list:
         figure_instance = Figure.objects.get(id=quiz_id)
         QuizFigure.objects.create(figure_quiz_id=figure_instance)
-    
+
     quiz_figures = QuizFigure.objects.all()
     quiz_figure = quiz_figures.first()
     ctx={

@@ -30,8 +30,6 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root':settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root':settings.STATIC_ROOT}),
 
-    
-
     path('figure/',include("apps.figure.urls")),
     path('fourWords/',include("apps.fourWords.urls")),
 ]
