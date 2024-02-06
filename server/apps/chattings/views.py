@@ -18,26 +18,25 @@ def create(request):
     if form.is_valid():
       room = form.save(commit=False)
 
-      room.order_game = "Figure,Four"#받아오기
+      room.order_game = "Figure,Four,Movie,Music"#받아오기
       order_game_list = room.order_game.split(",")
 
       for game in order_game_list:
         if game == "Figure":
-          ran_quiz_list = random.sample(range(1,21),20)#각 게임 자료수에 맞게 고치기
-          str_ran_quiz_list = ','.join(str(s) for s in ran_quiz_list)
-          print(ran_quiz_list)
+          ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+          str_ran_quiz_list = ','.join(str(s) for s in ran_quiz_list) #문자열 형태로 입력
           room.ran_figure = str_ran_quiz_list
         elif game == "Four":
-          ran_quiz_list = random.sample(range(1,30),20)
-          str_ran_quiz_list = [str(num) for num in ran_quiz_list]
+          ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+          str_ran_quiz_list = ','.join(str(s) for s in ran_quiz_list) #문자열 형태로 입력
           room.ran_four = str_ran_quiz_list
         elif game == "Movie":
-          ran_quiz_list = random.sample(range(1,30),20)
-          str_ran_quiz_list = [str(num) for num in ran_quiz_list]
+          ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+          str_ran_quiz_list = ','.join(str(s) for s in ran_quiz_list) #문자열 형태로 입력
           room.ran_movie = str_ran_quiz_list
         elif game == "Music":
-          ran_quiz_list = random.sample(range(1,30),20)
-          str_ran_quiz_list = [str(num) for num in ran_quiz_list]
+          ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+          str_ran_quiz_list = ','.join(str(s) for s in ran_quiz_list) #문자열 형태로 입력
           room.ran_music = str_ran_quiz_list
 
       ran_quiz_list = random.sample(range(1,30),20)#자료 개수 다르게 할거면 고치기
@@ -101,7 +100,7 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
+  qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,
   }

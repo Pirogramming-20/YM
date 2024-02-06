@@ -3,6 +3,21 @@
 {% block content %}
 <div class="form-container">
     <div class="sub-title text2">정답 확인 페이지</div>
-    
+    <ul>
+        {% for figure in figure_answer %}
+        <li> {{figure}} <li>
+        {% endfor %}
+    </ul>
+    <ul>
+        {% for movie in movie_answer %}
+        <li> {{movie}} <li>
+        {% endfor %}
+    </ul>
+        {% for figure in music_answer %}
+        <li> {{figure}} <li>
+        {% endfor %}
+        {% for figure in four_answer %}
+        <li> {{figure}} <li>
+        {% endfor %}
 </div>
 {% endblock content %}

@@ -5,6 +5,9 @@ from django.contrib import auth
 # from django.views.decorators.csrf import csrf_exempt
 from ..chattings.models import *
 from ..musicGames.models import *
+from ..figure.models import *
+from ..movieGames.models import *
+from ..fourWords.models import *
 
 # Create your views here.
 
@@ -65,17 +68,43 @@ def answer(request):
         name=request.POST['room_name']
         try:
             game=GameRoom.objects.get(room_name=name)
-            print(game)
-            music_random=game.RandomMusic_get.all()
+            figure_random_str=game.ran_figure
+            figure_id_list=list(map(str,figure_random_str.split(',')))
+            figure_list=[]
+            for figure_id in figure_id_list:
+                f1=Figure.objects.get(id=figure_id)
+                figure_list.append(f1.name)
+            
+            four_random_str=game.ran_four
+            four_id_list=list(map(str,four_random_str.split(',')))
+            four_list=[]
+            for four_id in four_id_list:
+                f1=Four.objects.get(id=four_id)
+                four_list.append(f1.answer)       
+
+            music_random_str=game.ran_music
+            music_id_list=list(map(str,music_random_str.split(',')))
             music_list=[]
-            for music in music_random:
-                id=music['music_game_id']
-                music_R=MusicGame.objects.get(id=id)
-                music_list.append([music_R['title'], music_R['singer']])
+            for music_id in music_id_list:
+                f1=MusicGame.objects.get(id=music_id)
+                music_list.append(f1.title)
+                music_list.append(f1.singer)                   
+                
+            movie_random_str=game.ran_movie
+            movie_id_list=list(map(str,movie_random_str.split(',')))
+            movie_list=[]
+            for movie_id in movie_id_list:
+                f1=MovieGame.objects.get(id=movie_id)
+                movie_list.append(f1.title)
+                movie_list.append(f1.line)         
+                     
             ctx={
-                'music_list':music_list,   
+                'figure_answer':figure_list,  
+                'movie_answer':movie_list,
+                'four_answer':four_list,
+                'music_answer': music_list,
             }
-            return render(request, 'main/answer_list.html', ctx=ctx)
+            return render(request, 'main/answer_list.html', ctx)
         except GameRoom.DoesNotExist:
             return render(request, 'main/answer.html')
         
