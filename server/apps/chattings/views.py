@@ -47,7 +47,7 @@ def create(request):
       
       roomId = room.id
 
-      return redirect('next_game/{}'.format(roomId))
+      return redirect('detail/{}'.format(roomId))
     else:
       ctx={
         'room':form,
@@ -64,7 +64,8 @@ def create(request):
 def next_game(request, roomId):
   room = GameRoom.objects.get(id=roomId)
   ctx = {
-    'roomId':roomId
+    'roomId':roomId,
+    'room':room
   }
   order_games = room.order_game.split(",")
 
@@ -81,9 +82,9 @@ def next_game(request, roomId):
       return render(request, "movieGames/movie_game_main.html", ctx)
     if current_game == "Music":
       return render(request, "musicGames/music_game_main.html", ctx)
-    if not order_games:
-      return render(request, "chattings/main.html", ctx)
-    
+    # if not order_games:
+    #   return render(request, "chattings/main.html", ctx)
+  return redirect('rooms:main') 
 
 # 유저닉네임  + 채팅방이름
 # 채팅방 아이디값 -> 채팅방이름
@@ -98,20 +99,20 @@ def detail(request,pk):
   # 배포코드
   # qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
   # qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
-
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
+  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,
   }
-
   return render(request, "chattings/detail.html", ctx)
 
 
 def detailMobile(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
+  user = request.user.username
   ctx = {
     "room" : room,
+    'username' : user
   }
   return render(request, "chattings/detailMobile.html", ctx)

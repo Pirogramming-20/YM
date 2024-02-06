@@ -22,10 +22,13 @@
     <img src="{% static 'image/qrcode/qr' %}{{room.id}}.png" />
     <!-- 배포 -->
     <!-- <img
-  src="{% static 'image/qr' %}{{room.id}}.png"
-  alt="이미지"
-  class="photo"
-/> -->
+      src="{% static 'image/qr' %}{{room.id}}.png"
+      alt="이미지"
+      class="photo"
+    /> -->
+    <a href="{% url 'rooms:next_game' room.id %}">
+      <div class="header-btn">!!!!!!!!!!!!!!!게임시작!!!!!!!!!!!!</div>
+    </a>
     {% endblock %}
   </body>
 </html>

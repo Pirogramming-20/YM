@@ -1,13 +1,11 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'chat_base.html' %} {% block content %}
 <div class="container">
-    <div class="title">전주 듣고 노래 맞추기 게임</div>
-    <div class="rule">전주를 듣고 해당 노래와 가수를 맞춰주세요!</div>
+  <div class="title">전주 듣고 노래 맞추기 게임</div>
+  <div class="rule">전주를 듣고 해당 노래와 가수를 맞춰주세요!</div>
 </div>
 <div class="btn">
-    <a href="/games2/{{roomId}}/music-game/start-2000">2000년대</a>
-    <a href="/games2/{{roomId}}/music-game/start-2010">2010년대</a>
-    <a href="/games2/{{roomId}}/music-game/start-2020">2020년대</a>
+  <a href="/games2/{{roomId}}/music-game/start-2000">2000년대</a>
+  <a href="/games2/{{roomId}}/music-game/start-2010">2010년대</a>
+  <a href="/games2/{{roomId}}/music-game/start-2020">2020년대</a>
 </div>
 {% endblock %}

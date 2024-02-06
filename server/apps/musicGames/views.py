@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from apps.chattings.models import GameRoom
 from .models import *
 import random
 import json
@@ -31,12 +33,13 @@ def music_game_main(request, roomId):
         {'title': 'Not Shy', 'music': '/static/audio/music_game/2020/Not Shy.mp3', 'singer': '있지'},
         {'title': '낙하', 'music': '/static/audio/music_game/2020/낙하.mp3', 'singer': '악동뮤지션'},
     ]
-
+    room = GameRoom.objects.get(id=roomId)
     for data in quiz_data:
         MusicGame.objects.get_or_create(title=data['title'], music=data['music'], singer=data['singer'])
     
     ctx = {
-        'roomId' : roomId
+        'roomId' : roomId,
+        'room':room
     }
     return render(request, 'musicGames/music_game_main.html', ctx)
 
@@ -50,7 +53,7 @@ def music_game_start_2000(request, roomId):
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2000')
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
-
+    room = GameRoom.objects.get(id=roomId)
     #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
     for music_game_id in music_game_ids:
         music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
@@ -60,7 +63,8 @@ def music_game_start_2000(request, roomId):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
-        'roomId' : roomId
+        'roomId' : roomId,
+        'room':room
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
@@ -70,7 +74,7 @@ def music_game_start_2010(request, roomId):
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2010')
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
-
+    room = GameRoom.objects.get(id=roomId)
     #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
     for music_game_id in music_game_ids:
         music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
@@ -80,7 +84,8 @@ def music_game_start_2010(request, roomId):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
-        'roomId' : roomId
+        'roomId' : roomId,
+        'room':room
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
@@ -90,7 +95,7 @@ def music_game_start_2020(request,roomId):
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2020')
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
-
+    room = GameRoom.objects.get(id=roomId)
     #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
     for music_game_id in music_game_ids:
         music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
@@ -100,7 +105,8 @@ def music_game_start_2020(request,roomId):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
-        'roomId' : roomId
+        'roomId' : roomId,
+        'room':room
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
