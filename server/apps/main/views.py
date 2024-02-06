@@ -103,6 +103,7 @@ def answer(request):
                 'movie_answer':movie_list,
                 'four_answer':four_list,
                 'music_answer': music_list,
+                'room_name':name,
             }
             return render(request, 'main/answer_list.html', ctx)
         except GameRoom.DoesNotExist:
