@@ -13,9 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   chatToggle.addEventListener('change', function() {
       if (chatToggle.checked) {
-          chatRoom.style.display = 'none'; // Hide
+        chatRoom.classList.remove('visible');
+        chatRoom.classList.add('hidden'); 
       } else {
-          chatRoom.style.display = 'block'; // Show
+        chatRoom.classList.remove('hidden');
+        chatRoom.classList.add('visible');
       }
   });
 });
