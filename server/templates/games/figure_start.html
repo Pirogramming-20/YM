@@ -110,7 +110,7 @@
     const requestNextQuiz = new XMLHttpRequest();
     let currentFigureId = '{{quiz_figure.id}}';
     const onClickNext = () => {
-        const url = "/figure/next_figure_ajax/";
+        const url = "../next_figure_ajax/";
         requestNextQuiz.open("POST", url, true);
         requestNextQuiz.setRequestHeader(
             "Content-Type",

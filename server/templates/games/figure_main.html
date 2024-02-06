@@ -11,5 +11,18 @@
         3초 안에 해당 인물의 이름을 외치세요 <br>
         시간 내에 말하지 못 하거나 잘못된 이름을 말하면 자비없이 땡!!
     </div>
-    <a href="{% url 'figure:figure_game' %}">게임시작</a>
+
+    <div class="select-container">
+        <div class="rule">문제 개수를 선택해주세요!</div>
+        <form method="POST" action="{% url 'figure:figure_main' %}">
+            {% csrf_token %}
+            <div class="problem">
+                <p>문제 개수</p>
+                <input type="checkbox" name="count" value="5">5 문제
+                <input type="checkbox" name="count" value="10">10 문제
+                <input type="checkbox" name="count" value="15">15 문제
+            </div>
+            <input type="submit" value="게임 시작">
+        </form>
+    </div>
 {% endblock %}

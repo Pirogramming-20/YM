@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Four, QuizFour
 import random
 import json
@@ -13,13 +13,16 @@ def fourWords_main(request):
         four_instance,created = Four.objects.get_or_create(answer=answer_list[i])
         four_instance.two_save()
     
+    if request.method == "POST":
+        count = int(request.POST.getlist('count')[0])
+        return redirect('fourWords:fourWords_game', count)
     return render(request, 'games/fourWords_main.html')
 
-def fourWords_game_start(request):
+def fourWords_game_start(request, count):
     
     QuizFour.objects.all().delete()
 
-    quiz_id_list = random.sample(range(1,16), 10)
+    quiz_id_list = random.sample(range(1,16), count)
 
     for quiz_id in quiz_id_list:
         four_instance = Four.objects.get(id=quiz_id)
@@ -28,7 +31,8 @@ def fourWords_game_start(request):
     quiz_fours = QuizFour.objects.all()
     quiz_four = quiz_fours.first()
     ctx={
-        'quiz_four':quiz_four
+        'quiz_four':quiz_four,
+        'count': count,
     }
     
     return render(request, "games/fourWords_start.html", ctx)

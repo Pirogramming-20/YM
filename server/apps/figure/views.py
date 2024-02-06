@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Figure, QuizFigure
 import random
 import json
@@ -34,13 +34,16 @@ def figure_main(request): #20개
         figure.image_path = f"/static/image/figure/{figure.name}.jpg"
         figure.save()
     
+    if request.method == "POST":
+        count = int(request.POST.getlist('count')[0])
+        return redirect('figure:figure_game', count)
     return render(request, "games/figure_main.html")
 
-def figure_game_start(request):
+def figure_game_start(request, count):
 
     QuizFigure.objects.all().delete()
 
-    quiz_id_list = random.sample(range(1,21), 10)
+    quiz_id_list = random.sample(range(1,21), count)
 
     for quiz_id in quiz_id_list:
         figure_instance = Figure.objects.get(id=quiz_id)
@@ -49,7 +52,8 @@ def figure_game_start(request):
     quiz_figures = QuizFigure.objects.all()
     quiz_figure = quiz_figures.first()
     ctx={
-        'quiz_figure':quiz_figure
+        'quiz_figure':quiz_figure,
+        'count' : count,
     }
     
     return render(request, "games/figure_start.html", ctx)
