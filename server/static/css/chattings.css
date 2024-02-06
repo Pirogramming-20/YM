@@ -22,13 +22,22 @@
 .gamepad-icon {
     margin-right: 0.8rem;
 }
-  
+
+
+
+
 
 /* chatroom */
 
+#noShowChat {
+    display: none;
+}
+#showChat {
+    display: block;
+}
 
 .user{
-    color: #FFF;
+    color: black;
     font-family: var(--font-family);
     font-size: 2rem;
     font-style: normal;
@@ -38,7 +47,7 @@
 
 .message{
     display: inline-block;
-    background-color: var(--quaternary-color);
+    background-color: var(--secondary-color);
     padding: 0.8rem;
     white-space: nowrap; /* prevent text wrapping */
     border-radius: 0.8rem;
@@ -78,12 +87,14 @@
     display: flex;
     justify-content: flex-end;
 }
+
 .my_chat  .message {
-    background-color: var(--quinary-color);
+    background-color: var(--tertiary-color);
     border-radius: 10px 0 10px 10px; 
 }
 
 .other-message {
-    background-color: var(--quaternary-color);
+    background-color: var(--secondary-color);
     border-radius: 0 10px 10px 10px; 
 }
+
