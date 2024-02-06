@@ -1,0 +1,25 @@
+
+
+        <div id="toggle" onclick="clickChat()">채팅창 없애기</div>
+        <!-- 채팅 입력 칸 생성 -->
+        <div id="showChat" class="show">
+            <!-- 입력된 채팅들이 기록될 공간 -->
+        <ul id="messages"></ul>
+        <!-- 채팅 입력 칸 생성 -->
+        <div class="message-input">
+            <input id="input" autocomplete="off" />
+            <span onclick="click1()">
+                <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.25 41.6667V8.33337L45.8333 25L6.25 41.6667ZM10.4167 35.4167L35.1042 25L10.4167 14.5834V21.875L22.9167 25L10.4167 28.125V35.4167Z" fill="black"/>
+                </svg>
+            </span>
+        </div>
+        
+        </div>
+
+        <script>
+            // Declare the variables in a script tag before including chat.js
+            const room_num = "{{ room.id }}";
+            const room_name = "{{ room.room_name }}";
+            const username = "{{ user.username }}";
+          </script>

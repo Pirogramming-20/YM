@@ -1,11 +1,6 @@
-{% extends 'chat_base.html' %}{% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Chat Room</title>
-  </head>
-  <body>
-    {% block content %}<a href="{% url 'movieGames:movie_game_main' %}">
+{% extends 'base.html' %}{% load static %}
+    {% block content %}
+    {% comment %} <a href="{% url 'movieGames:movie_game_main' %}">
       <div class="header-btn">영화게임하기</div>
     </a>
     <a href="{% url 'musicGames:music_game_main' %}">
@@ -16,7 +11,7 @@
     </a>
     <a href="{% url 'fourWords:figure_main'%}">
       <div class="header-btn">네글자 게임</div>
-    </a>
+    </a> {% endcomment %}
     <!-- 연습 -->
     <img src="{% static 'image/qrcode/qr' %}{{room.id}}.png" />
     <!-- 배포 -->
@@ -25,6 +20,8 @@
   alt="이미지"
   class="photo"
 /> -->
-    {% endblock %}
+{% include 'chat-base.html' %}
+{% endblock %}
+    
   </body>
 </html>
