@@ -39,7 +39,7 @@ def movie_game_main(request,roomId):
     ctx = {
         'roomId' : roomId
     }
-    return render(request, 'movieGames/movie_game_main.html', )
+    return render(request, 'movieGames/movie_game_main.html', ctx)
 
 # 2. 영화 장면 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
