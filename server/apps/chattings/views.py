@@ -81,9 +81,9 @@ def next_game(request, roomId):
       return render(request, "movieGames/movie_game_main.html", ctx)
     if current_game == "Music":
       return render(request, "musicGames/music_game_main.html", ctx)
-    if not order_games:
-      return render(request, "chattings/main.html", ctx)
-    
+    # if not order_games:
+    #   return render(request, "chattings/main.html", ctx)
+  return redirect('rooms:main') 
 
 # 유저닉네임  + 채팅방이름
 # 채팅방 아이디값 -> 채팅방이름
