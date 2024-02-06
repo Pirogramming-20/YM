@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="{%static 'css/main.css'%}">  
   <link rel="stylesheet" href="{%static 'css/game.css'%}">  
   <link rel="stylesheet" href="{%static 'css/chattings.css'%}">
+  <link rel="stylesheet" href="{%static 'css/game-choose.css'%}">
 
   
   {%block head%}
@@ -29,13 +30,15 @@
     <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo">
     {% if user.is_authenticated %}
     <div class="header-container">
-      <a href={% url 'main:logout' %} class="logout-btn sub-btn text3"> 로그아웃 </a>
+      <a href={% url 'main:answer' %} class="logout-btn main-btn text3"> 정답확인 </a>
+    </div>
+    <div class="header-container">
+      <a href={% url 'main:logout' %} class="logout-btn main-btn text3"> 로그아웃 </a>
     </div>
     {% else %}
     <div class="header-container">
-      <span class="text2">마감에 쫓기는 완벽주의자를 위한</span>
-      <span class="text1">요즘 MT</span>
-    </div>
+      <a href={% url 'main:login' %} class="logout-btn main-btn text3"> 로그인 </a>
+    </div>    
     {% endif %}
   </header>
   <main>

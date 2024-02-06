@@ -5,14 +5,17 @@
     <title>Chat Room</title>
   </head>
   <body>
-    {% block content %}<a href="{% url 'movieGames:movie_game_main' %}">
+    {% block content %}
+    <a href="{% url 'movieGames:movie_game_main' room.id %}">
       <div class="header-btn">영화게임하기</div>
     </a>
-    <a href="{% url 'musicGames:music_game_main' %}">
+    <a href="{% url 'musicGames:music_game_main' room.id %}">
       <div class="header-btn">노래게임하기</div>
     </a>
-
-    <a href="{% url 'fourWords:fourWords_main'%}">
+    <a href="{% url 'figure:figure_main' room.id %}">
+      <div class="header-btn">인물퀴즈</div>
+    </a>
+    <a href="{% url 'fourWords:fourWords_main' room.id %}">
       <div class="header-btn">네글자 게임</div>
     </a>
     <!-- 연습 -->

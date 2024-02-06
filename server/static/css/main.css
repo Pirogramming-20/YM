@@ -65,3 +65,12 @@ form input{
 .navigate span:first-child {
     margin-right: 2rem; 
 }
+
+.answer_container{
+    display: flex;
+    justify-content: space-around;
+}
+.answer_box{
+    font-size: large;
+    padding: 20px;
+}

@@ -9,7 +9,7 @@ from django.http import JsonResponse
 # 1-1. 전주 듣고 노래 맞추기 게임 표지 페이지
 # 1-2. 전주 듣고 노래 맞추기 게임 규칙 설명
 # 1-3. 년도 선택 : 2000년대 / 2010년대 / 2020년대
-def music_game_main(request):
+def music_game_main(request, roomId):
     quiz_data = [
         {'title': '벌써 일년', 'music': '/static/audio/music_game/2000/벌써 일년.mp3', 'singer': '브라운아이즈'},
         {'title': '거짓말', 'music': '/static/audio/music_game/2000/거짓말.mp3', 'singer': '빅뱅'},
@@ -35,13 +35,16 @@ def music_game_main(request):
     for data in quiz_data:
         MusicGame.objects.get_or_create(title=data['title'], music=data['music'], singer=data['singer'])
     
-    return render(request, 'musicGames/music_game_main.html')
+    ctx = {
+        'roomId' : roomId
+    }
+    return render(request, 'musicGames/music_game_main.html', ctx)
 
 
 # 2. 첫 문제 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 : ajax로 구현
 # 4. 우선 게임 종료 시 게임 표지 페이지로 이동 : ajax로 구현
-def music_game_start_2000(request):
+def music_game_start_2000(request, roomId):
     QuizList.objects.all().delete()
     music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2000')) + 1), 5)
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2000')
@@ -57,10 +60,11 @@ def music_game_start_2000(request):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'roomId' : roomId
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
-def music_game_start_2010(request):
+def music_game_start_2010(request, roomId):
     QuizList.objects.all().delete()
     music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2010')) + 1), 5)
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2010')
@@ -76,10 +80,11 @@ def music_game_start_2010(request):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'roomId' : roomId
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
-def music_game_start_2020(request):
+def music_game_start_2020(request,roomId):
     QuizList.objects.all().delete()
     music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2020')) + 1), 5)
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2020')
@@ -95,6 +100,7 @@ def music_game_start_2020(request):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'roomId' : roomId
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
