@@ -23,3 +23,67 @@
     margin-right: 0.8rem;
 }
   
+
+/* chatroom */
+
+
+.user{
+    color: #FFF;
+    font-family: var(--font-family);
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.message{
+    display: inline-block;
+    background-color: var(--quaternary-color);
+    padding: 0.8rem;
+    white-space: nowrap; /* prevent text wrapping */
+    border-radius: 0.8rem;
+    font-size: 2rem;
+    word-wrap: break-word; /*so that long words don't cause overflow */
+    border-radius: 0 10px 10px 10px; 
+
+}
+
+.chatroom-container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 2rem;
+}
+
+.info_room_num {
+    text-align: center;
+}
+
+#messages, .message-input {
+    padding: 0.1rem; 
+}
+
+.message-input{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+    gap: 1rem;
+}
+
+.message-input input{
+    width: 100%;
+}
+
+.my_chat{
+    display: flex;
+    justify-content: flex-end;
+}
+.my_chat  .message {
+    background-color: var(--quinary-color);
+    border-radius: 10px 0 10px 10px; 
+}
+
+.other-message {
+    background-color: var(--quaternary-color);
+    border-radius: 0 10px 10px 10px; 
+}
