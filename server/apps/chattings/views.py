@@ -97,11 +97,11 @@ import qrcode
 def detail(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
   # 배포코드
-  # qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
-  # qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
+  qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
+  qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
   # 로컬코드
-  qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
+  # qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
+  # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,
   }

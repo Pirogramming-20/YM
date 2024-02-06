@@ -59,7 +59,7 @@
         <a href="{% url 'main:logout' %}">
           <div class="header-btn">로그아웃</div>
         </a>
-        <span>참가자수 : <span id="people_count">{{room.participants}}</span></span>
+        <span>참가자수 : <span id="people_count"></span></span>
       </div>
       {% endif %}
       <!-- 접속중인 유저 표시 -->
@@ -113,11 +113,13 @@
       let socket = io.connect(
         location.protocol + "//" + document.domain + ":" + location.port
       );
-      socket.emit("join",document.getElementById("people_count").innerText, room_name);
+      socket.emit("join", room_name);
       
+      
+    
 
-
-      socket.on("count_plus", function (data) {
+      socket.on("count", function (data) {
+  
         console.log(data);
         document.getElementById("people_count").innerText = data
       });
