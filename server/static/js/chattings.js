@@ -1,11 +1,24 @@
-function clickChat() {
-  console.log("클릭");
-  if (document.querySelector(".show").id == "showChat") {
-    document.querySelector(".show").id = "noShowChat";
-  } else {
-    document.querySelector(".show").id = "showChat";
-  }
-}
+// function clickChat() {
+//   console.log("클릭");
+//   if (document.querySelector(".show").id == "showChat") {
+//     document.querySelector(".show").id = "noShowChat";
+//   } else {
+//     document.querySelector(".show").id = "showChat";
+//   }
+// }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const chatToggle = document.getElementById('chatToggle');
+  const chatRoom = document.getElementById('chatRoom');
+
+  chatToggle.addEventListener('change', function() {
+      if (chatToggle.checked) {
+          chatRoom.style.display = 'none'; // Hide
+      } else {
+          chatRoom.style.display = 'block'; // Show
+      }
+  });
+});
 // const room_num = "{{ room.id }}";
 //     const room_name = "{{ room.room_name }}";
 //     const username = "{{ user.username }}";

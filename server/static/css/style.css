@@ -67,7 +67,7 @@ body {
 }
 
 main {
-    height: calc(100vh - 10vh);
+    height: calc(100vh - 20vh);
     margin: 4rem;
 }
 header{
@@ -78,13 +78,16 @@ header{
     align-items: center;
     padding: 0 4rem;
 }
+footer{
+    height: 10vh;
+}
 header img{
     height: 100%;
 }
 .text1, form label{
     color: var(--primary-color);
     font-family: var(--primary-font);
-    /* font-size: 10rem; */
+    font-size: 6rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -137,7 +140,7 @@ header img{
 }
 
 
-.box-no-fill, form input, .team, .individual, .chatroom-container, .quiz{
+.box-no-fill, form input, .team, .individual, .quiz{
     background-color: transparent;
     flex-shrink: 0;
     border: 0.5rem inset var(--secondary-color); /* width, style, color */
