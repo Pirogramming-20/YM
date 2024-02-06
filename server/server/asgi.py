@@ -6,12 +6,13 @@ It exposes the ASGI callable as a module-level variable named ``application``.
 For more information on this file, see
 https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
 """
-
+# from apps.chattings.models import GameRoom
 import os
 from django.core.asgi import get_asgi_application
 import socketio
    # 추가
 import site
+
    # 추가
 site.addsitedir(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
@@ -22,7 +23,6 @@ asgi_app = get_asgi_application()
 # name1 = 'a'
 # room = ''
 # userList = ''
-
 # 이벤트 핸들러(연결)
 @sio.event
 async def connect(sid, environ):
@@ -38,7 +38,13 @@ async def join(sid, room_name):
     # name1 = username
     # userList += username
     # await sio.emit('joined',userList, room=room_name)
+    
+    # room.participants += 1
+    # room.save()
+    # room_count = room.participants
+    print('join')
     await sio.enter_room(sid, room_name)
+    
     
 
 @sio.event
@@ -50,7 +56,7 @@ async def leave(sid, room_name):
     #     userList.replace((username+' , '),'')    
     # print('leave')
     # print(userList)
-
+    print('leave')
     await sio.leave_room(sid, room_name)
     
 @sio.event
@@ -68,9 +74,6 @@ async def message(sid, data,user,room_name):
 @sio.event
 async def disconnect(sid):
     # global userList,name1,room
-    
-    # await sio.emit('leave',[userList,name1], room=room)
     print('disconnect')
-    
 
 application = socketio.ASGIApp(sio, asgi_app)
