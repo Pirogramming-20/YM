@@ -18,7 +18,7 @@ def create(request):
     if form.is_valid():
       room = form.save(commit=False)
 
-      room.order_game = "Figure,Four,Movie,Music"#받아오기
+      room.order_game = "Music,Movie,Figure,Four"#받아오기
       order_game_list = room.order_game.split(",")
 
       for game in order_game_list:
@@ -81,8 +81,9 @@ def next_game(request, roomId):
       return render(request, "movieGames/movie_game_main.html", ctx)
     if current_game == "Music":
       return render(request, "musicGames/music_game_main.html", ctx)
-  else:
-    return render(request, "chattings/main.html")
+    if not order_games:
+      return render(request, "chattings/main.html", ctx)
+    
 
 # 유저닉네임  + 채팅방이름
 # 채팅방 아이디값 -> 채팅방이름
