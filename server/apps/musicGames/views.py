@@ -11,29 +11,29 @@ from django.http import JsonResponse
 # 1-3. 년도 선택 : 2000년대 / 2010년대 / 2020년대
 def music_game_main(request):
     quiz_data = [
-        {'title': '벌써 일년', 'music': '/static/audio/music_game/2000/벌써 일년.mp3', 'singer': '브라운아이즈'},
-        {'title': '거짓말', 'music': '/static/audio/music_game/2000/거짓말.mp3', 'singer': '빅뱅'},
-        {'title': 'I Don\'t Care', 'music': '/static/audio/music_game/2000/I Don\'t Care.mp3', 'singer': '투애니원'},
-        {'title': 'Gee', 'music': '/static/audio/music_game/2000/Gee.mp3', 'singer': '소녀시대'},
-        {'title': 'Sorry Sorry', 'music': '/static/audio/music_game/2000/Sorry Sorry.mp3', 'singer': '슈퍼주니어'},
-        {'title': '아브라카다브라', 'music': '/static/audio/music_game/2000/아브라카다브라.mp3', 'singer': '브라운아이드걸스'},
-        {'title': '뚜두뚜두', 'music': '/static/audio/music_game/2010/뚜두뚜두.mp3', 'singer': '블랙핑크'},
-        {'title': 'DNA', 'music': '/static/audio/music_game/2010/DNA.mp3', 'singer': '방탄소년단'},
-        {'title': '오늘부터 우리는', 'music': '/static/audio/music_game/2010/오늘부터 우리는.mp3', 'singer': '여자친구'},
-        {'title': 'Love Shot', 'music': '/static/audio/music_game/2010/Love Shot.mp3', 'singer': '엑소'},
-        {'title': 'Dance the Night Away', 'music': '/static/audio/music_game/2010/Dance the Night Away.mp3', 'singer': '트와이스'},
-        {'title': 'MILLIONS', 'music': '/static/audio/music_game/2010/MILLIONS.mp3', 'singer': '위너'},
-        {'title': '빨간맛', 'music': '/static/audio/music_game/2010/빨간맛.mp3', 'singer': '레드벨벳'},
-        {'title': 'ETA', 'music': '/static/audio/music_game/2020/ETA.mp3', 'singer': '뉴진스'},
-        {'title': '파이팅 해야지', 'music': '/static/audio/music_game/2020/파이팅 해야지.mp3', 'singer': '부석순'},
-        {'title': '사건의 지평선', 'music': '/static/audio/music_game/2020/사건의 지평선.mp3', 'singer': '윤하'},
-        {'title': 'Drama', 'music': '/static/audio/music_game/2020/Drama.mp3', 'singer': '에스파'},
-        {'title': 'Not Shy', 'music': '/static/audio/music_game/2020/Not Shy.mp3', 'singer': '있지'},
-        {'title': '낙하', 'music': '/static/audio/music_game/2020/낙하.mp3', 'singer': '악동뮤지션'},
+        {'title': '벌써 일년', 'music': '/static/audio/music_game/2000/벌써 일년.mp3', 'singer': '브라운아이즈', 'youtube': 'https://www.youtube.com/embed/LZlIqfMn4cc?si=VbOb_tpc2xv4F-0A&amp;start=159'},
+        {'title': '거짓말', 'music': '/static/audio/music_game/2000/거짓말.mp3', 'singer': '빅뱅', 'youtube': 'https://www.youtube.com/embed/NeDeZUqNiVo?si=LH8vkS1w_hsox6sG&amp;start=85'},
+        {'title': 'I Don\'t Care', 'music': '/static/audio/music_game/2000/I Don\'t Care.mp3', 'singer': '투애니원', 'youtube': 'https://www.youtube.com/embed/4MgAxMO1KD0?si=cN50Tl5-Xu1ABOaS&amp;start=88'},
+        {'title': 'Gee', 'music': '/static/audio/music_game/2000/Gee.mp3', 'singer': '소녀시대', 'youtube': 'https://www.youtube.com/embed/U7mPqycQ0tQ?si=-NwjsF9t0NZZoR50&amp;start=79'},
+        {'title': 'Sorry Sorry', 'music': '/static/audio/music_game/2000/Sorry Sorry.mp3', 'singer': '슈퍼주니어', 'youtube': 'https://www.youtube.com/embed/x6QA3m58DQw?si=sk07LSUup9twcSaY&amp;start=78'},
+        {'title': '아브라카다브라', 'music': '/static/audio/music_game/2000/아브라카다브라.mp3', 'singer': '브라운아이드걸스', 'youtube': 'https://www.youtube.com/embed/o4wJGWcHzVA?si=ECAQh-LgF1FUfoTk&amp;start=15'},
+        {'title': '뚜두뚜두', 'music': '/static/audio/music_game/2010/뚜두뚜두.mp3', 'singer': '블랙핑크', 'youtube': 'https://www.youtube.com/embed/IHNzOHi8sJs?si=lBgvYpn4FXOn09uq&amp;start=76'},
+        {'title': 'DNA', 'music': '/static/audio/music_game/2010/DNA.mp3', 'singer': '방탄소년단', 'youtube': 'https://www.youtube.com/embed/MBdVXkSdhwU?si=huPiie_CLxGDKClN&amp;start=87'},
+        {'title': '오늘부터 우리는', 'music': '/static/audio/music_game/2010/오늘부터 우리는.mp3', 'singer': '여자친구', 'youtube': 'https://www.youtube.com/embed/YYHyAIFG3iI?si=LYheUvSriGcU2P8Z&amp;start=35'},
+        {'title': 'Love Shot', 'music': '/static/audio/music_game/2010/Love Shot.mp3', 'singer': '엑소', 'youtube': 'https://www.youtube.com/embed/pSudEWBAYRE?si=kcMWvRQ96Ya9DGrV&amp;start=45'},
+        {'title': 'Dance the Night Away', 'music': '/static/audio/music_game/2010/Dance the Night Away.mp3', 'singer': '트와이스', 'youtube': 'https://www.youtube.com/embed/Fm5iP0S1z9w?si=Ki7ZHH9iRcoFjmqx&amp;start=78'},
+        {'title': 'MILLIONS', 'music': '/static/audio/music_game/2010/MILLIONS.mp3', 'singer': '위너', 'youtube': 'https://www.youtube.com/embed/PALjhRpnfbk?si=CuThJcwv2TmvfjLe&amp;start=62'},
+        {'title': '빨간맛', 'music': '/static/audio/music_game/2010/빨간맛.mp3', 'singer': '레드벨벳', 'youtube': 'https://www.youtube.com/embed/WyiIGEHQP8o?si=cnKMlL3mp29kINjw&amp;start=62'},
+        {'title': 'ETA', 'music': '/static/audio/music_game/2020/ETA.mp3', 'singer': '뉴진스', 'youtube':'https://www.youtube.com/embed/jOTfBlKSQYY?si=JTk8_6t8s4C2T1Ci&amp;start=70'},
+        {'title': '파이팅 해야지', 'music': '/static/audio/music_game/2020/파이팅 해야지.mp3', 'singer': '부석순', 'youtube':'https://www.youtube.com/embed/mBXBOLG06Wc?si=fyyjoqEu0yQL4O9H&amp;start=46'},
+        {'title': '사건의 지평선', 'music': '/static/audio/music_game/2020/사건의 지평선.mp3', 'singer': '윤하', 'youtube': 'https://www.youtube.com/embed/BBdC1rl5sKY?si=JUL3Fizzx7teDtvR&amp;start=95'},
+        {'title': 'Drama', 'music': '/static/audio/music_game/2020/Drama.mp3', 'singer': '에스파', 'youtube': 'https://www.youtube.com/embed/D8VEhcPeSlc?si=gCguu-inj3xt1w9L&amp;start=57'},
+        {'title': 'Not Shy', 'music': '/static/audio/music_game/2020/Not Shy.mp3', 'singer': '있지', 'youtube': 'https://www.youtube.com/embed/wTowEKjDGkU?si=wVwJgFY18rhP95q2&amp;start=81'},
+        {'title': '낙하', 'music': '/static/audio/music_game/2020/낙하.mp3', 'singer': '악동뮤지션', 'youtube': 'https://www.youtube.com/embed/EtiPbWzUY9o?si=dFZJr_u-0xzn8TMB&amp;start=51'},
     ]
 
     for data in quiz_data:
-        MusicGame.objects.get_or_create(title=data['title'], music=data['music'], singer=data['singer'])
+        MusicGame.objects.get_or_create(title=data['title'], music=data['music'], singer=data['singer'], youtube=data['youtube'])
     
     if request.method == 'POST':
         count = int(request.POST.getlist('count')[0])
@@ -121,5 +121,6 @@ def next_quiz(request):
     title = quiz.music_game_id.title
     music = quiz.music_game_id.music
     singer = quiz.music_game_id.singer
+    youtube = quiz.music_game_id.youtube
 
-    return JsonResponse({'id' : quiz_id, 'title' : title, 'music' : music, 'singer' : singer})
+    return JsonResponse({'id' : quiz_id, 'title' : title, 'music' : music, 'singer' : singer, 'youtube' : youtube})
