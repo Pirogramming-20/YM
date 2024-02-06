@@ -1,15 +1,12 @@
-{% extends 'base.html' %}
-
-{% block head %}
-    <title>figure_main</title>
-{% endblock %}
-
-{% block content %}
-    <h1>인물 게임 메인 페이지 입니다</h1>
-    <div>게임 설명 <br>
-        '시작' 버튼을 누르면 인물 사진이 나옵니다! <br>
-        3초 안에 해당 인물의 이름을 외치세요 <br>
-        시간 내에 말하지 못 하거나 잘못된 이름을 말하면 자비없이 땡!!
-    </div>
-    <a href="{% url 'figure:figure_game' %}">게임시작</a>
+{% extends 'base.html' %} {% block head %}
+<title>figure_main</title>
+{% endblock %} {% block content %}
+<h1>인물 게임 메인 페이지 입니다</h1>
+<div>
+  게임 설명 <br />
+  '시작' 버튼을 누르면 인물 사진이 나옵니다! <br />
+  3초 안에 해당 인물의 이름을 외치세요 <br />
+  시간 내에 말하지 못 하거나 잘못된 이름을 말하면 자비없이 땡!!
+</div>
+<a href="/figure/{{roomId}}/figure_game">게임시작</a>
 {% endblock %}
