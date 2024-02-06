@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="{%static 'css/nomalize.css'%}" />
     <link rel="stylesheet" href="{%static 'css/style.css'%}" />
     <link rel="stylesheet" href="{%static 'css/main.css'%}" />
-    <link rel="stylesheet" href="{%static 'css/form.css'%}" />
     <link rel="stylesheet" href="{%static 'css/chattings.css'%}" />
 
     {%block head%} {% endblock %}
@@ -49,6 +48,7 @@
         }
       </style>
       <div class="header-container">
+        <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
         <div id="info_room_num">{{room.id}}</div>
         <div id="info_room">{{room.room_name}}</div>
         {% if user.is_authenticated %}

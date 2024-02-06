@@ -1,11 +1,9 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'chat_base.html' %} {% block content %}
 <div class="container">
-    <div class="title">영화 명대사 게임</div>
-    <div class="rule">영화 장면을 보고 해당 장면의 명대사를 맞춰주세요!</div>
+  <div class="title">영화 명대사 게임</div>
+  <div class="rule">영화 장면을 보고 해당 장면의 명대사를 맞춰주세요!</div>
 </div>
 <div class="btn">
-    <a href="/games/{{roomId}}/movie-game/start">게임 시작하기</a>
+  <a href="/games/{{roomId}}/movie-game/start">게임 시작하기</a>
 </div>
 {% endblock %}

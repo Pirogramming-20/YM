@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'chat_base.html' %} {% block content %}
 <div class="quiz">
   <div class="music-container">
     <button class="btn-05" data-music="{{ quiz.music_game_id.music }}">
@@ -14,7 +14,9 @@
   </div>
   <div class="btn">
     <div class="next-btn">다음 문제</div>
-    <a href="/chatting-room/next_game/{{roomId}}" class="game-over">다음 게임</a>
+    <a href="/chatting-room/next_game/{{roomId}}" class="game-over"
+      >다음 게임</a
+    >
   </div>
 </div>
 {% endblock %} {% block script %}
