@@ -15,10 +15,10 @@
       <div class="room">
         {% comment %} Host {% endcomment %}
         {% if room.created_by == request.user %}
-          <a class="room-name text3 sub-title" href="{% url 'rooms:choose' room.pk %}">
+          <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
         {% comment %} User {% endcomment %}
         {% else %}
-          <a class="room-name text3 sub-title" href="{% url 'rooms:chatroom' room.pk %}">
+          <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
           {% comment %} <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}"> {% endcomment %}
         {% endif %}
           <i class="fa-solid fa-gamepad gamepad-icon"></i>
