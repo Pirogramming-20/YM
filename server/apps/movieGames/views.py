@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 # 0. 영화 명대사 db에 create 하는 함수
 # 1-1. 영화 명대사 게임 표지 페이지
 # 1-2. 영화 명대사 게임 규칙 설명
-def movie_game_main(request):
+def movie_game_main(request,roomId):
     quiz_data = [
         {'title': '1987', 'scene': '/static/image/movie_game/1987.png', 'line': '책상을 탁 치니 억 하고 쓰러졌답니다'},
         {'title': '관상', 'scene': '/static/image/movie_game/관상.png', 'line': '어찌 내가 왕이 될 상인가?'},
@@ -36,11 +36,14 @@ def movie_game_main(request):
     #     movie_game = MovieGame.objects.get(id=movie_game_id+first_movie_id-1)
     #     QuizList.objects.get_or_create(movie_game_id=movie_game)
     
-    return render(request, 'movieGames/movie_game_main.html')
+    ctx = {
+        'roomId' : roomId
+    }
+    return render(request, 'movieGames/movie_game_main.html', )
 
 # 2. 영화 장면 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
-def movie_game_start(request):
+def movie_game_start(request,roomId):
     QuizList.objects.all().delete()
     #랜덤한 순서로 문제 뽑는 과정
     movie_game_ids = random.sample(range(1, len(MovieGame.objects.all()) + 1), 10)
@@ -56,10 +59,11 @@ def movie_game_start(request):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'roomId' : roomId,
     }
     return render(request, 'movieGames/movie_game_start.html', ctx)
 
-def next_quiz(request):
+def next_quiz(request,roomId):
     req = json.loads(request.body)
     quiz_id = int(req['id'])
     quiz_id += 1
@@ -68,5 +72,9 @@ def next_quiz(request):
     scene = quiz.movie_game_id.scene
     title = quiz.movie_game_id.title
     line = quiz.movie_game_id.line
+
+    ctx={
+        'roomId':roomId
+    }
 
     return JsonResponse({'id' : quiz_id, 'scene' : scene, 'title' : title, 'line' : line})

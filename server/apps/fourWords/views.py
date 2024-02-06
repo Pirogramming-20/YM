@@ -4,7 +4,7 @@ import random
 import json
 from django.http import JsonResponse
 
-def fourWords_main(request):
+def fourWords_main(request,roomId):
     answer_list = ['샌드위치', '연지곤지', '차돌박이', '바리스타', '신속정확',
               '표고버섯', '대한민국', '급속충전', '양념치킨', '취중진담',
               '미세먼지', '드래곤볼', '십중팔구', '고진감래', '생로병사']
@@ -12,10 +12,14 @@ def fourWords_main(request):
     for i in range(len(answer_list)):
         four_instance,created = Four.objects.get_or_create(answer=answer_list[i])
         four_instance.two_save()
-    
-    return render(request, 'games/fourWords_main.html')
 
-def fourWords_game_start(request):
+    ctx ={
+        'roomId':roomId
+    }
+    
+    return render(request, 'games/fourWords_main.html',ctx)
+
+def fourWords_game_start(request, roomId):
     
     QuizFour.objects.all().delete()
 
@@ -28,7 +32,8 @@ def fourWords_game_start(request):
     quiz_fours = QuizFour.objects.all()
     quiz_four = quiz_fours.first()
     ctx={
-        'quiz_four':quiz_four
+        'quiz_four':quiz_four,
+        'roomId':roomId
     }
     
     return render(request, "games/fourWords_start.html", ctx)
