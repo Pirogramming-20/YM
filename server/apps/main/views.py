@@ -3,6 +3,8 @@ from .forms import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
 # from django.views.decorators.csrf import csrf_exempt
+from ..chattings.models import *
+from ..musicGames.models import *
 
 # Create your views here.
 
@@ -56,3 +58,27 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('main:main')
+
+def answer(request):
+    if request.method=="POST":
+        print(request.POST['room_name'])
+        name=request.POST['room_name']
+        try:
+            game=GameRoom.objects.get(room_name=name)
+            print(game)
+            music_random=game.RandomMusic_get.all()
+            music_list=[]
+            for music in music_random:
+                id=music['music_game_id']
+                music_R=MusicGame.objects.get(id=id)
+                music_list.append([music_R['title'], music_R['singer']])
+            ctx={
+                'music_list':music_list,   
+            }
+            return render(request, 'main/answer_list.html', ctx=ctx)
+        except GameRoom.DoesNotExist:
+            return render(request, 'main/answer.html')
+        
+
+    return render(request, 'main/answer.html')
+    

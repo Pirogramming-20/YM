@@ -28,6 +28,9 @@
   <header>
     {% if user.is_authenticated %}
     <div class="header-container">
+      <a href={% url 'main:answer' %} class="logout-btn main-btn text3"> 정답확인 </a>
+    </div>
+    <div class="header-container">
       <a href={% url 'main:logout' %} class="logout-btn main-btn text3"> 로그아웃 </a>
     </div>
     {% else %}
