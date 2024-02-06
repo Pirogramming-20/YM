@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from apps.chattings.models import GameRoom
 from .models import Four, QuizFour
 import random
 import json
@@ -12,9 +14,10 @@ def fourWords_main(request,roomId):
     for i in range(len(answer_list)):
         four_instance,created = Four.objects.get_or_create(answer=answer_list[i])
         four_instance.two_save()
-
+    room = GameRoom.objects.get(id=roomId)
     ctx ={
-        'roomId':roomId
+        'roomId':roomId,
+        'room':room
     }
     
     return render(request, 'games/fourWords_main.html',ctx)
@@ -31,9 +34,11 @@ def fourWords_game_start(request, roomId):
     
     quiz_fours = QuizFour.objects.all()
     quiz_four = quiz_fours.first()
+    room = GameRoom.objects.get(id=roomId)
     ctx={
         'quiz_four':quiz_four,
-        'roomId':roomId
+        'roomId':roomId,
+        'room':room
     }
     
     return render(request, "games/fourWords_start.html", ctx)

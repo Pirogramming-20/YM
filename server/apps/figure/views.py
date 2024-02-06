@@ -32,11 +32,13 @@ def figure_main(request, roomId): #20개
     Figure.objects.get_or_create(name="방귀대장뿡뿡이")
 
     figures = Figure.objects.all()
+    room = GameRoom.objects.get(id=roomId)
     for figure in figures:
         figure.image_path = f"/static/image/figure/{figure.name}.jpg"
         figure.save()
     ctx = {
-        'roomId' : roomId
+        'roomId' : roomId,
+        'room':room
     }
     return render(request, "games/figure_main.html",ctx)
 
@@ -55,7 +57,8 @@ def figure_game_start(request,roomId):
     room1 = room.id
     ctx={
         'quiz_figure':quiz_figure,
-        'roomId' : room1
+        'roomId' : room1,
+        'room':room
     }
     
     return render(request, "games/figure_start.html", ctx)

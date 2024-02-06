@@ -64,7 +64,8 @@ def create(request):
 def next_game(request, roomId):
   room = GameRoom.objects.get(id=roomId)
   ctx = {
-    'roomId':roomId
+    'roomId':roomId,
+    'room':room
   }
   order_games = room.order_game.split(",")
 
@@ -109,7 +110,9 @@ def detail(request,pk):
 
 def detailMobile(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
+  user = request.user.username
   ctx = {
     "room" : room,
+    'username' : user
   }
   return render(request, "chattings/detailMobile.html", ctx)
