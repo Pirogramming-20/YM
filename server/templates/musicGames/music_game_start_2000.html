@@ -96,7 +96,6 @@
   function createPlayer(){
     let video_id = youtube_src.split('embed/')[1].split('?')[0];
     let start_time = youtube_src.split('start=')[1].split('"')[0];
-    console.log(video_id);
     player = new YT.Player('player',{
       height: '315',
       width: '560',
@@ -134,7 +133,7 @@
 
   //다음 문제로 넘어가기
   nextBtn.addEventListener("click", function () {
-    const url = "../next";
+    const url = "/games2/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
