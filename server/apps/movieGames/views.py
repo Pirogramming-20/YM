@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from apps.chattings.models import GameRoom
 from .models import *
 import random
 import json
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from apps.chattings.models import GameRoom
 
 # Create your views here.
 
@@ -82,14 +82,22 @@ def movie_game_main(request,roomId):
         'roomId' : roomId,
         'room':room
     }
+    if request.method == "POST":
+        count = int(request.POST.getlist('count')[0])
+        ctx = {
+        'roomId' : roomId,
+        'room':room,
+        'count':count
+    }
+        return redirect('/games/{0}/movie-game/start/{1}'.format(roomId,count))
     return render(request, 'movieGames/movie_game_main.html', ctx)
 
 # 2. 영화 장면 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
-def movie_game_start(request,roomId):
+def movie_game_start(request,roomId, count):
     QuizList.objects.all().delete()
     #랜덤한 순서로 문제 뽑는 과정
-    movie_game_ids = random.sample(range(1, len(MovieGame.objects.all()) + 1), 10)
+    movie_game_ids = random.sample(range(1, len(MovieGame.objects.all()) + 1), count)
     movie_game_query = MovieGame.objects.all()
     first_movie = movie_game_query.first()
     first_movie_id = int(first_movie.id)
@@ -103,22 +111,27 @@ def movie_game_start(request,roomId):
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
-        'room':room
+        'room':room,
+        'count' : count
     }
     return render(request, 'movieGames/movie_game_start.html', ctx)
 
-def next_quiz(request,roomId):
+def next_quiz(request):
     req = json.loads(request.body)
     quiz_id = int(req['id'])
     quiz_id += 1
 
     quiz = QuizList.objects.get(id=quiz_id)
     scene = quiz.movie_game_id.scene
+
+    return JsonResponse({'id' : quiz_id, 'scene' : scene})
+
+def answer(request):
+    req = json.loads(request.body)
+    quiz_id = int(req['id'])
+
+    quiz = QuizList.objects.get(id=quiz_id)
     title = quiz.movie_game_id.title
     line = quiz.movie_game_id.line
 
-    ctx={
-        'roomId':roomId
-    }
-
-    return JsonResponse({'id' : quiz_id, 'scene' : scene, 'title' : title, 'line' : line})
+    return JsonResponse({'id' : quiz_id, 'title' : title, 'line' : line})
