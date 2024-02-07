@@ -69,21 +69,13 @@ def movie_game_main(request,roomId):
     for data in quiz_data:
         MovieGame.objects.get_or_create(title=data['title'], scene=data['scene'], line=data['line'])
 
-    # movie_game_ids = random.sample(range(1, len(quiz_data) + 1), 10)
-    # movie_game_query = MovieGame.objects.all()
-    # first_movie = movie_game_query.first()
-    # first_movie_id = int(first_movie.id)
-
-    # for movie_game_id in movie_game_ids:
-    #     movie_game = MovieGame.objects.get(id=movie_game_id+first_movie_id-1)
-    #     QuizList.objects.get_or_create(movie_game_id=movie_game)
     room = GameRoom.objects.get(id=roomId)
     ctx = {
         'roomId' : roomId,
         'room':room
     }
     if request.method == "POST":
-        count = int(request.POST.getlist('count')[0])
+        count = int(request.POST['count'])
         ctx = {
         'roomId' : roomId,
         'room':room,
