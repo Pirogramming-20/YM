@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}{% load static %}
+{% extends 'chat_base.html' %} {% block content %}{% load static %}
 <style>
   .game {
     display: flex;
@@ -19,7 +19,7 @@
     position: relative;
     display: inline-block; /* 블록 요소가 아닌 인라인 블록으로 설정 */
   }
-  .photo{
+  .photo {
     width: 200px;
     height: 200px;
     display: block;
@@ -33,7 +33,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;    
+    color: white;
   }
 </style>
 <span id="info_username">{{user.username}} </span>
@@ -55,7 +55,9 @@
       <button onclick="startCountdown()">시작</button>
       <div class="answer-btn">정답</div>
       <div class="next-btn">다음 문제</div>
-      <a class="game-over" href="{% url 'movieGames:movie_game_main' %}"></a>
+      <a class="game-over" href="/chatting-room/next_game/{{roomId}}"
+        >다음게임</a
+      >
     </div>
   </div>
 
@@ -134,20 +136,19 @@
   const csrftoken = getCookie("csrftoken");
 
   //카운트다운
-  const imageCover = document.querySelector('.image-cover');
-  const countdownElement = document.querySelector('.countdown');
+  const imageCover = document.querySelector(".image-cover");
+  const countdownElement = document.querySelector(".countdown");
   let countdownInterval;
 
-  function startCountdown(){
+  function startCountdown() {
     imageCover.style.display = "flex";
     let count = 3;
 
-    countdownInterval = setInterval(() =>{
-      if(count <= 0){
+    countdownInterval = setInterval(() => {
+      if (count <= 0) {
         clearInterval(countdownInterval);
         imageCover.style.display = "none";
-      }
-      else{
+      } else {
         countdownElement.textContent = count;
         count--;
       }
@@ -160,25 +161,19 @@
   const gameOverBtn = document.querySelector(".game-over");
   let cnt = 1;
 
-  nextBtn.addEventListener('click', function(){
+  nextBtn.addEventListener("click", function () {
     imageCover.style.display = "flex";
-    countdownElement.textContent = '사진';
+    countdownElement.textContent = "사진";
     const url = "../next";
     requestQuiz.open("POST", url, true);
-    requestQuiz.setRequestHeader(
-      "Content-Type",
-      "application/json"
-    );
-    requestQuiz.setRequestHeader(
-      "X-CSRFToken",
-      csrftoken
-    );
-    requestQuiz.send(JSON.stringify({id: currentQuizId}));
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
     const title_element = document.querySelector(".title");
-        title_element.innerHTML = "";
+    title_element.innerHTML = "";
 
-        const line_element = document.querySelector(".line");
-        line_element.innerHTML = "";
+    const line_element = document.querySelector(".line");
+    line_element.innerHTML = "";
   });
 
   requestQuiz.onreadystatechange = () => {
@@ -202,17 +197,17 @@
   const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
-  answerBtn.addEventListener("click", function(){
+  answerBtn.addEventListener("click", function () {
     const url = "../answer";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
-    requestAnswer.send(JSON.stringify({id: currentQuizId}));
+    requestAnswer.send(JSON.stringify({ id: currentQuizId }));
   });
 
   requestAnswer.onreadystatechange = () => {
-    if (requestAnswer.readyState === XMLHttpRequest.DONE){
-      if(requestAnswer.status < 400){
+    if (requestAnswer.readyState === XMLHttpRequest.DONE) {
+      if (requestAnswer.status < 400) {
         const { id, title, line } = JSON.parse(requestAnswer.response);
 
         const title_element = document.querySelector(".title");
@@ -222,7 +217,7 @@
         line_element.innerHTML = line;
       }
     }
-  }
+  };
 </script>
 
 {% endblock %}

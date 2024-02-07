@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from apps.chattings.models import GameRoom
 from .models import Figure, QuizFigure
 import random
 import json
@@ -7,7 +9,7 @@ from django.http import JsonResponse
 
 #0. create figure db
 #1. figure_game main page
-def figure_main(request): #20개
+def figure_main(request, roomId): #20개
     Figure.objects.get_or_create(name="강다니엘")
     Figure.objects.get_or_create(name="강하늘")
     Figure.objects.get_or_create(name="거미")
@@ -30,30 +32,46 @@ def figure_main(request): #20개
     Figure.objects.get_or_create(name="방귀대장뿡뿡이")
 
     figures = Figure.objects.all()
+    room = GameRoom.objects.get(id=roomId)
     for figure in figures:
         figure.image_path = f"/static/image/figure/{figure.name}.jpg"
         figure.save()
-    
+    ctx = {
+        'roomId' : roomId,
+        'room':room
+    }
     if request.method == "POST":
         count = int(request.POST.getlist('count')[0])
-        return redirect('figure:figure_game', count)
-    return render(request, "games/figure_main.html")
+        ctx = {
+        'roomId' : roomId,
+        'room':room,
+        'count':count
+        }
+        return redirect('/figure/{0}/figure_game/{1}'.format(roomId,count))
+    return render(request, "games/figure_main.html",ctx)
 
-def figure_game_start(request, count):
+def figure_game_start(request,roomId,count):
 
     QuizFigure.objects.all().delete()
-
-    quiz_id_list = random.sample(range(1,21), count)
-
-    for quiz_id in quiz_id_list:
+    room = GameRoom.objects.get(id=roomId)
+    quiz_id_list = room.ran_figure
+    print(quiz_id_list)
+    quiz_id_list = quiz_id_list[1:-1]
+    quiz_id_str_list = quiz_id_list.split(", ")
+    quiz_id_str_list = quiz_id_str_list[:count]
+    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+    for quiz_id in quiz_id_int_list:
         figure_instance = Figure.objects.get(id=quiz_id)
         QuizFigure.objects.create(figure_quiz_id=figure_instance)
-    
+
     quiz_figures = QuizFigure.objects.all()
     quiz_figure = quiz_figures.first()
+    room1 = room.id
     ctx={
         'quiz_figure':quiz_figure,
         'count' : count,
+        'roomId' : room1,
+        'room':room
     }
     
     return render(request, "games/figure_start.html", ctx)

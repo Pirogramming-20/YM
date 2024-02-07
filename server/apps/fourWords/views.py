@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
+
+from apps.chattings.models import GameRoom
 from .models import Four, QuizFour
 import random
 import json
 from django.http import JsonResponse
 
-def fourWords_main(request):
+def fourWords_main(request,roomId):
     answer_list = ['샌드위치', '연지곤지', '차돌박이', '바리스타', '신속정확',
               '표고버섯', '대한민국', '급속충전', '양념치킨', '취중진담',
               '미세먼지', '드래곤볼', '십중팔구', '고진감래', '생로병사']
@@ -12,13 +14,23 @@ def fourWords_main(request):
     for i in range(len(answer_list)):
         four_instance,created = Four.objects.get_or_create(answer=answer_list[i])
         four_instance.two_save()
+    room = GameRoom.objects.get(id=roomId)
+    ctx ={
+        'roomId':roomId,
+        'room':room
+    }
     
     if request.method == "POST":
         count = int(request.POST.getlist('count')[0])
-        return redirect('fourWords:fourWords_game', count)
-    return render(request, 'games/fourWords_main.html')
+        ctx ={
+            'roomId':roomId,
+            'room':room,
+            'count':count
+        }
+        return redirect('/fourWords/{0}/fourWords_game/{1}'.format(roomId,count))
+    return render(request, 'games/fourWords_main.html',ctx)
 
-def fourWords_game_start(request, count):
+def fourWords_game_start(request, roomId,count):
     
     QuizFour.objects.all().delete()
 
@@ -30,9 +42,12 @@ def fourWords_game_start(request, count):
     
     quiz_fours = QuizFour.objects.all()
     quiz_four = quiz_fours.first()
+    room = GameRoom.objects.get(id=roomId)
     ctx={
         'quiz_four':quiz_four,
         'count': count,
+        'roomId':roomId,
+        'room':room
     }
     
     return render(request, "games/fourWords_start.html", ctx)

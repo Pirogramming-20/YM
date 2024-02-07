@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from apps.chattings.models import GameRoom
 from .models import *
 import random
 import json
@@ -9,7 +11,7 @@ from django.http import JsonResponse
 # 1-1. 전주 듣고 노래 맞추기 게임 표지 페이지
 # 1-2. 전주 듣고 노래 맞추기 게임 규칙 설명
 # 1-3. 년도 선택 : 2000년대 / 2010년대 / 2020년대
-def music_game_main(request):
+def music_game_main(request, roomId):
     quiz_data = [
         {'title': '벌써 일년', 'music': '/static/audio/music_game/2000/벌써 일년.mp3', 'singer': '브라운아이즈', 'youtube': 'https://www.youtube.com/embed/LZlIqfMn4cc?si=VbOb_tpc2xv4F-0A&amp;start=159'},
         {'title': '거짓말', 'music': '/static/audio/music_game/2000/거짓말.mp3', 'singer': '빅뱅', 'youtube': 'https://www.youtube.com/embed/NeDeZUqNiVo?si=LH8vkS1w_hsox6sG&amp;start=85'},
@@ -31,34 +33,44 @@ def music_game_main(request):
         {'title': 'Not Shy', 'music': '/static/audio/music_game/2020/Not Shy.mp3', 'singer': '있지', 'youtube': 'https://www.youtube.com/embed/wTowEKjDGkU?si=wVwJgFY18rhP95q2&amp;start=81'},
         {'title': '낙하', 'music': '/static/audio/music_game/2020/낙하.mp3', 'singer': '악동뮤지션', 'youtube': 'https://www.youtube.com/embed/EtiPbWzUY9o?si=dFZJr_u-0xzn8TMB&amp;start=51'},
     ]
-
+    room = GameRoom.objects.get(id=roomId)
     for data in quiz_data:
         MusicGame.objects.get_or_create(title=data['title'], music=data['music'], singer=data['singer'], youtube=data['youtube'])
     
     if request.method == 'POST':
         count = int(request.POST.getlist('count')[0])
         time = int(request.POST.getlist('time')[0])
+        ctx = {
+        'roomId' : roomId,
+        'room':room,
+        'count':count
+        }
+        
         if time == 2000:
-            return redirect('musicGames:music_game_start_2000', count)
+            return redirect('/games2/{0}/music-game/start-2000/{1}'.format(roomId,count))
         elif time == 2010:
-            return redirect('musicGames:music_game_start_2010', count)
+            return redirect('/games2/{0}/music-game/start-2010/{1}'.format(roomId,count))
         elif time == 2020:
-            return redirect('musicGames:music_game_start_2020', count)
+            return redirect('/games2/{0}/music-game/start-2020/{1}'.format(roomId,count))
         
     
-    return render(request, 'musicGames/music_game_main.html')
+    ctx = {
+        'roomId' : roomId,
+        'room':room,
+        }
+    return render(request, 'musicGames/music_game_main.html', ctx)
 
 
 # 2. 첫 문제 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 : ajax로 구현
 # 4. 우선 게임 종료 시 게임 표지 페이지로 이동 : ajax로 구현
-def music_game_start_2000(request, count):
+def music_game_start_2000(request, roomId, count):
     QuizList.objects.all().delete()
     music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2000')) + 1), count)
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2000')
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
-
+    room = GameRoom.objects.get(id=roomId)
     #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
     for music_game_id in music_game_ids:
         music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
@@ -68,17 +80,19 @@ def music_game_start_2000(request, count):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'roomId' : roomId,
+        'room':room,
         'count' : count,
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
-def music_game_start_2010(request, count):
+def music_game_start_2010(request, roomId, count):
     QuizList.objects.all().delete()
     music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2010')) + 1), count)
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2010')
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
-
+    room = GameRoom.objects.get(id=roomId)
     #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
     for music_game_id in music_game_ids:
         music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
@@ -88,17 +102,19 @@ def music_game_start_2010(request, count):
     quiz = quiz_list.first()
     ctx = {
         'quiz' : quiz,
+        'roomId' : roomId,
+        'room':room,
         'count' : count,
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
-def music_game_start_2020(request, count):
+def music_game_start_2020(request, count,roomId):
     QuizList.objects.all().delete()
     music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2020')) + 1), count)
     music_game_query_2000 = MusicGame.objects.filter(music__contains='2020')
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
-
+    room = GameRoom.objects.get(id=roomId)
     #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
     for music_game_id in music_game_ids:
         music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
@@ -109,6 +125,8 @@ def music_game_start_2020(request, count):
     ctx = {
         'quiz' : quiz,
         'count' : count,
+        'roomId' : roomId,
+        'room':room
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 

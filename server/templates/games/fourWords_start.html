@@ -1,142 +1,131 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block head %}
+{% extends 'chat_base.html' %} {% load static %} {% block head %}
 <title>Four Words</title>
 
 <style>
-    .quiz-container {
-        position: relative;
-        display: inline-block; /* 블록 요소가 아닌 인라인 블록으로 설정 */
-    }
-    #two-cover {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: black; /* 투명한 검은 배경색 */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: white;
-    }
+  .quiz-container {
+    position: relative;
+    display: inline-block; /* 블록 요소가 아닌 인라인 블록으로 설정 */
+  }
+  #two-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* 투명한 검은 배경색 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
 </style>
-{% endblock %}
-
-{%block content%}
+{% endblock %} {%block content%}
 <body>
-    <h1>네글자 게임</h1>
-    <button onclick="startCountdown()">시작</button>
+  <h1>네글자 게임</h1>
+  <button onclick="startCountdown()">시작</button>
 
-    <div class="quiz-container">
-        <div id="two-cover">
-            <span id="countdown">문제</span>
-        </div>
-        <div class="two-container">
-            {{quiz_four.four_quiz_id.two}}
-        </div> 
+  <div class="quiz-container">
+    <div id="two-cover">
+      <span id="countdown">문제</span>
     </div>
+    <div class="two-container">{{quiz_four.four_quiz_id.two}}</div>
+  </div>
 
-    <button class="btn-next-two" onclick="onClickNext()">다음 문제</button>
+  <button class="btn-next-two" onclick="onClickNext()">다음 문제</button>
+  <a href="/chatting-room/next_game/{{roomId}}">다음 게임</a>
 
-    <button class="four-answer" onclick="checkAnswer()">정답 보기</button>
-</body>      
-{%endblock%}
-
-{%block script%}
+  <button class="four-answer" onclick="checkAnswer()">정답 보기</button>
+</body>
+{%endblock%} {%block script%}
 <script>
-    // 카운트다운 js
-    const twoCover = document.getElementById('two-cover');
-    const countdownElement = document.getElementById('countdown');
-    let countdownInterval;
+  // 카운트다운 js
+  const twoCover = document.getElementById("two-cover");
+  const countdownElement = document.getElementById("countdown");
+  let countdownInterval;
 
-    function startCountdown() {
+  function startCountdown() {
+    clearInterval(countdownInterval);
+    let count = 3;
+
+    function updateCountdown() {
+      countdownElement.innerHTML = count;
+      count--;
+      if (count < 0) {
         clearInterval(countdownInterval);
-        let count = 3;
-
-        function updateCountdown() {
-            countdownElement.innerHTML=count;
-            count--;
-            if (count < 0) {
-                clearInterval(countdownInterval);
-                twoCover.style.display = "none";
-            }
-        }
-
-        updateCountdown();
-        countdownInterval = setInterval(updateCountdown, 1000);
+        twoCover.style.display = "none";
+      }
     }
 
-    // 정답 보기 js
-    const fourElement = document.querySelector('.four-answer');
-    let nextCnt = 0;
-    
-    function checkAnswer() {// 다음 문제로 넘겼을 때도 첫 문제랑 같은 정답 보여서 if문으로 구분
-        if (nextCnt === 0) {
-            onClickAnswer = () => {
-            fourElement.textContent = "{{quiz_four.four_quiz_id.answer}}";
-            }
-            onClickAnswer();
-        }
-        else {
-            onClickNextAnswer();
-        }
+    updateCountdown();
+    countdownInterval = setInterval(updateCountdown, 1000);
+  }
+
+  // 정답 보기 js
+  const fourElement = document.querySelector(".four-answer");
+  let nextCnt = 0;
+
+  function checkAnswer() {
+    // 다음 문제로 넘겼을 때도 첫 문제랑 같은 정답 보여서 if문으로 구분
+    if (nextCnt === 0) {
+      onClickAnswer = () => {
+        fourElement.textContent = "{{quiz_four.four_quiz_id.answer}}";
+      };
+      onClickAnswer();
+    } else {
+      onClickNextAnswer();
     }
-    //csrf token 생성, 주입
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+  }
+  //csrf token 생성, 주입
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      var cookies = document.cookie.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
         }
-        return cookieValue;
+      }
     }
+    return cookieValue;
+  }
 
-    const csrftoken = getCookie('csrftoken');
+  const csrftoken = getCookie("csrftoken");
 
-    // 다음문제로 넘어가는 ajax
-    const requestNextQuiz = new XMLHttpRequest();
-    let currentFourId = '{{quiz_four.id}}';
-    const onClickNext = () => {
-        const url = "../next_fourWords_ajax/";
-        requestNextQuiz.open("POST", url, true);
-        requestNextQuiz.setRequestHeader(
-            "Content-Type",
-            "application/json"
-        );
-        requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-        
-        requestNextQuiz.send(JSON.stringify({id: currentFourId}));
-    };
+  // 다음문제로 넘어가는 ajax
+  const requestNextQuiz = new XMLHttpRequest();
+  let currentFourId = "{{quiz_four.id}}";
+  const onClickNext = () => {
+    const url = "/fourWords/next_fourWords_ajax/";
+    requestNextQuiz.open("POST", url, true);
+    requestNextQuiz.setRequestHeader("Content-Type", "application/json");
+    requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
 
-    requestNextQuiz.onreadystatechange = () => {
-        if(requestNextQuiz.readyState === XMLHttpRequest.DONE){
-            if(requestNextQuiz.status < 400) {
-                const {id, two, answer} = JSON.parse(requestNextQuiz.response);
-                const twoElement = document.querySelector('.two-container');
-                const fourElement = document.querySelector('.four-answer');
-                
-                clearInterval(countdownInterval);
-                twoCover.style.display = 'flex';
-                countdownElement.textContent = '문제';
-                twoElement.innerHTML = two;
-                
-                nextCnt ++;
-                fourElement.textContent = "정답보기";
-                onClickNextAnswer = () => {
-                    fourElement.textContent = answer;
-                }
+    requestNextQuiz.send(JSON.stringify({ id: currentFourId }));
+  };
 
-                currentFourId = id;
-            }
-        }
+  requestNextQuiz.onreadystatechange = () => {
+    if (requestNextQuiz.readyState === XMLHttpRequest.DONE) {
+      if (requestNextQuiz.status < 400) {
+        const { id, two, answer } = JSON.parse(requestNextQuiz.response);
+        const twoElement = document.querySelector(".two-container");
+        const fourElement = document.querySelector(".four-answer");
+
+        clearInterval(countdownInterval);
+        twoCover.style.display = "flex";
+        countdownElement.textContent = "문제";
+        twoElement.innerHTML = two;
+
+        nextCnt++;
+        fourElement.textContent = "정답보기";
+        onClickNextAnswer = () => {
+          fourElement.textContent = answer;
+        };
+
+        currentFourId = id;
+      }
     }
+  };
 </script>
 {%endblock%}

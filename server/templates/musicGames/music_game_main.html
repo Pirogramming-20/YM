@@ -1,27 +1,25 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'chat_base.html' %} {% block content %}
 <div class="container">
-    <div class="title">전주 듣고 노래 맞추기 게임</div>
-    <div class="rule">전주를 듣고 해당 노래와 가수를 맞춰주세요!</div>
+  <div class="title">전주 듣고 노래 맞추기 게임</div>
+  <div class="rule">전주를 듣고 해당 노래와 가수를 맞춰주세요!</div>
 </div>
 <div class="select-container">
-    <div class="rule">문제 개수와 년도를 선택해주세요!</div>
-    <form method="POST" action="{% url 'musicGames:music_game_main' %}">
-        {% csrf_token %}
-        <div class="problem">
-            <p>문제 개수</p>
-            <input type="checkbox" name="count" value="5">5 문제
-            <input type="checkbox" name="count" value="10">10 문제
-            <input type="checkbox" name="count" value="15">15 문제
-        </div>
-        <div class="time">
-            <p>년도</p>
-            <input type="checkbox" name="time" value="2000">2000년대
-            <input type="checkbox" name="time" value="2010">2010년대
-            <input type="checkbox" name="time" value="2020">2020년대
-        </div>
-        <input type="submit" value="게임 시작">
-    </form>
+  <div class="rule">문제 개수와 년도를 선택해주세요!</div>
+  <form method="POST" action="{% url 'musicGames:music_game_main' room.id %}">
+    {% csrf_token %}
+    <div class="problem">
+      <p>문제 개수</p>
+      <input type="checkbox" name="count" value="5" />5 문제
+      <input type="checkbox" name="count" value="10" />10 문제
+      <input type="checkbox" name="count" value="15" />15 문제
+    </div>
+    <div class="time">
+      <p>년도</p>
+      <input type="checkbox" name="time" value="2000" />2000년대
+      <input type="checkbox" name="time" value="2010" />2010년대
+      <input type="checkbox" name="time" value="2020" />2020년대
+    </div>
+    <input type="submit" value="게임 시작" />
+  </form>
 </div>
 {% endblock %}
