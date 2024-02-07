@@ -55,8 +55,11 @@ def figure_game_start(request,roomId,count):
     QuizFigure.objects.all().delete()
     room = GameRoom.objects.get(id=roomId)
     quiz_id_list = room.ran_figure
-    
-    for quiz_id in quiz_id_list.split(','):
+    print(quiz_id_list)
+    quiz_id_list = quiz_id_list[1:-1]
+    quiz_id_str_list = quiz_id_list.split(", ")
+    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+    for quiz_id in quiz_id_int_list:
         figure_instance = Figure.objects.get(id=quiz_id)
         QuizFigure.objects.create(figure_quiz_id=figure_instance)
 

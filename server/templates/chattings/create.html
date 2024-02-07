@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% load static %}
 {%block head%}
@@ -11,17 +10,43 @@
     <span class="text2">MT</span>
   </div>
   <div class="sub-title text3">방이름을 입력하세요.</div>
-  <form method="POST" action="" >
-    {% csrf_token %} 
-    {% for field in room %}
-          <div class="form-row">
-              {{ field.label_tag }}
-              {{ field }}
-          </div>
-      {% endfor %}
-    <button class="main-btn text3">게임방 만들기</button>
+  <form method="POST" action="" class="name-form">
+    {% csrf_token %}
+    <label>방이름<input type="text" name="room_name" id="roomName"></label>
+    <label>명대사 게임<input id="selected" type="checkbox" name="selected" value="Movie" class="check"></label>
+    <label>음악 게임<input id="selected" type="checkbox" name="selected" value="Music" class="check"></label>
+    <label>인물 게임<input id="selected" type="checkbox" name="selected" value="Figure" class="check"></label>
+    <label>네글자 게임<input id="selected" type="checkbox" name="selected" value="Four" class="check"></label>
+    <div id="game-order"></div>
+    <input type="hidden" name="order_list" id="orderListInput">
+    <button class="main-btn text3" >게임방 만들기</button>
     {% comment %} <input type="submit" value="SignUp" class="main-btn text3" /> {% endcomment %}
   </form>
-</div>
-  
+  <script>
+    const gameOrder = document.getElementById('game-order');
+    const checkBoxes = document.querySelectorAll('.check');
+    let orderList = [];
+    let orderName = [];
+    
+    checkBoxes.forEach(function (checkbox) {
+      checkbox.addEventListener("change", function() {
+        if(checkbox.checked) {
+          orderList.push(checkbox.value);
+          orderName.push(checkbox.parentElement.innerText);
+        }
+        else {
+          const index = orderList.indexOf(checkbox.value);
+          orderList.splice(index, 1);
+          orderName.splice(index, 1);
+        }
+        gameOrder.innerText = orderName.join(',');
+      });
+    });
+
+    const form = document.querySelector('.name-form');
+    form.addEventListener('submit', function() {
+      document.getElementById('orderListInput').value = orderList.join(',')
+    })
+  </script>
 {%endblock%}
+
