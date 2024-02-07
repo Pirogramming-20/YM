@@ -28,15 +28,15 @@ def create(request):
       for game in order_game_list:
           if game == "Figure":
             print('figure')
-            ran_quiz_list = random.sample(range(1,21),20)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,60),20)#각 게임 자료수에 맞게 고치기
             room.ran_figure = ran_quiz_list
           elif game == "Four":
             print('four')
-            ran_quiz_list = random.sample(range(1,30),20)
+            ran_quiz_list = random.sample(range(1,50),20)
             room.ran_four = ran_quiz_list
           elif game == "Movie":
             print('movie')
-            ran_quiz_list = random.sample(range(1,30),20)
+            ran_quiz_list = random.sample(range(1,50),20)
             room.ran_movie = ran_quiz_list
           elif game == "Music":
             print('music')
