@@ -16,35 +16,31 @@ def create(request):
   print("create받음")
   if request.method == 'POST':
     print("POSST받음")
-    # order_game_str = ','.join(str(s) for s in request.POST.getlist('selected'))
-    # order_game_str = ','.join(str(s) for s in request.POST["order_list"])
-    # print(order_game_str)
     room = GameRoom.objects.create(
       room_name = request.POST["room_name"],
       order_game = request.POST["order_list"]
     )
     room = GameRoom.objects.get(id = room.id)
-    print(room.order_game)
-    
-    # room.order_game = "Music,Movie,Figure,Four"#받아오기
     order_game_list = room.order_game.split(",")
     print(room.order_game)
-    for game in order_game_list:
-      if game == "Figure":
-        ran_quiz_list = random.sample(range(1,21),20)#각 게임 자료수에 맞게 고치기
-        room.ran_figure = ran_quiz_list
-      elif game == "Four":
-        ran_quiz_list = random.sample(range(1,30),20)
-        room.ran_four = str_ran_quiz_list
-      elif game == "Movie":
-        ran_quiz_list = random.sample(range(1,30),20)
-        room.ran_four = str_ran_quiz_list
-      elif game == "Music":
-        ran_quiz_list = random.sample(range(1,30),20)
-        room.ran_four = str_ran_quiz_list
-      ran_quiz_list = random.sample(range(1,30),20)#자료 개수 다르게 할거면 고치기
-      str_ran_quiz_list = [str(num) for num in ran_quiz_list]
-      room.ran_quiz_num = str_ran_quiz_list
+    for i in range(len(order_game_list)):
+      for game in order_game_list:
+        if game == "Figure":
+          print('figure')
+          ran_quiz_list = random.sample(range(1,21),20)#각 게임 자료수에 맞게 고치기
+          room.ran_figure = ran_quiz_list
+        elif game == "Four":
+          print('four')
+          ran_quiz_list = random.sample(range(1,30),20)
+          room.ran_four = ran_quiz_list
+        elif game == "Movie":
+          print('movie')
+          ran_quiz_list = random.sample(range(1,30),20)
+          room.ran_movie = ran_quiz_list
+        elif game == "Music":
+          print('music')
+          ran_quiz_list = random.sample(range(1,30),20)
+          room.ran_music = ran_quiz_list
 
       room.save()
       
