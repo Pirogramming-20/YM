@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from apps.chattings.models import GameRoom
 from .models import Figure, QuizFigure
@@ -40,9 +40,17 @@ def figure_main(request, roomId): #20개
         'roomId' : roomId,
         'room':room
     }
+    if request.method == "POST":
+        count = int(request.POST.getlist('count')[0])
+        ctx = {
+        'roomId' : roomId,
+        'room':room,
+        'count':count
+        }
+        return redirect('/figure/{0}/figure_game/{1}'.format(roomId,count))
     return render(request, "games/figure_main.html",ctx)
 
-def figure_game_start(request,roomId):
+def figure_game_start(request,roomId,count):
 
     QuizFigure.objects.all().delete()
     room = GameRoom.objects.get(id=roomId)
@@ -50,6 +58,7 @@ def figure_game_start(request,roomId):
     print(quiz_id_list)
     quiz_id_list = quiz_id_list[1:-1]
     quiz_id_str_list = quiz_id_list.split(", ")
+    quiz_id_str_list = quiz_id_str_list[:count]
     quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
     for quiz_id in quiz_id_int_list:
         figure_instance = Figure.objects.get(id=quiz_id)
@@ -60,6 +69,7 @@ def figure_game_start(request,roomId):
     room1 = room.id
     ctx={
         'quiz_figure':quiz_figure,
+        'count' : count,
         'roomId' : room1,
         'room':room
     }
