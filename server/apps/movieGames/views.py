@@ -61,7 +61,15 @@ def next_quiz(request):
 
     quiz = QuizList.objects.get(id=quiz_id)
     scene = quiz.movie_game_id.scene
+
+    return JsonResponse({'id' : quiz_id, 'scene' : scene})
+
+def answer(request):
+    req = json.loads(request.body)
+    quiz_id = int(req['id'])
+
+    quiz = QuizList.objects.get(id=quiz_id)
     title = quiz.movie_game_id.title
     line = quiz.movie_game_id.line
 
-    return JsonResponse({'id' : quiz_id, 'scene' : scene, 'title' : title, 'line' : line})
+    return JsonResponse({'id' : quiz_id, 'title' : title, 'line' : line})
