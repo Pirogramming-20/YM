@@ -9,33 +9,20 @@ from django.http import JsonResponse
 
 #0. create figure db
 #1. figure_game main page
-def figure_main(request, roomId): #20개
-    Figure.objects.get_or_create(name="강다니엘")
-    Figure.objects.get_or_create(name="강하늘")
-    Figure.objects.get_or_create(name="거미")
-    Figure.objects.get_or_create(name="고두심")
-    Figure.objects.get_or_create(name="기안84")
-    Figure.objects.get_or_create(name="김연아")
-    Figure.objects.get_or_create(name="김연자")
-    Figure.objects.get_or_create(name="김우빈")
-    Figure.objects.get_or_create(name="나문희")
-    Figure.objects.get_or_create(name="노사연")
-    Figure.objects.get_or_create(name="다현")
-    Figure.objects.get_or_create(name="디카프리오")
-    Figure.objects.get_or_create(name="라이언")
-    Figure.objects.get_or_create(name="마릴린먼로")
-    Figure.objects.get_or_create(name="모모")
-    Figure.objects.get_or_create(name="모차르트")
-    Figure.objects.get_or_create(name="문재인")
-    Figure.objects.get_or_create(name="박건후")
-    Figure.objects.get_or_create(name="박보검")
-    Figure.objects.get_or_create(name="방귀대장뿡뿡이")
-
-    figures = Figure.objects.all()
-    room = GameRoom.objects.get(id=roomId)
-    for figure in figures:
+def figure_main(request, roomId): #60개
+    name_list = ['강다니엘', '강하늘', '거미', '고두심', '기안84', '김연아', '김연자','김우빈','나문희','노사연',
+                 '다현', '디카프리오','라이언','마릴린먼로','모모','모차르트','문재인','박건후','박건후','박보검','방귀대장뿡뿡이',
+                 '베토벤', '보아', '뿡뿡이', '세일러문', '세종대왕', '손흥민', '송가인', '송은이', '송중기', '아만다 사이프리드',
+                 '아이린', '아이유', '어피치', '엠마왓슨', '예성', '온유', '옹성우', '유관순', '육성재', '이명박',
+                 '이상민', '이순재', '이효리', '장윤주', '저스틴비버', '전지현', '전진', '정우성', '정윤호', '조세호',
+                 '조이', '조정석', '최순실', '카리나', '펭수', '하니', '한채아', '한혜진', '허경영', '홍진영']
+    for i in range(21):
+        Figure.objects.get_or_create(name=name_list[i])
+        figure = Figure.objects.get(name=name_list[i])
         figure.image_path = f"/static/image/figure/{figure.name}.jpg"
         figure.save()
+
+    room = GameRoom.objects.get(id=roomId)
     ctx = {
         'roomId' : roomId,
         'room':room
@@ -45,12 +32,14 @@ def figure_main(request, roomId): #20개
 def figure_game_start(request,roomId):
 
     QuizFigure.objects.all().delete()
+    #채팅룸 랜덤 아이디랑 연결
     room = GameRoom.objects.get(id=roomId)
     quiz_id_list = room.ran_figure
     print(quiz_id_list)
     quiz_id_list = quiz_id_list[1:-1]
     quiz_id_str_list = quiz_id_list.split(", ")
     quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+
     for quiz_id in quiz_id_int_list:
         figure_instance = Figure.objects.get(id=quiz_id)
         QuizFigure.objects.create(figure_quiz_id=figure_instance)
