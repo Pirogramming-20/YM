@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from apps.chattings.models import GameRoom
 from .models import *
 import random
 import json
@@ -35,9 +37,10 @@ def movie_game_main(request,roomId):
     # for movie_game_id in movie_game_ids:
     #     movie_game = MovieGame.objects.get(id=movie_game_id+first_movie_id-1)
     #     QuizList.objects.get_or_create(movie_game_id=movie_game)
-    
+    room = GameRoom.objects.get(id=roomId)
     ctx = {
-        'roomId' : roomId
+        'roomId' : roomId,
+        'room':room
     }
     return render(request, 'movieGames/movie_game_main.html', ctx)
 
@@ -50,7 +53,7 @@ def movie_game_start(request,roomId):
     movie_game_query = MovieGame.objects.all()
     first_movie = movie_game_query.first()
     first_movie_id = int(first_movie.id)
-
+    room = GameRoom.objects.get(id=roomId)
     for movie_game_id in movie_game_ids:
         movie_game = MovieGame.objects.get(id=movie_game_id+first_movie_id-1)
         QuizList.objects.get_or_create(movie_game_id=movie_game)
@@ -60,6 +63,7 @@ def movie_game_start(request,roomId):
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
+        'room':room
     }
     return render(request, 'movieGames/movie_game_start.html', ctx)
 

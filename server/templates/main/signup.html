@@ -7,7 +7,7 @@
 
 
 <div class="form-container">
-  <div class="sub-title text2">회원가입</div>
+  <div class="sub-title text1">회원가입</div>
   <form
   action="{% url 'main:signup' %}"
   method="post"
@@ -20,7 +20,7 @@
               {{ field }}
           </div>
       {% endfor %}
-      <a href={% url 'main:login' %} class="navigate text3">
+      <a href={% url 'main:login' %} class="navigate text2">
           <span >이미 회원이신가요?  </span>
           <span >로그인하기</span>
       </a>

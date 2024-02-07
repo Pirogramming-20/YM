@@ -1,16 +1,77 @@
+/* Landing page */
+.header-logo-url {
+  height: 100%;
+}
 .main-container {
-    width: 90%;  
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
-.title :first-child{
-    margin-right: 4.8rem; /* space bet 요즘 & MT */
+.title-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+.sub-title {
+  font-size: 6rem;
+  margin-bottom: 4rem;
+}
+.title {
+  font-size: 10rem;
+}
+.log-in-sign-up-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
 
+/* Log in , Sign Up Page */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 6rem 0;
 }
-.sub-title{
-    margin-bottom: 4rem;
-    font-size: 6rem;
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.log-in-sign-up-btn{
-    display: flex;
-    justify-content: space-around;
-    margin: 10rem 0;
+
+.form-row {
+  display: flex;
+  margin-bottom: 4rem;
+}
+
+form label {
+  font-size: 4rem;
+  margin-right: 2rem;
+  color: black;
+}
+
+form input {
+  width: 40rem;
+  height: 6rem;
+  font-size: 3rem;
+}
+
+.navigate {
+  font-size: 3rem;
+  margin: 4rem 0;
+}
+.navigate span:first-child {
+  margin-right: 2rem;
+}
+
+.answer_container {
+  display: flex;
+  justify-content: space-around;
+}
+.answer_box {
+  font-size: large;
+  padding: 20px;
 }
