@@ -6,7 +6,7 @@ import random
 import json
 from django.http import JsonResponse
 
-def fourWords_main(request,roomId):
+def fourWords_main(request,roomId):#50개
     answer_list = ['샌드위치', '연지곤지', '차돌박이', '바리스타', '신속정확', '표고버섯', '대한민국', '급속충전', '양념치킨', '취중진담',
               '미세먼지', '드래곤볼', '십중팔구', '고진감래', '생로병사', '선서유기', '흔들의자', '코카콜라', '삼시세끼', '브라우니', 
               '비트코인', '방방곡곡', '도원결의', '스파게티', '비타오백', '누네띠네', '어장관리', '버터구이', '업데이트', '카페베네',
