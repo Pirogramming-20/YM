@@ -94,8 +94,6 @@ def answer(request):
     title = quiz.movie_game_id.title
     line = quiz.movie_game_id.line
 
-    ctx={
-        'roomId':roomId
-    }
+
 
     return JsonResponse({'id' : quiz_id, 'title' : title, 'line' : line})

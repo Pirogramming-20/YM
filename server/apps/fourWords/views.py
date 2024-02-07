@@ -28,7 +28,7 @@ def fourWords_main(request,roomId):
             'count':count
         }
         return redirect('/fourWords/{0}/fourWords_game/{1}'.format(roomId,count))
-    return render(request, 'games/fourWords_main.html')
+    return render(request, 'games/fourWords_main.html',ctx)
 
 def fourWords_game_start(request, roomId,count):
     
