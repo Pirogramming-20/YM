@@ -12,10 +12,10 @@
   <div class="sub-title text3">방이름을 입력하세요.</div>
   <form method="POST" action="" class="name-form">
     {% csrf_token %}
-    <label>방이름<input type="text" name="room_name" id="roomName"></label>
+    <label>방이름: <input type="text" name="room_name" id="roomName"></label>
     
-    <div class="sub-title text3">게임진행순서를 골라주세요!!!</div>
-    <div class="order-check-container">
+    <div class="text3">게임진행순서를 골라주세요!!!</div>
+    <div class="order-check-container text2">
       <input id="selectedMovie" type="checkbox" name="selected" value="Movie" class="order-check">
       <label for="selectedMovie">명대사 게임</label>
       <input id="selectedMusic" type="checkbox" name="selected" value="Music" class="order-check">

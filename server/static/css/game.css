@@ -20,6 +20,24 @@ input[type="checkbox"].order-check{
     height: auto;
 }
 
+.order-check-container{
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.order-check-container input{
+}
+.order-check-container label{
+    font-size: 2rem;
+    margin-left: 1rem;
+}
+
+#game-order{
+    border: 0.5rem inset var(--secondary-color);
+    font-size: 2rem;
+    margin: 2rem 0;
+}
+
 .explain-container{
     display: flex;
     flex-direction: column;
