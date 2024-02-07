@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}{% load static %}
+{% extends 'chat_base.html' %} {% block content %}{% load static %}
 <style>
   .game {
     display: flex;
@@ -27,7 +27,9 @@
     </div>
     <div class="btn">
       <div class="next-btn">다음 문제</div>
-      <a class="game-over" href="/chatting-room/next_game/{{roomId}}">다음게임</a>
+      <a class="game-over" href="/chatting-room/next_game/{{roomId}}"
+        >다음게임</a
+      >
     </div>
   </div>
 
@@ -118,25 +120,19 @@
     requestQuiz.send(JSON.stringify({ id: currentQuizId }));
   });
 
-    const requestQuiz = new XMLHttpRequest();
-    let currentQuizId = '{{ quiz.id }}';
-    const nextBtn = document.querySelector('.next-btn');
-    const gameOverBtn = document.querySelector('.game-over');
-    let cnt = 1;
+  const requestQuiz = new XMLHttpRequest();
+  let currentQuizId = "{{ quiz.id }}";
+  const nextBtn = document.querySelector(".next-btn");
+  const gameOverBtn = document.querySelector(".game-over");
+  let cnt = 1;
 
-    nextBtn.addEventListener('click', function1 =>{
-        const url = "next";
-        requestQuiz.open("POST", url, true);
-        requestQuiz.setRequestHeader(
-            "Content-Type",
-            "application/json"
-        );
-        requestQuiz.setRequestHeader(
-            "X-CSRFToken",
-            csrftoken
-        );
-        requestQuiz.send(JSON.stringify({id: currentQuizId}));
-    });
+  nextBtn.addEventListener("click", (function1) => {
+    const url = "next";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+  });
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {

@@ -15,49 +15,37 @@ def main(request):
 def create(request):
   print("create받음")
   if request.method == 'POST':
-    print("POSST받음")
-    room = GameRoom.objects.create(
-      room_name = request.POST["room_name"],
-      order_game = request.POST["order_list"]
-    )
-    room = GameRoom.objects.get(id = room.id)
-    order_game_list = room.order_game.split(",")
-    print(room.order_game)
-    for i in range(len(order_game_list)):
+    room_name = request.POST["room_name"]
+    if room_name != '':
+      print("POSST받음")
+      room = GameRoom.objects.create(
+        room_name = request.POST["room_name"],
+        order_game = request.POST["order_list"]
+      )
+      room = GameRoom.objects.get(id = room.id)
+      order_game_list = room.order_game.split(",")
+      print(room.order_game)
       for game in order_game_list:
-        if game == "Figure":
-          print('figure')
-          ran_quiz_list = random.sample(range(1,21),20)#각 게임 자료수에 맞게 고치기
-          room.ran_figure = ran_quiz_list
-        elif game == "Four":
-          print('four')
-          ran_quiz_list = random.sample(range(1,30),20)
-          room.ran_four = ran_quiz_list
-        elif game == "Movie":
-          print('movie')
-          ran_quiz_list = random.sample(range(1,30),20)
-          room.ran_movie = ran_quiz_list
-        elif game == "Music":
-          print('music')
-          ran_quiz_list = random.sample(range(1,30),20)
-          room.ran_music = ran_quiz_list
-
+          if game == "Figure":
+            print('figure')
+            ran_quiz_list = random.sample(range(1,21),20)#각 게임 자료수에 맞게 고치기
+            room.ran_figure = ran_quiz_list
+          elif game == "Four":
+            print('four')
+            ran_quiz_list = random.sample(range(1,30),20)
+            room.ran_four = ran_quiz_list
+          elif game == "Movie":
+            print('movie')
+            ran_quiz_list = random.sample(range(1,30),20)
+            room.ran_movie = ran_quiz_list
+          elif game == "Music":
+            print('music')
+            ran_quiz_list = random.sample(range(1,30),20)
+            room.ran_music = ran_quiz_list
       room.save()
-      
       roomId = room.id
-
       return redirect('next_game/{}'.format(roomId))
-    else:
-      ctx={
-        'room':form,
-      }
-      return render(request, 'chattings/create.html',ctx)
-  else:
-    room = RoomForm()
-    ctx={
-        'room': room,
-    }
-    return render(request, 'chattings/create.html', ctx)
+  return render(request, 'chattings/create.html')
 
 def next_game(request, roomId):
   room = GameRoom.objects.get(id=roomId)
@@ -101,7 +89,7 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
+  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,
   }
@@ -111,7 +99,9 @@ def detail(request,pk):
 
 def detailMobile(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
+  user = request.user.username
   ctx = {
     "room" : room,
+    'username' : user
   }
   return render(request, "chattings/detailMobile.html", ctx)

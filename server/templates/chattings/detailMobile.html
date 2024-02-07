@@ -27,8 +27,10 @@
       }
     </style>
     <div id="info_room_num">{{room.id}}</div>
+    <div id="info_username_key">{{user.username}}</div>
     <div id="info_room">{{room.room_name}}</div>
     <span id="info_username"> </span>
+
     <!-- 이름 입력 받기 -->
 
     <input id="username" autocomplete="off" />
@@ -51,7 +53,10 @@
     ></script>
     <script>
       const room_num = document.getElementById("info_room_num").innerText;
-      const room_name = document.getElementById("info_room").innerText;
+      const room_name_ex = document.getElementById("info_room").innerText;
+      const username = document.getElementById("info_username_key").innerText;
+      const room_name = room_name_ex + username;
+
       // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
       function clickUser() {
         let text = document.getElementById("username").value;
@@ -96,7 +101,6 @@
       // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
       function click1() {
         const username = document.getElementById("info_username").innerText;
-        room_name = room_name + username;
         console.log("clk");
         let text = document.getElementById("input").value;
         console.log("clk2");
