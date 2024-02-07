@@ -1,24 +1,8 @@
-.room-main-container{
+.explain-container{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 4rem;
-}
-
-.room-create, .room-list{
-    font-size: 4rem;
-    margin-bottom: 4rem;
-}
-
-.room-list{
-    box-shadow: none;
-    border: none;
-}
-
-.room-name{
-    font-size: 2.5rem;
-}
-
-.gamepad-icon {
-    margin-right: 0.8rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 6rem;
 }
