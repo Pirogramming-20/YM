@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from apps.chattings.models import GameRoom
 from .models import Four, QuizFour
@@ -23,13 +23,21 @@ def fourWords_main(request,roomId):#50개
         'room':room
     }
     
+    if request.method == "POST":
+        count = int(request.POST.getlist('count')[0])
+        ctx ={
+            'roomId':roomId,
+            'room':room,
+            'count':count
+        }
+        return redirect('/fourWords/{0}/fourWords_game/{1}'.format(roomId,count))
     return render(request, 'games/fourWords_main.html',ctx)
 
-def fourWords_game_start(request, roomId):
+def fourWords_game_start(request, roomId,count):
     
     QuizFour.objects.all().delete()
 
-    quiz_id_list = random.sample(range(1,16), 10)
+    quiz_id_list = random.sample(range(1,16), count)
 
     for quiz_id in quiz_id_list:
         four_instance = Four.objects.get(id=quiz_id)
@@ -40,6 +48,7 @@ def fourWords_game_start(request, roomId):
     room = GameRoom.objects.get(id=roomId)
     ctx={
         'quiz_four':quiz_four,
+        'count': count,
         'roomId':roomId,
         'room':room
     }

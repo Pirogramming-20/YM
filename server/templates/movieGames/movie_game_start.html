@@ -14,18 +14,46 @@
   .my_chat {
     flex-direction: row-reverse;
   }
+
+  .quiz-container {
+    position: relative;
+    display: inline-block; /* 블록 요소가 아닌 인라인 블록으로 설정 */
+  }
+  .photo {
+    width: 200px;
+    height: 200px;
+    display: block;
+  }
+  .image-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* 투명한 검은 배경색 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
 </style>
 <span id="info_username">{{user.username}} </span>
 <div class="game">
   <div class="quiz">
-    <div class="photo-container">
-      <img src="{{ quiz.movie_game_id.scene }}" alt="이미지" class="photo" />
+    <div class="quiz-container">
+      <div class="image-cover">
+        <span class="countdown">사진</span>
+      </div>
+      <div class="photo-container">
+        <img src="{{ quiz.movie_game_id.scene }}" alt="이미지" class="photo" />
+      </div>
     </div>
     <div class="answer">
-      <div class="title">{{ quiz.movie_game_id.title }}</div>
-      <div class="line">{{ quiz.movie_game_id.line }}</div>
+      <div class="title"></div>
+      <div class="line"></div>
     </div>
     <div class="btn">
+      <button onclick="startCountdown()">시작</button>
+      <div class="answer-btn">정답</div>
       <div class="next-btn">다음 문제</div>
       <a class="game-over" href="/chatting-room/next_game/{{roomId}}"
         >다음게임</a
@@ -106,54 +134,87 @@
     return cookieValue;
   }
   const csrftoken = getCookie("csrftoken");
+
+  //카운트다운
+  const imageCover = document.querySelector(".image-cover");
+  const countdownElement = document.querySelector(".countdown");
+  let countdownInterval;
+
+  function startCountdown() {
+    imageCover.style.display = "flex";
+    let count = 3;
+
+    countdownInterval = setInterval(() => {
+      if (count <= 0) {
+        clearInterval(countdownInterval);
+        imageCover.style.display = "none";
+      } else {
+        countdownElement.textContent = count;
+        count--;
+      }
+    }, 1000);
+  }
+
   const requestQuiz = new XMLHttpRequest();
   let currentQuizId = "{{ quiz.id }}";
   const nextBtn = document.querySelector(".next-btn");
   const gameOverBtn = document.querySelector(".game-over");
   let cnt = 1;
 
-  nextBtn.addEventListener("click", (function1) => {
-    const url = "next";
+  nextBtn.addEventListener("click", function () {
+    imageCover.style.display = "flex";
+    countdownElement.textContent = "사진";
+    const url = "../next";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
     requestQuiz.send(JSON.stringify({ id: currentQuizId }));
-  });
+    const title_element = document.querySelector(".title");
+    title_element.innerHTML = "";
 
-  const requestQuiz = new XMLHttpRequest();
-  let currentQuizId = "{{ quiz.id }}";
-  const nextBtn = document.querySelector(".next-btn");
-  const gameOverBtn = document.querySelector(".game-over");
-  let cnt = 1;
-
-  nextBtn.addEventListener("click", (function1) => {
-    const url = "next";
-    requestQuiz.open("POST", url, true);
-    requestQuiz.setRequestHeader("Content-Type", "application/json");
-    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+    const line_element = document.querySelector(".line");
+    line_element.innerHTML = "";
   });
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, scene, title, line } = JSON.parse(requestQuiz.response);
+        const { id, scene } = JSON.parse(requestQuiz.response);
 
         const photo_element = document.querySelector(".photo");
         photo_element.src = scene;
+
+        currentQuizId = id;
+        cnt++;
+        if (cnt === parseInt("{{ count }}")) {
+          gameOverBtn.innerText = "게임종료";
+          nextBtn.innerText = "";
+        }
+      }
+    }
+  };
+
+  const answerBtn = document.querySelector(".answer-btn");
+  const requestAnswer = new XMLHttpRequest();
+
+  answerBtn.addEventListener("click", function () {
+    const url = "../answer";
+    requestAnswer.open("POST", url, true);
+    requestAnswer.setRequestHeader("Content-Type", "application/json");
+    requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
+    requestAnswer.send(JSON.stringify({ id: currentQuizId }));
+  });
+
+  requestAnswer.onreadystatechange = () => {
+    if (requestAnswer.readyState === XMLHttpRequest.DONE) {
+      if (requestAnswer.status < 400) {
+        const { id, title, line } = JSON.parse(requestAnswer.response);
 
         const title_element = document.querySelector(".title");
         title_element.innerHTML = title;
 
         const line_element = document.querySelector(".line");
         line_element.innerHTML = line;
-
-        currentQuizId = id;
-        cnt++;
-        if (cnt === 10) {
-          gameOverBtn.innerText = "게임종료";
-          nextBtn.innerText = "";
-        }
       }
     }
   };
