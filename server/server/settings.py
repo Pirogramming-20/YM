@@ -23,7 +23,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'
 SECRET_KEY = 'django-insecure-g3r!cjkx7op%fkc43*oh96x^!*=u@eap^omoa7vgfj9kp05=)1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -126,12 +126,12 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
-
+# STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-STATIC_ROOT=os.path.join(BASE_DIR, 'static')
+
 # STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
