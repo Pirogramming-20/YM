@@ -154,3 +154,5 @@ CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-
 
 # import mimetypes
 # mimetypes.add_type("text/css", ".css", True)
+
+SILENCED_SYSTEM_CHECKS = ['urls.W002', 'security.W019']
