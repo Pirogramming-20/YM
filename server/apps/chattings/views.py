@@ -13,11 +13,9 @@ def main(request):
 
 
 def create(request):
-  print("create받음")
   if request.method == 'POST':
     room_name = request.POST["room_name"]
     if room_name != '':
-      print("POSST받음")
       room = GameRoom.objects.create(
         room_name = request.POST["room_name"],
         order_game = request.POST["order_list"]
@@ -27,8 +25,7 @@ def create(request):
       print(room.order_game)
       for game in order_game_list:
           if game == "Figure":
-            print('figure')
-            ran_quiz_list = random.sample(range(1,21),20)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,60),20)#각 게임 자료수에 맞게 고치기
             room.ran_figure = ran_quiz_list
           elif game == "Four":
             print('four')

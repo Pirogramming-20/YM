@@ -22,23 +22,48 @@
 .gamepad-icon {
     margin-right: 0.8rem;
 }
-  
+
+
+
+
 
 /* chatroom */
+.chatroom-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* align-items: center; */
+    align-items: flex-end;
+}
 
+#chatRoom {
+    display: block;
+    width: 40%;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    background: #FFF;
+    box-shadow: 0px 10px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 2rem;
+    margin-bottom: 4rem;
+
+    overflow: hidden;
+    max-height: 50rem;
+    transition: max-height 0.8s ease, transform 0.8s ease;
+}
 
 .user{
-    color: #FFF;
+    color: black;
     font-family: var(--font-family);
     font-size: 2rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    margin-bottom: 0.5rem;
 }
 
 .message{
     display: inline-block;
-    background-color: var(--quaternary-color);
+    background-color: var(--secondary-color);
     padding: 0.8rem;
     white-space: nowrap; /* prevent text wrapping */
     border-radius: 0.8rem;
@@ -48,12 +73,7 @@
 
 }
 
-.chatroom-container{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 0 2rem;
-}
+
 
 .info_room_num {
     text-align: center;
@@ -66,24 +86,95 @@
 .message-input{
     display: flex;
     justify-content: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     gap: 1rem;
 }
 
 .message-input input{
+    border: 0.3rem solid rgba(75, 78, 155, 0.1);
     width: 100%;
 }
-
+.chat{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 0.5rem;
+}
 .my_chat{
     display: flex;
     justify-content: flex-end;
 }
+
 .my_chat  .message {
-    background-color: var(--quinary-color);
+    background-color: var(--tertiary-color);
     border-radius: 10px 0 10px 10px; 
 }
 
 .other-message {
-    background-color: var(--quaternary-color);
+    background-color: var(--secondary-color);
     border-radius: 0 10px 10px 10px; 
+}
+/* Chatroom toggle */
+
+input[type = "checkbox"].toggle{
+    /* Hide checkbox */
+    opacity: 0;
+    position: absolute; 
+    left: -9999px; 
+    right: -9999px; 
+}
+
+
+input[type = "checkbox"].toggle + label{
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--tertiary-color);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    font-size: 2em;
+}
+
+input[type = "checkbox"].toggle + label::before{
+    content: "";
+    width: 2em;
+    height: 1em; /* same height as font  */
+    background-color: hsl(148,  73%, 90%);
+    border-radius: 1em;
+    margin-right:  0.25em;
+    transition: background-color 0.5s ease-in-out;
+}
+
+input[type = "checkbox"].toggle + label::after{
+content: "";
+position: absolute;
+left: 0.1em;
+width: 1em;
+height: 1em; 
+background-color: hsl(148, 73%, 46%);
+border-radius: 1em;
+transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+input[type = "checkbox"].toggle:checked + label::before{
+background-color: hsl(0,  80%, 90%);
+}
+
+input[type = "checkbox"].toggle:checked + label::after{
+transform: translateX(1em);
+background-color: hsl(0, 80%, 60%);
+}
+
+input[type = "checkbox"].toggle:checked + label{
+    color: red;
+}
+
+#chatRoom.hidden {
+    max-height: 0;
+    transform: scaleY(0);
+}
+
+#chatRoom.visible {
+    max-height: 50rem;
+    transform: scaleY(1);
 }
