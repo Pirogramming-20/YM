@@ -55,7 +55,7 @@ def figure_game_start(request,roomId,count):
 
     quiz_figures = QuizFigure.objects.all()
     quiz_figure = quiz_figures.first()
-    room1 = room.id
+    room1 = room.id #??
     ctx={
         'quiz_figure':quiz_figure,
         'count' : count,

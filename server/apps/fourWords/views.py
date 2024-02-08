@@ -36,16 +36,20 @@ def fourWords_main(request,roomId):#50개
 def fourWords_game_start(request, roomId,count):
     
     QuizFour.objects.all().delete()
+    room = GameRoom.objects.get(id=roomId)
+    quiz_id_list = room.ran_four
+    quiz_id_list = quiz_id_list[1:-1]
+    quiz_id_str_list = quiz_id_list.split(", ")
+    quiz_id_str_list = quiz_id_str_list[:count]
+    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
 
-    quiz_id_list = random.sample(range(1,16), count)
-
-    for quiz_id in quiz_id_list:
+    for quiz_id in quiz_id_int_list:
         four_instance = Four.objects.get(id=quiz_id)
         QuizFour.objects.create(four_quiz_id=four_instance)
     
     quiz_fours = QuizFour.objects.all()
     quiz_four = quiz_fours.first()
-    room = GameRoom.objects.get(id=roomId)
+
     ctx={
         'quiz_four':quiz_four,
         'count': count,

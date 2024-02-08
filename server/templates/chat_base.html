@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{%static 'css/nomalize.css'%}" />
     <link rel="stylesheet" href="{%static 'css/style.css'%}" />
     <link rel="stylesheet" href="{%static 'css/main.css'%}" />
+    <link rel="stylesheet" href="{%static 'css/form.css'%}" />
     <link rel="stylesheet" href="{%static 'css/chattings.css'%}" />
 
     {%block head%} {% endblock %}
@@ -48,18 +49,16 @@
         }
       </style>
       <div class="header-container">
-        <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
         <div id="info_room_num">{{room.id}}</div>
         <div id="info_room">{{room.room_name}}</div>
         {% if user.is_authenticated %}
 
         <div class="connect-user-hi">
-          <span id="info_username">{{user.username}}</span> 님이 로그인중
+          <span id="info_username">{{user.username}} </span> 님이 로그인중
         </div>
         <a href="{% url 'main:logout' %}">
           <div class="header-btn">로그아웃</div>
         </a>
-        <span>참가자수 : <span id="people_count"></span></span>
       </div>
       {% endif %}
       <!-- 접속중인 유저 표시 -->
@@ -114,16 +113,6 @@
         location.protocol + "//" + document.domain + ":" + location.port
       );
       socket.emit("join", room_name);
-      
-      
-    
-
-      socket.on("count", function (data) {
-  
-        console.log(data);
-        document.getElementById("people_count").innerText = data
-      });
-
 
       // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
       socket.on("message", function (data) {
