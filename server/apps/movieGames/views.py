@@ -47,15 +47,16 @@ def movie_game_main(request,roomId):
 # 2. 영화 장면 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
 def movie_game_start(request,roomId, count):
-    QuizList.objects.all().delete()
-    #랜덤한 순서로 문제 뽑는 과정
-    movie_game_ids = random.sample(range(1, len(MovieGame.objects.all()) + 1), count)
-    movie_game_query = MovieGame.objects.all()
-    first_movie = movie_game_query.first()
-    first_movie_id = int(first_movie.id)
+    QuizList.objects.all().delete()    
     room = GameRoom.objects.get(id=roomId)
-    for movie_game_id in movie_game_ids:
-        movie_game = MovieGame.objects.get(id=movie_game_id+first_movie_id-1)
+    quiz_id_list = room.ran_movie
+    quiz_id_list = quiz_id_list[1:-1]
+    quiz_id_str_list = quiz_id_list.split(", ")
+    quiz_id_str_list = quiz_id_str_list[:count]
+    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+
+    for quiz_id in quiz_id_int_list:
+        movie_game = MovieGame.objects.get(id=quiz_id)
         QuizList.objects.get_or_create(movie_game_id=movie_game)
 
     quiz_list = QuizList.objects.all()
