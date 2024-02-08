@@ -188,3 +188,10 @@ input[type = "checkbox"].toggle:checked + label{
     height: 100%;
     gap: 6rem;
 }
+
+/* movie game start */
+.game{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
