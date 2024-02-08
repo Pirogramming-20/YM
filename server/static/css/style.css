@@ -77,6 +77,8 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 0 4rem;
+    background-color: white;
+    box-shadow: 0rem 1px 1px black;
 }
 footer{
     height: 10vh;
@@ -119,7 +121,7 @@ header img{
 
 .main-btn{
     flex-shrink: 0;
-    box-shadow: 0rem 1rem 1rem black;
+    /* box-shadow: 0rem 1rem 1rem black; */
     background: var(--tertiary-color);
     font-size: 6rem;
     padding: 1rem 3rem;
