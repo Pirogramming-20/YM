@@ -32,15 +32,15 @@ def create(request):
             room.ran_figure = ran_quiz_list
           elif game == "Four":
             print('four')
-            ran_quiz_list = random.sample(range(1,30),20)
+            ran_quiz_list = random.sample(range(1,6),5)
             room.ran_four = ran_quiz_list
           elif game == "Movie":
             print('movie')
-            ran_quiz_list = random.sample(range(1,30),20)
+            ran_quiz_list = random.sample(range(1,6),5)
             room.ran_movie = ran_quiz_list
           elif game == "Music":
             print('music')
-            ran_quiz_list = random.sample(range(1,30),20)
+            ran_quiz_list = random.sample(range(1,6),5)
             room.ran_music = ran_quiz_list
       room.save()
       roomId = room.id

@@ -38,8 +38,8 @@ def music_game_main(request, roomId):
         MusicGame.objects.get_or_create(title=data['title'], music=data['music'], singer=data['singer'], youtube=data['youtube'])
     
     if request.method == 'POST':
-        count = int(request.POST.getlist('count')[0])
-        time = int(request.POST.getlist('time')[0])
+        count = int(request.POST['count'])
+        time = int(request.POST['time'])
         ctx = {
         'roomId' : roomId,
         'room':room,
@@ -66,14 +66,17 @@ def music_game_main(request, roomId):
 # 4. 우선 게임 종료 시 게임 표지 페이지로 이동 : ajax로 구현
 def music_game_start_2000(request, roomId, count):
     QuizList.objects.all().delete()
-    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2000')) + 1), count)
-    music_game_query_2000 = MusicGame.objects.filter(music__contains='2000')
-    first_music_2000 = music_game_query_2000.first()
-    first_music_id_2000 = int(first_music_2000.id)
     room = GameRoom.objects.get(id=roomId)
-    #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
-    for music_game_id in music_game_ids:
-        music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
+    quiz_id_list = room.ran_music
+    quiz_id_list = quiz_id_list[1:-1]
+    quiz_id_str_list = quiz_id_list.split(", ")
+    quiz_id_str_list = quiz_id_str_list[:count]
+    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+
+    music = MusicGame.objects.filter(music__contains='2000').first()
+
+    for quiz_id in quiz_id_int_list:
+        music_game = MusicGame.objects.filter(music__contains='2000').get(id=quiz_id+music.id - 1)
         QuizList.objects.get_or_create(music_game_id=music_game)
 
     quiz_list = QuizList.objects.all()
@@ -88,14 +91,17 @@ def music_game_start_2000(request, roomId, count):
 
 def music_game_start_2010(request, roomId, count):
     QuizList.objects.all().delete()
-    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2010')) + 1), count)
-    music_game_query_2000 = MusicGame.objects.filter(music__contains='2010')
-    first_music_2000 = music_game_query_2000.first()
-    first_music_id_2000 = int(first_music_2000.id)
     room = GameRoom.objects.get(id=roomId)
-    #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
-    for music_game_id in music_game_ids:
-        music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
+    quiz_id_list = room.ran_music
+    quiz_id_list = quiz_id_list[1:-1]
+    quiz_id_str_list = quiz_id_list.split(", ")
+    quiz_id_str_list = quiz_id_str_list[:count]
+    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+
+    music = MusicGame.objects.filter(music__contains='2010').first()
+
+    for quiz_id in quiz_id_int_list:
+        music_game = MusicGame.objects.filter(music__contains='2010').get(id=quiz_id+music.id - 1)
         QuizList.objects.get_or_create(music_game_id=music_game)
 
     quiz_list = QuizList.objects.all()
@@ -110,14 +116,17 @@ def music_game_start_2010(request, roomId, count):
 
 def music_game_start_2020(request, count,roomId):
     QuizList.objects.all().delete()
-    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2020')) + 1), count)
-    music_game_query_2000 = MusicGame.objects.filter(music__contains='2020')
-    first_music_2000 = music_game_query_2000.first()
-    first_music_id_2000 = int(first_music_2000.id)
     room = GameRoom.objects.get(id=roomId)
-    #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
-    for music_game_id in music_game_ids:
-        music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
+    quiz_id_list = room.ran_music
+    quiz_id_list = quiz_id_list[1:-1]
+    quiz_id_str_list = quiz_id_list.split(", ")
+    quiz_id_str_list = quiz_id_str_list[:count]
+    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+
+    music = MusicGame.objects.filter(music__contains='2020').first()
+
+    for quiz_id in quiz_id_int_list:
+        music_game = MusicGame.objects.filter(music__contains='2020').get(id=quiz_id+music.id-1)
         QuizList.objects.get_or_create(music_game_id=music_game)
 
     quiz_list = QuizList.objects.all()
@@ -141,4 +150,15 @@ def next_quiz(request):
     singer = quiz.music_game_id.singer
     youtube = quiz.music_game_id.youtube
 
-    return JsonResponse({'id' : quiz_id, 'title' : title, 'music' : music, 'singer' : singer, 'youtube' : youtube})
+    return JsonResponse({'id' : quiz_id, 'music' : music, 'youtube' : youtube})
+
+def answer(request):
+    print("here")
+    req = json.loads(request.body)
+    quiz_id = int(req['id'])
+
+    quiz = QuizList.objects.get(id=quiz_id)
+    title = quiz.music_game_id.title
+    singer = quiz.music_game_id.singer
+
+    return JsonResponse({'id' : quiz_id, 'title' : title, 'singer' : singer})
