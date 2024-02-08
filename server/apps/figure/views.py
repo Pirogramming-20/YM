@@ -41,7 +41,7 @@ def figure_main(request, roomId): #20개
         'room':room
     }
     if request.method == "POST":
-        count = int(request.POST.getlist('count')[0])
+        count = int(request.POST['count'])
         ctx = {
         'roomId' : roomId,
         'room':room,

@@ -110,7 +110,7 @@
   const onClickNext = () => {
     twoCover.style.display = "flex";
     countdownElement.textContent = "문제";
-    const url = "/fourWords/next_fourWords_ajax/";
+    const url = "/fourWords/next/";
     requestNextQuiz.open("POST", url, true);
     requestNextQuiz.setRequestHeader("Content-Type", "application/json");
     requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);

@@ -21,7 +21,7 @@ def fourWords_main(request,roomId):
     }
     
     if request.method == "POST":
-        count = int(request.POST.getlist('count')[0])
+        count = int(request.POST['count'])
         ctx ={
             'roomId':roomId,
             'room':room,

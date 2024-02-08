@@ -41,7 +41,7 @@ def movie_game_main(request,roomId):
         'room':room,
         'count':count
     }
-        return redirect('/games/{0}/movie-game/start/{1}'.format(roomId,count))
+        return redirect('/movie/{0}/movie_game/{1}'.format(roomId,count))
     return render(request, 'movieGames/movie_game_main.html', ctx)
 
 # 2. 영화 장면 보여주는 페이지
