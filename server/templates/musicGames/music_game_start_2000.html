@@ -8,17 +8,15 @@
       1초 듣기
     </button>
   </div>
-  <div class="answer">
+  <div class="answer-container">
     <div id="player"></div>
-    <div class="title">{{ quiz.music_game_id.title }}</div>
-    <div class="singer">{{ quiz.music_game_id.singer }}</div>
+    <div class="title"></div>
+    <div class="singer"></div>
   </div>
   <div class="btn">
     <div class="answer-btn">정답</div>
     <div class="next-btn">다음 문제</div>
-    <a href="/chatting-room/next_game/{{roomId}}" class="game-over"
-      >다음 게임</a
-    >
+    <a href="/chatting-room/next_game/{{roomId}}" class="game-over">다음 게임</a>
   </div>
 </div>
 {% endblock %} {% block script %}
@@ -87,7 +85,6 @@
   const requestQuiz = new XMLHttpRequest();
   let currentQuizId = "{{ quiz.id }}";
   const nextBtn = document.querySelector(".next-btn");
-  const gameOverBtn = document.querySelector(".game-over");
   let cnt = 1;
   let youtube_src = "{{ quiz.music_game_id.youtube }}";
 
@@ -96,7 +93,6 @@
   function createPlayer(){
     let video_id = youtube_src.split('embed/')[1].split('?')[0];
     let start_time = youtube_src.split('start=')[1].split('"')[0];
-    console.log(video_id);
     player = new YT.Player('player',{
       height: '315',
       width: '560',
@@ -128,13 +124,36 @@
     }
   }
 
+  //정답 버튼
+  const answerBtn = document.querySelector(".answer-btn");
+  const requestAnswer = new XMLHttpRequest();
+
   document.querySelector(".answer-btn").addEventListener("click", function(){
     createPlayer();
-  })
+    const url = "/games2/answer/";
+    requestAnswer.open("POST", url, true);
+    requestAnswer.setRequestHeader("Content-Type", "application/json");
+    requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
+    requestAnswer.send(JSON.stringify({ id: currentQuizId }));
+  });
+
+  requestAnswer.onreadystatechange = () => {
+    if (requestAnswer.readyState === XMLHttpRequest.DONE) {
+      if (requestAnswer.status < 400) {
+        const { id, title, singer } = JSON.parse(requestAnswer.response);
+
+        const title_element = document.querySelector(".title");
+        title_element.innerHTML = title;
+
+        const singer_element = document.querySelector(".singer");
+        singer_element.innerHTML = singer;
+      }
+    }
+  };
 
   //다음 문제로 넘어가기
   nextBtn.addEventListener("click", function () {
-    const url = "../next";
+    const url = "/games2/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
@@ -144,12 +163,18 @@
       player.destroy();
       player = null;
     }
+
+    const title_element = document.querySelector(".title");
+    title_element.innerHTML = "";
+
+    const singer_element = document.querySelector(".singer");
+    singer_element.innerHTML = "";
   });
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, title, music, singer, youtube } = JSON.parse(requestQuiz.response);
+        const { id, music, youtube } = JSON.parse(requestQuiz.response);
 
         const music_element_05 = document.querySelector(".btn-05");
         music_element_05.dataset.music = music;
@@ -157,19 +182,12 @@
         const music_element_10 = document.querySelector(".btn-10");
         music_element_10.dataset.music = music;
 
-        const title_element = document.querySelector(".title");
-        title_element.innerHTML = title;
-
-        const singer_element = document.querySelector(".singer");
-        singer_element.innerHTML = singer;
-
         youtube_src = youtube;
 
         currentQuizId = id;
         cnt++;
         if (cnt === parseInt("{{ count }}")) {
-          gameOverBtn.innerText = "게임종료";
-          nextBtn.innerText = "";
+          nextBtn.innerText = "마지막 문제";
         }
       }
     }

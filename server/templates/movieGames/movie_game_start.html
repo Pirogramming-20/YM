@@ -47,7 +47,7 @@
         <img src="{{ quiz.movie_game_id.scene }}" alt="이미지" class="photo" />
       </div>
     </div>
-    <div class="answer">
+    <div class="answer-container">
       <div class="title"></div>
       <div class="line"></div>
     </div>
@@ -55,9 +55,7 @@
       <button onclick="startCountdown()">시작</button>
       <div class="answer-btn">정답</div>
       <div class="next-btn">다음 문제</div>
-      <a class="game-over" href="/chatting-room/next_game/{{roomId}}"
-        >다음게임</a
-      >
+      <a class="game-over" href="/chatting-room/next_game/{{roomId}}">다음게임</a>
     </div>
   </div>
 
@@ -158,13 +156,12 @@
   const requestQuiz = new XMLHttpRequest();
   let currentQuizId = "{{ quiz.id }}";
   const nextBtn = document.querySelector(".next-btn");
-  const gameOverBtn = document.querySelector(".game-over");
   let cnt = 1;
 
   nextBtn.addEventListener("click", function () {
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
-    const url = "../next";
+    const url = "/games/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
@@ -187,8 +184,7 @@
         currentQuizId = id;
         cnt++;
         if (cnt === parseInt("{{ count }}")) {
-          gameOverBtn.innerText = "게임종료";
-          nextBtn.innerText = "";
+          nextBtn.innerText = "마지막 문제";
         }
       }
     }
@@ -198,7 +194,7 @@
   const requestAnswer = new XMLHttpRequest();
 
   answerBtn.addEventListener("click", function () {
-    const url = "../answer";
+    const url = "/games/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
