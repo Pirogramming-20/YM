@@ -36,11 +36,13 @@
       <img id="image-figure" src="{{quiz_figure.figure_quiz_id.image_path}}" />
     </div>
   </div>
-
+  <div class="answer-container">
+    <div class="name"></div>
+  </div>
+  <button class="answer-btn">정답</button>
   <button class="btn-next-figure" onclick="onClickNext()">다음 문제</button>
   <a class="game-over" href="/chatting-room/next_game/{{roomId}}">다음게임</a>
 
-  <button class="figure_name" onclick="checkAnswer()">정답 보기</button>
 </body>
 {%endblock%} {%block script%}
 <script>
@@ -50,37 +52,45 @@
   let countdownInterval;
 
   function startCountdown() {
-    clearInterval(countdownInterval);
+    imageCover.style.display = "flex";
     let count = 3;
 
-    function updateCountdown() {
-      countdownElement.innerHTML = count;
-      count--;
-      if (count < 0) {
+    countdownInterval = setInterval(() => {
+      if (count <= 0) {
         clearInterval(countdownInterval);
         imageCover.style.display = "none";
+      } else {
+        countdownElement.textContent = count;
+        count--;
+      }
+    }, 1000);
+  }
+
+  let currentFigureId = "{{quiz_figure.id}}";
+  // 정답 보기 js
+  const name_element = document.querySelector(".name");
+  const answerBtn = document.querySelector(".answer-btn");
+  const requestAnswer = new XMLHttpRequest();
+
+  answerBtn.addEventListener("click", function(){
+    const url = "/figure/answer/";
+    requestAnswer.open("POST", url, true);
+    requestAnswer.setRequestHeader("Content-Type", "application/json");
+    requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
+    requestAnswer.send(JSON.stringify({ id: currentFigureId }));
+  });
+
+  requestAnswer.onreadystatechange = () =>{
+    if (requestAnswer.readyState === XMLHttpRequest.DONE) {
+      if (requestAnswer.status < 400) {
+        const { id, name } = JSON.parse(requestAnswer.response);
+
+        name_element.innerHTML = name;
       }
     }
+  };
 
-    updateCountdown();
-    countdownInterval = setInterval(updateCountdown, 1000);
-  }
 
-  // 정답 보기 js
-  const nameElement = document.querySelector(".figure_name");
-  let nextCnt = 0;
-
-  function checkAnswer() {
-    // 다음 문제로 넘겼을 때도 첫 문제랑 같은 정답 보여서 if문으로 구분
-    if (nextCnt === 0) {
-      onClickAnswer = () => {
-        nameElement.textContent = "{{quiz_figure.figure_quiz_id.name}}";
-      };
-      onClickAnswer();
-    } else {
-      onClickNextAnswer();
-    }
-  }
   //csrf token 생성, 주입
   function getCookie(name) {
     var cookieValue = null;
@@ -102,35 +112,33 @@
 
   // 다음문제로 넘어가는 ajax
   const requestNextQuiz = new XMLHttpRequest();
-  let currentFigureId = "{{quiz_figure.id}}";
+  let cnt = 1;
   const onClickNext = () => {
+    imageCover.style.display = "flex";
+    countdownElement.textContent = "사진";
     const url = "/figure/next_figure_ajax/";
     requestNextQuiz.open("POST", url, true);
     requestNextQuiz.setRequestHeader("Content-Type", "application/json");
     requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
 
     requestNextQuiz.send(JSON.stringify({ id: currentFigureId }));
+    name_element.innerHTML = "";
   };
 
   requestNextQuiz.onreadystatechange = () => {
     if (requestNextQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestNextQuiz.status < 400) {
-        const { id, image_path, name } = JSON.parse(requestNextQuiz.response);
-        const imageElement = document.getElementById("image-figure");
-        const nameElement = document.querySelector(".figure_name");
+        const { id, image_path } = JSON.parse(requestNextQuiz.response);
 
-        clearInterval(countdownInterval);
-        imageCover.style.display = "flex";
-        countdownElement.textContent = "사진";
+        const imageElement = document.getElementById("image-figure");
         imageElement.src = image_path;
 
-        nextCnt++;
-        nameElement.textContent = "정답보기";
-        onClickNextAnswer = () => {
-          nameElement.textContent = name;
-        };
-
         currentFigureId = id;
+        cnt++;
+        if(cnt === parseInt("{{ count }}")){
+          const nextBtn = document.querySelector(".btn-next-figure");
+          nextBtn.innerHTML = "마지막 문제";
+        }
       }
     }
   };

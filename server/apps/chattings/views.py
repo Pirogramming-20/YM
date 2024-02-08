@@ -28,13 +28,16 @@ def create(request):
             ran_quiz_list = random.sample(range(1,60),20)#각 게임 자료수에 맞게 고치기
             room.ran_figure = ran_quiz_list
           elif game == "Four":
-            ran_quiz_list = random.sample(range(1,50),20)
+            print('four')
+            ran_quiz_list = random.sample(range(1,6),5)
             room.ran_four = ran_quiz_list
           elif game == "Movie":
-            ran_quiz_list = random.sample(range(1,50),20)
+            print('movie')
+            ran_quiz_list = random.sample(range(1,6),5)
             room.ran_movie = ran_quiz_list
           elif game == "Music":
-            ran_quiz_list = random.sample(range(1,30),20)
+            print('music')
+            ran_quiz_list = random.sample(range(1,6),5)
             room.ran_music = ran_quiz_list
       room.save()
       roomId = room.id

@@ -55,7 +55,7 @@ def figure_game_start(request,roomId,count):
 
     quiz_figures = QuizFigure.objects.all()
     quiz_figure = quiz_figures.first()
-    room1 = room.id
+    room1 = room.id #??
     ctx={
         'quiz_figure':quiz_figure,
         'count' : count,
@@ -72,6 +72,14 @@ def next_figure_ajax(request):
 
     figure = QuizFigure.objects.get(id=figure_id)
     image_path = figure.figure_quiz_id.image_path
-    name = figure.figure_quiz_id.name
 
-    return JsonResponse({'id':figure_id, 'image_path': image_path, 'name':name})
+    return JsonResponse({'id':figure_id, 'image_path': image_path})
+
+def answer(request):
+    req = json.loads(request.body)
+    quiz_id = int(req['id'])
+
+    quiz = QuizFigure.objects.get(id=quiz_id)
+    name = quiz.figure_quiz_id.name
+    
+    return JsonResponse({'id' : quiz_id, 'name' : name})
