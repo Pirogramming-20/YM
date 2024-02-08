@@ -29,11 +29,14 @@
     </div>
     <div class="two-container">{{quiz_four.four_quiz_id.two}}</div>
   </div>
+  <div class="answer-container">
+    <div class="answer"></div>
+  </div>
 
+  <button class="answer-btn">정답</button>
   <button class="btn-next-two" onclick="onClickNext()">다음 문제</button>
   <a href="/chatting-room/next_game/{{roomId}}">다음 게임</a>
 
-  <button class="four-answer" onclick="checkAnswer()">정답 보기</button>
 </body>
 {%endblock%} {%block script%}
 <script>
@@ -43,37 +46,45 @@
   let countdownInterval;
 
   function startCountdown() {
-    clearInterval(countdownInterval);
+    twoCover.style.display = "flex";
     let count = 3;
 
-    function updateCountdown() {
-      countdownElement.innerHTML = count;
-      count--;
-      if (count < 0) {
+    countdownInterval = setInterval(() => {
+      if (count <= 0) {
         clearInterval(countdownInterval);
         twoCover.style.display = "none";
+      } else {
+        countdownElement.textContent = count;
+        count--;
       }
-    }
-
-    updateCountdown();
-    countdownInterval = setInterval(updateCountdown, 1000);
+    }, 1000);
   }
 
   // 정답 보기 js
-  const fourElement = document.querySelector(".four-answer");
-  let nextCnt = 0;
+  let currentFourId = "{{quiz_four.id}}";
+  const answer_element = document.querySelector(".answer");
+  const answerBtn = document.querySelector(".answer-btn");
+  const requestAnswer = new XMLHttpRequest();
 
-  function checkAnswer() {
-    // 다음 문제로 넘겼을 때도 첫 문제랑 같은 정답 보여서 if문으로 구분
-    if (nextCnt === 0) {
-      onClickAnswer = () => {
-        fourElement.textContent = "{{quiz_four.four_quiz_id.answer}}";
-      };
-      onClickAnswer();
-    } else {
-      onClickNextAnswer();
+  answerBtn.addEventListener("click", function(){
+    const url = "/fourWords/answer/";
+    requestAnswer.open("POST", url, true);
+    requestAnswer.setRequestHeader("Content-Type", "application/json");
+    requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
+    requestAnswer.send(JSON.stringify({ id: currentFourId }));
+  });
+
+  requestAnswer.onreadystatechange = () =>{
+    if (requestAnswer.readyState === XMLHttpRequest.DONE) {
+      if (requestAnswer.status < 400) {
+        const { id, answer } = JSON.parse(requestAnswer.response);
+
+        answer_element.innerHTML = answer;
+      }
     }
-  }
+  };
+
+
   //csrf token 생성, 주입
   function getCookie(name) {
     var cookieValue = null;
@@ -95,14 +106,17 @@
 
   // 다음문제로 넘어가는 ajax
   const requestNextQuiz = new XMLHttpRequest();
-  let currentFourId = "{{quiz_four.id}}";
+  let cnt = 1;
   const onClickNext = () => {
+    twoCover.style.display = "flex";
+    countdownElement.textContent = "문제";
     const url = "/fourWords/next_fourWords_ajax/";
     requestNextQuiz.open("POST", url, true);
     requestNextQuiz.setRequestHeader("Content-Type", "application/json");
     requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
 
     requestNextQuiz.send(JSON.stringify({ id: currentFourId }));
+    answer_element.innerHTML = "";
   };
 
   requestNextQuiz.onreadystatechange = () => {
@@ -110,20 +124,14 @@
       if (requestNextQuiz.status < 400) {
         const { id, two, answer } = JSON.parse(requestNextQuiz.response);
         const twoElement = document.querySelector(".two-container");
-        const fourElement = document.querySelector(".four-answer");
-
-        clearInterval(countdownInterval);
-        twoCover.style.display = "flex";
-        countdownElement.textContent = "문제";
         twoElement.innerHTML = two;
 
-        nextCnt++;
-        fourElement.textContent = "정답보기";
-        onClickNextAnswer = () => {
-          fourElement.textContent = answer;
-        };
-
         currentFourId = id;
+        cnt++;
+        if(cnt === parseInt("{{ count }}")){
+          const nextBtn = document.querySelector(".btn-next-two");
+          nextBtn.innerHTML = "마지막 문제";
+        }
       }
     }
   };

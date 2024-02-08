@@ -61,4 +61,13 @@ def next_fourWords_ajax(request):
     two = four.four_quiz_id.two
     answer = four.four_quiz_id.answer
 
-    return JsonResponse({'id':four_id, 'two': two, 'answer':answer})
+    return JsonResponse({'id':four_id, 'two': two})
+
+def answer(request):
+    req = json.loads(request.body)
+    quiz_id = int(req['id'])
+
+    quiz = QuizFour.objects.get(id=quiz_id)
+    answer = quiz.four_quiz_id.answer
+
+    return JsonResponse({'id' : quiz_id, 'answer' : answer})
