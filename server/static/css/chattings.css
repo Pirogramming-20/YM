@@ -178,3 +178,13 @@ input[type = "checkbox"].toggle:checked + label{
     max-height: 50rem;
     transform: scaleY(1);
 }
+
+
+.ques-cnt-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 6rem;
+}
