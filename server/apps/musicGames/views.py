@@ -63,8 +63,8 @@ def music_game_main(request, roomId):
         MusicGame.objects.get_or_create(title=data['title'], music=data['music'], singer=data['singer'], youtube=data['youtube'])
     
     if request.method == 'POST':
-        count = int(request.POST.getlist('count')[0])
-        time = int(request.POST.getlist('time')[0])
+        count = int(request.POST['count'])
+        time = int(request.POST['time'])
         ctx = {
         'roomId' : roomId,
         'room':room,
@@ -166,4 +166,15 @@ def next_quiz(request):
     singer = quiz.music_game_id.singer
     youtube = quiz.music_game_id.youtube
 
-    return JsonResponse({'id' : quiz_id, 'title' : title, 'music' : music, 'singer' : singer, 'youtube' : youtube})
+    return JsonResponse({'id' : quiz_id, 'music' : music, 'youtube' : youtube})
+
+def answer(request):
+    print("here")
+    req = json.loads(request.body)
+    quiz_id = int(req['id'])
+
+    quiz = QuizList.objects.get(id=quiz_id)
+    title = quiz.music_game_id.title
+    singer = quiz.music_game_id.singer
+
+    return JsonResponse({'id' : quiz_id, 'title' : title, 'singer' : singer})
