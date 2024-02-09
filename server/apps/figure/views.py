@@ -43,11 +43,9 @@ def figure_game_start(request,roomId,count):
     #채팅룸 랜덤 아이디랑 연결
     room = GameRoom.objects.get(id=roomId)
     quiz_id_list = room.ran_figure
-    print(quiz_id_list)
-    quiz_id_list = quiz_id_list[1:-1]
-    quiz_id_str_list = quiz_id_list.split(", ")
-    quiz_id_str_list = quiz_id_str_list[:count]
-    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+    quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
+    quiz_id_int_list = quiz_id_str_list[:count]
+    print(quiz_id_int_list)
 
     for quiz_id in quiz_id_int_list:
         figure_instance = Figure.objects.get(id=quiz_id)

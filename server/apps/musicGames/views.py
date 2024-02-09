@@ -68,11 +68,9 @@ def music_game_start_2000(request, roomId, count):
     QuizList.objects.all().delete()
     room = GameRoom.objects.get(id=roomId)
     quiz_id_list = room.ran_music
-    quiz_id_list = quiz_id_list[1:-1]
-    quiz_id_str_list = quiz_id_list.split(", ")
-    quiz_id_str_list = quiz_id_str_list[:count]
-    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
-
+    quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
+    quiz_id_int_list = quiz_id_str_list[:count]
+    
     music = MusicGame.objects.filter(music__contains='2000').first()
 
     for quiz_id in quiz_id_int_list:
@@ -93,10 +91,8 @@ def music_game_start_2010(request, roomId, count):
     QuizList.objects.all().delete()
     room = GameRoom.objects.get(id=roomId)
     quiz_id_list = room.ran_music
-    quiz_id_list = quiz_id_list[1:-1]
-    quiz_id_str_list = quiz_id_list.split(", ")
-    quiz_id_str_list = quiz_id_str_list[:count]
-    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+    quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
+    quiz_id_int_list = quiz_id_str_list[:count]
 
     music = MusicGame.objects.filter(music__contains='2010').first()
 
@@ -118,10 +114,8 @@ def music_game_start_2020(request, count,roomId):
     QuizList.objects.all().delete()
     room = GameRoom.objects.get(id=roomId)
     quiz_id_list = room.ran_music
-    quiz_id_list = quiz_id_list[1:-1]
-    quiz_id_str_list = quiz_id_list.split(", ")
-    quiz_id_str_list = quiz_id_str_list[:count]
-    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+    quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
+    quiz_id_int_list = quiz_id_str_list[:count]
 
     music = MusicGame.objects.filter(music__contains='2020').first()
 

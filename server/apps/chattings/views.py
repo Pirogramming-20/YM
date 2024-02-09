@@ -74,8 +74,26 @@ def next_game(request, roomId):
       return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
     if not order_games:
-      return render(request, "chattings/main.html", ctx)
+      return redirect(f"/chatting-room/finish/{roomId}", ctx)
 
+
+def finish(request, roomId):
+  print(roomId)
+  room = GameRoom.objects.get(id=roomId)
+  ctx = {
+    'roomId':roomId
+  }
+  order_games = room.order_game.split(",") 
+  return render(request, 'chattings/room_end.html',ctx)
+
+# 둘 모두 삭제
+def recreate(request, roomId):
+  GameRoom.objects.get(id=roomId).delete()
+  return redirect('/chatting-room/create')
+
+def delete(request, roomId):
+  GameRoom.objects.get(id=roomId).delete()
+  return redirect('/chatting-room')
 # 유저닉네임  + 채팅방이름
 # 채팅방 아이디값 -> 채팅방이름
 # GameRoom 
