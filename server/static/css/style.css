@@ -142,7 +142,7 @@ header img{
 
 
 .box-no-fill, form input[type="text"]#roomName,form input[type="text"]#orderListInput,.form-row input[type="text"],
-.form-row input[type="password"], .team, .individual, .quiz{
+.form-row input[type="password"], .team, .individual{
     background-color: transparent;
     flex-shrink: 0;
     border: 0.5rem inset var(--secondary-color); /* width, style, color */
