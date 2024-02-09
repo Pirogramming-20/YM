@@ -7,11 +7,11 @@
         <span class="countdown text2">사진</span>
       </div>
       <div class="photo-container">
-        <img src="{{quiz_figure.figure_quiz_id.image_path}}" />
+        <img src="{{quiz_figure.figure_quiz_id.image_path}}" alt="이미지" class="photo" />
     </div>
     </div>
     <div class="answer-container">
-        <div class="name text1"></div>
+        <div class="figure-name text1"></div>
     </div>
     <div class="game-btn-container">
       <button class="game-btn main-btn btn-text"onclick="startCountdown()">
@@ -33,54 +33,7 @@
 </div>
 
 {% endblock %} {% block script %}
-<script
-  src="https://cdn.socket.io/4.0.1/socket.io.min.js"
-  crossorigin="anonymous"
-></script>
-<script>
-  const room_name = "movieGame";
-  const username = document.getElementById("info_username").innerText;
-  console.log(username);
 
-  let socket = io.connect(
-    location.protocol + "//" + document.domain + ":" + location.port
-  );
-  socket.emit("join", room_name);
-
-  // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
-  socket.on("message", function (data) {
-    console.log("msg");
-    console.log(data);
-    let li = document.createElement("li");
-    li.append(
-      document.createTextNode(data[1]),
-      document.createTextNode(" : "),
-      document.createTextNode(data[0])
-    );
-    if (data[1] == username) {
-      li.className += "my_chat";
-    }
-    document.getElementById("messages").appendChild(li);
-  });
-
-  // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
-  function click1() {
-    console.log("clk");
-    let text = document.getElementById("input").value;
-    console.log("clk2");
-    socket.emit("message", text, username, room_name);
-    document.getElementById("input").value = "";
-  }
-  document.getElementById("input").addEventListener("keydown", function (e) {
-    if (e.keyCode === 13) {
-      // 'Enter'키의 keyCode는 13입니다.
-      let text = e.target.value;
-
-      socket.emit("message", text, username, room_name);
-      e.target.value = "";
-    }
-  });
-</script>
 <script>
   function getCookie(name) {
     let cookieValue = null;
@@ -120,7 +73,7 @@
   }
 
   const requestQuiz = new XMLHttpRequest();
-  let currentQuizId = "{{ quiz.id }}";
+  let currentQuizId = "{{quiz_figure.id}}";
   const nextBtn = document.querySelector(".next-btn");
   let cnt = 1;
   function reset_animation() {
@@ -133,26 +86,23 @@
   nextBtn.addEventListener("click", function () {
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
-    const url = "/movie/next/";
+    const url = "/figure/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
     requestQuiz.send(JSON.stringify({ id: currentQuizId }));
-    const title_element = document.querySelector(".title");
-    title_element.innerHTML = "";
-
-    const line_element = document.querySelector(".line");
-    line_element.innerHTML = "";
+    const name_element = document.querySelector(".figure-name");
+    name_element.innerHTML = "";
    
   });
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, scene } = JSON.parse(requestQuiz.response);
+        const { id, image_path } = JSON.parse(requestQuiz.response);
 
         const photo_element = document.querySelector(".photo");
-        photo_element.src = scene;
+        photo_element.src = image_path;
 
         currentQuizId = id;
         cnt++;
@@ -163,9 +113,7 @@
     }
   };
   
-  let currentFigureId = "{{quiz_figure.id}}";
   // 정답 보기 js
-  const name_element = document.querySelector(".name");
   const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
@@ -174,14 +122,14 @@
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
-    requestAnswer.send(JSON.stringify({ id: currentFigureId }));
+    requestAnswer.send(JSON.stringify({ id: currentQuizId }));
   });
 
   requestAnswer.onreadystatechange = () =>{
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {
       if (requestAnswer.status < 400) {
         const { id, name } = JSON.parse(requestAnswer.response);
-
+        const name_element = document.querySelector(".figure-name");
         name_element.innerHTML = name;
       }
     }
