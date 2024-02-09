@@ -1,65 +1,62 @@
-{% extends 'chat_base.html' %} {% load static %} {% block head %}
-<title>Four Words</title>
+{% extends 'base.html' %} {% block content %}{% load static %}
 
-<style>
-  .quiz-container {
-    position: relative;
-    display: inline-block; /* 블록 요소가 아닌 인라인 블록으로 설정 */
-  }
-  #two-cover {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: black; /* 투명한 검은 배경색 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-  }
-</style>
-{% endblock %} {%block content%}
-<body>
-  <h1>네글자 게임</h1>
-  <button onclick="startCountdown()">시작</button>
-
-  <div class="quiz-container">
-    <div id="two-cover">
-      <span id="countdown">문제</span>
+<div class="game">
+  <div class="quiz">
+    <div class="quiz-container">
+      <div class="image-cover">
+        <span class="countdown text2">문제</span>
+      </div>
+      <div class="four-container">
+        <span class="two-container ">{{quiz_four.four_quiz_id.two}}</span>
+        <span class="two-box"></span>
+        {% comment %} <span class="two-box"></span> {% endcomment %}
+      </div>
+        
     </div>
-    <div class="two-container">{{quiz_four.four_quiz_id.two}}</div>
+    <div class="answer-container">
+      <div class="answer text1"></div>
+    </div>
+    <div class="game-btn-container">
+      <button class="game-btn main-btn btn-text"onclick="startCountdown()">
+        시작
+        <i class="fa-solid fa-play"></i>
+      </button>
+      <div class="game-btn next-btn main-btn btn-text" onclick="reset_animation()">
+          다음 문제
+          <i class="fa-solid fa-chevron-right"></i>
+      </div>
+      <div class="game-btn answer-btn main-btn btn-text"><i class="fa-solid fa-circle-check"></i> 정답 </div>
+      <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">다음게임           <i class="fa-solid fa-chevron-right"></i>
+      </a>
+    </div>
   </div>
-  <div class="answer-container">
-    <div class="answer"></div>
+  <div class="chat-container">
+    {%include "chat-base.html"%}
   </div>
+</div>
 
-  <button class="answer-btn">정답</button>
-  <button class="btn-next-two" onclick="onClickNext()">다음 문제</button>
-  <a href="/chatting-room/next_game/{{roomId}}">다음 게임</a>
-
-</body>
-{%endblock%} {%block script%}
+{% endblock %} 
+{%block script%}
 <script>
   // 카운트다운 js
-  const twoCover = document.getElementById("two-cover");
-  const countdownElement = document.getElementById("countdown");
+  const imageCover = document.querySelector(".image-cover");
+  const countdownElement = document.querySelector(".countdown");
   let countdownInterval;
 
   function startCountdown() {
-    twoCover.style.display = "flex";
+    imageCover.style.display = "flex";
     let count = 3;
 
     countdownInterval = setInterval(() => {
       if (count <= 0) {
         clearInterval(countdownInterval);
-        twoCover.style.display = "none";
+        imageCover.style.display = "none";
       } else {
         countdownElement.textContent = count;
         count--;
       }
     }, 1000);
   }
-
   // 정답 보기 js
   let currentFourId = "{{quiz_four.id}}";
   const answer_element = document.querySelector(".answer");
@@ -83,8 +80,6 @@
       }
     }
   };
-
-
   //csrf token 생성, 주입
   function getCookie(name) {
     var cookieValue = null;
@@ -103,12 +98,19 @@
   }
 
   const csrftoken = getCookie("csrftoken");
-
-  // 다음문제로 넘어가는 ajax
-  const requestNextQuiz = new XMLHttpRequest();
+// 다음문제로 넘어가는 ajax
+const requestNextQuiz = new XMLHttpRequest();
+const nextBtn = document.querySelector(".next-btn");
   let cnt = 1;
-  const onClickNext = () => {
-    twoCover.style.display = "flex";
+  function reset_animation() {
+    const quizContainer = document.querySelector('.quiz');
+    quizContainer.style.animation = 'none';
+    quizContainer.offsetHeight; /* trigger reflow */
+    quizContainer.style.animation = null; 
+  }
+  nextBtn.addEventListener("click", function () {
+    imageCover.style.display = "flex";
+
     countdownElement.textContent = "문제";
     const url = "/fourWords/next/";
     requestNextQuiz.open("POST", url, true);
@@ -117,23 +119,21 @@
 
     requestNextQuiz.send(JSON.stringify({ id: currentFourId }));
     answer_element.innerHTML = "";
-  };
+});
 
-  requestNextQuiz.onreadystatechange = () => {
-    if (requestNextQuiz.readyState === XMLHttpRequest.DONE) {
-      if (requestNextQuiz.status < 400) {
-        const { id, two, answer } = JSON.parse(requestNextQuiz.response);
-        const twoElement = document.querySelector(".two-container");
-        twoElement.innerHTML = two;
-
-        currentFourId = id;
-        cnt++;
-        if(cnt === parseInt("{{ count }}")){
-          const nextBtn = document.querySelector(".btn-next-two");
-          nextBtn.innerHTML = "마지막 문제";
-        }
+requestNextQuiz.onreadystatechange = () => {
+  if (requestNextQuiz.readyState === XMLHttpRequest.DONE) {
+    if (requestNextQuiz.status < 400) {
+      const { id, two, answer } = JSON.parse(requestNextQuiz.response);
+      const twoElement = document.querySelector(".two-container");
+      twoElement.innerHTML = two;
+      currentFourId = id;
+      cnt++;
+      if(cnt === parseInt("{{ count }}")){
+        nextBtn.innerHTML = "마지막 문제";
       }
     }
-  };
+  }
+};
 </script>
 {%endblock%}
