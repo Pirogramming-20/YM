@@ -60,6 +60,7 @@
   function startCountdown() {
     imageCover.style.display = "flex";
     let count = 3;
+    clearInterval(countdownInterval);
 
     countdownInterval = setInterval(() => {
       if (count <= 0) {
@@ -93,7 +94,6 @@
     requestQuiz.send(JSON.stringify({ id: currentQuizId }));
     const name_element = document.querySelector(".figure-name");
     name_element.innerHTML = "";
-   
   });
 
   requestQuiz.onreadystatechange = () => {
@@ -131,47 +131,6 @@
         const { id, name } = JSON.parse(requestAnswer.response);
         const name_element = document.querySelector(".figure-name");
         name_element.innerHTML = name;
-      }
-    }
-  };
-
-  const requestQuiz = new XMLHttpRequest();
-  let currentQuizId = "{{ quiz_figure.id }}";
-  const nextBtn = document.querySelector(".next-btn");
-  let cnt = 1;
-  function reset_animation() {
-    const quizContainer = document.querySelector('.quiz');
-    quizContainer.style.animation = 'none';
-    quizContainer.offsetHeight; /* trigger reflow */
-    quizContainer.style.animation = null; 
-  }
-
-  nextBtn.addEventListener("click", function () {
-    imageCover.style.display = "flex";
-    countdownElement.textContent = "사진";
-    const url = "/figure/next/";
-    requestQuiz.open("POST", url, true);
-    requestQuiz.setRequestHeader("Content-Type", "application/json");
-    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
-
-    const name_element = document.querySelector(".name");
-    name_element.innerHTML = "";
-  });
-
-  requestQuiz.onreadystatechange = () => {
-    if (requestQuiz.readyState === XMLHttpRequest.DONE) {
-      if (requestQuiz.status < 400) {
-        const { id, image_path } = JSON.parse(requestQuiz.response);
-
-        const image_element = document.querySelector(".image");
-        image_element.src = image_path;
-
-        currentQuizId = id;
-        cnt++;
-        if (cnt === parseInt("{{ count }}")) {
-          nextBtn.innerText = "마지막 문제";
-        }
       }
     }
   };
