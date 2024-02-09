@@ -1,42 +1,6 @@
 {% extends 'chat_base.html' %} {% block content %}{% load static %}
 <style>
-  .game {
-    display: flex;
-    gap: 30px;
-  }
-  ul {
-    padding: 0;
-  }
-  li {
-    display: flex;
-    margin: 2px 20px;
-  }
-  .my_chat {
-    flex-direction: row-reverse;
-  }
-
-  .quiz-container {
-    position: relative;
-    display: inline-block; /* 블록 요소가 아닌 인라인 블록으로 설정 */
-  }
-  .photo {
-    width: 200px;
-    height: 200px;
-    display: block;
-  }
-  .image-cover {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: black; /* 투명한 검은 배경색 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-  }
 </style>
-<span id="info_username">{{user.username}} </span>
 <div class="game">
   <div class="quiz">
     <div class="quiz-container">
@@ -58,14 +22,8 @@
       <a class="game-over" href="/chatting-room/next_game/{{roomId}}">다음게임</a>
     </div>
   </div>
-
-  <div class="chatting">
-    <input id="input" autocomplete="off" />
-    <div onclick="click1()">Send</div>
-    <!-- 입력된 채팅들이 기록될 공간 -->
-    <ul id="messages"></ul>
-  </div>
 </div>
+
 {% endblock %} {% block script %}
 <script
   src="https://cdn.socket.io/4.0.1/socket.io.min.js"
