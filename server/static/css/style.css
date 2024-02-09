@@ -135,10 +135,21 @@ header img{
     /* box-shadow: 0rem 1rem 1rem black; */
     background: var(--tertiary-color);
     font-size: 6rem;
-    padding: 1rem 3rem;
     white-space: nowrap; /* prevent text wrapping */
     font-weight: 500;
+    box-shadow: 0px 5px 0px 0px #007144;
+    border-radius: 5px;
+    transition: all 0.2s ;
+    padding: 5px 10px;
+    margin: 10px 20px 10px 0;
+    border: 0;
 }
+
+.main-btn:hover {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    box-shadow: 0px 0px 0px 0px
+  }
 
 .sub-btn{
     flex-shrink: 0;

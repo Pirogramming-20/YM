@@ -26,28 +26,29 @@ def create(request):
       for game in order_game_list:
           if game == "Figure": #1~30 사이 20개
             print('figure')
-            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,61),5)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             print(ran_quiz_str)
             room.ran_figure = ran_quiz_str
           elif game == "Four":
             print('four')
-            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,51),5)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_four = ran_quiz_str
           elif game == "Movie":
             print('movie')
-            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,51),5)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_movie = ran_quiz_str
           elif game == "Music":
             print('music')
-            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,31),5)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_music = ran_quiz_str
       room.save()
       roomId = room.id
-      return redirect('next_game/{}'.format(roomId))
+      
+      return redirect('detail/{}'.format(roomId))
   return render(request, 'chattings/create.html')
 
 def next_game(request, roomId):
@@ -74,8 +75,26 @@ def next_game(request, roomId):
       return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
     if not order_games:
-      return render(request, "chattings/main.html", ctx)
+      return redirect(f"/chatting-room/finish/{roomId}", ctx)
 
+
+def finish(request, roomId):
+  print(roomId)
+  room = GameRoom.objects.get(id=roomId)
+  ctx = {
+    'roomId':roomId
+  }
+  order_games = room.order_game.split(",") 
+  return render(request, 'chattings/room_end.html',ctx)
+
+# 둘 모두 삭제
+def recreate(request, roomId):
+  GameRoom.objects.get(id=roomId).delete()
+  return redirect('/chatting-room/create')
+
+def delete(request, roomId):
+  GameRoom.objects.get(id=roomId).delete()
+  return redirect('/chatting-room')
 # 유저닉네임  + 채팅방이름
 # 채팅방 아이디값 -> 채팅방이름
 # GameRoom 
@@ -92,7 +111,7 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
+  qrimg.save("/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,
   }
