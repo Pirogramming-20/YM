@@ -36,6 +36,14 @@
     font-weight: 800; /* 500, 700  */
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     /* color scheme */
     --text-color:   #FFF;
@@ -50,6 +58,8 @@
     --primary-font: 'DNFForgedBlade', sans-serif;
     --secondary-font: 'KartriderExtraBold', sans-serif;
     --text-font: 'KartriderExtraBold', sans-serif;
+
+    --randing-font: 'GmarketSansMedium';
 
     /* Spacing scale */
     --spacing-small: 4rem;
@@ -67,8 +77,8 @@ body {
 }
 
 main {
-    height: calc(100vh - 20vh);
-    margin: 4rem;
+    /* height: calc(100vh - 20vh); */
+    margin: 2rem;
 }
 header{
     height: 10vh;
@@ -161,4 +171,18 @@ header img{
 }
 .logout-btn{
     font-size: 2.5rem;
+}
+
+
+/* landing page 용 */
+.navbar2{
+
+}
+
+.navbar2 > a{
+    margin-right: 20px;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: 700;
+    color: black;
 }

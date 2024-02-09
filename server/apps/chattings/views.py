@@ -26,22 +26,27 @@ def create(request):
       order_game_list = room.order_game.split(",")
       print(room.order_game)
       for game in order_game_list:
-          if game == "Figure":
+          if game == "Figure": #1~30 사이 20개
             print('figure')
-            ran_quiz_list = random.sample(range(1,21),20)#각 게임 자료수에 맞게 고치기
-            room.ran_figure = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            print(ran_quiz_str)
+            room.ran_figure = ran_quiz_str
           elif game == "Four":
             print('four')
-            ran_quiz_list = random.sample(range(1,30),20)
-            room.ran_four = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_four = ran_quiz_str
           elif game == "Movie":
             print('movie')
-            ran_quiz_list = random.sample(range(1,30),20)
-            room.ran_movie = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_movie = ran_quiz_str
           elif game == "Music":
             print('music')
-            ran_quiz_list = random.sample(range(1,30),20)
-            room.ran_music = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_music = ran_quiz_str
       room.save()
       roomId = room.id
       return redirect('next_game/{}'.format(roomId))
@@ -59,7 +64,7 @@ def next_game(request, roomId):
     room.order_game = ','.join(s for s in order_games)
     room.save()
     if current_game == "Figure":
-      # return render(request, "games/figure_main.html", ctx)
+      # return render(request, "games/figure_main.html", ctx) 
       return redirect("/figure/{}".format(roomId))
     if current_game == "Four":
       return redirect("/fourWords/{}".format(roomId))
