@@ -92,7 +92,7 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
+  qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,
   }

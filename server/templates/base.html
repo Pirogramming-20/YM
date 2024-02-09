@@ -30,7 +30,7 @@
     <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
     {% if user.is_authenticated %}
     <div class="header-container">
-      <a href={% url 'main:answer' %} class="logout-btn main-btn text3"> 정답확인 </a>
+      <a href={% url 'main:answer' %} class="logout-btn main-btn btn-text"> 정답확인 </a>
     </div>
     {% comment %} <div class="header-container">
       {% url 'main:answer' %}
@@ -40,7 +40,7 @@
     </div>   
     {% else %}
     <div class="header-container">
-      <a href={% url 'main:login' %} class="logout-btn main-btn text3"> 로그인 </a>
+      <a href={% url 'main:login' %} class="logout-btn main-btn btn-text"> 로그인 </a>
     </div>    
     {% endif %}
   </header>

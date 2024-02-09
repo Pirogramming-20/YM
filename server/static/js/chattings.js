@@ -1,11 +1,3 @@
-// function clickChat() {
-//   console.log("클릭");
-//   if (document.querySelector(".show").id == "showChat") {
-//     document.querySelector(".show").id = "noShowChat";
-//   } else {
-//     document.querySelector(".show").id = "showChat";
-//   }
-// }
 
 document.addEventListener('DOMContentLoaded', function() {
   const chatToggle = document.getElementById('chatToggle');
@@ -21,9 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   });
 });
-// const room_num = "{{ room.id }}";
-//     const room_name = "{{ room.room_name }}";
-//     const username = "{{ user.username }}";
+
       console.log(room_num);
       console.log(room_name);
       console.log(username);

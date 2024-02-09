@@ -13,14 +13,14 @@
     gap: 4rem;
 }
 
-.game-btn{
+/* .game-btn{
     flex-shrink: 0;
     box-shadow: 0.4rem 0.4rem 1rem var(--primary-color);
     border: 0.4rem solid var(--primary-color);
     background: var(--secondary-color);
     font-size: 4.8rem;
     padding: 1rem 3rem;
-}
+} */
 
 
 .text4{
