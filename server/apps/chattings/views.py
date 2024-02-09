@@ -25,19 +25,19 @@ def create(request):
       print(room.order_game)
       for game in order_game_list:
           if game == "Figure":
-            ran_quiz_list = random.sample(range(1,60),20)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,61),20)#각 게임 자료수에 맞게 고치기
             room.ran_figure = ran_quiz_list
           elif game == "Four":
             print('four')
-            ran_quiz_list = random.sample(range(1,6),5)
+            ran_quiz_list = random.sample(range(1,51),5)
             room.ran_four = ran_quiz_list
           elif game == "Movie":
             print('movie')
-            ran_quiz_list = random.sample(range(1,6),5)
+            ran_quiz_list = random.sample(range(1,51),5)
             room.ran_movie = ran_quiz_list
           elif game == "Music":
             print('music')
-            ran_quiz_list = random.sample(range(1,6),5)
+            ran_quiz_list = random.sample(range(1,31),5)
             room.ran_music = ran_quiz_list
       room.save()
       roomId = room.id
