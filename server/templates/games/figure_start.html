@@ -1,54 +1,60 @@
-{% extends 'chat_base.html' %} {% load static %} {% block head %}
-<title>Figure</title>
+{% extends 'base.html' %} {% block content %}{% load static %}
 
-<style>
-  .quiz-container {
-    position: relative;
-    display: inline-block; /* 블록 요소가 아닌 인라인 블록으로 설정 */
-  }
-  #image-figure {
-    width: 200px;
-    height: 200px;
-    display: block; /* 블록 요소로 설정 */
-  }
-  #image-cover {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: black; /* 투명한 검은 배경색 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-  }
-</style>
-{% endblock %} {%block content%}
-<body>
-  <h1>인물 퀴즈</h1>
-  <button onclick="startCountdown()">시작</button>
-
-  <div class="quiz-container">
-    <div id="image-cover">
-      <span id="countdown">사진</span>
+<div class="game">
+  <div class="quiz">
+    <div class="quiz-container">
+      <div class="image-cover">
+        <span class="countdown text2">사진</span>
+      </div>
+      <div class="photo-container">
+        <img src="{{quiz_figure.figure_quiz_id.image_path}}" alt="이미지" class="photo" />
     </div>
-    <div class="image-container">
-      <img id="image-figure" src="{{quiz_figure.figure_quiz_id.image_path}}" />
+    </div>
+    <div class="answer-container">
+        <div class="figure-name text1"></div>
+    </div>
+    <div class="game-btn-container">
+      <button class="game-btn main-btn btn-text"onclick="startCountdown()">
+        시작
+        <i class="fa-solid fa-play"></i>
+      </button>
+      <div class="game-btn next-btn main-btn btn-text" onclick="reset_animation()">
+          다음 문제
+          <i class="fa-solid fa-chevron-right"></i>
+      </div>
+      <div class="game-btn answer-btn main-btn btn-text"><i class="fa-solid fa-circle-check"></i> 정답 </div>
+      <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">다음게임           <i class="fa-solid fa-chevron-right"></i>
+      </a>
     </div>
   </div>
-  <div class="answer-container">
-    <div class="name"></div>
+  <div class="chat-container">
+    {%include "chat-base.html"%}
   </div>
-  <button class="answer-btn">정답</button>
-  <button class="btn-next-figure" onclick="onClickNext()">다음 문제</button>
-  <a class="game-over" href="/chatting-room/next_game/{{roomId}}">다음게임</a>
+</div>
 
-</body>
-{%endblock%} {%block script%}
+{% endblock %} {% block script %}
+
 <script>
-  // 카운트다운 js
-  const imageCover = document.getElementById("image-cover");
-  const countdownElement = document.getElementById("countdown");
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  const csrftoken = getCookie("csrftoken");
+
+  //카운트다운
+  const imageCover = document.querySelector(".image-cover");
+  const countdownElement = document.querySelector(".countdown");
   let countdownInterval;
 
   function startCountdown() {
@@ -66,9 +72,48 @@
     }, 1000);
   }
 
-  let currentFigureId = "{{quiz_figure.id}}";
+  const requestQuiz = new XMLHttpRequest();
+  let currentQuizId = "{{quiz_figure.id}}";
+  const nextBtn = document.querySelector(".next-btn");
+  let cnt = 1;
+  function reset_animation() {
+    const quizContainer = document.querySelector('.quiz');
+    quizContainer.style.animation = 'none';
+    quizContainer.offsetHeight; /* trigger reflow */
+    quizContainer.style.animation = null; 
+  }
+
+  nextBtn.addEventListener("click", function () {
+    imageCover.style.display = "flex";
+    countdownElement.textContent = "사진";
+    const url = "/figure/next/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+    const name_element = document.querySelector(".figure-name");
+    name_element.innerHTML = "";
+   
+  });
+
+  requestQuiz.onreadystatechange = () => {
+    if (requestQuiz.readyState === XMLHttpRequest.DONE) {
+      if (requestQuiz.status < 400) {
+        const { id, image_path } = JSON.parse(requestQuiz.response);
+
+        const photo_element = document.querySelector(".photo");
+        photo_element.src = image_path;
+
+        currentQuizId = id;
+        cnt++;
+        if (cnt === parseInt("{{ count }}")) {
+          nextBtn.innerText = "마지막 문제";
+        }
+      }
+    }
+  };
+  
   // 정답 보기 js
-  const name_element = document.querySelector(".name");
   const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
@@ -77,70 +122,20 @@
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
-    requestAnswer.send(JSON.stringify({ id: currentFigureId }));
+    requestAnswer.send(JSON.stringify({ id: currentQuizId }));
   });
 
   requestAnswer.onreadystatechange = () =>{
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {
       if (requestAnswer.status < 400) {
         const { id, name } = JSON.parse(requestAnswer.response);
-
+        const name_element = document.querySelector(".figure-name");
         name_element.innerHTML = name;
       }
     }
   };
-
-
-  //csrf token 생성, 주입
-  function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== "") {
-      var cookies = document.cookie.split(";");
-      for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i].trim();
-        // Does this cookie string begin with the name we want?
-        if (cookie.substring(0, name.length + 1) === name + "=") {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
-    }
-    return cookieValue;
-  }
-
-  const csrftoken = getCookie("csrftoken");
-
-  // 다음문제로 넘어가는 ajax
-  const requestNextQuiz = new XMLHttpRequest();
-  let cnt = 1;
-  const onClickNext = () => {
-    imageCover.style.display = "flex";
-    countdownElement.textContent = "사진";
-    const url = "/figure/next_figure_ajax/";
-    requestNextQuiz.open("POST", url, true);
-    requestNextQuiz.setRequestHeader("Content-Type", "application/json");
-    requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-
-    requestNextQuiz.send(JSON.stringify({ id: currentFigureId }));
-    name_element.innerHTML = "";
-  };
-
-  requestNextQuiz.onreadystatechange = () => {
-    if (requestNextQuiz.readyState === XMLHttpRequest.DONE) {
-      if (requestNextQuiz.status < 400) {
-        const { id, image_path } = JSON.parse(requestNextQuiz.response);
-
-        const imageElement = document.getElementById("image-figure");
-        imageElement.src = image_path;
-
-        currentFigureId = id;
-        cnt++;
-        if(cnt === parseInt("{{ count }}")){
-          const nextBtn = document.querySelector(".btn-next-figure");
-          nextBtn.innerHTML = "마지막 문제";
-        }
-      }
-    }
-  };
 </script>
-{%endblock%}
+  
+  
+
+{% endblock %}

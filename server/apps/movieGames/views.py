@@ -12,7 +12,7 @@ from apps.chattings.models import GameRoom
 # 0. 영화 명대사 db에 create 하는 함수
 # 1-1. 영화 명대사 게임 표지 페이지
 # 1-2. 영화 명대사 게임 규칙 설명
-def movie_game_main(request,roomId):
+def movie_game_main(request,roomId):#50개
     quiz_data = [
         {'title': '1987', 'scene': '/static/image/movie_game/1987.png', 'line': '책상을 탁 치니 억 하고 쓰러졌답니다'},
         {'title': '관상', 'scene': '/static/image/movie_game/관상.png', 'line': '어찌 내가 왕이 될 상인가?'},
@@ -81,7 +81,7 @@ def movie_game_main(request,roomId):
         'room':room,
         'count':count
     }
-        return redirect('/games/{0}/movie-game/start/{1}'.format(roomId,count))
+        return redirect('/movie/{0}/movie_game/{1}'.format(roomId,count))
     return render(request, 'movieGames/movie_game_main.html', ctx)
 
 # 2. 영화 장면 보여주는 페이지
@@ -90,9 +90,12 @@ def movie_game_start(request,roomId, count):
     QuizList.objects.all().delete()    
     room = GameRoom.objects.get(id=roomId)
     quiz_id_list = room.ran_movie
-    quiz_id_list = quiz_id_list[1:-1]
-    quiz_id_str_list = quiz_id_list.split(", ")
+    # quiz_id_list = quiz_id_list[1:-1]
+    print("quiz_id_list",quiz_id_list)
+    quiz_id_str_list = quiz_id_list.split(",")
+    print("quiz_id_str_list_split",quiz_id_str_list)
     quiz_id_str_list = quiz_id_str_list[:count]
+
     quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
 
     for quiz_id in quiz_id_int_list:

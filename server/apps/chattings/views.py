@@ -25,24 +25,31 @@ def create(request):
       order_game_list = room.order_game.split(",")
       print(room.order_game)
       for game in order_game_list:
-          if game == "Figure":
-            ran_quiz_list = random.sample(range(1,60),20)#각 게임 자료수에 맞게 고치기
-            room.ran_figure = ran_quiz_list
+          if game == "Figure": #1~30 사이 20개
+            print('figure')
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            print(ran_quiz_str)
+            room.ran_figure = ran_quiz_str
           elif game == "Four":
             print('four')
-            ran_quiz_list = random.sample(range(1,6),5)
-            room.ran_four = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_four = ran_quiz_str
           elif game == "Movie":
             print('movie')
-            ran_quiz_list = random.sample(range(1,6),5)
-            room.ran_movie = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_movie = ran_quiz_str
           elif game == "Music":
             print('music')
-            ran_quiz_list = random.sample(range(1,6),5)
-            room.ran_music = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_music = ran_quiz_str
       room.save()
       roomId = room.id
-      return redirect('next_game/{}'.format(roomId))
+      
+      return redirect('detail/{}'.format(roomId))
   return render(request, 'chattings/create.html')
 
 def next_game(request, roomId):
@@ -57,20 +64,38 @@ def next_game(request, roomId):
     room.order_game = ','.join(s for s in order_games)
     room.save()
     if current_game == "Figure":
-      # return render(request, "games/figure_main.html", ctx)
+      # return render(request, "games/figure_main.html", ctx) 
       return redirect("/figure/{}".format(roomId))
     if current_game == "Four":
       return redirect("/fourWords/{}".format(roomId))
       # return render(request, "games/fourWords_main.html", ctx)
     if current_game == "Movie":
-      return redirect(f"/games/{roomId}/movie-game")
+      return redirect(f"/movie/{roomId}/")
       # return render(request, "movieGames/movie_game_main.html", ctx)
     if current_game == "Music":
-      return redirect(f"/games2/{roomId}/music-game")
+      return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
     if not order_games:
-      return render(request, "chattings/main.html", ctx)
+      return redirect(f"/chatting-room/finish/{roomId}", ctx)
 
+
+def finish(request, roomId):
+  print(roomId)
+  room = GameRoom.objects.get(id=roomId)
+  ctx = {
+    'roomId':roomId
+  }
+  order_games = room.order_game.split(",") 
+  return render(request, 'chattings/room_end.html',ctx)
+
+# 둘 모두 삭제
+def recreate(request, roomId):
+  GameRoom.objects.get(id=roomId).delete()
+  return redirect('/chatting-room/create')
+
+def delete(request, roomId):
+  GameRoom.objects.get(id=roomId).delete()
+  return redirect('/chatting-room')
 # 유저닉네임  + 채팅방이름
 # 채팅방 아이디값 -> 채팅방이름
 # GameRoom 
