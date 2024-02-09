@@ -165,7 +165,7 @@ input[type="checkbox"].order-check{
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: black; /* 투명한 검은 배경색 */
+    background-color: var(--bg-color); 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -173,8 +173,7 @@ input[type="checkbox"].order-check{
     color: white;
   }
 .countdown{
-    color: white;
-    font-size: 6rem;
+    font-size: 10rem;
 }
 .answer-container{
     display: flex;
@@ -216,9 +215,9 @@ input[type="checkbox"].order-check{
     gap: 4rem;
 }
 .two-container{
-    border: 0.4rem solid #2CDEF2; /* Stroke width and color */
+    border: 0.4rem solid var(--primary-color); /* Stroke width and color */
 }
 .two-box{
-    border: 0.4rem solid #2CDEF2; 
+    border: 0.4rem solid var(--primary-color); 
     width: 10rem;
 }
