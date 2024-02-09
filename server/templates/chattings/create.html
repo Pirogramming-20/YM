@@ -4,27 +4,38 @@
 {% endblock %}
 
 {%block content%}
-<div class="main-container">
+<div class="game-main-container">
   <div class="title">
-    <span class="text1">요즘</span>
-    <span class="text2">MT</span>
+    <span class="text2">요즘</span>
+    <span class="text1">MT</span>
   </div>
   <div class="sub-title text3">방이름을 입력하세요.</div>
   <form method="POST" action="" class="name-form">
     {% csrf_token %}
-    <label>방이름<input type="text" name="room_name" id="roomName"></label>
-    <label>명대사 게임<input id="selected" type="checkbox" name="selected" value="Movie" class="check"></label>
-    <label>음악 게임<input id="selected" type="checkbox" name="selected" value="Music" class="check"></label>
-    <label>인물 게임<input id="selected" type="checkbox" name="selected" value="Figure" class="check"></label>
-    <label>네글자 게임<input id="selected" type="checkbox" name="selected" value="Four" class="check"></label>
+    <label>방이름: <input type="text" name="room_name" id="roomName"></label>
+    
+    <div class="text3">게임진행순서를 골라주세요!!!</div>
+    <div class="order-check-container text2">
+      <input id="selectedMovie" type="checkbox" name="selected" value="Movie" class="order-check">
+      <label for="selectedMovie">명대사 게임</label>
+      <input id="selectedMusic" type="checkbox" name="selected" value="Music" class="order-check">
+      <label for="selectedMusic">음악 게임</label>
+      <input id="selectedFigure" type="checkbox" name="selected" value="Figure" class="order-check">
+      <label for="selectedFigure">인물 게임</label>
+      <input id="selectedFour" type="checkbox" name="selected" value="Four" class="order-check">
+      <label for="selectedFour">네글자 게임</label>
+    </div>
+    
+
+    <div class="text2">게임 진행순서!!!</div>
     <div id="game-order"></div>
     <input type="hidden" name="order_list" id="orderListInput">
-    <button class="main-btn text3" >게임방 만들기</button>
-    {% comment %} <input type="submit" value="SignUp" class="main-btn text3" /> {% endcomment %}
+
+    <button class="main-btn btn-text" >게임방 만들기</button>
   </form>
   <script>
     const gameOrder = document.getElementById('game-order');
-    const checkBoxes = document.querySelectorAll('.check');
+    const checkBoxes = document.querySelectorAll('.order-check');
     let orderList = [];
     let orderName = [];
     
@@ -32,7 +43,11 @@
       checkbox.addEventListener("change", function() {
         if(checkbox.checked) {
           orderList.push(checkbox.value);
-          orderName.push(checkbox.parentElement.innerText);
+          //if label follows the checkbox
+          const label = checkbox.nextElementSibling;
+          if (label) {
+            orderName.push(label.innerText.trim());
+          }
         }
         else {
           const index = orderList.indexOf(checkbox.value);

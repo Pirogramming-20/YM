@@ -110,7 +110,7 @@ header img{
     font-family: var(--secondary-font);
     font-style: normal;
     font-weight: 600;
-    /* font-size: 6rem; */
+    font-size: 4rem;
     line-height: normal;
 }
 
@@ -119,6 +119,7 @@ header img{
     font-family: var(--text-font);
     font-style: normal;
     /* font-weight: 400; */
+    font-size: 3rem;
     line-height: normal;
 }
 .btn-text, .message{

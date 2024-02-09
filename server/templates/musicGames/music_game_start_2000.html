@@ -130,7 +130,7 @@
 
   document.querySelector(".answer-btn").addEventListener("click", function(){
     createPlayer();
-    const url = "/games2/answer/";
+    const url = "/music/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
@@ -153,7 +153,7 @@
 
   //다음 문제로 넘어가기
   nextBtn.addEventListener("click", function () {
-    const url = "/games2/next/";
+    const url = "/music/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);

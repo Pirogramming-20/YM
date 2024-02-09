@@ -13,11 +13,9 @@ def main(request):
 
 
 def create(request):
-  print("create받음")
   if request.method == 'POST':
     room_name = request.POST["room_name"]
     if room_name != '':
-      print("POSST받음")
       room = GameRoom.objects.create(
         room_name = request.POST["room_name"],
         order_game = request.POST["order_list"]
@@ -70,10 +68,10 @@ def next_game(request, roomId):
       return redirect("/fourWords/{}".format(roomId))
       # return render(request, "games/fourWords_main.html", ctx)
     if current_game == "Movie":
-      return redirect(f"/games/{roomId}/movie-game")
+      return redirect(f"/movie/{roomId}/")
       # return render(request, "movieGames/movie_game_main.html", ctx)
     if current_game == "Music":
-      return redirect(f"/games2/{roomId}/music-game")
+      return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
     if not order_games:
       return render(request, "chattings/main.html", ctx)

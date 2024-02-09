@@ -1,7 +1,10 @@
-{% extends 'chat_base.html' %} {% block content %}
-<div class="container">
-  <div class="title">영화 명대사 게임</div>
-  <div class="rule">영화 장면을 보고 해당 장면의 명대사를 맞춰주세요!</div>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="explain-container">
+    <div class="text1">영화 명대사 게임</div>
+    <div class="text2">영화 장면을 보고 해당 장면의 명대사를 맞춰주세요!</div>
+    <a href="/games/{{roomId}}/movie-game/start" class="main-btn btn-text">게임 시작하기</a>
 </div>
 <div class="select-container">
   <div class="rule">문제 개수를 선택해주세요!</div>

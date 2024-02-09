@@ -116,7 +116,7 @@
   const onClickNext = () => {
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
-    const url = "/figure/next_figure_ajax/";
+    const url = "/figure/next/";
     requestNextQuiz.open("POST", url, true);
     requestNextQuiz.setRequestHeader("Content-Type", "application/json");
     requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);

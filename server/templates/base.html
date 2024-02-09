@@ -32,6 +32,9 @@
     <div class="header-container">
       <a href={% url 'main:answer' %} class="logout-btn main-btn text3"> 정답확인 </a>
     </div>
+    {% comment %} <div class="header-container">
+      {% url 'main:answer' %}
+    </div> {% endcomment %}
     <div class="header-container">
       <a href={% url 'main:logout' %} class="logout-btn main-btn text3"> 로그아웃</a>
     </div>   
