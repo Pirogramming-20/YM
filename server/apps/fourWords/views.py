@@ -24,7 +24,7 @@ def fourWords_main(request,roomId):#50개
     }
     
     if request.method == "POST":
-        count = int(request.POST.getlist('count')[0])
+        count = int(request.POST['count'])
         ctx ={
             'roomId':roomId,
             'room':room,
@@ -38,8 +38,8 @@ def fourWords_game_start(request, roomId,count):
     QuizFour.objects.all().delete()
     room = GameRoom.objects.get(id=roomId)
     quiz_id_list = room.ran_four
-    quiz_id_list = quiz_id_list[1:-1]
-    quiz_id_str_list = quiz_id_list.split(", ")
+    # quiz_id_list = quiz_id_list[1:-1]
+    quiz_id_str_list = quiz_id_list.split(",")
     quiz_id_str_list = quiz_id_str_list[:count]
     quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
 

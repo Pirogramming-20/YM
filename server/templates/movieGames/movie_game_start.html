@@ -1,71 +1,38 @@
-{% extends 'chat_base.html' %} {% block content %}{% load static %}
-<style>
-  .game {
-    display: flex;
-    gap: 30px;
-  }
-  ul {
-    padding: 0;
-  }
-  li {
-    display: flex;
-    margin: 2px 20px;
-  }
-  .my_chat {
-    flex-direction: row-reverse;
-  }
+{% extends 'base.html' %} {% block content %}{% load static %}
 
-  .quiz-container {
-    position: relative;
-    display: inline-block; /* 블록 요소가 아닌 인라인 블록으로 설정 */
-  }
-  .photo {
-    width: 200px;
-    height: 200px;
-    display: block;
-  }
-  .image-cover {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: black; /* 투명한 검은 배경색 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-  }
-</style>
-<span id="info_username">{{user.username}} </span>
 <div class="game">
   <div class="quiz">
     <div class="quiz-container">
       <div class="image-cover">
-        <span class="countdown">사진</span>
+        <span class="countdown text2">사진</span>
       </div>
       <div class="photo-container">
         <img src="{{ quiz.movie_game_id.scene }}" alt="이미지" class="photo" />
       </div>
     </div>
     <div class="answer-container">
-      <div class="title"></div>
-      <div class="line"></div>
+      <div class="title text1"></div>
+      <div class="line text2"></div>
     </div>
-    <div class="btn">
-      <button onclick="startCountdown()">시작</button>
-      <div class="answer-btn">정답</div>
-      <div class="next-btn">다음 문제</div>
-      <a class="game-over" href="/chatting-room/next_game/{{roomId}}">다음게임</a>
+    <div class="game-btn-container">
+      <button class="game-btn main-btn btn-text"onclick="startCountdown()">
+        시작
+        <i class="fa-solid fa-play"></i>
+      </button>
+      <div class="game-btn next-btn main-btn btn-text" onclick="reset_animation()">
+          다음 문제
+          <i class="fa-solid fa-chevron-right"></i>
+      </div>
+      <div class="game-btn answer-btn main-btn btn-text"><i class="fa-solid fa-circle-check"></i> 정답 </div>
+      <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">다음게임           <i class="fa-solid fa-chevron-right"></i>
+      </a>
     </div>
   </div>
-
-  <div class="chatting">
-    <input id="input" autocomplete="off" />
-    <div onclick="click1()">Send</div>
-    <!-- 입력된 채팅들이 기록될 공간 -->
-    <ul id="messages"></ul>
+  <div class="chat-container">
+    {%include "chat-base.html"%}
   </div>
 </div>
+
 {% endblock %} {% block script %}
 <script
   src="https://cdn.socket.io/4.0.1/socket.io.min.js"
@@ -157,11 +124,17 @@
   let currentQuizId = "{{ quiz.id }}";
   const nextBtn = document.querySelector(".next-btn");
   let cnt = 1;
+  function reset_animation() {
+    const quizContainer = document.querySelector('.quiz');
+    quizContainer.style.animation = 'none';
+    quizContainer.offsetHeight; /* trigger reflow */
+    quizContainer.style.animation = null; 
+  }
 
   nextBtn.addEventListener("click", function () {
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
-    const url = "/games/next/";
+    const url = "/movie/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
@@ -171,6 +144,7 @@
 
     const line_element = document.querySelector(".line");
     line_element.innerHTML = "";
+   
   });
 
   requestQuiz.onreadystatechange = () => {
@@ -189,12 +163,12 @@
       }
     }
   };
-
+  
   const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
   answerBtn.addEventListener("click", function () {
-    const url = "/games/answer/";
+    const url = "/movie/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
@@ -215,5 +189,7 @@
     }
   };
 </script>
+  
+  
 
 {% endblock %}

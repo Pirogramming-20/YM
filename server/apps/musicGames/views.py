@@ -120,11 +120,11 @@ def music_game_main(request, roomId):#30개씩
         }
         
         if time == 2000:
-            return redirect('/games2/{0}/music-game/start-2000/{1}'.format(roomId,count))
+            return redirect('/music/{0}/music_game_2000/{1}'.format(roomId,count))
         elif time == 2010:
-            return redirect('/games2/{0}/music-game/start-2010/{1}'.format(roomId,count))
+            return redirect('/music/{0}/music_game_2010/{1}'.format(roomId,count))
         elif time == 2020:
-            return redirect('/games2/{0}/music-game/start-2020/{1}'.format(roomId,count))
+            return redirect('/music/{0}/music_game_2020/{1}'.format(roomId,count))
         
     
     ctx = {
@@ -144,9 +144,16 @@ def music_game_start_2000(request, roomId, count):
     first_music_2000 = music_game_query_2000.first()
     first_music_id_2000 = int(first_music_2000.id)
     room = GameRoom.objects.get(id=roomId)
-    #만약에 년도가 섞여있는 상태로 테이블에 저장된다면... : 이 경우에 대해서 고민 필요
-    for music_game_id in music_game_ids:
-        music_game = MusicGame.objects.get(id=music_game_id + first_music_id_2000 - 1)
+    quiz_id_list = room.ran_music
+    # quiz_id_list = quiz_id_list[1:-1]
+    quiz_id_str_list = quiz_id_list.split(",")
+    quiz_id_str_list = quiz_id_str_list[:count]
+    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+
+    music = MusicGame.objects.filter(music__contains='2000').first()
+
+    for quiz_id in quiz_id_int_list:
+        music_game = MusicGame.objects.filter(music__contains='2000').get(id=quiz_id+music.id - 1)
         QuizList.objects.get_or_create(music_game_id=music_game)
 
     quiz_list = QuizList.objects.all()

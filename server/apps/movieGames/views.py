@@ -81,7 +81,7 @@ def movie_game_main(request,roomId):#50개
         'room':room,
         'count':count
     }
-        return redirect('/games/{0}/movie-game/start/{1}'.format(roomId,count))
+        return redirect('/movie/{0}/movie_game/{1}'.format(roomId,count))
     return render(request, 'movieGames/movie_game_main.html', ctx)
 
 # 2. 영화 장면 보여주는 페이지
@@ -90,9 +90,12 @@ def movie_game_start(request,roomId, count):
     QuizList.objects.all().delete()    
     room = GameRoom.objects.get(id=roomId)
     quiz_id_list = room.ran_movie
-    quiz_id_list = quiz_id_list[1:-1]
-    quiz_id_str_list = quiz_id_list.split(", ")
+    # quiz_id_list = quiz_id_list[1:-1]
+    print("quiz_id_list",quiz_id_list)
+    quiz_id_str_list = quiz_id_list.split(",")
+    print("quiz_id_str_list_split",quiz_id_str_list)
     quiz_id_str_list = quiz_id_str_list[:count]
+
     quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
 
     for quiz_id in quiz_id_int_list:

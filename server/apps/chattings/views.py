@@ -24,21 +24,27 @@ def create(request):
       order_game_list = room.order_game.split(",")
       print(room.order_game)
       for game in order_game_list:
-          if game == "Figure":
-            ran_quiz_list = random.sample(range(1,61),20)#각 게임 자료수에 맞게 고치기
-            room.ran_figure = ran_quiz_list
+          if game == "Figure": #1~30 사이 20개
+            print('figure')
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            print(ran_quiz_str)
+            room.ran_figure = ran_quiz_str
           elif game == "Four":
             print('four')
-            ran_quiz_list = random.sample(range(1,51),5)
-            room.ran_four = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_four = ran_quiz_str
           elif game == "Movie":
             print('movie')
-            ran_quiz_list = random.sample(range(1,51),5)
-            room.ran_movie = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_movie = ran_quiz_str
           elif game == "Music":
             print('music')
-            ran_quiz_list = random.sample(range(1,31),5)
-            room.ran_music = ran_quiz_list
+            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_music = ran_quiz_str
       room.save()
       roomId = room.id
       return redirect('next_game/{}'.format(roomId))
@@ -56,16 +62,16 @@ def next_game(request, roomId):
     room.order_game = ','.join(s for s in order_games)
     room.save()
     if current_game == "Figure":
-      # return render(request, "games/figure_main.html", ctx)
+      # return render(request, "games/figure_main.html", ctx) 
       return redirect("/figure/{}".format(roomId))
     if current_game == "Four":
       return redirect("/fourWords/{}".format(roomId))
       # return render(request, "games/fourWords_main.html", ctx)
     if current_game == "Movie":
-      return redirect(f"/games/{roomId}/movie-game")
+      return redirect(f"/movie/{roomId}/")
       # return render(request, "movieGames/movie_game_main.html", ctx)
     if current_game == "Music":
-      return redirect(f"/games2/{roomId}/music-game")
+      return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
     if not order_games:
       return render(request, "chattings/main.html", ctx)
@@ -86,7 +92,7 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
+  qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,
   }
