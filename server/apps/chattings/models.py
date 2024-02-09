@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 
+from apps.main.models import User
+
 # Create your models here.
 class GameRoom(models.Model):
     room_name = models.CharField(max_length=32)
@@ -10,5 +12,3 @@ class GameRoom(models.Model):
     ran_four = models.CharField(max_length=50, null = True, blank = True)
     ran_movie = models.CharField(max_length=50, null = True, blank = True)
     ran_music = models.CharField(max_length=50, null = True, blank = True)
-
-    participants = models.IntegerField(default = 0)
