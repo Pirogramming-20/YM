@@ -16,7 +16,7 @@ def figure_main(request, roomId): #60개
                  '아이린', '아이유', '어피치', '엠마왓슨', '예성', '온유', '옹성우', '유관순', '육성재', '이명박',
                  '이상민', '이순재', '이효리', '장윤주', '저스틴비버', '전지현', '전진', '정우성', '정윤호', '조세호',
                  '조이', '조정석', '최순실', '카리나', '펭수', '하니', '한채아', '한혜진', '허경영', '홍진영']
-    for i in range(21):
+    for i in range(len(name_list)):
         Figure.objects.get_or_create(name=name_list[i])
         figure = Figure.objects.get(name=name_list[i])
         figure.image_path = f"/static/image/figure/{figure.name}.jpg"
@@ -55,11 +55,10 @@ def figure_game_start(request,roomId,count):
 
     quiz_figures = QuizFigure.objects.all()
     quiz_figure = quiz_figures.first()
-    room1 = room.id #??
     ctx={
         'quiz_figure':quiz_figure,
         'count' : count,
-        'roomId' : room1,
+        'roomId' : roomId,
         'room':room
     }
     
