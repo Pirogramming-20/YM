@@ -208,3 +208,17 @@ input[type="checkbox"].order-check{
 #player{
     border-radius: 6rem;
 }
+.four-container{
+    display: flex;
+    justify-content: center;
+    font-size: 6rem;
+    width: 100%;
+    gap: 4rem;
+}
+.two-container{
+    border: 0.4rem solid #2CDEF2; /* Stroke width and color */
+}
+.two-box{
+    border: 0.4rem solid #2CDEF2; 
+    width: 10rem;
+}
