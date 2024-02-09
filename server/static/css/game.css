@@ -125,7 +125,7 @@ input[type="checkbox"].order-check{
 
   .quiz{
     width: 70%;
-    border-radius: 0rem 6rem 6rem 0rem;
+    border-radius: 6rem 6rem 6rem 6rem;
     background: var(--bg-color);
     box-shadow: 1rem 1rem 0.4rem 0rem rgba(0, 0, 0, 0.20);
     display: flex;
@@ -196,7 +196,7 @@ input[type="checkbox"].order-check{
     }
   }
 .animate-slide-in {
-    animation: slideInFromLeft 0.5s ease-out forwards;
+    animation: slideInFromLeft 1s ease-out forwards;
 }
 
 .music-container{
@@ -220,4 +220,19 @@ input[type="checkbox"].order-check{
 .two-box{
     border: 0.4rem solid var(--primary-color); 
     width: 10rem;
+}
+
+@keyframes slideToCenter {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(calc(50vw - 50%)); /* Adjust this calculation based on your layout */
+      opacity: 1;
+    }
+}
+
+.animate-slide-to-center {
+    animation: slideToCenter 1s ease-out forwards;
 }
