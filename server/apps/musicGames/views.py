@@ -47,11 +47,11 @@ def music_game_main(request, roomId):
         }
         
         if time == 2000:
-            return redirect('/games2/{0}/music-game/start-2000/{1}'.format(roomId,count))
+            return redirect('/music/{0}/music_game_2000/{1}'.format(roomId,count))
         elif time == 2010:
-            return redirect('/games2/{0}/music-game/start-2010/{1}'.format(roomId,count))
+            return redirect('/music/{0}/music_game_2010/{1}'.format(roomId,count))
         elif time == 2020:
-            return redirect('/games2/{0}/music-game/start-2020/{1}'.format(roomId,count))
+            return redirect('/music/{0}/music_game_2020/{1}'.format(roomId,count))
         
     
     ctx = {
