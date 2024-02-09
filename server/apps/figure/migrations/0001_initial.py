@@ -13,20 +13,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='MusicGame',
+            name='Figure',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=30, verbose_name='노래제목')),
-                ('music', models.TextField(verbose_name='노래 파일 경로')),
-                ('singer', models.CharField(max_length=20, verbose_name='가수')),
-                ('youtube', models.TextField(verbose_name='유튜브')),
+                ('name', models.CharField(max_length=20)),
+                ('image_path', models.CharField(max_length=255, null=True)),
             ],
         ),
         migrations.CreateModel(
-            name='QuizList',
+            name='QuizFigure',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('music_game_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='musicGames.musicgame')),
+                ('figure_quiz_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='figure.figure')),
             ],
         ),
     ]
