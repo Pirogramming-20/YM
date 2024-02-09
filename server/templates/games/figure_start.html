@@ -60,6 +60,7 @@
   function startCountdown() {
     imageCover.style.display = "flex";
     let count = 3;
+    clearInterval(countdownInterval);
 
     countdownInterval = setInterval(() => {
       if (count <= 0) {
@@ -93,7 +94,6 @@
     requestQuiz.send(JSON.stringify({ id: currentQuizId }));
     const name_element = document.querySelector(".figure-name");
     name_element.innerHTML = "";
-   
   });
 
   requestQuiz.onreadystatechange = () => {

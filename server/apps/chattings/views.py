@@ -27,23 +27,23 @@ def create(request):
       for game in order_game_list:
           if game == "Figure": #1~30 사이 20개
             print('figure')
-            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,61),5)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             print(ran_quiz_str)
             room.ran_figure = ran_quiz_str
           elif game == "Four":
             print('four')
-            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,51),5)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_four = ran_quiz_str
           elif game == "Movie":
             print('movie')
-            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,51),5)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_movie = ran_quiz_str
           elif game == "Music":
             print('music')
-            ran_quiz_list = random.sample(range(1,6),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,31),5)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_music = ran_quiz_str
       room.save()

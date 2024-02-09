@@ -67,6 +67,7 @@
   function startCountdown() {
     imageCover.style.display = "flex";
     let count = 3;
+    clearInterval(countdownInterval);
 
     countdownInterval = setInterval(() => {
       if (count <= 0) {
