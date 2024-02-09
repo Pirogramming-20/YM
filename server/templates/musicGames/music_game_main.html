@@ -4,9 +4,9 @@
   <div class="text2">전주를 듣고 해당 노래와 가수를 맞춰주세요!</div>
   <div class="game-explain text3">
     <p>게임 설명</p>
-    <p>'시작' 버튼을 누르면 인물 사진이 나옵니다!</p>
-    <p>3초 안에 해당 인물의 이름을 외치세요</p>
-    <p>시간 내에 말하지 못 하거나 잘못된 이름을 말하면 자비없이 땡!!</p>
+    <p>0.5, 1초 듣기로 해당 노래를 0.5,1초 들을 수 있습니다.</p>
+    <p>해당 노래의 제목과 가수이름을 외치세요</p>
+    <p>잘못된 제목, 이름을 말하면 자비없이 땡!!</p>
   </div>
   <form method="POST" action="{% url 'musicGames:music_game_main' room.id %}">
     {% csrf_token %}
