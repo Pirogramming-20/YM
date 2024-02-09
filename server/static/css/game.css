@@ -114,3 +114,88 @@ input[type="checkbox"].order-check{
     cursor: pointer;
     user-select: none;
 }
+
+/* movie game start */
+.game{
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+
+  .quiz{
+    width: 70%;
+    border-radius: 0rem 6rem 6rem 0rem;
+    background: var(--bg-color);
+    box-shadow: 1rem 1rem 0.4rem 0rem rgba(0, 0, 0, 0.20);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    animation: slideInFromLeft 1s ease-out forwards;
+    will-change: transform;
+  }
+  .chat-container{
+    width: 20%;
+  }
+  .game-btn-container{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .game-btn{
+    font-size: 3rem;
+  }
+
+.photo-container{
+    display: flex;
+    justify-content: center;
+
+}
+.photo-container img{
+    max-height: 50rem;
+    max-width: 60rem;
+    border-radius: 6rem;
+    height: auto;
+    width: auto;
+}
+.quiz-container {
+    position: relative;
+    display: inline-block; 
+  }
+  .image-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* 투명한 검은 배경색 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
+.countdown{
+    color: white;
+    font-size: 6rem;
+}
+.answer-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin: 0 6rem;
+}
+.title,.line{
+    font-size: 4rem;
+}
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+.animate-slide-in {
+    animation: slideInFromLeft 0.5s ease-out forwards;
+}
