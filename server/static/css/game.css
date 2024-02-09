@@ -199,3 +199,12 @@ input[type="checkbox"].order-check{
 .animate-slide-in {
     animation: slideInFromLeft 0.5s ease-out forwards;
 }
+
+.music-container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 4rem;
+}
+#player{
+    border-radius: 6rem;
+}

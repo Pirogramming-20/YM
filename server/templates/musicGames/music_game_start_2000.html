@@ -1,25 +1,37 @@
-{% extends 'chat_base.html' %} {% block content %}
-<div class="quiz">
-  <div class="music-container">
-    <button class="btn-05" data-music="{{ quiz.music_game_id.music }}">
-      0.5초 듣기
-    </button>
-    <button class="btn-10" data-music="{{ quiz.music_game_id.music }}">
-      1초 듣기
-    </button>
+{% extends 'base.html' %} {% block content %}{% load static %}
+
+<div class="game">
+  <div class="quiz">
+    <div class="music-container">
+        <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music_game_id.music }}">
+            0.5초 듣기
+          </button>
+          <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music_game_id.music }}">
+            1초 듣기
+          </button>
+    </div>
+    <div class="answer-container">
+        <div id="player"></div>
+        <div class="title text1"></div>
+        <div class="singer text2"></div>
+      </div>
+    <div class="game-btn-container">
+      <div class="game-btn next-btn main-btn btn-text" onclick="reset_animation()">
+          다음 문제
+          <i class="fa-solid fa-chevron-right"></i>
+      </div>
+      <div class="game-btn answer-btn main-btn btn-text"><i class="fa-solid fa-circle-check"></i> 정답 </div>
+      <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">다음게임           <i class="fa-solid fa-chevron-right"></i>
+      </a>
+    </div>
   </div>
-  <div class="answer-container">
-    <div id="player"></div>
-    <div class="title"></div>
-    <div class="singer"></div>
-  </div>
-  <div class="btn">
-    <div class="answer-btn">정답</div>
-    <div class="next-btn">다음 문제</div>
-    <a href="/chatting-room/next_game/{{roomId}}" class="game-over">다음 게임</a>
+  <div class="chat-container">
+    {%include "chat-base.html"%}
   </div>
 </div>
-{% endblock %} {% block script %}
+
+{% endblock %} 
+{% block script %}
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   //csrf 토큰 생성 함수
