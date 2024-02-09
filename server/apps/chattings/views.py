@@ -47,7 +47,8 @@ def create(request):
             room.ran_music = ran_quiz_str
       room.save()
       roomId = room.id
-      return redirect('next_game/{}'.format(roomId))
+      
+      return redirect('detail/{}'.format(roomId))
   return render(request, 'chattings/create.html')
 
 def next_game(request, roomId):
@@ -110,7 +111,7 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
+  qrimg.save("/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,
   }
