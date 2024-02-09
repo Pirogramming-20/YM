@@ -77,6 +77,7 @@ def next_figure_ajax(request):
 def answer(request):
     req = json.loads(request.body)
     quiz_id = int(req['id'])
+    quiz_id += 1
 
     quiz = QuizFigure.objects.get(id=quiz_id)
     name = quiz.figure_quiz_id.name
