@@ -6,9 +6,9 @@
     <div class="text2">영화 장면을 보고 해당 장면의 명대사를 맞춰주세요!</div>
     <div class="game-explain text3">
       <p>게임 설명</p>
-      <p>'시작' 버튼을 누르면 인물 사진이 나옵니다!</p>
-      <p>3초 안에 해당 인물의 이름을 외치세요</p>
-      <p>시간 내에 말하지 못 하거나 잘못된 이름을 말하면 자비없이 땡!!</p>
+      <p>'시작' 버튼을 누르면 영화장면 사진이 나옵니다!</p>
+      <p>3초 안에 해당 영화장면의 명대사를 외치세요</p>
+      <p>시간 내에 말하지 못 하거나 잘못된 명대사를 말하면 자비없이 땡!!</p>
     </div>
       <form method="POST" action="{% url 'movieGames:movie_game_main' room.id %}">
         {% csrf_token %}
