@@ -221,3 +221,18 @@ input[type="checkbox"].order-check{
     border: 0.4rem solid var(--primary-color); 
     width: 10rem;
 }
+
+@keyframes slideToCenter {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(calc(50vw - 50%)); /* Adjust this calculation based on your layout */
+      opacity: 1;
+    }
+}
+
+.animate-slide-to-center {
+    animation: slideToCenter 0.5s ease-out forwards;
+}
