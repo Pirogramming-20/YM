@@ -12,3 +12,5 @@ class GameRoom(models.Model):
     ran_four = models.CharField(max_length=50, null = True, blank = True)
     ran_movie = models.CharField(max_length=50, null = True, blank = True)
     ran_music = models.CharField(max_length=50, null = True, blank = True)
+
+    participants = models.IntegerField(default = 0)

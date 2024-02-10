@@ -53,6 +53,8 @@ def create(request):
   return render(request, 'chattings/create.html')
 
 def next_game(request, roomId):
+  if roomId == 0:
+    return redirect('main:main')
   room = GameRoom.objects.get(id=roomId)
   ctx = {
     'roomId':roomId

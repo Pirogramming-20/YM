@@ -81,13 +81,13 @@ async def disconnect(sid):
             rooms[room_name] -= 1
             await sio.emit('count', rooms[room_name], room=room_name)
     #몇초이상 접속 안할 경우 종료시킨다?
-    if rooms[room_name] == 0:
-        print('탈출시도')
-        chat_room = GameRoom.objects.get(room_name=room_name)
-        chat_room.delete()
-        print(chat_room)
-        print("탈출성공")
-        del rooms[room_name]
+    # if rooms[room_name] == 0:
+    #     print('탈출시도')
+    #     chat_room = GameRoom.objects.get(room_name=room_name)
+    #     chat_room.delete()
+    #     print(chat_room)
+    #     print("탈출성공")
+    #     del rooms[room_name]
     print('disconnect')
 
 

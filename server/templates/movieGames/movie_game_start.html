@@ -36,7 +36,9 @@
       </a>
     </div>
   </div>
+  {% if user.is_authenticated %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
+  {% endif %}
 </div>
 
 {% endblock %} {% block script %}
