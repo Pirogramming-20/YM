@@ -172,12 +172,10 @@ def music_game_start_2000(request, roomId, count):
         quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
         quiz_id_int_list = quiz_id_str_list[:count]
     
-    music = MusicGame.objects.filter(music__contains='2000').first()
+    music = MusicGame.objects.filter(music__contains='2000')
 
     for quiz_id in quiz_id_int_list:
-        print(quiz_id)
-        print(music_game_query_2000)
-        music_game = music_game_query_2000[quiz_id].id
+        music_game =music[quiz_id-1]
         QuizList.objects.get_or_create(music_game_id=music_game)
 
     quiz_list = QuizList.objects.all()
