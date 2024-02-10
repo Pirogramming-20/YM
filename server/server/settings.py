@@ -23,7 +23,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'
 SECRET_KEY = 'django-insecure-g3r!cjkx7op%fkc43*oh96x^!*=u@eap^omoa7vgfj9kp05=)1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -138,9 +138,7 @@ STATICFILES_DIRS = [
 # else:
 #     STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_ROOT = '/static/'
-
-# STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
+STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
 # STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # runserver시 사용
 
 # Default primary key field type
@@ -157,3 +155,5 @@ CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-
 
 # import mimetypes
 # mimetypes.add_type("text/css", ".css", True)
+
+SILENCED_SYSTEM_CHECKS = ['urls.W002', 'security.W019']

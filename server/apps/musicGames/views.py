@@ -106,10 +106,31 @@ def music_game_main(request, roomId):#30개씩
         {'title': '마리아', 'music': '/static/audio/music_game/2020/마리아.mp3', 'singer': '화사', 'youtube': "https://www.youtube.com/embed/tDukIfFzX18?si=MbiheaqO5cxE3ibo&amp;start=72"},
         {'title': '에잇', 'music': '/static/audio/music_game/2020/에잇.mp3', 'singer': '아이유', 'youtube': "https://www.youtube.com/embed/TgOu00Mf3kI?si=UnDMTW8-xseaBP1d&amp;start=63"},
     ]
-    room = GameRoom.objects.get(id=roomId)
+    
     for data in quiz_data:
         MusicGame.objects.get_or_create(title=data['title'], music=data['music'], singer=data['singer'], youtube=data['youtube'])
     
+    if roomId == 0:
+        if request.method == 'POST':
+            count = int(request.POST['count'])
+            time = int(request.POST['time'])
+            ctx = {
+            'roomId' : roomId,
+            'count':count
+            }
+            
+            if time == 2000:
+                return redirect('/music/{0}/music_game_2000/{1}'.format(roomId,count))
+            elif time == 2010:
+                return redirect('/music/{0}/music_game_2010/{1}'.format(roomId,count))
+            elif time == 2020:
+                return redirect('/music/{0}/music_game_2020/{1}'.format(roomId,count))
+        ctx = {
+            'roomId' : roomId,
+            }
+        return render(request, 'musicGames/music_game_main.html', ctx)
+
+    room = GameRoom.objects.get(id=roomId)
     if request.method == 'POST':
         count = int(request.POST['count'])
         time = int(request.POST['time'])
@@ -139,14 +160,17 @@ def music_game_main(request, roomId):#30개씩
 # 4. 우선 게임 종료 시 게임 표지 페이지로 이동 : ajax로 구현
 def music_game_start_2000(request, roomId, count):
     QuizList.objects.all().delete()
-    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2000')) + 1), count)
-    music_game_query_2000 = MusicGame.objects.filter(music__contains='2000')
-    first_music_2000 = music_game_query_2000.first()
-    first_music_id_2000 = int(first_music_2000.id)
-    room = GameRoom.objects.get(id=roomId)
-    quiz_id_list = room.ran_music
-    quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
-    quiz_id_int_list = quiz_id_str_list[:count]
+    if(roomId == 0):
+        quiz_id_int_list = random.sample(range(1,31),count)
+    else:
+        music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2000')) + 1), count)
+        music_game_query_2000 = MusicGame.objects.filter(music__contains='2000')
+        first_music_2000 = music_game_query_2000.first()
+        first_music_id_2000 = int(first_music_2000.id)
+        room = GameRoom.objects.get(id=roomId)
+        quiz_id_list = room.ran_music
+        quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
+        quiz_id_int_list = quiz_id_str_list[:count]
     
     music = MusicGame.objects.filter(music__contains='2000').first()
 
@@ -158,6 +182,13 @@ def music_game_start_2000(request, roomId, count):
 
     quiz_list = QuizList.objects.all()
     quiz = quiz_list.first()
+    if roomId == 0:
+        ctx = {
+        'quiz' : quiz,
+        'roomId' : roomId,
+        'count' : count,
+        }
+        return render(request, 'musicGames/music_game_start_2000.html', ctx)
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
@@ -168,23 +199,38 @@ def music_game_start_2000(request, roomId, count):
 
 def music_game_start_2010(request, roomId, count):
     QuizList.objects.all().delete()
-    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2010')) + 1), count)
-    music_game_query_2000 = MusicGame.objects.filter(music__contains='2010')
-    first_music_2000 = music_game_query_2000.first()
-    first_music_id_2000 = int(first_music_2000.id)
-    room = GameRoom.objects.get(id=roomId)
-    quiz_id_list = room.ran_music
-    quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
-    quiz_id_int_list = quiz_id_str_list[:count]
+    if(roomId == 0):
+        quiz_id_int_list = random.sample(range(1,31),count)
+    else:
+        music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2010')) + 1), count)
+        music_game_query_2010 = MusicGame.objects.filter(music__contains='2010')
+        first_music_2010 = music_game_query_2010.first()
+        first_music_id_2010 = int(first_music_2010.id)
+        room = GameRoom.objects.get(id=roomId)
+        quiz_id_list = room.ran_music
+        quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
+        quiz_id_int_list = quiz_id_str_list[:count]
 
     music = MusicGame.objects.filter(music__contains='2010').first()
-
+    music_game_list = MusicGame.objects.filter(music__contains='2010')
     for quiz_id in quiz_id_int_list:
-        music_game = MusicGame.objects.filter(music__contains='2010').get(id=quiz_id+music.id - 1)
+        # music_game = MusicGame.objects.filter(music__contains='2010').get(id=quiz_id+music.id - 1)
+        print(quiz_id)
+        print(music.id)
+        music_game = music_game_list[quiz_id - 1]
+
         QuizList.objects.get_or_create(music_game_id=music_game)
 
     quiz_list = QuizList.objects.all()
     quiz = quiz_list.first()
+    if roomId == 0:
+        ctx = {
+        'quiz' : quiz,
+        'count' : count,
+        'roomId' : roomId,
+        }
+        return render(request, 'musicGames/music_game_start_2000.html', ctx)
+
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
@@ -195,14 +241,17 @@ def music_game_start_2010(request, roomId, count):
 
 def music_game_start_2020(request, count,roomId):
     QuizList.objects.all().delete()
-    music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2020')) + 1), count)
-    music_game_query_2000 = MusicGame.objects.filter(music__contains='2020')
-    first_music_2000 = music_game_query_2000.first()
-    first_music_id_2000 = int(first_music_2000.id)
-    room = GameRoom.objects.get(id=roomId)
-    quiz_id_list = room.ran_music
-    quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
-    quiz_id_int_list = quiz_id_str_list[:count]
+    if(roomId == 0):
+        quiz_id_int_list = random.sample(range(1,31),count)
+    else:
+        music_game_ids = random.sample(range(1, len(MusicGame.objects.filter(music__contains='2020')) + 1), count)
+        music_game_query_2020 = MusicGame.objects.filter(music__contains='2020')
+        first_music_2020 = music_game_query_2020.first()
+        first_music_id_2020 = int(first_music_2020.id)
+        room = GameRoom.objects.get(id=roomId)
+        quiz_id_list = room.ran_music
+        quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
+        quiz_id_int_list = quiz_id_str_list[:count]
 
     music = MusicGame.objects.filter(music__contains='2020').first()
 
@@ -212,6 +261,14 @@ def music_game_start_2020(request, count,roomId):
 
     quiz_list = QuizList.objects.all()
     quiz = quiz_list.first()
+    if roomId == 0:
+        ctx = {
+        'quiz' : quiz,
+        'count' : count,
+        'roomId' : roomId,
+        }
+        return render(request, 'musicGames/music_game_start_2000.html', ctx)
+
     ctx = {
         'quiz' : quiz,
         'count' : count,

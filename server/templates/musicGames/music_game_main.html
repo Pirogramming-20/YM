@@ -8,26 +8,26 @@
     <p>해당 노래의 제목과 가수이름을 외치세요</p>
     <p>잘못된 제목, 이름을 말하면 자비없이 땡!!</p>
   </div>
-  <form method="POST" action="{% url 'musicGames:music_game_main' room.id %}">
+  <form method="POST" action="{% url 'musicGames:music_game_main' roomId %}">
     {% csrf_token %}
-      <div class="problem">
-        <div class="rule text3">문제 개수를 선택해주세요!</div>
-        <label class="custom-radio">
-            <input type="radio" name="count" value="5" required />
-            <span class="checkmark"></span>
-            <span class="label-text text3">5 문제</span>
-        </label>
-        <label class="custom-radio">
-            <input type="radio" name="count" value="10" />
-            <span class="checkmark"></span>
-            <span class="label-text text3">10 문제</span>
-        </label>
-        <label class="custom-radio">
-            <input type="radio" name="count" value="15" />
-            <span class="checkmark"></span>
-            <span class="label-text text3">15 문제</span>
-        </label>
-    </div> 
+    <div class="problem">
+      <div class="rule text3">문제 개수를 선택해주세요!</div>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="5" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">5 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="10" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">10 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="15" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">15 문제</span>
+      </label>
+    </div>
     <div class="time">
       <div class="rule text3">노래 년도를 선택해주세요!</div>
       <label class="custom-radio">
@@ -45,8 +45,8 @@
         <span class="checkmark"></span>
         <span class="label-text text3">2020년대</span>
       </label>
-    </div>           
-      <button type="submit" class="main-btn btn-text">게임 시작</button>
-    </form>
+    </div>
+    <button type="submit" class="main-btn btn-text">게임 시작</button>
+  </form>
 </div>
 {% endblock %}

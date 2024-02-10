@@ -69,6 +69,19 @@ def movie_game_main(request,roomId):#50개
     for data in quiz_data:
         MovieGame.objects.get_or_create(title=data['title'], scene=data['scene'], line=data['line'])
 
+    if roomId == 0:
+        if request.method == "POST":
+            count = int(request.POST['count'])
+            ctx = {
+            'roomId' : roomId,
+            'count':count
+            }
+            return redirect('/movie/{0}/movie_game/{1}'.format(roomId,count))
+        ctx = {
+            'roomId' : roomId,
+        }
+        return render(request, 'movieGames/movie_game_main.html', ctx)
+
     room = GameRoom.objects.get(id=roomId)
     ctx = {
         'roomId' : roomId,
@@ -80,7 +93,7 @@ def movie_game_main(request,roomId):#50개
         'roomId' : roomId,
         'room':room,
         'count':count
-    }
+        }
         return redirect('/movie/{0}/movie_game/{1}'.format(roomId,count))
     return render(request, 'movieGames/movie_game_main.html', ctx)
 
@@ -88,22 +101,38 @@ def movie_game_main(request,roomId):#50개
 # 3. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
 def movie_game_start(request,roomId, count):
     QuizList.objects.all().delete()    
-    room = GameRoom.objects.get(id=roomId)
-    quiz_id_list = room.ran_movie
-    # quiz_id_list = quiz_id_list[1:-1]
-    print("quiz_id_list",quiz_id_list)
-    quiz_id_str_list = quiz_id_list.split(",")
-    print("quiz_id_str_list_split",quiz_id_str_list)
-    quiz_id_str_list = quiz_id_str_list[:count]
 
-    quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
+    if(roomId == 0):
+        quiz_id_int_list = random.sample(range(1,51),count)
+        
+    else:
+        room = GameRoom.objects.get(id=roomId)
+        quiz_id_list = room.ran_movie
+        # quiz_id_list = quiz_id_list[1:-1]
+        print("quiz_id_list",quiz_id_list)
+        quiz_id_str_list = quiz_id_list.split(",")
+        print("quiz_id_str_list_split",quiz_id_str_list)
+        quiz_id_str_list = quiz_id_str_list[:count]
+        quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
 
     for quiz_id in quiz_id_int_list:
+        print(quiz_id)
         movie_game = MovieGame.objects.get(id=quiz_id)
         QuizList.objects.get_or_create(movie_game_id=movie_game)
 
+
+
     quiz_list = QuizList.objects.all()
     quiz = quiz_list.first()
+
+    if roomId == 0:
+        ctx = {
+        'quiz' : quiz,
+        'roomId' : roomId,
+        'count' : count
+        }
+        return render(request, 'movieGames/movie_game_start.html', ctx)
+
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
