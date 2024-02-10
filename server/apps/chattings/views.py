@@ -18,7 +18,7 @@ def create(request):
     room_order = request.POST["order_list"]
     if room_name != '' and room_order !='':
       room = GameRoom.objects.create(
-        room_name = request.POST["room_name"] + user.username,
+        room_name = request.POST["room_name"] + request.user.username,
         order_game = request.POST["order_list"]
       )
       room = GameRoom.objects.get(id = room.id)
