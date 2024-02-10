@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <div class="sub-title text2">정답 찾기 페이지</div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="room_name">
+            
+        <button type="submit" value="SignUp" class="main-btn btn-text">정답찾기</button>
+    </form>
+</div>
+{% endblock content %}

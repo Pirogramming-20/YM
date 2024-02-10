@@ -1,0 +1,221 @@
+{% extends 'base.html' %} {% block content %}{% load static %}
+
+<div class="game">
+  <div class="quiz">
+    <div class="music-container">
+      <button
+        class="btn-05 main-btn btn-text"
+        data-music="{{ quiz.music_game_id.music }}"
+      >
+        0.5초 듣기
+      </button>
+      <button
+        class="btn-10 main-btn btn-text"
+        data-music="{{ quiz.music_game_id.music }}"
+      >
+        1초 듣기
+      </button>
+    </div>
+    <div class="answer-container">
+      <div id="player"></div>
+      <div class="title text1"></div>
+      <div class="singer text2"></div>
+    </div>
+    <div class="game-btn-container">
+      <div
+        class="game-btn next-btn main-btn btn-text"
+        onclick="reset_animation()"
+      >
+        다음 문제
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+      <div class="game-btn answer-btn main-btn btn-text">
+        <i class="fa-solid fa-circle-check"></i> 정답
+      </div>
+      <a
+        class="game-btn game-over main-btn btn-text"
+        href="/chatting-room/next_game/{{roomId}}"
+        >다음게임 <i class="fa-solid fa-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+  {% if user.is_authenticated %}
+  <div class="chat-container">{%include "chat-base.html"%}</div>
+  {% endif %}
+</div>
+
+{% endblock %} {% block script %}
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  //csrf 토큰 생성 함수
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  //csrf 토큰 생성
+  const csrftoken = getCookie("csrftoken");
+
+  //0.5초 듣기
+  document.querySelector(".btn-05").addEventListener("click", function () {
+    const audioPath = this.dataset.music;
+    const audio = new Audio(audioPath);
+    audio.loop = false;
+    const play = audio.play();
+
+    if (play !== undefined) {
+      play
+        .then(() => {
+          setTimeout(function () {
+            audio.pause();
+          }, 500);
+        })
+        .catch((error) => {
+          console.log("재생을 시작하지 못했습니다", error);
+        });
+    }
+  });
+
+  //1초 듣기
+  document.querySelector(".btn-10").addEventListener("click", function () {
+    const audioPath = this.dataset.music;
+    const audio = new Audio(audioPath);
+    audio.loop = false;
+    const play = audio.play();
+
+    if (play !== undefined) {
+      play
+        .then(() => {
+          setTimeout(function () {
+            audio.pause();
+          }, 1000);
+        })
+        .catch((error) => {
+          console.log("재생을 시작하지 못했습니다", error);
+        });
+    }
+  });
+
+  const requestQuiz = new XMLHttpRequest();
+  let currentQuizId = "{{ quiz.id }}";
+  const nextBtn = document.querySelector(".next-btn");
+  let cnt = 1;
+  let youtube_src = "{{ quiz.music_game_id.youtube }}";
+
+  //정답 보기
+  let player;
+  function createPlayer() {
+    let video_id = youtube_src.split("embed/")[1].split("?")[0];
+    let start_time = youtube_src.split("start=")[1].split('"')[0];
+    player = new YT.Player("player", {
+      height: "315",
+      width: "560",
+      videoId: video_id,
+      playerVars: {
+        start: parseInt(start_time),
+      },
+      events: {
+        onReady: onPlayerReady,
+      },
+    });
+  }
+
+  //준비되면 자동 재생
+  function onPlayerReady(event) {
+    if (player) {
+      player.playVideo();
+    }
+    setTimeout(function () {
+      if (player) {
+        player.stopVideo();
+      }
+    }, 6000);
+  }
+
+  function stopVideo() {
+    if (player) {
+      player.stopVideo();
+    }
+  }
+
+  //정답 버튼
+  const answerBtn = document.querySelector(".answer-btn");
+  const requestAnswer = new XMLHttpRequest();
+
+  document.querySelector(".answer-btn").addEventListener("click", function () {
+    createPlayer();
+    const url = "/music/answer/";
+    requestAnswer.open("POST", url, true);
+    requestAnswer.setRequestHeader("Content-Type", "application/json");
+    requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
+    requestAnswer.send(JSON.stringify({ id: currentQuizId }));
+  });
+
+  requestAnswer.onreadystatechange = () => {
+    if (requestAnswer.readyState === XMLHttpRequest.DONE) {
+      if (requestAnswer.status < 400) {
+        const { id, title, singer } = JSON.parse(requestAnswer.response);
+
+        const title_element = document.querySelector(".title");
+        title_element.innerHTML = title;
+
+        const singer_element = document.querySelector(".singer");
+        singer_element.innerHTML = singer;
+      }
+    }
+  };
+
+  //다음 문제로 넘어가기
+  nextBtn.addEventListener("click", function () {
+    const url = "/music/next/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+
+    if (player) {
+      player.destroy();
+      player = null;
+    }
+
+    const title_element = document.querySelector(".title");
+    title_element.innerHTML = "";
+
+    const singer_element = document.querySelector(".singer");
+    singer_element.innerHTML = "";
+  });
+
+  requestQuiz.onreadystatechange = () => {
+    if (requestQuiz.readyState === XMLHttpRequest.DONE) {
+      if (requestQuiz.status < 400) {
+        const { id, music, youtube } = JSON.parse(requestQuiz.response);
+
+        const music_element_05 = document.querySelector(".btn-05");
+        music_element_05.dataset.music = music;
+
+        const music_element_10 = document.querySelector(".btn-10");
+        music_element_10.dataset.music = music;
+
+        youtube_src = youtube;
+
+        currentQuizId = id;
+        cnt++;
+        if (cnt === parseInt("{{ count }}")) {
+          nextBtn.innerText = "마지막 문제";
+        }
+      }
+    }
+  };
+</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <div class="sub-title text2">{{room_name}} 방 - 정답 확인</div>
+    <div class="answer_container">
+        <div class="answer_box">
+            {% for figure in figure_answer %}
+            <p>{{ forloop.counter }} {{figure}} </p>
+            {% endfor %}
+        </div>
+        <div class="answer_box">
+            {% for movie in movie_answer %}
+            <p>{{ forloop.counter }} {{movie}} </p>
+            {% endfor %}
+        </div>
+        <div class="answer_box">
+            {% for music in music_answer %}
+            <p>{{ forloop.counter }} {{music}} </p>
+            {% endfor %}
+        </div>
+        <div class="answer_box">
+            {% for four in four_answer %}
+            <p>{{ forloop.counter }} {{four}} </p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

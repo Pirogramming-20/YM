@@ -1,28 +1,32 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Chat Room</title>
-  </head>
-  <body>
-    {% if user.is_authenticated %}
-    <div class="connect-user-hi">
-      <span>{{user.username}} </span> 님이 로그인중
-    </div>
-    <a class="menu-btn" href="{% url 'rooms:create' %}">게임방 만들기</a>
-    <a href="{% url 'main:logout' %}">
-      <div class="header-btn">로그아웃</div>
-    </a>
-    {% endif %}
+{% extends 'base.html' %}
 
-    <div class="posts_list">
-      {% for room in rooms %}
+{% block content %}
+<div class="title">
+  <span class="text1">요즘</span>
+  <span class="text2">MT</span>
+</div>
+<div class="room-main-container">
+  <div class="room-create">
+    <a href={% url 'rooms:create' %} class="room-create main-btn btn-text"> 게임방 만들기 </a>
+  </div>
+  <div class="room-list">
+    <div class="main-btn room-list btn-text"> 게임방 리스트 </div>
+    {% for room in rooms %}
       <div class="room">
-        <a class="room_name" href="{% url 'rooms:detail' room.pk %}"
-          >제목 : {{room.room_name}}</a
-        >
+        {% comment %} Host {% endcomment %}
+        {% if room.created_by == request.user %}
+          <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
+        {% comment %} User {% endcomment %}
+        {% else %}
+          <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
+          {% comment %} <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}"> {% endcomment %}
+        {% endif %}
+          <i class="fa-solid fa-gamepad gamepad-icon"></i>
+          {{room.room_name}}
+        </a>
       </div>
       {% endfor %}
-    </div>
-  </body>
-</html>
+  </div>
+</div>
+
+{% endblock content %}
