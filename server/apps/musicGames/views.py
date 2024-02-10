@@ -151,7 +151,9 @@ def music_game_start_2000(request, roomId, count):
     music = MusicGame.objects.filter(music__contains='2000').first()
 
     for quiz_id in quiz_id_int_list:
-        music_game = MusicGame.objects.filter(music__contains='2000').get(id=quiz_id+music.id - 1)
+        print(quiz_id)
+        print(music_game_query_2000)
+        music_game = music_game_query_2000[quiz_id].id
         QuizList.objects.get_or_create(music_game_id=music_game)
 
     quiz_list = QuizList.objects.all()
