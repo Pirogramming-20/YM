@@ -16,6 +16,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+document.addEventListener("DOMContentLoaded", function() {
+  const chatToggle = document.getElementById('chatToggle');
+  const quizContainer = document.querySelector('.quiz');
+
+  chatToggle.addEventListener('change', function() {
+    if (this.checked) {
+      quizContainer.classList.add('animate-slide-to-center');
+    } else {
+      quizContainer.classList.remove('animate-slide-to-center');
+    }
+  });
+});
+function reset_animation() {
+  const quizContainer = document.querySelector('.quiz');
+  quizContainer.style.animation = 'none';
+  quizContainer.offsetHeight; /* trigger reflow */
+  quizContainer.style.animation = null; 
+}
 
 console.log(room_num);
 console.log(room_name);

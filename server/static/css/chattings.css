@@ -10,6 +10,11 @@
     margin-bottom: 4rem;
 }
 
+.room-create{
+    display: flex;
+    align-items: flex-start;
+}
+
 .room-list{
     box-shadow: none;
     border: none;
@@ -48,8 +53,11 @@
     margin-bottom: 4rem;
 
     overflow: hidden;
-    max-height: 50rem;
-    transition: max-height 0.8s ease, transform 0.8s ease;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    transform: translateX(0);
+    opacity: 1; /* Ensure it's fully visible when not hidden */
+    /* max-height: 50rem;
+    transition: max-height 0.8s ease, transform 0.8s ease; */
 }
 
 .user{
@@ -171,13 +179,17 @@ input[type = "checkbox"].toggle:checked + label{
 }
 
 #chatRoom.hidden {
-    max-height: 0;
-    transform: scaleY(0);
+    transform: translateX(100%);
+    opacity: 0;
+    /* max-height: 0;
+    transform: scaleY(0); */
 }
 
 #chatRoom.visible {
-    max-height: 50rem;
-    transform: scaleY(1);
+    transform: translateX(0);
+    opacity: 1;
+    /* max-height: 50rem;
+    transform: scaleY(1); */
 }
 
 

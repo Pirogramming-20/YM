@@ -15,8 +15,8 @@ def main(request):
 def create(request):
   if request.method == 'POST':
     room_name = request.POST["room_name"]
-    user = User.objects.get(username = request.user.username)
-    if room_name != '':
+    room_order = request.POST["order_list"]
+    if room_name != '' and room_order !='':
       room = GameRoom.objects.create(
         room_name = request.POST["room_name"] + user.username,
         order_game = request.POST["order_list"]

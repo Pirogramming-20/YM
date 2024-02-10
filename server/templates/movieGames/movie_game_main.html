@@ -8,12 +8,12 @@
     <p>3초 안에 해당 영화장면의 명대사를 외치세요</p>
     <p>시간 내에 말하지 못 하거나 잘못된 명대사를 말하면 자비없이 땡!!</p>
   </div>
-  <form method="POST" action="{% url 'movieGames:movie_game_main' roomId %}">
+  <form method="POST" action="{% url 'movieGames:movie_game_main' room.id %}">
     {% csrf_token %}
     <div class="problem">
       <div class="rule text3">문제 개수를 선택해주세요!</div>
       <label class="custom-radio">
-        <input type="radio" name="count" value="5" />
+        <input type="radio" name="count" value="5" required />
         <span class="checkmark"></span>
         <span class="label-text text3">5 문제</span>
       </label>
