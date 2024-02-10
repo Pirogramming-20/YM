@@ -7,36 +7,42 @@
         <span class="countdown text2">문제</span>
       </div>
       <div class="four-container">
-        <span class="two-container ">{{quiz_four.four_quiz_id.two}}</span>
+        <span class="two-container">{{quiz_four.four_quiz_id.two}}</span>
         <span class="two-box"></span>
         {% comment %} <span class="two-box"></span> {% endcomment %}
       </div>
-        
     </div>
     <div class="answer-container">
       <div class="answer text1"></div>
     </div>
     <div class="game-btn-container">
-      <button class="game-btn main-btn btn-text"onclick="startCountdown()">
+      <button class="game-btn main-btn btn-text" onclick="startCountdown()">
         시작
         <i class="fa-solid fa-play"></i>
       </button>
-      <div class="game-btn next-btn main-btn btn-text" onclick="reset_animation()">
-          다음 문제
-          <i class="fa-solid fa-chevron-right"></i>
+      <div
+        class="game-btn next-btn main-btn btn-text"
+        onclick="reset_animation()"
+      >
+        다음 문제
+        <i class="fa-solid fa-chevron-right"></i>
       </div>
-      <div class="game-btn answer-btn main-btn btn-text"><i class="fa-solid fa-circle-check"></i> 정답 </div>
-      <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">다음게임           <i class="fa-solid fa-chevron-right"></i>
+      <div class="game-btn answer-btn main-btn btn-text">
+        <i class="fa-solid fa-circle-check"></i> 정답
+      </div>
+      <a
+        class="game-btn game-over main-btn btn-text"
+        href="/chatting-room/next_game/{{roomId}}"
+        >다음게임 <i class="fa-solid fa-chevron-right"></i>
       </a>
     </div>
   </div>
-  <div class="chat-container">
-    {%include "chat-base.html"%}
-  </div>
+  {% if user.is_authenticated %}
+  <div class="chat-container">{%include "chat-base.html"%}</div>
+  {% endif %}
 </div>
 
-{% endblock %} 
-{%block script%}
+{% endblock %} {%block script%}
 <script>
   // 카운트다운 js
   const imageCover = document.querySelector(".image-cover");
@@ -64,7 +70,7 @@
   const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
-  answerBtn.addEventListener("click", function(){
+  answerBtn.addEventListener("click", function () {
     const url = "/fourWords/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
@@ -72,7 +78,7 @@
     requestAnswer.send(JSON.stringify({ id: currentFourId }));
   });
 
-  requestAnswer.onreadystatechange = () =>{
+  requestAnswer.onreadystatechange = () => {
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {
       if (requestAnswer.status < 400) {
         const { id, answer } = JSON.parse(requestAnswer.response);
@@ -99,15 +105,15 @@
   }
 
   const csrftoken = getCookie("csrftoken");
-// 다음문제로 넘어가는 ajax
-const requestNextQuiz = new XMLHttpRequest();
-const nextBtn = document.querySelector(".next-btn");
+  // 다음문제로 넘어가는 ajax
+  const requestNextQuiz = new XMLHttpRequest();
+  const nextBtn = document.querySelector(".next-btn");
   let cnt = 1;
   function reset_animation() {
-    const quizContainer = document.querySelector('.quiz');
-    quizContainer.style.animation = 'none';
+    const quizContainer = document.querySelector(".quiz");
+    quizContainer.style.animation = "none";
     quizContainer.offsetHeight; /* trigger reflow */
-    quizContainer.style.animation = null; 
+    quizContainer.style.animation = null;
   }
   nextBtn.addEventListener("click", function () {
     imageCover.style.display = "flex";
@@ -120,21 +126,21 @@ const nextBtn = document.querySelector(".next-btn");
 
     requestNextQuiz.send(JSON.stringify({ id: currentFourId }));
     answer_element.innerHTML = "";
-});
+  });
 
-requestNextQuiz.onreadystatechange = () => {
-  if (requestNextQuiz.readyState === XMLHttpRequest.DONE) {
-    if (requestNextQuiz.status < 400) {
-      const { id, two, answer } = JSON.parse(requestNextQuiz.response);
-      const twoElement = document.querySelector(".two-container");
-      twoElement.innerHTML = two;
-      currentFourId = id;
-      cnt++;
-      if(cnt === parseInt("{{ count }}")){
-        nextBtn.innerHTML = "마지막 문제";
+  requestNextQuiz.onreadystatechange = () => {
+    if (requestNextQuiz.readyState === XMLHttpRequest.DONE) {
+      if (requestNextQuiz.status < 400) {
+        const { id, two, answer } = JSON.parse(requestNextQuiz.response);
+        const twoElement = document.querySelector(".two-container");
+        twoElement.innerHTML = two;
+        currentFourId = id;
+        cnt++;
+        if (cnt === parseInt("{{ count }}")) {
+          nextBtn.innerHTML = "마지막 문제";
+        }
       }
     }
-  }
-};
+  };
 </script>
 {%endblock%}

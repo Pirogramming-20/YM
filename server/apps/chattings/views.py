@@ -15,9 +15,10 @@ def main(request):
 def create(request):
   if request.method == 'POST':
     room_name = request.POST["room_name"]
-    if room_name != '':
+    room_order = request.POST["order_list"]
+    if room_name != '' and room_order !='':
       room = GameRoom.objects.create(
-        room_name = request.POST["room_name"],
+        room_name = request.POST["room_name"] + user.username,
         order_game = request.POST["order_list"]
       )
       room = GameRoom.objects.get(id = room.id)
@@ -52,6 +53,8 @@ def create(request):
   return render(request, 'chattings/create.html')
 
 def next_game(request, roomId):
+  if roomId == 0:
+    return redirect('main:main')
   room = GameRoom.objects.get(id=roomId)
   ctx = {
     'roomId':roomId
@@ -111,8 +114,8 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  print("qrimg")
-  qrimg.save("/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
+  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택 
+  #qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,
   }

@@ -22,6 +22,19 @@ def figure_main(request, roomId): #60개
         figure.image_path = f"/static/image/figure/{figure.name}.jpg"
         figure.save()
 
+    if roomId == 0:
+        ctx = {
+        'roomId' : roomId,
+        }
+        if request.method == "POST":
+            count = int(request.POST['count'])
+            ctx = {
+            'roomId' : roomId,
+            'count':count
+            }
+            return redirect('/figure/{0}/figure_game/{1}'.format(roomId,count))
+        return render(request, "games/figure_main.html",ctx)
+
     room = GameRoom.objects.get(id=roomId)
     ctx = {
         'roomId' : roomId,
@@ -38,14 +51,15 @@ def figure_main(request, roomId): #60개
     return render(request, "games/figure_main.html",ctx)
 
 def figure_game_start(request,roomId,count):
-
     QuizFigure.objects.all().delete()
     #채팅룸 랜덤 아이디랑 연결
-    room = GameRoom.objects.get(id=roomId)
-    quiz_id_list = room.ran_figure
-    quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
-    quiz_id_int_list = quiz_id_str_list[:count]
-    print(quiz_id_int_list)
+    if roomId == 0:
+        quiz_id_int_list = random.sample(range(1,61),count)
+    else:
+        room = GameRoom.objects.get(id=roomId)
+        quiz_id_list = room.ran_figure
+        quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
+        quiz_id_int_list = quiz_id_str_list[:count]
 
     for quiz_id in quiz_id_int_list:
         figure_instance = Figure.objects.get(id=quiz_id)
@@ -53,6 +67,14 @@ def figure_game_start(request,roomId,count):
 
     quiz_figures = QuizFigure.objects.all()
     quiz_figure = quiz_figures.first()
+    if roomId == 0:
+        ctx={
+        'quiz_figure':quiz_figure,
+        'count' : count,
+        'roomId' : roomId,
+        }
+        return render(request, "games/figure_start.html", ctx)
+    
     ctx={
         'quiz_figure':quiz_figure,
         'count' : count,

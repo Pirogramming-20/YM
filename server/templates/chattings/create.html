@@ -12,7 +12,7 @@
   <div class="sub-title text3">방이름을 입력하세요.</div>
   <form method="POST" action="" class="name-form">
     {% csrf_token %}
-    <label>방이름: <input type="text" name="room_name" id="roomName"></label>
+    <label>방이름: <input type="text" name="room_name" id="roomName" required></label>
     
     <div class="text3">게임진행순서를 골라주세요!!!</div>
     <div class="order-check-container text2">

@@ -47,7 +47,7 @@
 
     {%endblock%}
     <div class="chatroom-container">
-      <input type="checkbox" id="chatToggle" class="toggle">
+      <input type="checkbox" id="chatToggle" class="toggle" onclick="reset_animation()">
       <label for="chatToggle">채팅창 없애기</label>
       <div id="chatRoom" class="show">
           <div class="info_room_num text1">{{ room.room_name }}</div>
