@@ -7,7 +7,7 @@
         <span class="countdown text2">사진</span>
       </div>
       <div class="photo-container">
-        <img src="{{ quiz.movie_game_id.scene }}" alt="이미지" class="photo" />
+        <img src="{{ quiz.scene }}" alt="이미지" class="photo" />
       </div>
     </div>
     <div class="answer-container">
@@ -83,7 +83,8 @@
   }
 
   const requestQuiz = new XMLHttpRequest();
-  let currentQuizId = "{{ quiz.id }}";
+  let gameList = {{movie_game}}
+  let currentQuizId = {{quiz.id}};
   const nextBtn = document.querySelector(".next-btn");
   let cnt = 1;
   function reset_animation() {
@@ -100,7 +101,7 @@
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list:gameList }));
     const title_element = document.querySelector(".title");
     title_element.innerHTML = "";
 
@@ -111,8 +112,9 @@
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, scene } = JSON.parse(requestQuiz.response);
+        const { id, scene ,game_list} = JSON.parse(requestQuiz.response);
 
+        gameList = game_list;
         const photo_element = document.querySelector(".photo");
         photo_element.src = scene;
 

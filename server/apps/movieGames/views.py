@@ -100,7 +100,7 @@ def movie_game_main(request,roomId):#50개
 # 2. 영화 장면 보여주는 페이지
 # 3. 다음 버튼 눌렀을 때 어떻게 할 건지 생각... : ajax로 구현
 def movie_game_start(request,roomId, count):
-    QuizList.objects.all().delete()    
+    # QuizList.objects.all().delete()    
 
     if(roomId == 0):
         quiz_id_int_list = random.sample(range(1,51),count)
@@ -115,21 +115,25 @@ def movie_game_start(request,roomId, count):
         quiz_id_str_list = quiz_id_str_list[:count]
         quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
 
-    for quiz_id in quiz_id_int_list:
-        print(quiz_id)
-        movie_game = MovieGame.objects.get(id=quiz_id)
-        QuizList.objects.get_or_create(movie_game_id=movie_game)
+    movie_game = [(quiz_id_int_list[0])]
+    for quiz_id in quiz_id_int_list[1:]:
+        movie_game.append(quiz_id)
+        # movie_game = MovieGame.objects.get(id=quiz_id)
+        # QuizList.objects.get_or_create(movie_game_id=movie_game)
 
 
 
-    quiz_list = QuizList.objects.all()
-    quiz = quiz_list.first()
+    quiz_id = movie_game.pop(0)
+    
+    quiz = MovieGame.objects.get(id = quiz_id)
 
     if roomId == 0:
         ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
-        'count' : count
+        'count' : count,
+        'movie_game' : movie_game,
+        'quiz_id':quiz_id
         }
         return render(request, 'movieGames/movie_game_start.html', ctx)
 
@@ -137,26 +141,29 @@ def movie_game_start(request,roomId, count):
         'quiz' : quiz,
         'roomId' : roomId,
         'room':room,
-        'count' : count
+        'count' : count,
+        'movie_game' : movie_game,
+        'quiz_id':quiz_id
     }
     return render(request, 'movieGames/movie_game_start.html', ctx)
 
 def next_quiz(request):
     req = json.loads(request.body)
-    quiz_id = int(req['id'])
-    quiz_id += 1
-
-    quiz = QuizList.objects.get(id=quiz_id)
-    scene = quiz.movie_game_id.scene
-
-    return JsonResponse({'id' : quiz_id, 'scene' : scene})
+    quiz_id = (req['id'])
+    game_list=(req['game_list'])
+    print(game_list)
+    quiz_id = game_list.pop(0)
+    print(game_list)
+    quiz = MovieGame.objects.get(id=quiz_id)
+    scene = quiz.scene
+    return JsonResponse({'id' : quiz_id, 'scene' : scene, 'game_list':game_list})
 
 def answer(request):
     req = json.loads(request.body)
-    quiz_id = int(req['id'])
+    quiz_id = (req['id'])
 
-    quiz = QuizList.objects.get(id=quiz_id)
-    title = quiz.movie_game_id.title
-    line = quiz.movie_game_id.line
+    quiz = MovieGame.objects.get(id=quiz_id)
+    title = quiz.title
+    line = quiz.line
 
     return JsonResponse({'id' : quiz_id, 'title' : title, 'line' : line})
