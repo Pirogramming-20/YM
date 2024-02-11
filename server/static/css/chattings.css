@@ -10,6 +10,11 @@
     margin-bottom: 4rem;
 }
 
+.room-create{
+    display: flex;
+    align-items: flex-start;
+}
+
 .room-list{
     box-shadow: none;
     border: none;

@@ -17,6 +17,20 @@ def fourWords_main(request,roomId):#50개
     for i in range(len(answer_list)):
         four_instance,created = Four.objects.get_or_create(answer=answer_list[i])
         four_instance.two_save()
+    if roomId ==0:
+        ctx ={
+            'roomId':roomId,
+        }
+        
+        if request.method == "POST":
+            count = int(request.POST['count'])
+            ctx ={
+                'roomId':roomId,
+                'count':count
+            }
+            return redirect('/fourWords/{0}/fourWords_game/{1}'.format(roomId,count))
+        return render(request, 'games/fourWords_main.html',ctx)
+        
     room = GameRoom.objects.get(id=roomId)
     ctx ={
         'roomId':roomId,
@@ -34,12 +48,14 @@ def fourWords_main(request,roomId):#50개
     return render(request, 'games/fourWords_main.html',ctx)
 
 def fourWords_game_start(request, roomId,count):
-    
     QuizFour.objects.all().delete()
-    room = GameRoom.objects.get(id=roomId)
-    quiz_id_list = room.ran_four
-    quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
-    quiz_id_int_list = quiz_id_str_list[:count]
+    if roomId == 0:
+        quiz_id_int_list = random.sample(range(1,51),count)
+    else:
+        room = GameRoom.objects.get(id=roomId)
+        quiz_id_list = room.ran_four
+        quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
+        quiz_id_int_list = quiz_id_str_list[:count]
 
     for quiz_id in quiz_id_int_list:
         four_instance = Four.objects.get(id=quiz_id)
@@ -47,6 +63,14 @@ def fourWords_game_start(request, roomId,count):
     
     quiz_fours = QuizFour.objects.all()
     quiz_four = quiz_fours.first()
+
+    if roomId == 0:
+        ctx={
+        'quiz_four':quiz_four,
+        'count': count,
+        'roomId':roomId,
+        }
+        return render(request, "games/fourWords_start.html", ctx)
 
     ctx={
         'quiz_four':quiz_four,
