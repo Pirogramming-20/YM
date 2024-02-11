@@ -188,14 +188,11 @@ header img{
 
 
 /* landing page 용 */
-.navbar2{
-
-}
-
 .navbar2 > a{
     margin-right: 20px;
+    font-family:var(--primary-font);
     padding: 10px;
-    font-size: 30px;
-    font-weight: 700;
+    font-size: 25px;
+    font-weight: 500;
     color: black;
 }
