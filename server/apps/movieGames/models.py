@@ -8,7 +8,3 @@ class MovieGame(models.Model):
 
     def __str__(self):
         return self.title
-    
-
-class QuizList(models.Model):
-    movie_game_id = models.ForeignKey(MovieGame, on_delete=models.CASCADE)

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from apps.chattings.models import GameRoom
-from .models import Four, QuizFour
+from .models import Four
 import random
 import json
 from django.http import JsonResponse

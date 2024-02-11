@@ -5,7 +5,10 @@ import random
 # Create your views here.
 
 def main(request):
-  rooms = GameRoom.objects.all().order_by('id')
+  print(request.user.id)
+  
+  rooms = GameRoom.objects.filter(user_id=request.user.id).order_by('id')
+  
   ctx = {
     'rooms' : rooms
   }
@@ -16,11 +19,15 @@ def create(request):
   if request.method == 'POST':
     room_name = request.POST["room_name"]
     room_order = request.POST["order_list"]
-    if room_name != '' and room_order !='':
+    user=User.objects.get(id=request.user.id)
+    if room_order !='':
+      if GameRoom.objects.get(room_name=room_name):
+        return render(request,'chattings/create.html', {'error':'error'})
       room = GameRoom.objects.create(
-        room_name = request.POST["room_name"] + request.user.username,
-        order_game = request.POST["order_list"]
-      )
+          room_name = request.POST["room_name"],
+          order_game = request.POST["order_list"],
+          user_id=user
+        )
       room = GameRoom.objects.get(id = room.id)
       order_game_list = room.order_game.split(",")
       #게임 순서 필드
@@ -52,6 +59,8 @@ def create(request):
       roomId = room.id
       
       return redirect('detail/{}'.format(roomId))
+    else:
+      return render(request, 'chattings/create.html', {'non_error':'error'})
   return render(request, 'chattings/create.html')
 
 def next_game(request, roomId):
@@ -125,8 +134,7 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
-  qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
+  qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택 
   #qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,

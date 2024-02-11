@@ -72,15 +72,9 @@
     }
 
     else{ //조건 만족할 때만 POST 요청
-      const Http = new XMLHttpRequest();
       const url = '/signup';
 
-      Http.open('POST', url);
-      Http.setRequestHeader("X-CSRFToken", csrftoken);
-      Http.send();
-      Http.onreadystatechange = (e) => {
-        console.log(Http.responseText);
-      };
+      location.assign(url)
     }
   };
 </script>

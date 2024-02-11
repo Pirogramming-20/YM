@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Figure, QuizFigure
+from .models import Figure
 
 admin.site.register(Figure)
-admin.site.register(QuizFigure)
