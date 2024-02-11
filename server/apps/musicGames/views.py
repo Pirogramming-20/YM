@@ -159,7 +159,6 @@ def music_game_main(request, roomId):#30개씩
 # 3. 다음 버튼 눌렀을 때 : ajax로 구현
 # 4. 우선 게임 종료 시 게임 표지 페이지로 이동 : ajax로 구현
 def music_game_start_2000(request, roomId, count):
-    QuizList.objects.all().delete()
     if(roomId == 0):
         quiz_id_int_list = random.sample(range(1,31),count)
     else:
@@ -173,18 +172,22 @@ def music_game_start_2000(request, roomId, count):
         quiz_id_int_list = quiz_id_str_list[:count]
     
     music = MusicGame.objects.filter(music__contains='2000')
+    music_game = [music[quiz_id_int_list[0]-1].id]
+    for quiz_id in quiz_id_int_list[1:]:
+        music_game_now =music[quiz_id-1].id
+        music_game.append(music_game_now)
 
-    for quiz_id in quiz_id_int_list:
-        music_game =music[quiz_id-1]
-        QuizList.objects.get_or_create(music_game_id=music_game)
+    quiz_id = music_game.pop(0)
+    music_game.append(quiz_id)
+    quiz = MusicGame.objects.get(id = quiz_id)
 
-    quiz_list = QuizList.objects.all()
-    quiz = quiz_list.first()
     if roomId == 0:
         ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
         'count' : count,
+        'music_game' : music_game,
+        'quiz_id':quiz_id
         }
         return render(request, 'musicGames/music_game_start_2000.html', ctx)
     ctx = {
@@ -192,11 +195,12 @@ def music_game_start_2000(request, roomId, count):
         'roomId' : roomId,
         'room':room,
         'count' : count,
+        'music_game' : music_game,
+        'quiz_id':quiz_id
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
 def music_game_start_2010(request, roomId, count):
-    QuizList.objects.all().delete()
     if(roomId == 0):
         quiz_id_int_list = random.sample(range(1,31),count)
     else:
@@ -209,36 +213,37 @@ def music_game_start_2010(request, roomId, count):
         quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
         quiz_id_int_list = quiz_id_str_list[:count]
 
-    music = MusicGame.objects.filter(music__contains='2010').first()
-    music_game_list = MusicGame.objects.filter(music__contains='2010')
-    for quiz_id in quiz_id_int_list:
-        # music_game = MusicGame.objects.filter(music__contains='2010').get(id=quiz_id+music.id - 1)
-        print(quiz_id)
-        print(music.id)
-        music_game = music_game_list[quiz_id - 1]
+    
+    music = MusicGame.objects.filter(music__contains='2010')
+    music_game = [music[quiz_id_int_list[0]-1].id]
+    for quiz_id in quiz_id_int_list[1:]:
+        music_game_now =music[quiz_id-1].id
+        music_game.append(music_game_now)
 
-        QuizList.objects.get_or_create(music_game_id=music_game)
 
-    quiz_list = QuizList.objects.all()
-    quiz = quiz_list.first()
+    quiz_id = music_game.pop(0)
+    music_game.append(quiz_id)
+    quiz = MusicGame.objects.get(id = quiz_id)
+
     if roomId == 0:
         ctx = {
         'quiz' : quiz,
         'count' : count,
         'roomId' : roomId,
+        'music_game' : music_game,
+        'quiz_id':quiz_id
         }
         return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
-        'room':room,
-        'count' : count,
+        'music_game' : music_game,
+        'quiz_id':quiz_id
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
 def music_game_start_2020(request, count,roomId):
-    QuizList.objects.all().delete()
     if(roomId == 0):
         quiz_id_int_list = random.sample(range(1,31),count)
     else:
@@ -251,19 +256,23 @@ def music_game_start_2020(request, count,roomId):
         quiz_id_str_list = list(map(int,quiz_id_list.split(",")))
         quiz_id_int_list = quiz_id_str_list[:count]
 
-    music = MusicGame.objects.filter(music__contains='2020').first()
+    music = MusicGame.objects.filter(music__contains='2020')
+    music_game = [music[quiz_id_int_list[0]-1].id]
+    for quiz_id in quiz_id_int_list[1:]:
+        music_game_now =music[quiz_id-1].id
+        music_game.append(music_game_now)
 
-    for quiz_id in quiz_id_int_list:
-        music_game = MusicGame.objects.filter(music__contains='2020').get(id=quiz_id+music.id-1)
-        QuizList.objects.get_or_create(music_game_id=music_game)
+    quiz_id = music_game.pop(0)
+    music_game.append(quiz_id)
+    quiz = MusicGame.objects.get(id = quiz_id)
 
-    quiz_list = QuizList.objects.all()
-    quiz = quiz_list.first()
     if roomId == 0:
         ctx = {
         'quiz' : quiz,
         'count' : count,
         'roomId' : roomId,
+        'music_game' : music_game,
+        'quiz_id':quiz_id
         }
         return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
@@ -271,30 +280,48 @@ def music_game_start_2020(request, count,roomId):
         'quiz' : quiz,
         'count' : count,
         'roomId' : roomId,
-        'room':room
+        'room':room,
+        'music_game' : music_game,
+        'quiz_id':quiz_id
     }
     return render(request, 'musicGames/music_game_start_2000.html', ctx)
 
 def next_quiz(request):
     req = json.loads(request.body)
-    quiz_id = int(req['id'])
-    quiz_id += 1
+    quiz_id = (req['id'])
+    game_list=(req['game_list'])
+    quiz_id = game_list.pop(0)
+    game_list.append(quiz_id)
 
-    quiz = QuizList.objects.get(id=quiz_id)
-    title = quiz.music_game_id.title
-    music = quiz.music_game_id.music
-    singer = quiz.music_game_id.singer
-    youtube = quiz.music_game_id.youtube
+    quiz = MusicGame.objects.get(id=quiz_id)
+    music = quiz.music
+    youtube = quiz.youtube
 
-    return JsonResponse({'id' : quiz_id, 'music' : music, 'youtube' : youtube})
+    return JsonResponse({'id' : quiz_id, 'music' : music, 'youtube' : youtube, 'game_list':game_list})
+
+
+def before_quiz(request):
+    req = json.loads(request.body)
+    quiz_id = (req['id'])
+    game_list=(req['game_list'])
+
+    next_quiz_id = game_list.pop()
+    game_list.insert(0,next_quiz_id)
+    quiz_id = game_list[-1]
+
+    quiz = MusicGame.objects.get(id=quiz_id)
+    music = quiz.music
+    youtube = quiz.youtube
+
+    return JsonResponse({'id' : quiz_id, 'music' : music, 'youtube' : youtube, 'game_list':game_list})
 
 def answer(request):
     print("here")
     req = json.loads(request.body)
-    quiz_id = int(req['id'])
+    quiz_id = (req['id'])
 
-    quiz = QuizList.objects.get(id=quiz_id)
-    title = quiz.music_game_id.title
-    singer = quiz.music_game_id.singer
+    quiz = MusicGame.objects.get(id=quiz_id)
+    title = quiz.title
+    singer = quiz.singer
 
     return JsonResponse({'id' : quiz_id, 'title' : title, 'singer' : singer})
