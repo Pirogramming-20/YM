@@ -63,7 +63,7 @@
 .user{
     color: black;
     font-family: var(--font-family);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -76,7 +76,7 @@
     padding: 0.8rem;
     white-space: nowrap; /* prevent text wrapping */
     border-radius: 0.8rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     word-wrap: break-word; /*so that long words don't cause overflow */
     border-radius: 0 10px 10px 10px; 
 
@@ -109,11 +109,16 @@
     border: 0.3rem solid rgba(75, 78, 155, 0.1);
     width: 100%;
 }
+.message-input svg {
+    width: 4rem; 
+    height: 4rem; 
+}
 .chat{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
 }
 .my_chat{
     display: flex;

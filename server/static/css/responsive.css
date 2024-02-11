@@ -14,6 +14,19 @@
     .client_section .box {
         width: 90%;
     }
+    .message-input svg {
+        width: 3.5rem; 
+        height: 3.5rem; 
+    }
+    .chat .user, .chat .message{
+        font-size: 1rem;
+    }
+    .photo-container img{
+        height: 30rem;
+    }
+    #player{
+        width: 80%;
+    }
 }
 
 @media (max-width: 768px) {
@@ -67,6 +80,33 @@
     .explain-container .btn-text{
         font-size: 4rem;
     }
+    .answer-container .text2{
+        font-size: 3rem;
+    }
+    .message-input svg {
+        width: 3rem; 
+        height: 3rem; 
+    }
+    input[type = "checkbox"].toggle + label{
+        font-size: 1.5em;
+    }
+    #chatRoom{
+        padding: 0.5rem;
+    }
+    .answer-container .text1{
+        font-size: 5rem;
+    }
+    .photo-container img{
+        height: 20rem;
+    
+    }
+    .game-btn{
+        font-size: 3rem;
+    }
+    .music-container .btn-text{
+        font-size: 4rem;
+    }
+    
 }
 
 
@@ -131,6 +171,27 @@
     .qr-image img{
         width: 80%;
     }
+    .image-cover .countdown{
+        font-size: 6rem;
+    }
+    input[type = "checkbox"].toggle + label{
+        font-size: 1.2em;
+    }
+    .four-container{
+        font-size: 4rem;
+    }
+    .two-box{
+        width: 8rem;
+    }
+    .answer-container .text1{
+        font-size: 4rem;
+    }
+    .music-container .btn-text{
+        font-size: 3rem;
+    }
+    #player{
+        height: 30rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -159,7 +220,39 @@
     .explain-container .btn-text{
         font-size: 3.5rem;
     }
-
+    
+    .answer-container .text1{
+        font-size: 3rem;
+    }
+    .answer-container .text2{
+        font-size: 2.5rem;
+        line-height: 1.5;
+    }
+    input[type = "checkbox"].toggle + label{
+        font-size: 1em;
+    }
+    .message-input svg {
+        width: 2rem; 
+        height: 2rem; 
+    }
+    .game-btn {
+        font-size: 2rem;
+    }
+    .four-container{
+        font-size: 3rem;
+    }
+    .two-box{
+        width: 6rem;
+    }
+    .photo-container img{
+        height: 16rem;
+    }
+    .music-container .btn-text{
+        font-size: 2.5rem;
+    }
+    #player{
+        height: 25rem;
+    }
 }
 
 @media (max-width: 420px) {
@@ -180,6 +273,15 @@
         font-size: 1.8rem;
     }
     .logout-btn {
+        font-size: 2rem;
+    }
+    .chat .user, .chat .message{
+        font-size: 0.8rem;
+    }
+    .photo-container img{
+        height: 12rem;
+    }
+    .music-container .btn-text{
         font-size: 2rem;
     }
 }
@@ -214,8 +316,30 @@
     .game-explain p{
         font-size: 1.5rem;
     }
+    .photo-container img{
+        height: 10rem;
+    }
+    .answer-container .text2{
+        font-size: 1.8rem;
+        line-height: 1.5;
+        padding: 1rem;
+    }
+    .game-btn, .music-container .btn-text{
+        font-size: 1.5rem;
+    }
+    input[type = "checkbox"].toggle + label{
+        font-size: 0.8em;
+    }
+    #player{
+        height: 20rem;
+    }
+    
 }
-
+@media (max-height: 700px) {
+    #player{
+        height: 8rem;
+    }
+}
 @media (min-width: 1200px) {
     .container {
         max-width: 1170px;
