@@ -3,10 +3,10 @@
 <div class="game">
   <div class="quiz">
     <div class="music-container">
-      <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
+      <button class="btn-05 main-btn btn-text start-btn" data-music="{{ quiz.music }}">
         0.5초 듣기
       </button>
-      <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
+      <button class="btn-10 main-btn btn-text start-btn" data-music="{{ quiz.music }}">
         1초 듣기
       </button>
     </div>
@@ -62,7 +62,8 @@
 
   //csrf 토큰 생성
   const csrftoken = getCookie("csrftoken");
-
+  //버튼 정리
+  
   //0.5초 듣기
   document.querySelector(".btn-05").addEventListener("click", function () {
     const audioPath = this.dataset.music;
