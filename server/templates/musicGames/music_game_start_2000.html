@@ -3,10 +3,10 @@
 <div class="game">
   <div class="quiz">
     <div class="music-container">
-      <button class="btn-05 main-btn btn-text start-btn" data-music="{{ quiz.music }}">
+      <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
         0.5초 듣기
       </button>
-      <button class="btn-10 main-btn btn-text start-btn" data-music="{{ quiz.music }}">
+      <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
         1초 듣기
       </button>
     </div>
@@ -63,13 +63,17 @@
   //csrf 토큰 생성
   const csrftoken = getCookie("csrftoken");
   //버튼 정리
-  
+  const nextBtn = document.querySelector(".next-btn");
+  const answerBtn = document.querySelector(".answer-btn");
   //0.5초 듣기
   document.querySelector(".btn-05").addEventListener("click", function () {
     const audioPath = this.dataset.music;
     const audio = new Audio(audioPath);
     audio.loop = false;
     const play = audio.play();
+    //다음문제 정답버튼 활성화
+    nextBtn.addEventListener('click', nextFunction, {once:true});
+    answerBtn.addEventListener('click', answerFunction, {once:true});
 
     if (play !== undefined) {
       play
@@ -90,6 +94,9 @@
     const audio = new Audio(audioPath);
     audio.loop = false;
     const play = audio.play();
+    //다음문제 정답버튼 활성화
+    nextBtn.addEventListener('click', nextFunction, {once:true});
+    answerBtn.addEventListener('click', answerFunction, {once:true});
 
     if (play !== undefined) {
       play
@@ -109,7 +116,6 @@
   let currentQuizId = {{quiz.id}};
   let currentYear = {{year}};
   const beforeBtn = document.querySelector(".before-btn");
-  const nextBtn = document.querySelector(".next-btn");
   let cnt = 1;
   let youtube_src = "{{ quiz.youtube }}";
 
@@ -150,17 +156,16 @@
   }
 
   //정답 버튼
-  const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
-  document.querySelector(".answer-btn").addEventListener("click", function () {
+  function answerFunction() {
     createPlayer();
     const url = "/music/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
     requestAnswer.send(JSON.stringify({ id: currentQuizId, year: currentYear}));
-  });
+  };
 
   requestAnswer.onreadystatechange = () => {
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {
@@ -177,7 +182,7 @@
   };
 
   //다음 문제로 넘어가기
-  nextBtn.addEventListener("click", function () {
+  function nextFunction() {
     if (cnt < parseInt("{{ count }}")){
     const url = "/music/next/";
     requestQuiz.open("POST", url, true);
@@ -198,7 +203,9 @@
 
     const singer_element = document.querySelector(".singer");
     singer_element.innerHTML = "";
-  }});
+    //정답 버튼 비활성화
+    answerBtn.removeEventListener('click', answerFunction);
+  }};
 
   beforeBtn.addEventListener("click", function () {
     if (cnt > 1){
