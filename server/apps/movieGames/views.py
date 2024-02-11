@@ -124,7 +124,7 @@ def movie_game_start(request,roomId, count):
 
 
     quiz_id = movie_game.pop(0)
-    
+    movie_game.append(quiz_id)
     quiz = MovieGame.objects.get(id = quiz_id)
 
     if roomId == 0:
@@ -151,9 +151,23 @@ def next_quiz(request):
     req = json.loads(request.body)
     quiz_id = (req['id'])
     game_list=(req['game_list'])
-    print(game_list)
     quiz_id = game_list.pop(0)
-    print(game_list)
+    game_list.append(quiz_id)
+    
+    quiz = MovieGame.objects.get(id=quiz_id)
+    scene = quiz.scene
+    return JsonResponse({'id' : quiz_id, 'scene' : scene, 'game_list':game_list})
+
+#이전문제
+def before_quiz(request):
+    req = json.loads(request.body)
+    quiz_id = (req['id'])
+    game_list=(req['game_list'])
+
+    next_quiz_id = game_list.pop()
+    game_list.insert(0,next_quiz_id)
+    quiz_id = game_list[-1]
+
     quiz = MovieGame.objects.get(id=quiz_id)
     scene = quiz.scene
     return JsonResponse({'id' : quiz_id, 'scene' : scene, 'game_list':game_list})
@@ -161,7 +175,7 @@ def next_quiz(request):
 def answer(request):
     req = json.loads(request.body)
     quiz_id = (req['id'])
-
+    print("answr11")
     quiz = MovieGame.objects.get(id=quiz_id)
     title = quiz.title
     line = quiz.line

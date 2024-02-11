@@ -3,16 +3,10 @@
 <div class="game">
   <div class="quiz">
     <div class="music-container">
-      <button
-        class="btn-05 main-btn btn-text"
-        data-music="{{ quiz.music_game_id.music }}"
-      >
+      <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
         0.5초 듣기
       </button>
-      <button
-        class="btn-10 main-btn btn-text"
-        data-music="{{ quiz.music_game_id.music }}"
-      >
+      <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
         1초 듣기
       </button>
     </div>
@@ -22,6 +16,8 @@
       <div class="singer text2"></div>
     </div>
     <div class="game-btn-container">
+      <!-- 이전문제 -->
+      <div class="before-btn"></div>
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -66,13 +62,18 @@
 
   //csrf 토큰 생성
   const csrftoken = getCookie("csrftoken");
-
+  //버튼 정리
+  const nextBtn = document.querySelector(".next-btn");
+  const answerBtn = document.querySelector(".answer-btn");
   //0.5초 듣기
   document.querySelector(".btn-05").addEventListener("click", function () {
     const audioPath = this.dataset.music;
     const audio = new Audio(audioPath);
     audio.loop = false;
     const play = audio.play();
+    //다음문제 정답버튼 활성화
+    nextBtn.addEventListener('click', nextFunction, {once:true});
+    answerBtn.addEventListener('click', answerFunction, {once:true});
 
     if (play !== undefined) {
       play
@@ -93,6 +94,9 @@
     const audio = new Audio(audioPath);
     audio.loop = false;
     const play = audio.play();
+    //다음문제 정답버튼 활성화
+    nextBtn.addEventListener('click', nextFunction, {once:true});
+    answerBtn.addEventListener('click', answerFunction, {once:true});
 
     if (play !== undefined) {
       play
@@ -108,10 +112,12 @@
   });
 
   const requestQuiz = new XMLHttpRequest();
-  let currentQuizId = "{{ quiz.id }}";
-  const nextBtn = document.querySelector(".next-btn");
+  let gameList = {{music_game}};
+  let currentQuizId = {{quiz.id}};
+  let currentYear = {{year}};
+  const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
-  let youtube_src = "{{ quiz.music_game_id.youtube }}";
+  let youtube_src = "{{ quiz.youtube }}";
 
   //정답 보기
   let player;
@@ -150,17 +156,16 @@
   }
 
   //정답 버튼
-  const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
-  document.querySelector(".answer-btn").addEventListener("click", function () {
+  function answerFunction() {
     createPlayer();
     const url = "/music/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
-    requestAnswer.send(JSON.stringify({ id: currentQuizId }));
-  });
+    requestAnswer.send(JSON.stringify({ id: currentQuizId, year: currentYear}));
+  };
 
   requestAnswer.onreadystatechange = () => {
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {
@@ -177,13 +182,17 @@
   };
 
   //다음 문제로 넘어가기
-  nextBtn.addEventListener("click", function () {
+  function nextFunction() {
+    if (cnt < parseInt("{{ count }}")){
     const url = "/music/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList, year: currentYear }));
 
+    if(cnt == 1){
+      beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+    }
     if (player) {
       player.destroy();
       player = null;
@@ -194,12 +203,43 @@
 
     const singer_element = document.querySelector(".singer");
     singer_element.innerHTML = "";
-  });
+    //정답 버튼 비활성화
+    answerBtn.removeEventListener('click', answerFunction);
+  }};
+
+  beforeBtn.addEventListener("click", function () {
+    if (cnt > 1){
+    const url = "/music/before/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList, year: currentYear}));
+
+    if (cnt === parseInt("{{ count }}")) {
+      nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+    }
+    else if (cnt === 2) {
+      beforeBtn.innerHTML = "";
+    }
+    cnt--;
+    cnt--;
+    if (player) {
+      player.destroy();
+      player = null;
+    }
+
+    const title_element = document.querySelector(".title");
+    title_element.innerHTML = "";
+
+    const singer_element = document.querySelector(".singer");
+    singer_element.innerHTML = "";
+  }});
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, music, youtube } = JSON.parse(requestQuiz.response);
+        const { id, music, youtube, game_list } = JSON.parse(requestQuiz.response);
+        gameList = game_list;
 
         const music_element_05 = document.querySelector(".btn-05");
         music_element_05.dataset.music = music;

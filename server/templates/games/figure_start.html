@@ -7,21 +7,19 @@
         <span class="countdown text2">사진</span>
       </div>
       <div class="photo-container">
-        <img
-          src="{{quiz_figure.figure_quiz_id.image_path}}"
-          alt="이미지"
-          class="photo"
-        />
+        <img src="{{quiz_figure.image_path}}" alt="이미지" class="photo" />
       </div>
     </div>
     <div class="answer-container">
       <div class="figure-name text1"></div>
     </div>
     <div class="game-btn-container">
-      <button class="game-btn main-btn btn-text" onclick="startCountdown()">
+      <button class="game-btn main-btn btn-text start-btn">
         시작
         <i class="fa-solid fa-play"></i>
       </button>
+      <!-- 이전문제 -->
+      <div class="before-btn"></div>
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -64,6 +62,12 @@
   }
   const csrftoken = getCookie("csrftoken");
 
+  //버튼 정리
+  const nextBtn = document.querySelector(".next-btn");
+  const answerBtn = document.querySelector(".answer-btn");
+  const startBtn = document.querySelector(".start-btn");
+  startBtn.addEventListener('click', startCountdown, {once:true})//한 번만 작동하도록
+
   //카운트다운
   const imageCover = document.querySelector(".image-cover");
   const countdownElement = document.querySelector(".countdown");
@@ -72,47 +76,82 @@
   function startCountdown() {
     imageCover.style.display = "flex";
     let count = 3;
-    clearInterval(countdownInterval);
-
     countdownInterval = setInterval(() => {
       if (count <= 0) {
         clearInterval(countdownInterval);
         imageCover.style.display = "none";
+        //다음문제 정답버튼 활성화
+        nextBtn.addEventListener('click', nextFunction, {once:true});
+        answerBtn.addEventListener('click', answerFunction, {once:true});
       } else {
         countdownElement.textContent = count;
         count--;
+        console.log(count);
       }
     }, 1000);
   }
 
   const requestQuiz = new XMLHttpRequest();
-  let currentQuizId = "{{quiz_figure.id}}";
-  const nextBtn = document.querySelector(".next-btn");
+  let gameList = {{figure_game}};
+  let currentQuizId = {{quiz_figure.id}};
+
+  const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
   function reset_animation() {
+    clearInterval(countdownInterval);
     const quizContainer = document.querySelector(".quiz");
     quizContainer.style.animation = "none";
     quizContainer.offsetHeight; /* trigger reflow */
     quizContainer.style.animation = null;
   }
 
-  nextBtn.addEventListener("click", function () {
+  function nextFunction() {
+    if (cnt < parseInt("{{ count }}")){
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
     const url = "/figure/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList}));
+    //이전문제 버튼 만들기
+    if(cnt == 1){
+      beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+    }
     const name_element = document.querySelector(".figure-name");
     name_element.innerHTML = "";
-  });
+    //시작버튼 재활성화, 정답 버튼 비활성화
+    startBtn.addEventListener('click', startCountdown, {once:true});
+    answerBtn.removeEventListener('click', answerFunction);
+  }};
+
+  beforeBtn.addEventListener("click", function () {
+    if (cnt > 1){
+    if (cnt === parseInt("{{ count }}")) {
+      nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+    }
+    else if (cnt === 2) {
+      beforeBtn.innerHTML = "";
+    }
+    cnt--;
+    cnt--;
+    imageCover.style.display = "flex";
+    countdownElement.textContent = "사진";
+    const url = "/figure/before/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList}));
+
+    const name_element = document.querySelector(".figure-name");
+    name_element.innerHTML = "";
+  }});
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, image_path } = JSON.parse(requestQuiz.response);
-
+        const { id, image_path, game_list } = JSON.parse(requestQuiz.response);
+        gameList = game_list;
         const photo_element = document.querySelector(".photo");
         photo_element.src = image_path;
 
@@ -126,16 +165,16 @@
   };
 
   // 정답 보기 js
-  const answerBtn = document.querySelector(".answer-btn");
+  
   const requestAnswer = new XMLHttpRequest();
 
-  answerBtn.addEventListener("click", function () {
+  function answerFunction() {
     const url = "/figure/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
     requestAnswer.send(JSON.stringify({ id: currentQuizId }));
-  });
+  };
 
   requestAnswer.onreadystatechange = () => {
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {

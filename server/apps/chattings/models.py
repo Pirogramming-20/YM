@@ -5,7 +5,7 @@ from apps.main.models import User
 
 # Create your models here.
 class GameRoom(models.Model):
-    room_name = models.CharField(max_length=32)
+    room_name = models.CharField(max_length=32, unique=True)
 
     order_game = models.CharField(max_length=50)
     order_num = models.CharField(max_length=10, null = True, blank = True)
@@ -15,3 +15,5 @@ class GameRoom(models.Model):
     ran_music = models.CharField(max_length=50, null = True, blank = True)
 
     participants = models.IntegerField(default = 0)
+    
+    user_id=models.ForeignKey(User, on_delete=models.CASCADE, db_column="user_id")

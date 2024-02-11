@@ -19,7 +19,7 @@
     <div class="team">
       <div class="sub-title text3">팀</div>
       <div class="btn">
-        <a href={% url 'rooms:create' %} class="room-create main-btn btn-text"> 게임방 만들기 </a>
+    <a onclick="make_room()" class="room-create main-btn btn-text"> 게임방 만들기 </a>
       <div class="rooms">
         <div class="main-btn room-list btn-text"> 게임방 리스트 </div>
       {% for room in rooms %}
@@ -43,9 +43,20 @@
   </div>
 
 {% endblock content %}
-{% block script%}
 <script>
-  console.log('room is', {{room}});
+  function make_room(){
+    console.log("hi")
+    const number={{rooms.count}};
+    
+    if (number==5){
+{% block script %}
+      alert("방을 6개 이상 만들 수 없습니다.");
 
-</script> {% endblock %}
-```
+    }
+    else{
+      const url="/chatting-room/create";
+      location.assign(url);
+    }
+  }
+</script>
+{% endblock %}

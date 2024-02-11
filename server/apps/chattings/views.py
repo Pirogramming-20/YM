@@ -5,7 +5,10 @@ import random
 # Create your views here.
 
 def main(request):
-  rooms = GameRoom.objects.all().order_by('id')
+  print(request.user.id)
+  
+  rooms = GameRoom.objects.filter(user_id=request.user.id).order_by('id')
+  
   ctx = {
     'rooms' : rooms
   }
@@ -16,11 +19,15 @@ def create(request):
   if request.method == 'POST':
     room_name = request.POST["room_name"]
     room_order = request.POST["order_list"]
-    if room_name != '' and room_order !='':
+    user=User.objects.get(id=request.user.id)
+    if room_order !='':
+      if GameRoom.objects.get(room_name=room_name):
+        return render(request,'chattings/create.html', {'error':'error'})
       room = GameRoom.objects.create(
-        room_name = request.POST["room_name"] + request.user.username,
-        order_game = request.POST["order_list"]
-      )
+          room_name = request.POST["room_name"],
+          order_game = request.POST["order_list"],
+          user_id=user
+        )
       room = GameRoom.objects.get(id = room.id)
       order_game_list = room.order_game.split(",")
       #게임 순서 필드
@@ -52,6 +59,8 @@ def create(request):
       roomId = room.id
       
       return redirect('detail/{}'.format(roomId))
+    else:
+      return render(request, 'chattings/create.html', {'non_error':'error'})
   return render(request, 'chattings/create.html')
 
 def next_game(request, roomId):

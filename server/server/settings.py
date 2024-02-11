@@ -23,7 +23,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'
 SECRET_KEY = 'django-insecure-g3r!cjkx7op%fkc43*oh96x^!*=u@eap^omoa7vgfj9kp05=)1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -126,8 +126,8 @@ USE_TZ = True
 
 SILENCED_SYSTEM_CHECKS = ['urls.W002', 'security.W019'] # URL WARNING 무시
 
-STATIC_URL = 'static/'
-# STATIC_ROOT=os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+#STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
