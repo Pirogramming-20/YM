@@ -92,12 +92,17 @@
 #messages, .message-input {
     padding: 0.1rem; 
 }
+#messages {
+    overflow-y: auto; /* enable scrolling */
+    max-height: 56vh; 
+}
 
 .message-input{
     display: flex;
     justify-content: center;
     margin-bottom: 2rem;
     gap: 1rem;
+    font-size: 1.5rem;
 }
 
 .message-input input{
