@@ -12,6 +12,13 @@
     margin-left: auto;
     margin-right: auto;
 }
+.game-main-container > form > label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+
+}
 input[type="text"]#roomName{
     margin-bottom: 4rem;
 }
@@ -22,13 +29,12 @@ input[type="checkbox"].order-check{
 
 .order-check-container{
     gap: 2rem;
-    margin: 4rem 0;
+    margin: 4rem;
 }
 
-.order-check-container input{
-}
+
 .order-check-container label{
-    font-size: 2rem;
+    font-size: 2.6rem;
     margin-left: 1rem;
 }
 
@@ -118,7 +124,8 @@ input[type="checkbox"].order-check{
 /* movie game start */
 .game{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    /* justify-content: space-between; */
     height: calc(100vh - 20vh);
 }
 
@@ -135,7 +142,8 @@ input[type="checkbox"].order-check{
     will-change: transform;
   }
   .chat-container{
-    width: 25%;
+    width: 28%;
+    padding-left: 4rem;
   }
   .game-btn-container{
     display: flex;

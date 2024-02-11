@@ -27,6 +27,10 @@
     #player{
         width: 80%;
     }
+    .game-main-container form input{
+        width: 35rem;
+    }
+    
 }
 
 @media (max-width: 768px) {
@@ -77,7 +81,7 @@
         font-size: 4rem; 
         padding: 1rem; 
     }
-    .explain-container .btn-text{
+    .explain-container .btn-text, .game-main-container .btn-text{
         font-size: 4rem;
     }
     .answer-container .text2{
@@ -106,7 +110,15 @@
     .music-container .btn-text{
         font-size: 4rem;
     }
-    
+    .game-main-container form input{
+        width: 25rem;
+    }
+    .game-main-container > form > label{
+        font-size: 2.5rem;
+    }
+    .game-main-container .text3{
+        font-size: 4rem;
+    }
 }
 
 
@@ -192,6 +204,15 @@
     #player{
         height: 30rem;
     }
+    /* .game-main-container form input{
+        width: 15rem;
+    } */
+    .game-main-container .text3{
+        font-size: 3rem;
+    }
+    #game-order{
+        width: 20rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -217,7 +238,7 @@
     .explain-container .text2, .problem .rule, .time .rule{
         font-size: 3rem;
     }
-    .explain-container .btn-text{
+    .explain-container .btn-text, .game-main-container .btn-text{
         font-size: 3.5rem;
     }
     
@@ -253,6 +274,12 @@
     #player{
         height: 25rem;
     }
+    /* .game-main-container form input{
+        width: 12rem;
+    } */
+    .order-check-list label{
+        font-size: 1.5rem;
+    }
 }
 
 @media (max-width: 420px) {
@@ -281,8 +308,14 @@
     .photo-container img{
         height: 12rem;
     }
-    .music-container .btn-text{
+    .music-container .btn-text, .game-main-container .btn-text{
         font-size: 2rem;
+    }
+    .game-main-container form input{
+        width: 15rem;
+    }
+    .game-main-container .text3{
+        font-size: 2.5rem;
     }
 }
 
@@ -332,6 +365,18 @@
     }
     #player{
         height: 20rem;
+    }
+    /* .game-main-container form input{
+        width: 12rem;
+    } */
+    .game-main-container .text3{
+        font-size: 2rem;
+    }
+    .game-main-container .text2{
+        font-size: 3rem;
+    }
+    .game-main-container .text1{
+        font-size: 5rem;
     }
     
 }
