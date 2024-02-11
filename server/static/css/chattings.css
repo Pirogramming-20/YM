@@ -55,7 +55,7 @@
     overflow: hidden;
     transition: transform 0.8s ease, opacity 0.8s ease;
     transform: translateX(0);
-    opacity: 1; /* Ensure it's fully visible when not hidden */
+    opacity: 1; 
     /* max-height: 50rem;
     transition: max-height 0.8s ease, transform 0.8s ease; */
 }
@@ -63,7 +63,7 @@
 .user{
     color: black;
     font-family: var(--font-family);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -76,7 +76,7 @@
     padding: 0.8rem;
     white-space: nowrap; /* prevent text wrapping */
     border-radius: 0.8rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     word-wrap: break-word; /*so that long words don't cause overflow */
     border-radius: 0 10px 10px 10px; 
 
@@ -92,23 +92,33 @@
 #messages, .message-input {
     padding: 0.1rem; 
 }
+#messages {
+    overflow-y: auto; /* enable scrolling */
+    max-height: 56vh; 
+}
 
 .message-input{
     display: flex;
     justify-content: center;
     margin-bottom: 2rem;
     gap: 1rem;
+    font-size: 1.5rem;
 }
 
 .message-input input{
     border: 0.3rem solid rgba(75, 78, 155, 0.1);
     width: 100%;
 }
+.message-input svg {
+    width: 4rem; 
+    height: 4rem; 
+}
 .chat{
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
 }
 .my_chat{
     display: flex;
@@ -181,15 +191,12 @@ input[type = "checkbox"].toggle:checked + label{
 #chatRoom.hidden {
     transform: translateX(100%);
     opacity: 0;
-    /* max-height: 0;
-    transform: scaleY(0); */
+    /* display: none; */
 }
 
 #chatRoom.visible {
     transform: translateX(0);
     opacity: 1;
-    /* max-height: 50rem;
-    transform: scaleY(1); */
 }
 
 
@@ -201,5 +208,3 @@ input[type = "checkbox"].toggle:checked + label{
     height: 100%;
     gap: 6rem;
 }
-
-

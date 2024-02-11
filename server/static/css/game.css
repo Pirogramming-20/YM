@@ -12,6 +12,13 @@
     margin-left: auto;
     margin-right: auto;
 }
+.game-main-container > form > label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+
+}
 input[type="text"]#roomName{
     margin-bottom: 4rem;
 }
@@ -22,13 +29,12 @@ input[type="checkbox"].order-check{
 
 .order-check-container{
     gap: 2rem;
-    margin: 4rem 0;
+    margin: 4rem;
 }
 
-.order-check-container input{
-}
+
 .order-check-container label{
-    font-size: 2rem;
+    font-size: 2.6rem;
     margin-left: 1rem;
 }
 
@@ -118,7 +124,8 @@ input[type="checkbox"].order-check{
 /* movie game start */
 .game{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    /* justify-content: space-between; */
     height: calc(100vh - 20vh);
 }
 
@@ -135,14 +142,17 @@ input[type="checkbox"].order-check{
     will-change: transform;
   }
   .chat-container{
-    width: 25%;
+    width: 28%;
+    padding-left: 4rem;
   }
   .game-btn-container{
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-left: 1.4rem;
   }
   .game-btn{
-    font-size: 3rem;
+    font-size: 4rem;
   }
 
 .photo-container{
@@ -151,11 +161,13 @@ input[type="checkbox"].order-check{
 
 }
 .photo-container img{
-    max-height: 50rem;
-    max-width: 60rem;
+    max-height: 40rem;
+    max-width: 45rem;
     border-radius: 6rem;
-    height: auto;
-    width: auto;
+    height: 60%;
+    width: 80%;
+    object-fit: contain;
+
 }
 .quiz-container {
     position: relative;
@@ -180,7 +192,7 @@ input[type="checkbox"].order-check{
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    margin: 0 6rem;
+    /* margin: 0 6rem; */
 }
 .title,.line{
     font-size: 4rem;
@@ -203,6 +215,10 @@ input[type="checkbox"].order-check{
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 4rem;
+    margin-left: 2rem;
+}
+.music-container .btn-text{
+    font-size: 5rem;
 }
 #player{
     border-radius: 6rem;
