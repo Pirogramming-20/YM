@@ -114,8 +114,8 @@
 
     }
     .log-in-sign-up-btn a, .landing-game-btn a {
-        font-size: 2rem; /* Adjust font size */
-        padding: 0.8rem; /* Adjust padding */
+        font-size: 2rem; 
+        padding: 0.8rem; 
     }
     form label{
         font-size: 3rem;
@@ -133,6 +133,16 @@
         width: 100%; /* Adjust the width of the input field for smaller screens */
         /* max-width: 20rem;  */
     }
+    .individual > .sub-title, .team > .sub-title{
+        font-size: 4rem;
+    }
+    .room-create, .room-list {
+        font-size: 3rem;
+    }
+    .room-name {
+        font-size: 2rem;
+    }
+
 }
 
 @media (max-width: 420px) {
@@ -146,6 +156,15 @@
     .navigate{
         font-size: 2rem;
     }
+    .room-create, .room-list {
+        font-size: 2rem;
+    }
+    .room-name {
+        font-size: 1.8rem;
+    }
+    .logout-btn {
+        font-size: 2rem;
+    }
 }
 
 @media (max-width: 360px) {
@@ -156,6 +175,15 @@
     .form-row {
         margin-bottom: 1rem; 
         font-size: 1rem;
+    }
+    .room-create, .room-list {
+        font-size: 2rem;
+    }
+    .room-name {
+        font-size: 1.5rem;
+    }
+    .logout-btn {
+        font-size: 1.5rem;
     }
 }
 
