@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-
 from apps.chattings.models import GameRoom
-from .models import Figure, QuizFigure
+from .models import Figure
 import random
 import json
 from django.http import JsonResponse
