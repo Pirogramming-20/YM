@@ -180,7 +180,7 @@ def music_game_start_2000(request, roomId, count):
     quiz_id = music_game.pop(0)
     music_game.append(quiz_id)
     quiz = MusicGame.objects.get(id = quiz_id)
-
+    
     if roomId == 0:
         ctx = {
         'quiz' : quiz,
