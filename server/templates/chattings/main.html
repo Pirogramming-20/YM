@@ -6,6 +6,10 @@
   <span class="text2">MT</span>
 </div>
 <div class="room-main-container">
+  <a class="room-create main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
+  <a class="room-create main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
+  <a class="room-create main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
+  <a class="room-create main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
   <div class="room-create">
     <a href={% url 'rooms:create' %} class="room-create main-btn btn-text"> 게임방 만들기 </a>
   </div>
