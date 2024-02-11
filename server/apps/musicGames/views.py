@@ -216,7 +216,7 @@ def music_game_start_2010(request, roomId, count):
     
     music = MusicGame.objects.filter(music__contains='2010')
     music_game = [music[quiz_id_int_list[0]-1].id]
-    for quiz_id in quiz_id_int_list:
+    for quiz_id in quiz_id_int_list[1:]:
         music_game_now =music[quiz_id-1].id
         music_game.append(music_game_now)
 
@@ -258,7 +258,7 @@ def music_game_start_2020(request, count,roomId):
 
     music = MusicGame.objects.filter(music__contains='2020')
     music_game = [music[quiz_id_int_list[0]-1].id]
-    for quiz_id in quiz_id_int_list:
+    for quiz_id in quiz_id_int_list[1:]:
         music_game_now =music[quiz_id-1].id
         music_game.append(music_game_now)
 
