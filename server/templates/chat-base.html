@@ -1,6 +1,7 @@
 
         
         <!-- 채팅 입력 칸 생성 -->
+        {% if user.is_authenticated %}
         <div class="chatroom-container">
             <input type="checkbox" id="chatToggle" class="toggle">
             <label for="chatToggle">채팅창 없애기</label>
@@ -20,6 +21,7 @@
                 
                 </div>
         </div>
+        {% endif %}
         <script>
             const room_num = "{{ room.id }}";
             const room_name = "{{ room.room_name }}";
