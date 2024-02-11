@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="form-container">
-    <div class="sub-title text2">로그인</div>
+    <div class="sub-title text1">로그인</div>
     <form method="POST" action="">
         {% csrf_token %}
         {% for field in form %}
@@ -11,12 +11,12 @@
                 {{ field }}
             </div>
         {% endfor %}
-        <a href={% url 'main:signup' %} class="navigate text3">
+        <a href={% url 'main:signup' %} class="navigate text2">
             <span >아직 회원이 아니신가요? </span>
             <span >회원가입하기</span>
         </a>
             
-        <button type="submit" value="SignUp" class="main-btn text3">로그인</button>
+        <button type="submit" value="SignUp" class="main-btn btn-text">로그인</button>
     </form>
 </div>
 {% endblock content %}

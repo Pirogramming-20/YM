@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+=
+<div class="chatroom-container">
+
+    <div class="info_room_num sub-title text3">Room: {{room.id}}</div>
+    <!-- 입력된 채팅들이 기록될 공간 -->
+    <ul id="messages"></ul>
+    
+    {% comment %} <div class="my_chat">
+        <div class="chat">
+            <div class="user"> data[1] </div>
+            <div class="message"> data[0] </div>
+       </div> 
+    </div> {% endcomment %}
+     
+   
+    <!-- 채팅 입력 칸 생성 -->
+    <div class="message-input">
+        <input id="input" autocomplete="off" />
+        <span onclick="click1()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="24" viewBox="0 0 19 24" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.28436 3.62662L15.5157 10.9238C15.8294 11.1276 16.0276 11.5442 16.0276 12C16.0276 12.4557 15.8294 12.8724 15.5157 13.0761L4.28436 20.3733C3.95891 20.5849 3.56828 20.529 3.28599 20.2306C3.0037 19.9321 2.88209 19.4464 2.97518 18.9892L4.39948 12L2.97518 5.01076C2.88209 4.55353 3.0037 4.06782 3.28599 3.76937C3.56828 3.47091 3.95891 3.41506 4.28436 3.62662Z" fill="#C3FF00"/>
+                <path d="M8.6258 12.0002H4.39954" stroke="#6B46EE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+    </div>
+</div>
+
+{% endblock content %}
+{% block script %}
+<script
+      src="https://cdn.socket.io/4.0.1/socket.io.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+    const room_num = "{{ room.id }}";
+    const room_name = "{{ room.room_name }}";
+    const username = "{{ user.username }}";
+      console.log(room_num);
+      console.log(room_name);
+      console.log(username);
+
+      let socket = io.connect(
+        location.protocol + "//" + document.domain + ":" + location.port
+      );
+      socket.emit("join", room_name);
+
+      // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
+      socket.on('message', function(data) {
+        console.log('Message received: ', data);
+      
+        // Create the main chat item container
+        let chatItem = document.createElement('div');
+        chatItem.className = 'chat';
+      
+        // Create and append the user div
+        let userDiv = document.createElement('div');
+        userDiv.className = 'user';
+        userDiv.textContent = data[1]; // Assuming data[1] contains the username
+        chatItem.appendChild(userDiv);
+      
+        // Create and append the message div
+        let messageDiv = document.createElement('div');
+        messageDiv.className = 'message';
+        messageDiv.textContent = data[0]; // Assuming data[0] contains the message
+        chatItem.appendChild(messageDiv);
+      
+        // Create the list item and append the chat item to it
+        let listDiv = document.createElement('div');
+        if (data[1] === username) {
+          listDiv.className += ' my_chat'; // Note the space before the class name
+        }
+        listDiv.appendChild(chatItem);
+      
+        // Append the list item to the messages list
+        document.getElementById('messages').appendChild(listDiv);
+      });
+
+      // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
+      function click1() {
+        console.log("clk");
+        let text = document.getElementById("input").value;
+        console.log("clk2");
+        socket.emit("message", text, username, room_name);
+        document.getElementById("input").value = "";
+      }
+      document
+        .getElementById("input")
+        .addEventListener("keydown", function (e) {
+          if (e.keyCode === 13) {
+            // 'Enter'키의 keyCode는 13입니다.
+            let text = e.target.value;
+
+            socket.emit("message", text, username, room_name);
+            e.target.value = "";
+          }
+        });
+    </script>
+{% endblock script %}

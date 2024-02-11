@@ -1,17 +1,36 @@
-{% extends 'base.html' %}
-
-{% block head %}
-    <style="font-color:white;"/>
-    <title>four_words_main</title>
-{% endblock %}
-
-{% block content %}
-    <h1>네 글자 게임 메인 페이지 입니다</h1>
-    <div>게임 설명 <br>
-        네 글자 게임은 두 글자가 주어지면 말이 되는 단어로 나머지 두 글자를 이어말하는 게임입니다 <br>
-        '시작' 버튼을 누르면 두 글자가 보입니다! <br>
-        이어지는 두 글자를 3초안에 말하세요<br>
-        시간 내에 말하지 못 하거나 말이 되지 않으면 자비없이 땡!!
+{% extends 'base.html' %} {% block head %}
+<title>four_words_main</title>
+{% endblock %} {% block content %}
+<div class="explain-container">
+  <div class="text1">네 글자 게임</div>
+  <div class="text2">두 글자가 주어지면 나머지 두 글자를 이어말하세요!!</div>
+  <div class="game-explain text3">
+    <p>게임 설명</p>
+    <p>'시작' 버튼을 누르면 인물 사진이 나옵니다!</p>
+    <p>3초 안에 해당 인물의 이름을 외치세요</p>
+    <p>시간 내에 말하지 못 하거나 잘못된 이름을 말하면 자비없이 땡!!</p>
+  </div>
+  <form method="POST" action="{% url 'fourWords:fourWords_main' roomId %}">
+    {% csrf_token %}
+    <div class="problem">
+      <div class="rule text3">문제 개수를 선택해주세요!</div>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="5" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">5 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="10" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">10 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="15" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">15 문제</span>
+      </label>
     </div>
-    <a href="{% url 'fourWords:fourWords_game' %}">게임시작</a>
+    <button type="submit" class="main-btn btn-text">게임 시작</button>
+  </form>
+</div>
 {% endblock %}
