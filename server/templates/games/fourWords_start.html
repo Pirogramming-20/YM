@@ -7,7 +7,7 @@
         <span class="countdown text2">문제</span>
       </div>
       <div class="four-container">
-        <span class="two-container">{{quiz_four.four_quiz_id.two}}</span>
+        <span class="two-container">{{quiz_four.two}}</span>
         <span class="two-box"></span>
         {% comment %} <span class="two-box"></span> {% endcomment %}
       </div>
@@ -20,6 +20,8 @@
         시작
         <i class="fa-solid fa-play"></i>
       </button>
+      <!-- 이전문제 -->
+      <div class="before-btn"></div>
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -65,7 +67,7 @@
     }, 1000);
   }
   // 정답 보기 js
-  let currentFourId = "{{quiz_four.id}}";
+  let currentFourId = {{quiz_four.id}};
   const answer_element = document.querySelector(".answer");
   const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
@@ -107,6 +109,8 @@
   const csrftoken = getCookie("csrftoken");
   // 다음문제로 넘어가는 ajax
   const requestNextQuiz = new XMLHttpRequest();
+  let gameList = {{four_game}};
+  const beforeBtn = document.querySelector(".before-btn");
   const nextBtn = document.querySelector(".next-btn");
   let cnt = 1;
   function reset_animation() {
@@ -116,6 +120,7 @@
     quizContainer.style.animation = null;
   }
   nextBtn.addEventListener("click", function () {
+    if (cnt < parseInt("{{ count }}")){
     imageCover.style.display = "flex";
 
     countdownElement.textContent = "문제";
@@ -124,15 +129,41 @@
     requestNextQuiz.setRequestHeader("Content-Type", "application/json");
     requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
 
-    requestNextQuiz.send(JSON.stringify({ id: currentFourId }));
+    requestNextQuiz.send(JSON.stringify({ id: currentFourId, game_list: gameList }));
+    if(cnt == 1){
+      beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+    }
     answer_element.innerHTML = "";
-  });
+  }});
+
+  beforeBtn.addEventListener("click", function () {
+    if (cnt > 1){
+    imageCover.style.display = "flex";
+    if (cnt === parseInt("{{ count }}")) {
+      nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+    }
+    else if (cnt === 2) {
+      beforeBtn.innerHTML = "";
+    }
+    cnt--;
+    cnt--;
+    countdownElement.textContent = "문제";
+    const url = "/fourWords/before/";
+    requestNextQuiz.open("POST", url, true);
+    requestNextQuiz.setRequestHeader("Content-Type", "application/json");
+    requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+
+    requestNextQuiz.send(JSON.stringify({ id: currentFourId, game_list: gameList }));
+
+    answer_element.innerHTML = "";
+  }});
 
   requestNextQuiz.onreadystatechange = () => {
     if (requestNextQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestNextQuiz.status < 400) {
-        const { id, two, answer } = JSON.parse(requestNextQuiz.response);
+        const { id, two, answer, game_list } = JSON.parse(requestNextQuiz.response);
         const twoElement = document.querySelector(".two-container");
+        gameList = game_list;
         twoElement.innerHTML = two;
         currentFourId = id;
         cnt++;

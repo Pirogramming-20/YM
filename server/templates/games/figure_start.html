@@ -7,11 +7,7 @@
         <span class="countdown text2">사진</span>
       </div>
       <div class="photo-container">
-        <img
-          src="{{quiz_figure.figure_quiz_id.image_path}}"
-          alt="이미지"
-          class="photo"
-        />
+        <img src="{{quiz_figure.image_path}}" alt="이미지" class="photo" />
       </div>
     </div>
     <div class="answer-container">
@@ -22,6 +18,8 @@
         시작
         <i class="fa-solid fa-play"></i>
       </button>
+      <!-- 이전문제 -->
+      <div class="before-btn"></div>
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -86,8 +84,10 @@
   }
 
   const requestQuiz = new XMLHttpRequest();
-  let currentQuizId = "{{quiz_figure.id}}";
+  let gameList = {{figure_game}};
+  let currentQuizId = {{quiz_figure.id}};
   const nextBtn = document.querySelector(".next-btn");
+  const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
   function reset_animation() {
     const quizContainer = document.querySelector(".quiz");
@@ -97,22 +97,49 @@
   }
 
   nextBtn.addEventListener("click", function () {
+    if (cnt < parseInt("{{ count }}")){
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
     const url = "/figure/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList}));
+    //이전문제 버튼 만들기
+    if(cnt == 1){
+      beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+    }
     const name_element = document.querySelector(".figure-name");
     name_element.innerHTML = "";
-  });
+  }});
+
+  beforeBtn.addEventListener("click", function () {
+    if (cnt > 1){
+    if (cnt === parseInt("{{ count }}")) {
+      nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+    }
+    else if (cnt === 2) {
+      beforeBtn.innerHTML = "";
+    }
+    cnt--;
+    cnt--;
+    imageCover.style.display = "flex";
+    countdownElement.textContent = "사진";
+    const url = "/figure/before/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList}));
+
+    const name_element = document.querySelector(".figure-name");
+    name_element.innerHTML = "";
+  }});
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, image_path } = JSON.parse(requestQuiz.response);
-
+        const { id, image_path, game_list } = JSON.parse(requestQuiz.response);
+        gameList = game_list;
         const photo_element = document.querySelector(".photo");
         photo_element.src = image_path;
 

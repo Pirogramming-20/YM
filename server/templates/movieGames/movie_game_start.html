@@ -19,6 +19,9 @@
         시작
         <i class="fa-solid fa-play"></i>
       </button>
+      <!-- 이전문제 -->
+      <div class="before-btn"></div>
+
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -83,8 +86,9 @@
   }
 
   const requestQuiz = new XMLHttpRequest();
-  let gameList = {{movie_game}}
+  let gameList = {{movie_game}};
   let currentQuizId = {{quiz.id}};
+  const beforeBtn = document.querySelector(".before-btn");
   const nextBtn = document.querySelector(".next-btn");
   let cnt = 1;
   function reset_animation() {
@@ -95,29 +99,62 @@
   }
 
   nextBtn.addEventListener("click", function () {
+    if (cnt < parseInt("{{ count }}")){
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
     const url = "/movie/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list:gameList }));
+    requestQuiz.send(
+      JSON.stringify({ id: currentQuizId, game_list: gameList })
+    );
+    //이전문제 버튼 만들기
+    if(cnt == 1){
+      beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+    }
     const title_element = document.querySelector(".title");
     title_element.innerHTML = "";
 
     const line_element = document.querySelector(".line");
     line_element.innerHTML = "";
-  });
+  }});
+  //이전으로 가기 버튼
+  beforeBtn.addEventListener("click", function () {
+    if (cnt > 1){
+    imageCover.style.display = "flex";
+    if (cnt === parseInt("{{ count }}")) {
+      nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+    }
+    else if (cnt === 2) {
+      beforeBtn.innerHTML = "";
+    }
+    cnt--;
+    cnt--;
+    countdownElement.textContent = "사진";
+    const url = "/movie/before/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(
+      JSON.stringify({ id: currentQuizId, game_list: gameList })
+    );
+    const title_element = document.querySelector(".title");
+    title_element.innerHTML = "";
+
+    const line_element = document.querySelector(".line");
+    line_element.innerHTML = "";
+  }});
+
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, scene ,game_list} = JSON.parse(requestQuiz.response);
+        const { id, scene, game_list } = JSON.parse(requestQuiz.response);
 
         gameList = game_list;
         const photo_element = document.querySelector(".photo");
         photo_element.src = scene;
-
         currentQuizId = id;
         cnt++;
         if (cnt === parseInt("{{ count }}")) {

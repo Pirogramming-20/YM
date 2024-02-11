@@ -51,7 +51,6 @@ def figure_main(request, roomId): #60개
     return render(request, "games/figure_main.html",ctx)
 
 def figure_game_start(request,roomId,count):
-    QuizFigure.objects.all().delete()
     #채팅룸 랜덤 아이디랑 연결
     if roomId == 0:
         quiz_id_int_list = random.sample(range(1,61),count)
@@ -61,17 +60,21 @@ def figure_game_start(request,roomId,count):
         quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
         quiz_id_int_list = quiz_id_str_list[:count]
 
-    for quiz_id in quiz_id_int_list:
-        figure_instance = Figure.objects.get(id=quiz_id)
-        QuizFigure.objects.create(figure_quiz_id=figure_instance)
+    figure_game = [(quiz_id_int_list[0])]
+    for quiz_id in quiz_id_int_list[1:]:
+        figure_game.append(quiz_id)
 
-    quiz_figures = QuizFigure.objects.all()
-    quiz_figure = quiz_figures.first()
+    quiz_id = figure_game.pop(0)
+    figure_game.append(quiz_id)
+    quiz_figure = Figure.objects.get(id = quiz_id)
+
     if roomId == 0:
         ctx={
         'quiz_figure':quiz_figure,
         'count' : count,
         'roomId' : roomId,
+        'figure_game' : figure_game,
+        'quiz_id':quiz_id
         }
         return render(request, "games/figure_start.html", ctx)
     
@@ -79,26 +82,45 @@ def figure_game_start(request,roomId,count):
         'quiz_figure':quiz_figure,
         'count' : count,
         'roomId' : roomId,
-        'room':room
+        'room':room,
+        'figure_game' : figure_game,
+        'quiz_id':quiz_id
     }
     
     return render(request, "games/figure_start.html", ctx)
 
 def next_figure_ajax(request):
     req = json.loads(request.body)
-    figure_id = int(req['id'])
-    figure_id += 1
+    quiz_id = (req['id'])
+    game_list=(req['game_list'])
+    quiz_id = game_list.pop(0)
+    game_list.append(quiz_id)
 
-    figure = QuizFigure.objects.get(id=figure_id)
-    image_path = figure.figure_quiz_id.image_path
+    figure = Figure.objects.get(id=quiz_id)
+    image_path = figure.image_path
 
-    return JsonResponse({'id':figure_id, 'image_path': image_path})
+    return JsonResponse({'id':quiz_id, 'image_path': image_path, 'game_list':game_list})
+
+def before_figure_ajax(request):
+    req = json.loads(request.body)
+    quiz_id = (req['id'])
+    game_list=(req['game_list'])
+  
+    next_quiz_id = game_list.pop()
+    game_list.insert(0,next_quiz_id)
+    quiz_id = game_list[-1]
+
+    figure = Figure.objects.get(id=quiz_id)
+    image_path = figure.image_path
+
+    return JsonResponse({'id':quiz_id, 'image_path': image_path, 'game_list':game_list})
+
 
 def answer(request):
     req = json.loads(request.body)
-    quiz_id = int(req['id'])
+    quiz_id = (req['id'])
 
-    quiz = QuizFigure.objects.get(id=quiz_id)
-    name = quiz.figure_quiz_id.name
+    quiz = Figure.objects.get(id=quiz_id)
+    name = quiz.name
     
     return JsonResponse({'id' : quiz_id, 'name' : name})
