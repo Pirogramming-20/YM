@@ -75,6 +75,9 @@ body {
     /* background-attachment: fixed; img fixed during scroll */
     font-family: var(--primary-font);
 }
+html, body {
+    overflow-x: hidden;
+}
 
 main {
     /* height: calc(100vh - 20vh); */

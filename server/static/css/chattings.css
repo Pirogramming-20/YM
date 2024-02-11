@@ -55,7 +55,7 @@
     overflow: hidden;
     transition: transform 0.8s ease, opacity 0.8s ease;
     transform: translateX(0);
-    opacity: 1; /* Ensure it's fully visible when not hidden */
+    opacity: 1; 
     /* max-height: 50rem;
     transition: max-height 0.8s ease, transform 0.8s ease; */
 }
@@ -181,15 +181,12 @@ input[type = "checkbox"].toggle:checked + label{
 #chatRoom.hidden {
     transform: translateX(100%);
     opacity: 0;
-    /* max-height: 0;
-    transform: scaleY(0); */
+    /* display: none; */
 }
 
 #chatRoom.visible {
     transform: translateX(0);
     opacity: 1;
-    /* max-height: 50rem;
-    transform: scaleY(1); */
 }
 
 
@@ -201,5 +198,3 @@ input[type = "checkbox"].toggle:checked + label{
     height: 100%;
     gap: 6rem;
 }
-
-
