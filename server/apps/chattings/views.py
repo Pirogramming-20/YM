@@ -18,17 +18,19 @@ def create(request):
     room_order = request.POST["order_list"]
     if room_name != '' and room_order !='':
       room = GameRoom.objects.create(
-        room_name = request.POST["room_name"] + user.username,
+        room_name = request.POST["room_name"] + request.user.username,
         order_game = request.POST["order_list"]
       )
       room = GameRoom.objects.get(id = room.id)
       order_game_list = room.order_game.split(",")
-      print(room.order_game)
+      #게임 순서 필드
+      order_num_list = list(range(len(order_game_list)))
+      room.order_num = ','.join(map(str,order_num_list))
       for game in order_game_list:
           if game == "Figure": #1~30 사이 20개
             print('figure')
             ran_quiz_list = random.sample(range(1,61),5)#각 게임 자료수에 맞게 고치기
-            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            ran_quiz_str=','.join(map(str,ran_quiz_list))###
             print(ran_quiz_str)
             room.ran_figure = ran_quiz_str
           elif game == "Four":
@@ -60,10 +62,11 @@ def next_game(request, roomId):
     'roomId':roomId
   }
   order_games = room.order_game.split(",")
-
-  if order_games:
-    current_game = order_games.pop(0)
-    room.order_game = ','.join(s for s in order_games)
+  if room.order_num:
+    order_nums = list(map(int,room.order_num.split(',')))
+    current_order = order_nums.pop(0)
+    current_game = order_games[current_order]
+    room.order_num = ','.join(map(str,order_nums))
     room.save()
     if current_game == "Figure":
       # return render(request, "games/figure_main.html", ctx) 
@@ -77,9 +80,8 @@ def next_game(request, roomId):
     if current_game == "Music":
       return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
-    if not order_games:
-      return redirect(f"/chatting-room/finish/{roomId}", ctx)
-
+  else:
+    return redirect(f"/chatting-room/finish/{roomId}", ctx)
 
 def finish(request, roomId):
   print(roomId)
@@ -89,6 +91,15 @@ def finish(request, roomId):
   }
   order_games = room.order_game.split(",") 
   return render(request, 'chattings/room_end.html',ctx)
+
+#다시 게임 시작 => 게임 순서 필드 다시 생성
+def re_game(request, roomId):
+  room = GameRoom.objects.get(id=roomId)
+  order_games = room.order_game.split(",")
+  order_num_list = list(range(len(order_games)))
+  room.order_num = ','.join(map(str,order_num_list))
+  room.save()
+  return redirect(f"/chatting-room/next_game/{roomId}")
 
 # 둘 모두 삭제
 def recreate(request, roomId):
@@ -114,7 +125,8 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택 
+  # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
+  qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
   #qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {
     "room" : room,

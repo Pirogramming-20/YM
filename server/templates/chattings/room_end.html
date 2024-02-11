@@ -13,7 +13,7 @@
 <div class="select-container">
   <div class="rule">더 플레이 하시겠습니까?</div>
   <a href="{% url 'rooms:recreate' roomId %}">게임 다시 선택하기</a>
-  <a href="{%url 'rooms:next_game' roomId %}">게임 동일하게 다시하기</a>
+  <a href="{%url 'rooms:re_game' roomId %}">게임 동일하게 다시하기</a>
   <a href="{%url 'rooms:delete' roomId %}">메인 페이지</a>
 </div>
 {% endblock %}

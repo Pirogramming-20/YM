@@ -12,4 +12,5 @@ urlpatterns = [
     path('/finish/<int:roomId>',finish,name='finish'),
     path('/recreate/<int:roomId>',recreate,name='recreate'),
     path('/delete/<int:roomId>',delete,name='delete'),
+    path('/re_game/<int:roomId>',re_game,name='re_game'),
 ]
