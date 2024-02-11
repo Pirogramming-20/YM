@@ -10,4 +10,5 @@ urlpatterns = [
     path('/<int:roomId>/music_game_2020/<int:count>', music_game_start_2020, name='music_game_start_2020'),
     path('/next/', next_quiz, name='next_quiz'),
     path('/answer/', answer, name='answer'),
+    path('/before/', before_quiz, name='before_quiz'),
 ]
