@@ -60,6 +60,11 @@
     .info_section .info_form form input {
         text-align: center;
     }
+    .log-in-sign-up-btn a, .landing-game-btn a {
+        font-size: 4rem; 
+        padding: 1rem; 
+    }
+    
 }
 
 
@@ -108,9 +113,27 @@
         filter: blur(10px);
 
     }
+    .log-in-sign-up-btn a, .landing-game-btn a {
+        font-size: 2rem; /* Adjust font size */
+        padding: 0.8rem; /* Adjust padding */
+    }
+    form label{
+        font-size: 3rem;
+    }
+    .form-container .sub-title{
+        font-size: 4rem;
+    }
 }
 
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+    .navigate{
+        font-size: 2.5rem;
+    }
+    form input {
+        width: 100%; /* Adjust the width of the input field for smaller screens */
+        /* max-width: 20rem;  */
+    }
+}
 
 @media (max-width: 420px) {
     .slider_section .detail-box h1 {
@@ -120,9 +143,21 @@
     .slider_section .detail-box h2 {
         font-size: 1.8rem;
     }
+    .navigate{
+        font-size: 2rem;
+    }
 }
 
-@media (max-width: 360px) {}
+@media (max-width: 360px) {
+    .log-in-sign-up-btn a, .landing-game-btn a {
+        font-size: 1rem; 
+        padding: 0.5rem; 
+    }
+    .form-row {
+        margin-bottom: 1rem; 
+        font-size: 1rem;
+    }
+}
 
 @media (min-width: 1200px) {
     .container {
