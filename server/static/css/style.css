@@ -143,6 +143,7 @@ header img{
     padding: 5px 10px;
     margin: 10px 20px 10px 0;
     border: 0;
+    padding: 1rem;
 }
 
 .main-btn:hover {

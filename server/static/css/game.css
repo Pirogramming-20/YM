@@ -236,3 +236,18 @@ input[type="checkbox"].order-check{
 .animate-slide-to-center {
     animation: slideToCenter 1s ease-out forwards;
 }
+
+/* game-end page */
+.game-end-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+.select-container{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
