@@ -10,6 +10,9 @@
     <span class="text1">MT</span>
   </div>
   <div class="sub-title text3">방이름을 입력하세요.</div>
+  {% if error %}
+    <h2 style="color:red;"> 이미 존재하는 방이름입니다!</h2>
+  {% endif %}
   <form method="POST" action="" class="name-form">
     {% csrf_token %}
     <label>방이름: <input type="text" name="room_name" id="roomName" required></label>
@@ -28,6 +31,9 @@
     
 
     <div class="text2">게임 진행순서!!!</div>
+    {% if non_error %}
+      <h2 style="color:red;">게임을 한 개 이상 선택해주세요</h2>
+    {% endif %}
     <div id="game-order"></div>
     <input type="hidden" name="order_list" id="orderListInput">
 
