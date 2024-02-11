@@ -21,7 +21,8 @@ def create(request):
     room_order = request.POST["order_list"]
     user=User.objects.get(id=request.user.id)
     if room_order !='':
-      if GameRoom.objects.get(room_name=room_name):
+      existing_room = GameRoom.objects.filter(room_name=room_name)
+      if existing_room.exists():
         return render(request,'chattings/create.html', {'error':'error'})
       room = GameRoom.objects.create(
           room_name = request.POST["room_name"],

@@ -11,7 +11,7 @@
   </div>
   <div class="sub-title text3">방이름을 입력하세요.</div>
   {% if error %}
-    <h2 style="color:red;"> 이미 존재하는 방이름입니다!</h2>
+    <h2 style="color:red;" class="text3"> 이미 존재하는 방이름입니다!</h2>
   {% endif %}
   <form method="POST" action="" class="name-form">
     {% csrf_token %}

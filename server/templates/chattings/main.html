@@ -43,13 +43,13 @@
   </div>
 
 {% endblock content %}
+{% block script %}
 <script>
   function make_room(){
     console.log("hi")
     const number={{rooms.count}};
     
     if (number==5){
-{% block script %}
       alert("방을 6개 이상 만들 수 없습니다.");
 
     }
