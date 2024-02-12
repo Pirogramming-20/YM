@@ -142,18 +142,8 @@
     if (player) {
       player.playVideo();
     }
-    setTimeout(function () {
-      if (player) {
-        player.stopVideo();
-      }
-    }, 6000);
   }
 
-  function stopVideo() {
-    if (player) {
-      player.stopVideo();
-    }
-  }
 
   //정답 버튼
   const requestAnswer = new XMLHttpRequest();
