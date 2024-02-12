@@ -18,7 +18,7 @@
         width: 3.5rem; 
         height: 3.5rem; 
     }
-    .chat .user, .chat .message{
+    .chatroom-container .chat .user,.chatroom-container .chat .message{
         font-size: 1rem;
     }
     .photo-container img{
@@ -29,6 +29,9 @@
     }
     .game-main-container form input{
         width: 35rem;
+    }
+    .chatroom-container .info_room_num{
+        font-size: 2rem;
     }
     
 }
@@ -118,6 +121,9 @@
     }
     .game-main-container .text3{
         font-size: 4rem;
+    }
+    .chatroom-container .info_room_num{
+        font-size: 1rem;
     }
 }
 
@@ -280,6 +286,10 @@
     .order-check-list label{
         font-size: 1.5rem;
     }
+    .username-input-container .text3, .username-input-container .btn-text, .mobile-chatroom-container .info_room_num{
+        font-size: 2.5rem;
+    }
+    
 }
 
 @media (max-width: 420px) {
@@ -302,7 +312,7 @@
     .logout-btn {
         font-size: 2rem;
     }
-    .chat .user, .chat .message{
+    .chatroom-container .chat .user,.chatroom-container .chat .message{
         font-size: 0.8rem;
     }
     .photo-container img{
@@ -316,6 +326,9 @@
     }
     .game-main-container .text3{
         font-size: 2.5rem;
+    }
+    .chatroom-container .info_room_num{
+        font-size: 0.8rem;
     }
 }
 
@@ -378,12 +391,25 @@
     .game-main-container .text1{
         font-size: 5rem;
     }
+    .username-input-container .text3, .username-input-container .btn-text, .mobile-chatroom-container .info_room_num{
+        font-size: 2rem;
+    }
+    
     
 }
 @media (max-height: 700px) {
     #player{
         height: 8rem;
     }
+    .mobile-chatroom-container .chat .user,.mobile-chatroom-container .chat .message{
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 320px) {
+    .chatroom-container .info_room_num{
+        font-size: 0.5rem;
+    }
+    
 }
 @media (min-width: 1200px) {
     .container {
