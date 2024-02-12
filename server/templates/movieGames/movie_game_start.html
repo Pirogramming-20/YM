@@ -15,7 +15,7 @@
       <div class="line text2"></div>
     </div>
     <div class="game-btn-container">
-      <button class="game-btn main-btn btn-text" onclick="startCountdown()">
+      <button class="game-btn main-btn btn-text start-btn">
         시작
         <i class="fa-solid fa-play"></i>
       </button>
@@ -63,6 +63,11 @@
     return cookieValue;
   }
   const csrftoken = getCookie("csrftoken");
+  //버튼 정리
+  const nextBtn = document.querySelector(".next-btn");
+  const answerBtn = document.querySelector(".answer-btn");
+  const startBtn = document.querySelector(".start-btn");
+  startBtn.addEventListener('click', startCountdown, {once:true});
 
   //카운트다운
   const imageCover = document.querySelector(".image-cover");
@@ -72,12 +77,14 @@
   function startCountdown() {
     imageCover.style.display = "flex";
     let count = 3;
-    clearInterval(countdownInterval);
 
     countdownInterval = setInterval(() => {
       if (count <= 0) {
         clearInterval(countdownInterval);
         imageCover.style.display = "none";
+        //다음문제 정답버튼 활성화
+        nextBtn.addEventListener('click', nextFunction, {once:true});
+        answerBtn.addEventListener('click', answerFunction, {once:true});
       } else {
         countdownElement.textContent = count;
         count--;
@@ -89,7 +96,6 @@
   let gameList = {{movie_game}};
   let currentQuizId = {{quiz.id}};
   const beforeBtn = document.querySelector(".before-btn");
-  const nextBtn = document.querySelector(".next-btn");
   let cnt = 1;
   function reset_animation() {
     const quizContainer = document.querySelector(".quiz");
@@ -98,7 +104,7 @@
     quizContainer.style.animation = null;
   }
 
-  nextBtn.addEventListener("click", function () {
+  function nextFunction() {
     if (cnt < parseInt("{{ count }}")){
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
@@ -118,7 +124,10 @@
 
     const line_element = document.querySelector(".line");
     line_element.innerHTML = "";
-  }});
+    //시작버튼 재활성화, 정답 버튼 비활성화
+    startBtn.addEventListener('click', startCountdown, {once:true});
+    answerBtn.removeEventListener('click', answerFunction);
+  }};
   //이전으로 가기 버튼
   beforeBtn.addEventListener("click", function () {
     if (cnt > 1){
@@ -164,16 +173,15 @@
     }
   };
 
-  const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
-  answerBtn.addEventListener("click", function () {
+  function answerFunction() {
     const url = "/movie/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
     requestAnswer.send(JSON.stringify({ id: currentQuizId }));
-  });
+  };
 
   requestAnswer.onreadystatechange = () => {
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {
