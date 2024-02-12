@@ -5,32 +5,58 @@
   <span class="text1">요즘</span>
   <span class="text2">MT</span>
 </div>
-<div class="room-main-container">
-  <a class="room-create main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
-  <a class="room-create main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
-  <a class="room-create main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
-  <a class="room-create main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
-  <div class="room-create">
-    <a href={% url 'rooms:create' %} class="room-create main-btn btn-text"> 게임방 만들기 </a>
-  </div>
-  <div class="room-list">
-    <div class="main-btn room-list btn-text"> 게임방 리스트 </div>
-    {% for room in rooms %}
-      <div class="room">
-        {% comment %} Host {% endcomment %}
-        {% if room.created_by == request.user %}
-          <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
-        {% comment %} User {% endcomment %}
-        {% else %}
-          <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
-          {% comment %} <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}"> {% endcomment %}
-        {% endif %}
-          <i class="fa-solid fa-house"></i>
-          {{room.room_name}}
-        </a>
+  <div class="game-choose-container">
+    <div class="individual">
+      <div class="sub-title text3">개인</div>
+      <div class="btn">
+        <a class="room-create main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
+    <a class="room-create main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
+    <a class="room-create main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
+    <a class="room-create main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
       </div>
-      {% endfor %}
+      
+    </div>
+    <div class="team">
+      <div class="sub-title text3">팀</div>
+      <div class="btn">
+    <a onclick="make_room()" class="room-create main-btn btn-text"> 게임방 만들기 </a>
+      <div class="rooms">
+        <div class="main-btn room-list btn-text"> 게임방 리스트 </div>
+      {% for room in rooms %}
+          {% comment %} Host {% endcomment %}
+          {% if room.created_by == request.user %}
+            <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
+          {% comment %} User {% endcomment %}
+          {% else %}
+            <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
+          {% endif %}
+            <i class="fa-solid fa-house"></i>
+            {{room.room_name}}
+          </a>
+        {% endfor %}
+      </div>
+      </div>
+      
+      
+    </div>    
+    </div>
   </div>
-</div>
 
 {% endblock content %}
+{% block script %}
+<script>
+  function make_room(){
+    console.log("hi")
+    const number={{rooms.count}};
+    
+    if (number==5){
+      alert("방을 6개 이상 만들 수 없습니다.");
+
+    }
+    else{
+      const url="/chatting-room/create";
+      location.assign(url);
+    }
+  }
+</script>
+{% endblock %}

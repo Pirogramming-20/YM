@@ -22,11 +22,26 @@
 .title {
   font-size: 10rem;
 }
-.log-in-sign-up-btn {
-  width: 100%;
+.log-in-sign-up-btn, .landing-game-btn {
   display: flex;
   justify-content: space-around;
+  text-align: center;
+  align-items: center;
+  width: 100%;
 }
+.log-in-sign-up-btn{
+  margin-bottom: 4rem;
+
+}
+.landing-game-btn {
+  flex-wrap: wrap;
+}
+
+/* .landing-game-btn a{
+  flex-basis: 50%;
+  box-sizing: border-box;
+  padding: 1rem;
+} */
 
 /* Log in , Sign Up Page */
 .form-container {
@@ -44,12 +59,13 @@ form {
 
 .form-row {
   display: flex;
+  flex-direction: column;
   margin-bottom: 4rem;
 }
 
 form label {
   font-size: 4rem;
-  margin-right: 2rem;
+  margin-bottom: 2rem;
   color: black;
 }
 
@@ -58,7 +74,9 @@ form input {
   height: 6rem;
   font-size: 3rem;
 }
-
+/* .form-row input [type= "text"]{
+  flex-shrink: 1;
+} */
 .navigate {
   font-size: 3rem;
   margin: 4rem 0;

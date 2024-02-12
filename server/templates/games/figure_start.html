@@ -14,7 +14,7 @@
       <div class="figure-name text1"></div>
     </div>
     <div class="game-btn-container">
-      <button class="game-btn main-btn btn-text" onclick="startCountdown()">
+      <button class="game-btn main-btn btn-text start-btn">
         시작
         <i class="fa-solid fa-play"></i>
       </button>
@@ -62,6 +62,12 @@
   }
   const csrftoken = getCookie("csrftoken");
 
+  //버튼 정리
+  const nextBtn = document.querySelector(".next-btn");
+  const answerBtn = document.querySelector(".answer-btn");
+  const startBtn = document.querySelector(".start-btn");
+  startBtn.addEventListener('click', startCountdown, {once:true})//한 번만 작동하도록
+
   //카운트다운
   const imageCover = document.querySelector(".image-cover");
   const countdownElement = document.querySelector(".countdown");
@@ -70,15 +76,17 @@
   function startCountdown() {
     imageCover.style.display = "flex";
     let count = 3;
-    clearInterval(countdownInterval);
-
     countdownInterval = setInterval(() => {
       if (count <= 0) {
         clearInterval(countdownInterval);
         imageCover.style.display = "none";
+        //다음문제 정답버튼 활성화
+        nextBtn.addEventListener('click', nextFunction, {once:true});
+        answerBtn.addEventListener('click', answerFunction, {once:true});
       } else {
         countdownElement.textContent = count;
         count--;
+        console.log(count);
       }
     }, 1000);
   }
@@ -86,17 +94,18 @@
   const requestQuiz = new XMLHttpRequest();
   let gameList = {{figure_game}};
   let currentQuizId = {{quiz_figure.id}};
-  const nextBtn = document.querySelector(".next-btn");
+
   const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
   function reset_animation() {
+    clearInterval(countdownInterval);
     const quizContainer = document.querySelector(".quiz");
     quizContainer.style.animation = "none";
     quizContainer.offsetHeight; /* trigger reflow */
     quizContainer.style.animation = null;
   }
 
-  nextBtn.addEventListener("click", function () {
+  function nextFunction() {
     if (cnt < parseInt("{{ count }}")){
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
@@ -111,7 +120,10 @@
     }
     const name_element = document.querySelector(".figure-name");
     name_element.innerHTML = "";
-  }});
+    //시작버튼 재활성화, 정답 버튼 비활성화
+    startBtn.addEventListener('click', startCountdown, {once:true});
+    answerBtn.removeEventListener('click', answerFunction);
+  }};
 
   beforeBtn.addEventListener("click", function () {
     if (cnt > 1){
@@ -153,16 +165,16 @@
   };
 
   // 정답 보기 js
-  const answerBtn = document.querySelector(".answer-btn");
+  
   const requestAnswer = new XMLHttpRequest();
 
-  answerBtn.addEventListener("click", function () {
+  function answerFunction() {
     const url = "/figure/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
     requestAnswer.send(JSON.stringify({ id: currentQuizId }));
-  });
+  };
 
   requestAnswer.onreadystatechange = () => {
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {

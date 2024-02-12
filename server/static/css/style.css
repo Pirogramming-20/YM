@@ -75,6 +75,9 @@ body {
     /* background-attachment: fixed; img fixed during scroll */
     font-family: var(--primary-font);
 }
+html, body {
+    overflow-x: hidden;
+}
 
 main {
     /* height: calc(100vh - 20vh); */
@@ -144,6 +147,7 @@ header img{
     margin: 10px 20px 10px 0;
     border: 0;
     padding: 1rem;
+    /* height: min-content; */
 }
 
 .main-btn:hover {
@@ -166,7 +170,7 @@ header img{
 
 
 .box-no-fill, form input[type="text"]#roomName,form input[type="text"]#orderListInput,.form-row input[type="text"],
-.form-row input[type="password"], .team, .individual{
+.form-row input[type="password"]{
     background-color: transparent;
     flex-shrink: 0;
     border: 0.5rem inset var(--secondary-color); /* width, style, color */
@@ -189,14 +193,11 @@ header img{
 
 
 /* landing page 용 */
-.navbar2{
-
-}
-
 .navbar2 > a{
     margin-right: 20px;
+    font-family:var(--primary-font);
     padding: 10px;
     font-size: 30px;
     font-weight: 700;
-    color: black;
+    /* color: black; */
 }
