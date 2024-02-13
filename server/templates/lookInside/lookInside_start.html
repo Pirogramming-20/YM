@@ -28,6 +28,8 @@
     <div class="game-btn-container">
       <!-- 이전문제 -->
       <div class="before-btn"></div>
+      <!-- 게임순서 -->
+      <div class="game-btn btn-text main-btn quiz-order">1</div>
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -82,7 +84,6 @@
 
   //0.02초 보기
   document.querySelector(".btn-05").addEventListener("click", function () {
-    //다음문제 정답버튼 활성화
     let count = 1;
     countdownInterval = setInterval(() => {
       if (count <= 0) {
@@ -101,7 +102,6 @@
 
   //0.05초 보기
   document.querySelector(".btn-10").addEventListener("click", function () {
-    //다음문제 정답버튼 활성화
     let count = 1;
     countdownInterval = setInterval(() => {
       if (count <= 0) {
@@ -118,9 +118,6 @@
     }, 50);
   });
 
-  //카운트다운
-
-
 
   const requestQuiz = new XMLHttpRequest();
   let gameList = {{lookInside_game}};
@@ -128,6 +125,7 @@
 
   const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
+  const quizOrder = document.querySelector('.quiz-order');
 
   function reset_animation() {
     clearInterval(countdownInterval);
@@ -155,6 +153,8 @@
     //시작버튼 재활성화, 정답 버튼 비활성화
     //startBtn.addEventListener('click', startCountdown, {once:true});
     answerBtn.removeEventListener('click', answerFunction);
+    quizOrder.innerText = cnt+1;
+    console.log(cnt+1);
   }};
 
   beforeBtn.addEventListener("click", function () {
@@ -177,6 +177,9 @@
 
     const name_element = document.querySelector(".lookInside-name");
     name_element.innerHTML = "";
+
+    quizOrder.innerText = cnt+1;
+    console.log(cnt+1);
   }});
 
 
