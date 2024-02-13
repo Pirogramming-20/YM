@@ -24,7 +24,7 @@ urlpatterns = [
     path('',include("apps.main.urls")),
     path('figure/',include("apps.figure.urls")),
     path('fourWords/',include("apps.fourWords.urls")),
-
+    path('lookInside/',include("apps.lookInside.urls")),
     path('chatting-room',include("apps.chattings.urls")),
     path('movie', include("apps.movieGames.urls")),
     path('music', include("apps.musicGames.urls")),

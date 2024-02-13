@@ -16,23 +16,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-document.addEventListener("DOMContentLoaded", function() {
-  const chatToggle = document.getElementById('chatToggle');
-  const quizContainer = document.querySelector('.quiz');
+document.addEventListener("DOMContentLoaded", function () {
+  const chatToggle = document.getElementById("chatToggle");
+  const quizContainer = document.querySelector(".quiz");
 
-  chatToggle.addEventListener('change', function() {
+  chatToggle.addEventListener("change", function () {
     if (this.checked) {
-      quizContainer.classList.add('animate-slide-to-center');
+      quizContainer.classList.add("animate-slide-to-center");
     } else {
-      quizContainer.classList.remove('animate-slide-to-center');
+      quizContainer.classList.remove("animate-slide-to-center");
     }
   });
 });
 function reset_animation() {
-  const quizContainer = document.querySelector('.quiz');
-  quizContainer.style.animation = 'none';
+  const quizContainer = document.querySelector(".quiz");
+  quizContainer.style.animation = "none";
   quizContainer.offsetHeight; /* trigger reflow */
-  quizContainer.style.animation = null; 
+  quizContainer.style.animation = null;
 }
 
 console.log(room_num);
@@ -43,7 +43,6 @@ let socket = io.connect(
   location.protocol + "//" + document.domain + ":" + location.port
 );
 socket.emit("join", room_name);
-
 // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
 socket.on("message", function (data) {
   console.log("Message received: ", data);

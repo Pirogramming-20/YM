@@ -119,6 +119,7 @@
   let gameList = {{four_game}};
   const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
+
   function reset_animation() {
     const quizContainer = document.querySelector(".quiz");
     quizContainer.style.animation = "none";
@@ -176,6 +177,8 @@
         twoElement.innerHTML = two;
         currentFourId = id;
         cnt++;
+        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerHTML = "마지막 문제";
         }
