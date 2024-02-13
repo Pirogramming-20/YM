@@ -41,8 +41,10 @@
 </div>
 
 {% endblock %} {% block script %}
+
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
+
   //csrf 토큰 생성 함수
   function getCookie(name) {
     let cookieValue = null;
@@ -117,8 +119,8 @@
   let currentYear = {{year}};
   const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
-  let youtube_src = "{{ quiz.youtube }}";
 
+  socket.emit("message", text, "", room_name);
   //정답 보기
   let player;
   function createPlayer() {
@@ -241,6 +243,8 @@
 
         currentQuizId = id;
         cnt++;
+        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerText = "마지막 문제";
         }

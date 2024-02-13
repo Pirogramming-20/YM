@@ -128,6 +128,7 @@
 
   const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
+
   function reset_animation() {
     clearInterval(countdownInterval);
     const quizContainer = document.querySelector(".quiz");
@@ -152,7 +153,7 @@
     const name_element = document.querySelector(".lookInside-name");
     name_element.innerHTML = "";
     //시작버튼 재활성화, 정답 버튼 비활성화
-    startBtn.addEventListener('click', startCountdown, {once:true});
+    //startBtn.addEventListener('click', startCountdown, {once:true});
     answerBtn.removeEventListener('click', answerFunction);
   }};
 
@@ -178,6 +179,7 @@
     name_element.innerHTML = "";
   }});
 
+
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
@@ -188,6 +190,8 @@
 
         currentQuizId = id;
         cnt++;
+        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerText = "마지막 문제";
         }
