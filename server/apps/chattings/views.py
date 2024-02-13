@@ -46,6 +46,11 @@ def create(request):
             ran_quiz_list = random.sample(range(1,51),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_four = ran_quiz_str
+          elif game == "Look":
+            print('look')
+            ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_look = ran_quiz_str
           elif game == "Movie":
             print('movie')
             ran_quiz_list = random.sample(range(1,51),15)#각 게임 자료수에 맞게 고치기
@@ -81,13 +86,15 @@ def next_game(request, roomId):
     if current_game == "Figure":
       # return render(request, "games/figure_main.html", ctx) 
       return redirect("/figure/{}".format(roomId))
-    if current_game == "Four":
+    elif current_game == "Four":
       return redirect("/fourWords/{}".format(roomId))
+    elif current_game == "Look":
+      return redirect("/lookInside/{}".format(roomId))
       # return render(request, "games/fourWords_main.html", ctx)
-    if current_game == "Movie":
+    elif current_game == "Movie":
       return redirect(f"/movie/{roomId}/")
       # return render(request, "movieGames/movie_game_main.html", ctx)
-    if current_game == "Music":
+    elif current_game == "Music":
       return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
   else:
@@ -129,13 +136,13 @@ def delete(request, roomId):
 import qrcode
 def detail(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
-  # 배포코드
-  qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
+  # # 배포코드
+  # qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
+  # qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
 
   # 로컬코드
-  # qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
+  qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
+  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
   # qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
   #qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #각자 YM주소에 맞게 수정
   ctx = {

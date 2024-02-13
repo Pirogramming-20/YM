@@ -1,23 +1,31 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-
+<style>
+  .image-cover {
+    height: 72%;
+  }
+</style>
 <div class="game">
   <div class="quiz">
     <div class="quiz-container">
+      <div class="music-container">
+        <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
+          0.02초 보기
+        </button>
+        <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
+          0.05초 보기
+        </button>
+      </div>
       <div class="image-cover">
         <span class="countdown text2">사진</span>
       </div>
       <div class="photo-container">
-        <img src="{{quiz_figure.image_path}}" alt="이미지" class="photo" />
+        <img src="{{quiz_lookInside.image_path}}" alt="이미지" class="photo" />
       </div>
     </div>
     <div class="answer-container">
-      <div class="figure-name text1"></div>
+      <div class="lookInside-name text1"></div>
     </div>
     <div class="game-btn-container">
-      <button class="game-btn main-btn btn-text start-btn">
-        시작
-        <i class="fa-solid fa-play"></i>
-      </button>
       <!-- 이전문제 -->
       <div class="before-btn"></div>
       <div
@@ -65,35 +73,58 @@
   //버튼 정리
   const nextBtn = document.querySelector(".next-btn");
   const answerBtn = document.querySelector(".answer-btn");
-  const startBtn = document.querySelector(".start-btn");
-  startBtn.addEventListener('click', startCountdown, {once:true})//한 번만 작동하도록
-
-  //카운트다운
+  //const startBtn = document.querySelector(".start-btn");
+  //startBtn.addEventListener('click', startCountdown, {once:true})//한 번만 작동하도록
+  const imgPath = document.querySelector(".btn-05");
   const imageCover = document.querySelector(".image-cover");
   const countdownElement = document.querySelector(".countdown");
   let countdownInterval;
 
-  function startCountdown() {
-    imageCover.style.display = "flex";
-    let count = 3;
+  //0.02초 보기
+  document.querySelector(".btn-05").addEventListener("click", function () {
+    //다음문제 정답버튼 활성화
+    let count = 1;
     countdownInterval = setInterval(() => {
       if (count <= 0) {
         clearInterval(countdownInterval);
-        imageCover.style.display = "none";
+        imageCover.style.display = "flex";
         //다음문제 정답버튼 활성화
         nextBtn.addEventListener('click', nextFunction, {once:true});
         answerBtn.addEventListener('click', answerFunction, {once:true});
       } else {
-        countdownElement.textContent = count;
         count--;
         console.log(count);
+        imageCover.style.display = "none";
       }
-    }, 1000);
-  }
+    }, 20);
+  });
+
+  //0.05초 보기
+  document.querySelector(".btn-10").addEventListener("click", function () {
+    //다음문제 정답버튼 활성화
+    let count = 1;
+    countdownInterval = setInterval(() => {
+      if (count <= 0) {
+        clearInterval(countdownInterval);
+        imageCover.style.display = "flex";
+        //다음문제 정답버튼 활성화
+        nextBtn.addEventListener('click', nextFunction, {once:true});
+        answerBtn.addEventListener('click', answerFunction, {once:true});
+      } else {
+        count--;
+        console.log(count);
+        imageCover.style.display = "none";
+      }
+    }, 50);
+  });
+
+  //카운트다운
+
+
 
   const requestQuiz = new XMLHttpRequest();
-  let gameList = {{figure_game}};
-  let currentQuizId = {{quiz_figure.id}};
+  let gameList = {{lookInside_game}};
+  let currentQuizId = {{quiz_lookInside.id}};
 
   const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
@@ -109,7 +140,7 @@
     if (cnt < parseInt("{{ count }}")){
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
-    const url = "/figure/next/";
+    const url = "/lookInside/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
@@ -118,7 +149,7 @@
     if(cnt == 1){
       beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
     }
-    const name_element = document.querySelector(".figure-name");
+    const name_element = document.querySelector(".lookInside-name");
     name_element.innerHTML = "";
     //시작버튼 재활성화, 정답 버튼 비활성화
     startBtn.addEventListener('click', startCountdown, {once:true});
@@ -137,13 +168,13 @@
     cnt--;
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
-    const url = "/figure/before/";
+    const url = "/lookInside/before/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
     requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList}));
 
-    const name_element = document.querySelector(".figure-name");
+    const name_element = document.querySelector(".lookInside-name");
     name_element.innerHTML = "";
   }});
 
@@ -169,7 +200,7 @@
   const requestAnswer = new XMLHttpRequest();
 
   function answerFunction() {
-    const url = "/figure/answer/";
+    const url = "/lookInside/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
@@ -180,8 +211,9 @@
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {
       if (requestAnswer.status < 400) {
         const { id, name } = JSON.parse(requestAnswer.response);
-        const name_element = document.querySelector(".figure-name");
+        const name_element = document.querySelector(".lookInside-name");
         name_element.innerHTML = name;
+        imageCover.style.display = "none";
       }
     }
   };
