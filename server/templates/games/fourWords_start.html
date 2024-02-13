@@ -22,6 +22,7 @@
       </button>
       <!-- 이전문제 -->
       <div class="before-btn"></div>
+      <div class="game-btn btn-text main-btn quiz-order">1</div>
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -65,6 +66,7 @@
   const csrftoken = getCookie("csrftoken");
 
   //버튼정리
+  const beforeBtn = document.querySelector(".before-btn");
   const answerBtn = document.querySelector(".answer-btn");
   const nextBtn = document.querySelector(".next-btn");
   const startBtn = document.querySelector(".start-btn");
@@ -117,8 +119,9 @@
   // 다음문제로 넘어가는 ajax
   const requestNextQuiz = new XMLHttpRequest();
   let gameList = {{four_game}};
-  const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
+  const quizOrder = document.querySelector('.quiz-order');
+
   function reset_animation() {
     const quizContainer = document.querySelector(".quiz");
     quizContainer.style.animation = "none";
@@ -143,6 +146,8 @@
     //시작버튼 재활성화, 정답 버튼 비활성화
     startBtn.addEventListener('click', startCountdown, {once:true});
     answerBtn.removeEventListener('click', answerFunction);
+    //퀴즈 순서
+    quizOrder.innerText = 1+cnt;
   }};
 
   beforeBtn.addEventListener("click", function () {
@@ -163,8 +168,11 @@
     requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
 
     requestNextQuiz.send(JSON.stringify({ id: currentFourId, game_list: gameList }));
-
     answer_element.innerHTML = "";
+    //시작버튼 재활성화
+    startBtn.addEventListener('click', startCountdown, {once:true})
+    //퀴즈 순서
+    quizOrder.innerText = 1+cnt;
   }});
 
   requestNextQuiz.onreadystatechange = () => {

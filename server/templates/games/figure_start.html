@@ -20,6 +20,7 @@
       </button>
       <!-- 이전문제 -->
       <div class="before-btn"></div>
+      <div class="game-btn btn-text main-btn quiz-order">1</div>
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -63,6 +64,7 @@
   const csrftoken = getCookie("csrftoken");
 
   //버튼 정리
+  const beforeBtn = document.querySelector(".before-btn");
   const nextBtn = document.querySelector(".next-btn");
   const answerBtn = document.querySelector(".answer-btn");
   const startBtn = document.querySelector(".start-btn");
@@ -86,7 +88,6 @@
       } else {
         countdownElement.textContent = count;
         count--;
-        console.log(count);
       }
     }, 1000);
   }
@@ -95,8 +96,6 @@
   let gameList = {{figure_game}};
   let currentQuizId = {{quiz_figure.id}};
 
-  const beforeBtn = document.querySelector(".before-btn");
-  let cnt = 1;
   function reset_animation() {
     clearInterval(countdownInterval);
     const quizContainer = document.querySelector(".quiz");
@@ -104,6 +103,9 @@
     quizContainer.offsetHeight; /* trigger reflow */
     quizContainer.style.animation = null;
   }
+
+  let cnt = 1;
+  const quizOrder = document.querySelector('.quiz-order');
 
   function nextFunction() {
     if (cnt < parseInt("{{ count }}")){
@@ -123,6 +125,8 @@
     //시작버튼 재활성화, 정답 버튼 비활성화
     startBtn.addEventListener('click', startCountdown, {once:true});
     answerBtn.removeEventListener('click', answerFunction);
+    //퀴즈 순서
+    quizOrder.innerText = 1+cnt;
   }};
 
   beforeBtn.addEventListener("click", function () {
@@ -145,6 +149,10 @@
 
     const name_element = document.querySelector(".figure-name");
     name_element.innerHTML = "";
+    //시작버튼 재활성화
+    startBtn.addEventListener('click', startCountdown, {once:true})
+    //퀴즈 순서
+    quizOrder.innerText = 1+cnt;
   }});
 
   requestQuiz.onreadystatechange = () => {
@@ -164,8 +172,7 @@
     }
   };
 
-  // 정답 보기 js
-  
+  // 정답 보기 js 
   const requestAnswer = new XMLHttpRequest();
 
   function answerFunction() {
