@@ -147,6 +147,7 @@
     let text = document.getElementById("input").value;
     console.log("clk2");
     socket.emit("message", text, username, room_name);
+    socket.emit("join", room_name);
     document.getElementById("input").value = "";
   }
   document
@@ -158,6 +159,7 @@
         let text = e.target.value;
 
         socket.emit("message", text, username, room_name);
+        socket.emit("join", room_name);s
         e.target.value = "";
       }
     });
