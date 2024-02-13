@@ -37,23 +37,28 @@ def create(request):
       for game in order_game_list:
           if game == "Figure": #1~30 사이 20개
             print('figure')
-            ran_quiz_list = random.sample(range(1,61),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,61),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))###
             print(ran_quiz_str)
             room.ran_figure = ran_quiz_str
           elif game == "Four":
             print('four')
-            ran_quiz_list = random.sample(range(1,51),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,51),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_four = ran_quiz_str
+          elif game == "Look":
+            print('look')
+            ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_look = ran_quiz_str
           elif game == "Movie":
             print('movie')
-            ran_quiz_list = random.sample(range(1,51),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,51),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_movie = ran_quiz_str
           elif game == "Music":
             print('music')
-            ran_quiz_list = random.sample(range(1,31),5)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_music = ran_quiz_str
       room.save()
@@ -81,13 +86,15 @@ def next_game(request, roomId):
     if current_game == "Figure":
       # return render(request, "games/figure_main.html", ctx) 
       return redirect("/figure/{}".format(roomId))
-    if current_game == "Four":
+    elif current_game == "Four":
       return redirect("/fourWords/{}".format(roomId))
+    elif current_game == "Look":
+      return redirect("/lookInside/{}".format(roomId))
       # return render(request, "games/fourWords_main.html", ctx)
-    if current_game == "Movie":
+    elif current_game == "Movie":
       return redirect(f"/movie/{roomId}/")
       # return render(request, "movieGames/movie_game_main.html", ctx)
-    if current_game == "Music":
+    elif current_game == "Music":
       return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
   else:
@@ -129,7 +136,7 @@ def delete(request, roomId):
 import qrcode
 def detail(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
-  # 배포코드
+  # # 배포코드
   # qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
   # qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
 

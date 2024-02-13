@@ -98,6 +98,9 @@
   let gameList = {{figure_game}};
   let currentQuizId = {{quiz_figure.id}};
 
+  const beforeBtn = document.querySelector(".before-btn");
+  let cnt = 1;
+
   function reset_animation() {
     clearInterval(countdownInterval);
     const quizContainer = document.querySelector(".quiz");
@@ -164,9 +167,10 @@
         gameList = game_list;
         const photo_element = document.querySelector(".photo");
         photo_element.src = image_path;
-
         currentQuizId = id;
         cnt++;
+        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerText = "마지막 문제";
         }
