@@ -124,10 +124,19 @@
     display: flex;
     justify-content: flex-end;
 }
+.other_chat{
+    display: flex;
+    justify-content: flex-start;
+}
 
 .my_chat  .message {
     background-color: var(--tertiary-color);
     border-radius: 10px 0 10px 10px; 
+}
+.other_chat  .message {
+    background-color: var(--secondary-color);
+    border-radius: 10px 0 10px 10px; 
+    color: black;
 }
 
 .other-message {
@@ -207,4 +216,43 @@ input[type = "checkbox"].toggle:checked + label{
     justify-content: center;
     height: 100%;
     gap: 6rem;
+}
+
+/* mobile-chatting room */
+.username-input-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem 0;
+    gap: 1rem;
+}
+.username-input-container input{
+    width: 60%;
+    font-size: 1.8rem;
+    padding: 1rem;
+}
+.username-input-container .user-input-btn{
+    font-size: 3rem;
+}
+#mobileChatRoom{
+    display: block;
+        width: 80%;
+        border-radius: 2rem;
+        border: 0.1rem solid rgba(0, 0, 0, 0.20);
+        background: #FFF;
+        box-shadow: 0px 10px 4px 0px rgba(0, 0, 0, 0.25);
+        padding: 2rem;
+        margin-bottom: 4rem;
+    
+        overflow: hidden;
+        transition: transform 0.8s ease, opacity 0.8s ease;
+        transform: translateX(0);
+        opacity: 1; 
+}
+.mobile-chatroom-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
 }
