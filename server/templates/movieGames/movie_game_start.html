@@ -74,6 +74,7 @@
   const imageCover = document.querySelector(".image-cover");
   const countdownElement = document.querySelector(".countdown");
   let countdownInterval;
+  const countAudio = new Audio('/static/audio/countdown/countdown.mp3');
 
   function startCountdown() {
     imageCover.style.display = "flex";
@@ -89,6 +90,7 @@
       } else {
         countdownElement.textContent = count;
         count--;
+        countAudio.play();
       }
     }, 1000);
   }
