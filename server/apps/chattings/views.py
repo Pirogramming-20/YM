@@ -61,6 +61,11 @@ def create(request):
             ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_music = ran_quiz_str
+          elif game == "Body":
+            print('body')
+            ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_body = ran_quiz_str
       room.save()
       roomId = room.id
       
@@ -97,6 +102,8 @@ def next_game(request, roomId):
     elif current_game == "Music":
       return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
+    elif current_game == "Body":
+      return redirect(f"/body/{roomId}/")
   else:
     return redirect(f"/chatting-room/finish/{roomId}", ctx)
 
@@ -143,10 +150,16 @@ def detail(request,pk):
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
   # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
+<<<<<<< HEAD
+  #qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
+  #qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
+  qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
+=======
   # qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
   #qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
   # qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
   qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #우진
+>>>>>>> c155621c47a38e19b29cd5c8f3dd0d51858465f5
   ctx = {
     "room" : room,
   }

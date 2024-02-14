@@ -123,7 +123,6 @@
   const quizOrder = document.querySelector('.quiz-order');
   let youtube_src = "{{ quiz.youtube }}";
 
-  socket.emit("message", text, "", room_name);
   //정답 보기
   let player;
   function createPlayer() {
