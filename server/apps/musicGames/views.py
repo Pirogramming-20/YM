@@ -24,7 +24,7 @@ def music_game_main(request, roomId):#30개씩
         {'year' : '2000', 'title': 'Heartbreaker', 'music': '/static/audio/music_game/2000/Heartbreaker.mp3', 'singer': '지드래곤', 'youtube': "https://www.youtube.com/embed/LOXEVd-Z7NE?si=TOoPpVxcqk6WzUUv&amp;start=44" },
         {'year' : '2000', 'title': '길', 'music': '/static/audio/music_game/2000/길.mp3', 'singer': '지오디', 'youtube': "https://www.youtube.com/embed/OFlxQZNWNMU?si=HO0dFunuX4OcKWs-&amp;start=167"},
         {'year' : '2000', 'title': '10 Minutes', 'music': '/static/audio/music_game/2000/10 Minutes.mp3', 'singer': '이효리', 'youtube': "https://www.youtube.com/embed/iKdr44yEBQU?si=1ztaFHZdcId6nk-L&amp;start=9"},
-        {'year' : '2000', 'title': 'So Hot', 'music': '/static/audio/music_game/2000/So Hot.mp3', 'singer': '원더걸스', 'youtube': "https://www.youtube.com/embed/lmun5PO54VE?si=T6A0yRBua7ch-BRf&amp;start=96"},
+        {'year' : '2000', 'title': 'So Hot', 'music': '/static/audio/music_game/2000/So Hot.mp3', 'singer': '원더걸스', 'youtube': "https://www.youtube.com/embed/wiAI6AUtltE?si=kuIL1jriv1OBCqm8&amp;start=54"},
         {'year' : '2000', 'title': '잊을게', 'music': '/static/audio/music_game/2000/잊을게.mp3', 'singer': '윤도현 밴드(YB)', 'youtube': "https://www.youtube.com/embed/VecH1Y2INho?si=Lp8cyaIzym1s3d2j&amp;start=71"},
         {'year' : '2000', 'title': '비행기', 'music': '/static/audio/music_game/2000/비행기.mp3', 'singer': '거북이', 'youtube': "https://www.youtube.com/embed/q3outEcc-HE?si=DTxCmrgA10vL-Yng&amp;start=16"},
         {'year' : '2000', 'title': '바람만바람만', 'music': '/static/audio/music_game/2000/바람만바람만.mp3', 'singer': '김종국,sg워너비', 'youtube': "https://www.youtube.com/embed/gEZHjx1RM9c?si=EJPyRnPZmdBXUu4j&amp;start=240"},

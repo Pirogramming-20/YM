@@ -133,7 +133,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-#STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 # if DEBUG==True:
 #     STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 # else:
