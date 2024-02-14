@@ -71,7 +71,7 @@ html { font-size: 62.5%; } /* 1rem = 10px */
 
 body {
     background-image: url('../image/main/bg.png');
-    background-size: cover; 
+    background-size: contain; 
     /* background-attachment: fixed; img fixed during scroll */
     font-family: var(--primary-font);
 }
