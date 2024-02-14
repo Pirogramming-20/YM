@@ -62,6 +62,11 @@ def create(request):
             ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_music = ran_quiz_str
+          elif game == "Chat":
+            print('chat')
+            ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_chat = ran_quiz_str
       room.save()
       roomId = room.id
       
@@ -97,6 +102,9 @@ def next_game(request, roomId):
       # return render(request, "movieGames/movie_game_main.html", ctx)
     elif current_game == "Music":
       return redirect(f"/music/{roomId}/")
+      # return render(request, "musicGames/music_game_main.html", ctx)
+    elif current_game == "Chat":
+      return redirect(f"/chatGames/{roomId}")
       # return render(request, "musicGames/music_game_main.html", ctx)
   else:
     return redirect(f"/chatting-room/finish/{roomId}", ctx)
