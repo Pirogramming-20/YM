@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
 import random
+import os
 # Create your views here.
 
 def main(request):
@@ -125,6 +126,9 @@ def recreate(request, roomId):
 
 def delete(request, roomId):
   GameRoom.objects.get(id=roomId).delete()
+  image_path = os.path.join("C:/Users/user/Desktop/YM/server/static/image/qrcode", 'qr{}.png'.format(roomId))
+  if os.path.isfile(image_path):
+        os.remove(image_path)
   return redirect('/chatting-room')
 # 유저닉네임  + 채팅방이름
 # 채팅방 아이디값 -> 채팅방이름
