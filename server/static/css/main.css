@@ -13,7 +13,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.Topic_button>a{
+  font-size: 20px;
+  font-family: var(--randing-font);
+  margin: 10px;
 }
 .sub-title {
   font-size: 6rem;
@@ -35,6 +41,10 @@
 }
 .landing-game-btn {
   flex-wrap: wrap;
+}
+
+.landing-game-btn>a{
+  font-size: 40px;
 }
 
 /* .landing-game-btn a{

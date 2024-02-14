@@ -35,6 +35,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                   <div>
                     <div class= "title-container">
                       <div class="Topic">마감에 쫓기는 </br> 완벽주의자를 위한</div>
+                      <div class="Topic_button">
+                        <a href={% url 'main:login' %} class="btn-text"> 로그인 </a>
+                        <a href={% url 'main:signup' %} class="btn-text"> 회원가입 </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -45,15 +49,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 </div>
               </div>
               <div class="log-in-sign-up-btn">
-                <a href={% url 'main:login' %} class="main-btn btn-text"> 로그인 </a>
-                <a href={% url 'main:signup' %} class="main-btn btn-text"> 계정 등록</a>
+
               </div>
               <div class="landing-game-btn">
                 <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
               <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
               <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
               <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
-              <a class="room-create main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방(개인)</a>
+              <a class="main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방(개인)</a>
               </div>
             </div>
           </div>
@@ -77,9 +80,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                   <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
                 </div>
               </div>
-              <div class="log-in-sign-up-btn">
+              {% comment %} <div class="log-in-sign-up-btn">
                 <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">게임하기</a>
-              </div>
+              </div> {% endcomment %}
               <div class="landing-game-btn">
                 <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
               <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
@@ -108,9 +111,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                   <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
                 </div>
               </div>
-              <div class="log-in-sign-up-btn">
+              {% comment %} <div class="log-in-sign-up-btn">
                 <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">게임하기</a>
-              </div>
+              </div> {% endcomment %}
               <div class="landing-game-btn">
                 <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
               <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
@@ -139,9 +142,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                   <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
                 </div>
               </div>
-              <div class="log-in-sign-up-btn">
+              {% comment %} <div class="log-in-sign-up-btn">
                 <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">게임하기</a>
-              </div>
+              </div> {% endcomment %}
               <div class="landing-game-btn">
                 <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
               <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
@@ -170,9 +173,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                   <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
                 </div>
               </div>
-              <div class="log-in-sign-up-btn">
+              {% comment %} <div class="log-in-sign-up-btn">
                 <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">게임하기</a>
-              </div>
+              </div> {% endcomment %}
               <div class="landing-game-btn">
                 <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
               <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
@@ -232,7 +235,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
       </div>
       <div class="client_detail">
         <p>
-          회원가입만 하면 다양한 게임을 진행할 수 있습니다!
+          회원가입 없이 제공되는 게임을 진행할 수 있습니다!
         </p>
       </div>
     </div>
