@@ -18,6 +18,7 @@
     <div class="game-btn-container">
       <!-- 이전문제 -->
       <div class="before-btn"></div>
+      <div class="game-btn btn-text main-btn quiz-order">1</div>
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -28,13 +29,13 @@
       <div class="game-btn answer-btn main-btn btn-text">
         <i class="fa-solid fa-circle-check"></i> 정답
       </div>
-      <a
+    </div>
+  </div>
+  <a
         class="game-btn game-over main-btn btn-text"
         href="/chatting-room/next_game/{{roomId}}"
         >다음게임 <i class="fa-solid fa-chevron-right"></i>
       </a>
-    </div>
-  </div>
   {% if user.is_authenticated %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
   {% endif %}
@@ -119,6 +120,8 @@
   let currentYear = {{year}};
   const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
+  const quizOrder = document.querySelector('.quiz-order');
+  let youtube_src = "{{ quiz.youtube }}";
 
   socket.emit("message", text, "", room_name);
   //정답 보기
@@ -197,9 +200,11 @@
     singer_element.innerHTML = "";
     //정답 버튼 비활성화
     answerBtn.removeEventListener('click', answerFunction);
+    //퀴즈 순서
+    quizOrder.innerText = 1+cnt;
   }};
 
-  beforeBtn.addEventListener("click", function () {
+  beforeBtn.addEventListener("click", function beforeFunction() {
     if (cnt > 1){
     const url = "/music/before/";
     requestQuiz.open("POST", url, true);
@@ -225,6 +230,8 @@
 
     const singer_element = document.querySelector(".singer");
     singer_element.innerHTML = "";
+    //퀴즈 순서
+    quizOrder.innerText = 1+cnt;
   }});
 
   requestQuiz.onreadystatechange = () => {
