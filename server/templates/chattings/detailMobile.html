@@ -146,7 +146,9 @@
     console.log("clk");
     let text = document.getElementById("input").value;
     console.log("clk2");
+    socket.emit("join", room_name);
     socket.emit("message", text, username, room_name);
+    
     document.getElementById("input").value = "";
   }
   document
@@ -156,8 +158,9 @@
         const username = document.getElementById("info_username").innerText;
         // 'Enter'키의 keyCode는 13입니다.
         let text = e.target.value;
-
+        socket.emit("join", room_name);
         socket.emit("message", text, username, room_name);
+      
         e.target.value = "";
       }
     });

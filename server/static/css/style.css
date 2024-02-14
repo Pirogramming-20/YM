@@ -97,6 +97,7 @@ footer{
     height: 10vh;
 }
 header img{
+    padding: 2rem 0;
     height: 100%;
 }
 .text1, form label{
