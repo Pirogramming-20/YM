@@ -32,13 +32,13 @@
       <div class="game-btn answer-btn main-btn btn-text">
         <i class="fa-solid fa-circle-check"></i> 정답
       </div>
-      <a
+    </div>
+  </div>
+  <a
         class="game-btn game-over main-btn btn-text"
         href="/chatting-room/next_game/{{roomId}}"
         >다음게임 <i class="fa-solid fa-chevron-right"></i>
-      </a>
-    </div>
-  </div>
+  </a>
   {% if user.is_authenticated %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
   {% endif %}
