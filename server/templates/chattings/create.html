@@ -1,8 +1,4 @@
-{% extends 'base.html' %}
-{% load static %}
-{%block head%}
-{% endblock %}
-
+{% extends 'base.html' %} {% load static %} {%block head%} {% endblock %}
 {%block content%}
 <div class="game-main-container">
   <div class="title">
@@ -11,71 +7,105 @@
   </div>
   <div class="sub-title text3">방이름을 입력하세요.</div>
   {% if error %}
-    <h2 style="color:red;" class="text3"> 이미 존재하는 방이름입니다!</h2>
+  <h2 style="color: red" class="text3">이미 존재하는 방이름입니다!</h2>
   {% endif %}
   <form method="POST" action="" class="name-form">
     {% csrf_token %}
-    <label>방이름: <input type="text" name="room_name" id="roomName" required></label>
-    
+    <label
+      >방이름: <input type="text" name="room_name" id="roomName" required
+    /></label>
+
     <div class="text3">게임진행순서를 골라주세요!!!</div>
     <div class="order-check-container text2">
       <div class="order-check-list">
-        <input id="selectedMovie" type="checkbox" name="selected" value="Movie" class="order-check">
+        <input
+          id="selectedMovie"
+          type="checkbox"
+          name="selected"
+          value="Movie"
+          class="order-check"
+        />
         <label for="selectedMovie">명대사 게임</label>
       </div>
       <div class="order-check-list">
-        <input id="selectedMusic" type="checkbox" name="selected" value="Music" class="order-check">
+        <input
+          id="selectedMusic"
+          type="checkbox"
+          name="selected"
+          value="Music"
+          class="order-check"
+        />
         <label for="selectedMusic">음악 게임</label>
       </div>
       <div class="order-check-list">
-        <input id="selectedFigure" type="checkbox" name="selected" value="Figure" class="order-check">
+        <input
+          id="selectedFigure"
+          type="checkbox"
+          name="selected"
+          value="Figure"
+          class="order-check"
+        />
         <label for="selectedFigure">인물 게임</label>
       </div>
       <div class="order-check-list">
-        <input id="selectedFour" type="checkbox" name="selected" value="Four" class="order-check">
+        <input
+          id="selectedFour"
+          type="checkbox"
+          name="selected"
+          value="Four"
+          class="order-check"
+        />
         <label for="selectedFour">네글자 게임</label>
       </div>
+      <div class="order-check-list">
+        <input
+          id="selectedLook"
+          type="checkbox"
+          name="selected"
+          value="Look"
+          class="order-check"
+        />
+        <label for="selectedLook">철가방 게임</label>
+      </div>
     </div>
-    
 
     <div class="text3">게임 진행순서!!!</div>
     {% if non_error %}
-      <h2 style="color:red;" class="text3">게임을 한 개 이상 선택해주세요</h2>
+    <h2 style="color: red" class="text3">게임을 한 개 이상 선택해주세요</h2>
     {% endif %}
     <div id="game-order"></div>
-    <input type="hidden" name="order_list" id="orderListInput">
+    <input type="hidden" name="order_list" id="orderListInput" />
 
-    <button class="main-btn btn-text" >게임방 만들기</button>
+    <button class="main-btn btn-text">게임방 만들기</button>
   </form>
   <script>
-    const gameOrder = document.getElementById('game-order');
-    const checkBoxes = document.querySelectorAll('.order-check');
+    const gameOrder = document.getElementById("game-order");
+    const checkBoxes = document.querySelectorAll(".order-check");
     let orderList = [];
     let orderName = [];
-    
+
     checkBoxes.forEach(function (checkbox) {
-      checkbox.addEventListener("change", function() {
-        if(checkbox.checked) {
+      checkbox.addEventListener("change", function () {
+        if (checkbox.checked) {
           orderList.push(checkbox.value);
           //if label follows the checkbox
           const label = checkbox.nextElementSibling;
           if (label) {
             orderName.push(label.innerText.trim());
           }
-        }
-        else {
+        } else {
           const index = orderList.indexOf(checkbox.value);
           orderList.splice(index, 1);
           orderName.splice(index, 1);
         }
-        gameOrder.innerText = orderName.join(',');
+        gameOrder.innerText = orderName.join(",");
       });
     });
 
-    const form = document.querySelector('.name-form');
-    form.addEventListener('submit', function() {
-      document.getElementById('orderListInput').value = orderList.join(',')
-    })
+    const form = document.querySelector(".name-form");
+    form.addEventListener("submit", function () {
+      document.getElementById("orderListInput").value = orderList.join(",");
+    });
   </script>
-{%endblock%}
-
+  {%endblock%}
+</div>

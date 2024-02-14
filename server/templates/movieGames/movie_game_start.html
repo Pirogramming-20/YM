@@ -21,7 +21,8 @@
       </button>
       <!-- 이전문제 -->
       <div class="before-btn"></div>
-
+      <!-- 게임순서 -->
+      <div class="game-btn btn-text main-btn quiz-order">1</div>
       <div
         class="game-btn next-btn main-btn btn-text"
         onclick="reset_animation()"
@@ -64,6 +65,7 @@
   }
   const csrftoken = getCookie("csrftoken");
   //버튼 정리
+  const beforeBtn = document.querySelector(".before-btn");
   const nextBtn = document.querySelector(".next-btn");
   const answerBtn = document.querySelector(".answer-btn");
   const startBtn = document.querySelector(".start-btn");
@@ -73,6 +75,7 @@
   const imageCover = document.querySelector(".image-cover");
   const countdownElement = document.querySelector(".countdown");
   let countdownInterval;
+  const countAudio = new Audio('/static/audio/countdown/countdown.mp3');
 
   function startCountdown() {
     imageCover.style.display = "flex";
@@ -88,6 +91,7 @@
       } else {
         countdownElement.textContent = count;
         count--;
+        countAudio.play();
       }
     }, 1000);
   }
@@ -95,8 +99,9 @@
   const requestQuiz = new XMLHttpRequest();
   let gameList = {{movie_game}};
   let currentQuizId = {{quiz.id}};
-  const beforeBtn = document.querySelector(".before-btn");
   let cnt = 1;
+  const quizOrder = document.querySelector('.quiz-order');
+
   function reset_animation() {
     const quizContainer = document.querySelector(".quiz");
     quizContainer.style.animation = "none";
@@ -127,6 +132,8 @@
     //시작버튼 재활성화, 정답 버튼 비활성화
     startBtn.addEventListener('click', startCountdown, {once:true});
     answerBtn.removeEventListener('click', answerFunction);
+    //퀴즈 순서
+    quizOrder.innerText = 1+cnt;
   }};
   //이전으로 가기 버튼
   beforeBtn.addEventListener("click", function () {
@@ -153,6 +160,10 @@
 
     const line_element = document.querySelector(".line");
     line_element.innerHTML = "";
+    //시작버튼 재활성화
+    startBtn.addEventListener('click', startCountdown, {once:true})
+    //퀴즈 순서
+    quizOrder.innerText = 1+cnt;
   }});
 
 
@@ -166,6 +177,8 @@
         photo_element.src = scene;
         currentQuizId = id;
         cnt++;
+        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerText = "마지막 문제";
         }
