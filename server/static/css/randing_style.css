@@ -215,7 +215,7 @@ a:focus {
 }
 
 .slider_section .box {
-  margin: 75px 0;
+  margin: 20px 0;
 }
 
 .slider_section .detail-box h1 {
@@ -258,7 +258,7 @@ a:focus {
 }
 
 .slider_section #carouselExampleIndicators .carousel-indicators {
-  bottom: 45px;
+  bottom: -15px;
   margin: 0;
   -webkit-box-align: center;
       -ms-flex-align: center;

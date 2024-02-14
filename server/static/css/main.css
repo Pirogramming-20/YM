@@ -13,7 +13,13 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
+  align-items: flex-start;
+}
+
+.Topic_button>a{
+  font-size: 20px;
+  font-family: var(--randing-font);
+  margin: 10px;
 }
 .sub-title {
   font-size: 6rem;
@@ -35,6 +41,10 @@
 }
 .landing-game-btn {
   flex-wrap: wrap;
+}
+
+.landing-game-btn>a{
+  font-size: 40px;
 }
 
 /* .landing-game-btn a{
@@ -59,14 +69,15 @@ form {
 
 .form-row {
   display: flex;
-  flex-direction: column;
+  margin-top: 4rem;
   margin-bottom: 4rem;
+  align-items: center;
 }
 
 form label {
   font-size: 4rem;
-  margin-bottom: 2rem;
   color: black;
+  margin-right:20px;
 }
 
 form input {
@@ -85,15 +96,52 @@ form input {
   margin-right: 2rem;
 }
 
+
+/* answer page css*/
 .answer_container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
   justify-content: space-around;
+}
+
+@media screen and (min-width: 768px) {
+  .answer_container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+  .answer_container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
 }
 .answer_box {
   font-size: large;
   padding: 20px;
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.answer_box > p{
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  border-bottom: 1px solid black;
 }
 
+.room-answer{
+  color: var(--primary-color);
+  font-size: 20px;
+}
+
+.room_container{
+  width: 250px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 /* qr image */
 .qr-image {

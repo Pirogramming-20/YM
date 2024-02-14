@@ -3,6 +3,11 @@
 {% block content %}
 <div class="form-container">
     <div class="sub-title text1">로그인</div>
+    {% if form.errors %}
+    <div class="errorlist" style="font-size:20px; color:red;">
+        ID 혹은 비밀번호를 다시 확인해주세요
+    </div>
+    {% endif %}
     <form method="POST" action="">
         {% csrf_token %}
         {% for field in form %}
