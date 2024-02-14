@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="title">
-  <span class="text1">요즘</span>
-  <span class="text2">MT</span>
-</div>
+<h2>원하는 모드를 선택해주세요</h2>
   <div class="game-choose-container">
     <div class="individual">
       <div class="sub-title text3">개인</div>
@@ -22,18 +19,16 @@
       <div class="btn">
     <a onclick="make_room()" class="room-create main-btn btn-text"> 게임방 만들기 </a>
       <div class="rooms">
-        <div class="main-btn room-list btn-text"> 게임방 리스트 </div>
+        <div class="main-btn-div room-list btn-text"> 게임방 리스트 </div>
       {% for room in rooms %}
-          {% comment %} Host {% endcomment %}
-          {% if room.created_by == request.user %}
-            <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
-          {% comment %} User {% endcomment %}
-          {% else %}
-            <a class="room-name text3 sub-title" href="{% url 'rooms:detail' room.pk %}">
-          {% endif %}
+          <div class="room_container">
+            <a class="room-name text3" href="{% url 'rooms:detail' room.pk %}">
             <i class="fa-solid fa-house"></i>
             {{room.room_name}}
-          </a>
+            </a>
+            
+            <a class="room-answer" href="{% url 'main:answer' room.pk %}">정답 확인</a>
+          </div>
         {% endfor %}
       </div>
       </div>

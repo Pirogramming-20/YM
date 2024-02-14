@@ -19,7 +19,7 @@
 }
 
 .room-create {
-    flex: 0 0 calc(50% - 4rem); 
+    /* flex: 0 0 calc(50% - 4rem);  */
     height: min-content;
     text-align: center;
     display: flex;
