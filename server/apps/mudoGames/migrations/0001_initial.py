@@ -12,10 +12,10 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='LookInside',
+            name='Mudo',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=20)),
+                ('line', models.CharField(max_length=100)),
                 ('image_path', models.CharField(max_length=255, null=True)),
             ],
         ),

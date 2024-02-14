@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block head %}
+<title>figure_main</title>
+{% endblock %} {% block content %}
+
+<div class="explain-container">
+  <div class="text1">없는 게 없는 무한도전 게임</div>
+  <div class="text2">무한도전 장면을 보고 대사를 맞춰보세요!</div>
+  <div class="game-explain text3">
+    <p>게임 설명</p>
+    <p>'시작' 버튼을 누르면 무한도전 장면이 나옵니다!</p>
+    <p>다같이 해당 장면의 대사를 맞춰보세요!</p>
+    <p>토씨 하나도 틀리면 자비없이 땡!!</p>
+    <p>무한도전을 잘 몰라도 다른 사람들의 대답을 듣고 같이 맞춰봅시다!</p>
+  </div>
+  <form method="POST" action="{% url 'mudoGames:mudo_main' roomId %}">
+    {% csrf_token %}
+    <div class="problem">
+      <div class="rule text3">문제 개수를 선택해주세요!</div>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="5" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">5 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="10" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">10 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="15" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">15 문제</span>
+      </label>
+    </div>
+    <button type="submit" class="main-btn btn-text">게임 시작</button>
+  </form>
+</div>
+{% endblock %}

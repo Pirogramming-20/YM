@@ -9,6 +9,7 @@ from ..figure.models import *
 from ..movieGames.models import *
 from ..fourWords.models import *
 from ..lookInside.models import *
+from ..mudoGames.models import *
 
 # Create your views here.
 
@@ -71,6 +72,7 @@ def answer(request,pk):
     music_2020_list=[]
     movie_list=[]
     look_list=[]
+    mudo_list=[]
     game=GameRoom.objects.get(pk=pk)
     name=game.room_name
     order_str=game.order_game
@@ -118,6 +120,13 @@ def answer(request,pk):
             for look_id in look_id_list:
                 f1=LookInside.objects.get(id=look_id)
                 look_list.append(f1.name)
+        elif gn=="Mudo":       
+            mudo_random_str=game.ran_mudo
+            mudo_id_list=list(map(int,mudo_random_str.split(',')))
+            
+            for mudo_id in mudo_id_list:
+                f1=Mudo.objects.get(id=mudo_id)
+                mudo_list.append(f1.line)
     
     
     ctx={
@@ -128,6 +137,7 @@ def answer(request,pk):
                 'music_2010_answer': music_2010_list,
                 'music_2020_answer': music_2020_list,
                 'look_answer':look_list,
+                'mudo_answer':mudo_list,
                 'room_name':name,
                 'order_list':order_list,
     }    

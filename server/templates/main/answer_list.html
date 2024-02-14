@@ -61,6 +61,15 @@
                 <p>{{ forloop.counter }}번 : {{look}} </p>
                 {% endfor %}
             </div>
+
+            {% elif order == 'Mudo' %}
+            
+            <div class="answer_box">
+                <h1>무한도전 퀴즈 정답</h1>
+                {% for mudo in mudo_answer %}
+                <p>{{ forloop.counter }}번 : {{mudo}} </p>
+                {% endfor %}
+            </div>
             {%endif%}
         {%endfor%}
 

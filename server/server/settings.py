@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.figure',
     'apps.fourWords',
     'apps.lookInside',
+    'apps.mudoGames',
 ]
 
 AUTH_USER_MODEL='main.User' # 유저모델 위치
