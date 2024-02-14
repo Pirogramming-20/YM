@@ -139,8 +139,17 @@ input[type="checkbox"].order-check{
     flex-direction: column;
     justify-content: space-evenly;
     animation: slideInFromLeft 1s ease-out forwards;
+    /* animation: slideInFromRight 1s ease-in-out forwards; */
     will-change: transform;
+    height: 90%;
+    position: relative;
   }
+  /* .next-btn-container{
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  } */
   .chat-container{
     width: 28%;
     padding-left: 4rem;
@@ -152,17 +161,22 @@ input[type="checkbox"].order-check{
     margin-left: 1.4rem;
   }
   .game-btn{
-    font-size: 4rem;
+    font-size: 3rem;
+    position: relative;
+  }
+  .game-over{
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 
 .photo-container{
     display: flex;
     justify-content: center;
-
 }
 .photo-container img{
     max-height: 40rem;
-    max-width: 45rem;
+    max-width: 30rem;
     border-radius: 6rem;
     height: 60%;
     width: 80%;
@@ -207,6 +221,21 @@ input[type="checkbox"].order-check{
       opacity: 1;
     }
   }
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .quiz.slideInFromRight {
+    animation: slideInFromRight 1s ease-out forwards;
+  }
+  
 .animate-slide-in {
     animation: slideInFromLeft 1s ease-out forwards;
 }
@@ -244,7 +273,7 @@ input[type="checkbox"].order-check{
       opacity: 1;
     }
     100% {
-      transform: translateX(calc(50vw - 50%)); /* Adjust this calculation based on your layout */
+      transform: translateX(calc(50vw - 50%)); 
       opacity: 1;
     }
 }

@@ -43,6 +43,12 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'JalnanGothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 :root {
     /* color scheme */
@@ -55,7 +61,7 @@
     --bg-color: #F1F5F8;
 
     /* Font settings */
-    --primary-font: 'DNFForgedBlade', sans-serif;
+    --primary-font: 'JalnanGothic', sans-serif;
     --secondary-font: 'KartriderExtraBold', sans-serif;
     --text-font: 'KartriderExtraBold', sans-serif;
 
@@ -97,6 +103,7 @@ footer{
     height: 10vh;
 }
 header img{
+    padding: 2rem 0;
     height: 100%;
 }
 .text1, form label{
