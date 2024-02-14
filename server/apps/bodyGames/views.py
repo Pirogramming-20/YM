@@ -176,32 +176,6 @@ def body_game_main(request, roomId):
             BodyGame_job.objects.get_or_create(word=data['word'])
         elif data['type'] == 'proverb':
             BodyGame_proverb.objects.get_or_create(word=data['word'])
-
-    if roomId == 0:
-        if request.method == 'POST':
-            count = int(request.POST['count'])
-            type = request.POST['type']
-            ctx = {
-                'roodId' : roomId,
-                'count' : count,
-            }
-
-            if type == 'animal':
-                return redirect('/body/{0}/body_game_animal/{1}'.format(roomId, count))
-            elif type == 'food':
-                return redirect('/body/{0}/body_game_food/{1}'.format(roomId, count))
-            elif type == 'thing':
-                return redirect('/body/{0}/body_game_thing/{1}'.format(roomId, count))
-            elif type == 'job':
-                return redirect('/body/{0}/body_game_job/{1}'.format(roomId, count))
-            elif type == 'proverb':
-                return redirect('/body/{0}/body_game_proverb/{1}'.format(roomId, count))
-            
-        ctx = {
-            'roomId' : roomId,
-        }
-
-        return render(request, 'bodyGames/body_game_main.html', ctx)
     
     room = GameRoom.objects.get(id=roomId)
     if request.method == 'POST':
@@ -231,13 +205,10 @@ def body_game_main(request, roomId):
     return render(request, 'bodyGames/body_game_main.html', ctx)
 
 def body_game_start_animal(request, roomId, count):
-    if(roomId == 0):
-        quiz_id_int_list = random.sample(range(1, 31), count)
-    else:
-        room = GameRoom.objects.get(id=roomId)
-        quiz_id_list = room.ran_body
-        quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
-        quiz_id_int_list = quiz_id_str_list[:count]
+    room = GameRoom.objects.get(id=roomId)
+    quiz_id_list = room.ran_body
+    quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
+    quiz_id_int_list = quiz_id_str_list[:count]
 
     word = BodyGame_animal.objects.all()
     body_game = []
@@ -248,15 +219,6 @@ def body_game_start_animal(request, roomId, count):
     body_game.append(quiz_id)
     quiz = BodyGame_animal.objects.get(id = quiz_id)
 
-    if roomId == 0:
-        ctx = {
-            'quiz' : quiz,
-            'roomId' : roomId,
-            'count' : count,
-            'body_game' : body_game,
-            'type' : 'animal',
-        }
-        return render(request, 'bodyGames/body_game_start.html', ctx)
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
@@ -268,13 +230,10 @@ def body_game_start_animal(request, roomId, count):
     return render(request, 'bodyGames/body_game_start.html', ctx)
 
 def body_game_start_food(request, roomId, count):
-    if(roomId == 0):
-        quiz_id_int_list = random.sample(range(1, 31), count)
-    else:
-        room = GameRoom.objects.get(id=roomId)
-        quiz_id_list = room.ran_body
-        quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
-        quiz_id_int_list = quiz_id_str_list[:count]
+    room = GameRoom.objects.get(id=roomId)
+    quiz_id_list = room.ran_body
+    quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
+    quiz_id_int_list = quiz_id_str_list[:count]
 
     word = BodyGame_food.objects.all()
     body_game = []
@@ -285,15 +244,6 @@ def body_game_start_food(request, roomId, count):
     body_game.append(quiz_id)
     quiz = BodyGame_food.objects.get(id = quiz_id)
 
-    if roomId == 0:
-        ctx = {
-            'quiz' : quiz,
-            'roomId' : roomId,
-            'count' : count,
-            'body_game' : body_game,
-            'type' : 'food',
-        }
-        return render(request, 'bodyGames/body_game_start.html', ctx)
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
@@ -305,13 +255,10 @@ def body_game_start_food(request, roomId, count):
     return render(request, 'bodyGames/body_game_start.html', ctx)
 
 def body_game_start_thing(request, roomId, count):
-    if(roomId == 0):
-        quiz_id_int_list = random.sample(range(1, 31), count)
-    else:
-        room = GameRoom.objects.get(id=roomId)
-        quiz_id_list = room.ran_body
-        quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
-        quiz_id_int_list = quiz_id_str_list[:count]
+    room = GameRoom.objects.get(id=roomId)
+    quiz_id_list = room.ran_body
+    quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
+    quiz_id_int_list = quiz_id_str_list[:count]
 
     word = BodyGame_thing.objects.all()
     body_game = []
@@ -322,15 +269,6 @@ def body_game_start_thing(request, roomId, count):
     body_game.append(quiz_id)
     quiz = BodyGame_thing.objects.get(id = quiz_id)
 
-    if roomId == 0:
-        ctx = {
-            'quiz' : quiz,
-            'roomId' : roomId,
-            'count' : count,
-            'body_game' : body_game,
-            'type' : 'thing',
-        }
-        return render(request, 'bodyGames/body_game_start.html', ctx)
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
@@ -342,13 +280,10 @@ def body_game_start_thing(request, roomId, count):
     return render(request, 'bodyGames/body_game_start.html', ctx)
 
 def body_game_start_job(request, roomId, count):
-    if(roomId == 0):
-        quiz_id_int_list = random.sample(range(1, 31), count)
-    else:
-        room = GameRoom.objects.get(id=roomId)
-        quiz_id_list = room.ran_body
-        quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
-        quiz_id_int_list = quiz_id_str_list[:count]
+    room = GameRoom.objects.get(id=roomId)
+    quiz_id_list = room.ran_body
+    quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
+    quiz_id_int_list = quiz_id_str_list[:count]
 
     word = BodyGame_job.objects.all()
     body_game = []
@@ -359,15 +294,6 @@ def body_game_start_job(request, roomId, count):
     body_game.append(quiz_id)
     quiz = BodyGame_job.objects.get(id = quiz_id)
 
-    if roomId == 0:
-        ctx = {
-            'quiz' : quiz,
-            'roomId' : roomId,
-            'count' : count,
-            'body_game' : body_game,
-            'type' : 'job',
-        }
-        return render(request, 'bodyGames/body_game_start.html', ctx)
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
@@ -379,13 +305,10 @@ def body_game_start_job(request, roomId, count):
     return render(request, 'bodyGames/body_game_start.html', ctx)
 
 def body_game_start_proverb(request, roomId, count):
-    if(roomId == 0):
-        quiz_id_int_list = random.sample(range(1, 31), count)
-    else:
-        room = GameRoom.objects.get(id=roomId)
-        quiz_id_list = room.ran_body
-        quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
-        quiz_id_int_list = quiz_id_str_list[:count]
+    room = GameRoom.objects.get(id=roomId)
+    quiz_id_list = room.ran_body
+    quiz_id_str_list = list(map(int, quiz_id_list.split(",")))
+    quiz_id_int_list = quiz_id_str_list[:count]
 
     word = BodyGame_proverb.objects.all()
     body_game = []
@@ -396,15 +319,6 @@ def body_game_start_proverb(request, roomId, count):
     body_game.append(quiz_id)
     quiz = BodyGame_proverb.objects.get(id = quiz_id)
 
-    if roomId == 0:
-        ctx = {
-            'quiz' : quiz,
-            'roomId' : roomId,
-            'count' : count,
-            'body_game' : body_game,
-            'type' : 'proverb',
-        }
-        return render(request, 'bodyGames/body_game_start.html', ctx)
     ctx = {
         'quiz' : quiz,
         'roomId' : roomId,
