@@ -151,6 +151,16 @@ header img{
     /* height: min-content; */
 }
 
+.main-btn-div{
+    background: var(--tertiary-color);
+    padding: 1rem;
+    font-weight: 500;
+    font-size: 6rem;
+    white-space: nowrap;
+    border-radius: 5px;
+    margin: 10px 20px 10px 0;
+}
+
 .main-btn:hover {
     margin-top: 15px;
     margin-bottom: 5px;

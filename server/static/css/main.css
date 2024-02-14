@@ -85,15 +85,52 @@ form input {
   margin-right: 2rem;
 }
 
+
+/* answer page css*/
 .answer_container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
   justify-content: space-around;
+}
+
+@media screen and (min-width: 768px) {
+  .answer_container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+  .answer_container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
 }
 .answer_box {
   font-size: large;
   padding: 20px;
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.answer_box > p{
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  border-bottom: 1px solid black;
 }
 
+.room-answer{
+  color: var(--primary-color);
+  font-size: 20px;
+}
+
+.room_container{
+  width: 250px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 /* qr image */
 .qr-image {
