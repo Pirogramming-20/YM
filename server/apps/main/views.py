@@ -41,7 +41,7 @@ def signup(request):
 # @csrf_exempt
 def login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
+        form = LoginForm(request, request.POST)
         if form.is_valid():
             user = form.get_user()
             auth.login(request, user)
@@ -52,7 +52,7 @@ def login(request):
             }
             return render(request, template_name='main/login.html', context=context)
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
         context = {
             'form': form,
         }

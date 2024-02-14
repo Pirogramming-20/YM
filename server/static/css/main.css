@@ -69,14 +69,15 @@ form {
 
 .form-row {
   display: flex;
-  flex-direction: column;
+  margin-top: 4rem;
   margin-bottom: 4rem;
+  align-items: center;
 }
 
 form label {
   font-size: 4rem;
-  margin-bottom: 2rem;
   color: black;
+  margin-right:20px;
 }
 
 form input {
