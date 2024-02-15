@@ -69,6 +69,7 @@
   //버튼 정리
   const nextBtn = document.querySelector(".next-btn");
   const answerBtn = document.querySelector(".answer-btn");
+  let cnt = 1;
   //0.5초 듣기
   document.querySelector(".btn-05").addEventListener("click", function () {
     const audioPath = this.dataset.music;
@@ -80,6 +81,10 @@
     nextBtn.addEventListener('click', reset_animation, {once:true});
     nextBtn.style.backgroundColor="var(--tertiary-color)";
     nextBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+    if (cnt === parseInt("{{ count }}")) {
+          nextBtn.style.backgroundColor="gray";
+          nextBtn.style.boxShadow= "none";
+    }
     answerBtn.addEventListener('click', answerFunction, {once:true});
     answerBtn.style.backgroundColor="var(--tertiary-color)";
     answerBtn.style.boxShadow= "0px 5px 0px 0px #007144";
@@ -123,7 +128,6 @@
   let currentQuizId = {{quiz.id}};
   let currentYear = {{year}};
   const beforeBtn = document.querySelector(".before-btn");
-  let cnt = 1;
   const quizOrder = document.querySelector('.quiz-order');
   let youtube_src = "{{ quiz.youtube }}";
 
