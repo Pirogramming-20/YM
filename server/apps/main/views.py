@@ -73,6 +73,7 @@ def answer(request,pk):
     movie_list=[]
     look_list=[]
     mudo_list=[]
+    chat_list=[]
     game=GameRoom.objects.get(pk=pk)
     name=game.room_name
     order_str=game.order_game

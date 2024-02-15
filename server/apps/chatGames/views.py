@@ -9,11 +9,9 @@ from django.http import JsonResponse
 #0. create figure db
 #1. figure_game main page
 def chatGames_main(request, roomId): #60개
-    name_list = ['강다니엘', '강하늘', '거미', '고두심', '기안84', '김연아', '김연자','김우빈','나문희','노사연',
-                 '다현', '디카프리오','라이언','마릴린먼로','모모','모차르트','문재인','박건후','박건후','박보검','방귀대장뿡뿡이',
-                 '베토벤', '보아', '뿡뿡이', '세일러문', '세종대왕', '손흥민', '송가인', '송은이', '송중기', '아만다 사이프리드']
-    for i in range(len(name_list)):
-        ChatGame.objects.get_or_create(chatText=name_list[i])
+    for i in range(1,16,1):
+        img_path = f"/static/image/chatGames/{i}.jpg"
+        ChatGame.objects.get_or_create(chatText=img_path)
 
     if roomId == 0:
         ctx = {
@@ -47,7 +45,7 @@ def chatGames_main(request, roomId): #60개
 def chatGames_game_start(request,roomId,count):
     #채팅룸 랜덤 아이디랑 연결
     if roomId == 0:
-        quiz_id_int_list = random.sample(range(1,31),count)
+        quiz_id_int_list = random.sample(range(1,16),count)
     else:
         room = GameRoom.objects.get(id=roomId)
         quiz_id_list = room.ran_chat

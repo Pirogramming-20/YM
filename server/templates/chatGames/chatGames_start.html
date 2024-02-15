@@ -7,7 +7,7 @@
         <span class="countdown text2">!준비!</span>
       </div>
       <div class="photo-container">
-        <div class="photo">{{quiz_chatGames.chatText}}</div>
+        <img src="{{quiz_chatGames.chatText}}" alt="이미지" class="photo" />
       </div>
     </div>
     <div class="answer-container">
@@ -162,7 +162,7 @@
         const { id, chatText, game_list } = JSON.parse(requestQuiz.response);
         gameList = game_list;
         const photo_element = document.querySelector(".photo");
-        photo_element.innerText = chatText;
+        photo_element.src = chatText;
         currentQuizId = id;
         cnt++;
         let text = '-------------------' + cnt +'번문제' +'-------------------';
