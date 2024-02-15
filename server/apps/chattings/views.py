@@ -58,7 +58,7 @@ def create(request):
             room.ran_movie = ran_quiz_str
           elif game == "Mudo":
             print('mudo')
-            ran_quiz_list = random.sample(range(1,12),10)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,41),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_mudo = ran_quiz_str
           elif game == "Music":
