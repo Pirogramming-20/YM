@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-
+<h2>영화 명대사 맞추기 게임</h2> 
 <div class="game">
     <div class="quiz">
       <div class="quiz-container">
@@ -19,19 +19,18 @@
           시작
           <i class="fa-solid fa-play"></i>
         </button>
-        <!-- 이전문제 -->
-        <div class="before-btn"></div>
-        <!-- 게임순서 -->
-        <div class="game-btn btn-text main-btn quiz-order">1</div>
-        <div
-          class="game-btn next-btn main-btn btn-text"
-          onclick="reset_animation()"
-        >
-          다음 문제
-          <i class="fa-solid fa-chevron-right"></i>
+        <div class="game-change">
+          <!-- 이전문제 -->
+          <div class="before-btn"></div>
+          <!-- 게임순서 -->
+          <div class="game-btn btn-text main-btn quiz-order">1/{{count}}</div>
+          <div  class="game-btn next-btn main-btn btn-text bef_clicked">
+            다음문제
+            <i class="fa-solid fa-chevron-right"></i>
+          </div>
         </div>
-        <div class="game-btn answer-btn main-btn btn-text">
-          <i class="fa-solid fa-circle-check"></i> 정답
+        <div class="game-btn answer-btn main-btn btn-text bef_clicked">
+          <i class="fa-solid fa-circle-check" ></i> 정답
         </div>
       </div>
     </div>
@@ -40,6 +39,7 @@
         href="/chatting-room/next_game/{{roomId}}"
         >다음게임 <i class="fa-solid fa-chevron-right"></i>
       </a>
+      
   
   {% if user.is_authenticated %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
@@ -71,7 +71,8 @@
   const answerBtn = document.querySelector(".answer-btn");
   const startBtn = document.querySelector(".start-btn");
   startBtn.addEventListener('click', startCountdown, {once:true});
-
+  
+  
   //카운트다운
   const imageCover = document.querySelector(".image-cover");
   const countdownElement = document.querySelector(".countdown");
@@ -86,9 +87,14 @@
       if (count <= 0) {
         clearInterval(countdownInterval);
         imageCover.style.display = "none";
-        //다음문제 정답버튼 활성화
+        //다음문제,정답 버튼 두개 활성화
         nextBtn.addEventListener('click', nextFunction, {once:true});
+        nextBtn.addEventListener('click', reset_animation, {once:true});
+        nextBtn.style.backgroundColor="var(--tertiary-color)";
+        nextBtn.style.boxShadow= "0px 5px 0px 0px #007144";
         answerBtn.addEventListener('click', answerFunction, {once:true});
+        answerBtn.style.backgroundColor="var(--tertiary-color)";
+        answerBtn.style.boxShadow= "0px 5px 0px 0px #007144";
       } else {
         countdownElement.textContent = count;
         count--;
@@ -132,9 +138,15 @@
     line_element.innerHTML = "";
     //시작버튼 재활성화, 정답 버튼 비활성화
     startBtn.addEventListener('click', startCountdown, {once:true});
+
+    nextBtn.style.backgroundColor="gray";
+    nextBtn.style.boxShadow= "none";
+    answerBtn.style.backgroundColor="gray";
+    answerBtn.style.boxShadow= "none";
     answerBtn.removeEventListener('click', answerFunction);
     //퀴즈 순서
-    quizOrder.innerText = 1+cnt;
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
   }};
   //이전으로 가기 버튼
   beforeBtn.addEventListener("click", function () {
