@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
 import random
+import os
 # Create your views here.
 
 def main(request):
@@ -71,6 +72,11 @@ def create(request):
             ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_body = ran_quiz_str
+          elif game == "Chat":
+            print('chat')
+            ran_quiz_list = random.sample(range(1,16),15)#각 게임 자료수에 맞게 고치기
+            ran_quiz_str=','.join(map(str,ran_quiz_list))
+            room.ran_chat = ran_quiz_str
       room.save()
       roomId = room.id
       
@@ -110,6 +116,9 @@ def next_game(request, roomId):
     elif current_game == "Music":
       return redirect(f"/music/{roomId}/")
       # return render(request, "musicGames/music_game_main.html", ctx)
+    elif current_game == "Chat":
+      return redirect(f"/chatGames/{roomId}")
+      # return render(request, "musicGames/music_game_main.html", ctx)
     elif current_game == "Body":
       return redirect(f"/body/{roomId}/")
   else:
@@ -140,6 +149,9 @@ def recreate(request, roomId):
 
 def delete(request, roomId):
   GameRoom.objects.get(id=roomId).delete()
+  image_path = os.path.join("C:/Users/user/Desktop/YM/server/static/image/qrcode", 'qr{}.png'.format(roomId))
+  if os.path.isfile(image_path):
+        os.remove(image_path)
   return redirect('/chatting-room')
 # 유저닉네임  + 채팅방이름
 # 채팅방 아이디값 -> 채팅방이름
@@ -157,11 +169,11 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
-  qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
+  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
+  # qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
   #qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
   # qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
-  #qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #우진
+  # qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #우진
   ctx = {
     "room" : room,
   }

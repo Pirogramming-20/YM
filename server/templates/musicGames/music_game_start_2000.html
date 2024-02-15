@@ -30,14 +30,12 @@
       </div>
     </div>
   </div>
-  <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
-    {% if roomId == 0 %}
-      다른 게임 <i class="fa-solid fa-chevron-right"></i>
-    {% else %}
-      다음 게임 <i class="fa-solid fa-chevron-right"></i>
-    {% endif %}
+  <a
+    class="game-btn game-over main-btn btn-text"
+    href="/chatting-room/next_game/{{roomId}}"
+    >다음게임 <i class="fa-solid fa-chevron-right"></i>
   </a>
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and not roomId == 0 %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
   {% endif %}
 </div>
@@ -109,6 +107,7 @@
     audio.loop = false;
     const play = audio.play();
     //다음문제 정답버튼 활성화
+    answerBtn.addEventListener('click', answerFunction, {once:true});
 
     if (play !== undefined) {
       play
@@ -148,7 +147,6 @@
       },
     });
   }
-
   //준비되면 자동 재생
   function onPlayerReady(event) {
     if (player) {
@@ -182,7 +180,7 @@
       }
     }
   };
-
+  nextBtn.addEventListener('click', nextFunction, {once:true});
   //다음 문제로 넘어가기
   function nextFunction() {
     if (cnt < parseInt("{{ count }}")){
@@ -195,11 +193,11 @@
     if(cnt == 1){
       beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
     }
+
     if (player) {
       player.destroy();
       player = null;
     }
-
     const title_element = document.querySelector(".title");
     title_element.innerHTML = "";
 
