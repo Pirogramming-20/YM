@@ -27,8 +27,8 @@
             <i class="fa-solid fa-house"></i>
             {{room.room_name}}
             </a>
-            
             <a class="room-answer" href="{% url 'main:answer' room.pk %}">정답 확인</a>
+            <a class="room-answer" style = "color:gray" href="{% url 'rooms:delete' room.pk %}"><i class="fa-solid fa-xmark"></i></a>
           </div>
         {% endfor %}
       </div>
