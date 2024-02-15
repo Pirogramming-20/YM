@@ -30,21 +30,12 @@
       </div>
     </div>
   </div>
-<<<<<<< HEAD
   <a
     class="game-btn game-over main-btn btn-text"
     href="/chatting-room/next_game/{{roomId}}"
     >다음게임 <i class="fa-solid fa-chevron-right"></i>
-=======
-  <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
-    {% if roomId == 0 %}
-      다른 게임 <i class="fa-solid fa-chevron-right"></i>
-    {% else %}
-      다음 게임 <i class="fa-solid fa-chevron-right"></i>
-    {% endif %}
->>>>>>> 6c174459e90965df68597d8af5a9d19e5ffab97c
   </a>
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and not roomId == 0 %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
   {% endif %}
 </div>
@@ -116,11 +107,7 @@
     audio.loop = false;
     const play = audio.play();
     //다음문제 정답버튼 활성화
-<<<<<<< HEAD
-
     answerBtn.addEventListener('click', answerFunction, {once:true});
-=======
->>>>>>> 6c174459e90965df68597d8af5a9d19e5ffab97c
 
     if (play !== undefined) {
       play
