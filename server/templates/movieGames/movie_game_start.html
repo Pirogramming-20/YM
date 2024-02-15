@@ -176,7 +176,8 @@
     //시작버튼 재활성화
     startBtn.addEventListener('click', startCountdown, {once:true})
     //퀴즈 순서
-    quizOrder.innerText = 1+cnt;
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
   }});
 
 
