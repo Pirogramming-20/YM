@@ -75,6 +75,7 @@
   const nextBtn = document.querySelector(".next-btn");
   const startBtn = document.querySelector(".start-btn");
   startBtn.addEventListener('click', startCountdown, {once:true});
+  let cnt = 1;
 
   // 카운트다운 js
   const imageCover = document.querySelector(".image-cover");
@@ -94,6 +95,10 @@
         nextBtn.addEventListener('click', reset_animation, {once:true});
         nextBtn.style.backgroundColor="var(--tertiary-color)";
         nextBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+        if (cnt === parseInt("{{ count }}")) {
+          nextBtn.style.backgroundColor="gray";
+          nextBtn.style.boxShadow= "none";
+        }
         answerBtn.addEventListener('click', answerFunction, {once:true});
         answerBtn.style.backgroundColor="var(--tertiary-color)";
         answerBtn.style.boxShadow= "0px 5px 0px 0px #007144";
@@ -130,7 +135,6 @@
   // 다음문제로 넘어가는 ajax
   const requestNextQuiz = new XMLHttpRequest();
   let gameList = {{four_game}};
-  let cnt = 1;
   const quizOrder = document.querySelector('.quiz-order');
 
   function reset_animation() {

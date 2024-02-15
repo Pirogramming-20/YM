@@ -73,6 +73,7 @@
   const answerBtn = document.querySelector(".answer-btn");
   const startBtn = document.querySelector(".start-btn");
   startBtn.addEventListener('click', startCountdown, {once:true})//한 번만 작동하도록
+  let cnt = 1;
 
   //카운트다운
   const imageCover = document.querySelector(".image-cover");
@@ -92,6 +93,10 @@
         nextBtn.addEventListener('click', reset_animation, {once:true});
         nextBtn.style.backgroundColor = "var(--tertiary-color)";
         nextBtn.style.boxShadow = "0px 5px 0px 0px #007144";
+        if (cnt === parseInt("{{ count }}")) {
+          nextBtn.style.backgroundColor="gray";
+          nextBtn.style.boxShadow= "none";
+        }
         answerBtn.addEventListener('click', answerFunction, {once:true});
         answerBtn.style.backgroundColor = "var(--tertiary-color)";
         answerBtn.style.boxShadow = "0px 5px 0px 0px #007144";
@@ -115,7 +120,6 @@
     quizContainer.style.animation = null;
   }
 
-  let cnt = 1;
   const quizOrder = document.querySelector('.quiz-order');
 
   function nextFunction() {
