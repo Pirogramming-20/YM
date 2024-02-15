@@ -1,17 +1,20 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-
+<h2>몸으로 말해요 게임</h2>
 <div class="game">
     <div class="quiz">
         <div class="word-container">
             <div class="text1 word">{{quiz.word}}</div>
         </div>
         <div class="game-btn-container">
-            <!-- 이전문제 -->
-            <div class="before-btn"></div>
-            <div class="game-btn btn-text main-btn quiz-order">1</div>
-            <div class="game-btn next-btn main-btn btn-text" onclick="reset_animation()">
-                다음 문제
-                <i class="fa-solid fa-chevron-right"></i>
+            <div class="game-change">
+                <!-- 이전문제 -->
+                <div class="before-btn"></div>
+                <!-- 게임순서 -->
+                <div class="game-btn btn-text main-btn quiz-order">1/{{ count }}</div>
+                <div class="game-btn next-btn main-btn btn-text" onclick="reset_animation()">
+                    다음 문제
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -68,7 +71,8 @@
                 beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
             }
             //퀴즈 순서
-            quizOrder.innerText = 1+cnt;
+            intext = 1+cnt;
+            quizOrder.innerText = intext + "/{{count}}";
         }
     });
 
@@ -89,7 +93,8 @@
             cnt--;
             cnt--;
             //퀴즈 순서
-            quizOrder.innerText = 1+cnt;
+            intext=1+cnt
+            quizOrder.innerText = intext+"/{{count}}";
         }
     });
 
