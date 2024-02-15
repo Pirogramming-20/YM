@@ -159,6 +159,7 @@ input[type="checkbox"].order-check{
     justify-content: space-evenly;
     flex-wrap: wrap;
     margin-left: 1.4rem;
+    align-items: center;
   }
   .game-btn{
     font-size: 3rem;
@@ -295,4 +296,19 @@ input[type="checkbox"].order-check{
     display: flex;
     align-items: center;
     gap: 2rem;
+}
+
+.game-change{
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  align-items: center;
+}
+
+.game-change > div{
+  margin: 10px;
+}
+
+.game-change div:first-child , .game-change div:last-child{
+  width:130px
 }

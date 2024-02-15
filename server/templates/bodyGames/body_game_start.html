@@ -1,0 +1,118 @@
+{% extends 'base.html' %} {% block content %}{% load static %}
+<h2>몸으로 말해요 게임</h2>
+<div class="game">
+    <div class="quiz">
+        <div class="word-container">
+            <div class="text1 word">{{quiz.word}}</div>
+        </div>
+        <div class="game-btn-container">
+            <div class="game-change">
+                <!-- 이전문제 -->
+                <div class="before-btn"></div>
+                <!-- 게임순서 -->
+                <div class="game-btn btn-text main-btn quiz-order">1/{{ count }}</div>
+                <div class="game-btn next-btn main-btn btn-text" onclick="reset_animation()">
+                    다음 문제
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">다음게임 <i
+            class="fa-solid fa-chevron-right"></i>
+    </a>
+</div>
+
+{% endblock %} {% block script %}
+//csrf 토큰 생성 함수
+<script>
+    //csrf 토큰 생성 함수
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === name + "=") {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    //csrf 토큰 생성
+    const csrftoken = getCookie("csrftoken");
+
+    //버튼 정리
+    const nextBtn = document.querySelector(".next-btn");
+    const beforeBtn = document.querySelector(".before-btn");
+    const quizOrder = document.querySelector(".quiz-order");
+    const word_element = document.querySelector(".word");
+    let gameList = {{body_game}};
+    let currentQuizId = {{quiz.id}};
+    let currentType = "{{type}}";
+    let cnt = 1;
+    
+    const requestQuiz = new XMLHttpRequest();
+
+    //다음 문제
+    nextBtn.addEventListener("click", function(){
+        if(cnt < parseInt("{{ count }}")){
+            const url = "/body/next/";
+            requestQuiz.open("POST", url, true);
+            requestQuiz.setRequestHeader("Content-Type", "application/json");
+            requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+            requestQuiz.send(JSON.stringify({id : currentQuizId, game_list: gameList, type : currentType}));
+
+            if(cnt == 1){
+                beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+            }
+            //퀴즈 순서
+            intext = 1+cnt;
+            quizOrder.innerText = intext + "/{{count}}";
+        }
+    });
+
+    beforeBtn.addEventListener("click", function beforeFunction(){
+        if (cnt > 1){
+            const url = "/body/before/";
+            requestQuiz.open("POST", url, true);
+            requestQuiz.setRequestHeader("Content-Type", "application/json");
+            requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+            requestQuiz.send(JSON.stringify({id : currentQuizId, game_list: gameList, type: currentType}));
+
+            if(cnt === parseInt("{{ count }}")){
+                nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+            }
+            else if (cnt === 2) {
+                beforeBtn.innerHTML = "";
+            }
+            cnt--;
+            cnt--;
+            //퀴즈 순서
+            intext=1+cnt
+            quizOrder.innerText = intext+"/{{count}}";
+        }
+    });
+
+    requestQuiz.onreadystatechange = () =>{
+        if(requestQuiz.readyState === XMLHttpRequest.DONE){
+            if(requestQuiz.status < 400){
+                const {id, word, game_list} = JSON.parse(requestQuiz.response);
+                gameList = game_list;
+
+                word_element.innerText = word;
+                
+                currentQuizId = id;
+                cnt++;
+                if(cnt === parseInt("{{ count }}")){
+                    nextBtn.innerHTML = "마지막 문제";
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

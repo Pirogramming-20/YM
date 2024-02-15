@@ -15,6 +15,8 @@ class GameRoom(models.Model):
     ran_music = models.CharField(max_length=50, null = True, blank = True)
     ran_look = models.CharField(max_length=50, null = True, blank = True)
     ran_chat = models.CharField(max_length=50, null = True, blank = True)
+    ran_mudo = models.CharField(max_length=50, null = True, blank = True)
+    ran_body = models.CharField(max_length=50, null = True, blank = True)
 
     participants = models.IntegerField(default = 0)
     

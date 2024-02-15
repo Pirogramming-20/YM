@@ -30,6 +30,8 @@ urlpatterns = [
     path('chatting-room',include("apps.chattings.urls")),
     path('movie', include("apps.movieGames.urls")),
     path('music', include("apps.musicGames.urls")),
+    path('body', include("apps.bodyGames.urls")),
+    path('mudo', include("apps.mudoGames.urls")),
     path('chatGames/', include("apps.chatGames.urls")),
     
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root':settings.MEDIA_ROOT}),
