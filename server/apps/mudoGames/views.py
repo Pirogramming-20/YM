@@ -7,7 +7,8 @@ from django.http import JsonResponse
 
 def mudo_main(request, roomId):#11개
     line_list = ['세브란스 병원엔 왜', '제발 가랑이 밑으로 들어가게 해주세요', '어 그래', '차씨 차씨 차씨 연예인을 대보자', '두 분은 연인이세요', '실례가 안 된다면 아이스크림 하나만 사주십시오', '해정발산기슭곰발냄새타령부인인사잘해',
-                 '700만 대추인들이 만든거야', '싸브레', '북쪽에 계신', '차이나타운은 온통 빡빡이야']
+                 '700만 대추인들이 만든거야', '싸브레', '북쪽에 계신', '차이나타운은 온통 빡빡이야','오 진짜 별론데','그럼 하지마 이쒸','늦었다고 생각할 때가 진짜 너무 늦었다','됐어요! 피 수혈 안 해줘요', '망했어 재석이형 때문에', 
+                 '바나나맛 우유 그만 먹으라고!!', '아유.. 하기 싫어','얘가 이기겠냐','와이프 하나 생겼나보다', '웃지마 민병관', '인기가 있어야 거품이지', '지나치게 얘기하라고 나오라고 한 거 아닙니까','치열하겠는데','형보다 잘할걸']
     for i in range(len(line_list)):
         Mudo.objects.get_or_create(line=line_list[i])
         mudo = Mudo.objects.get(line=line_list[i])
@@ -44,7 +45,7 @@ def mudo_main(request, roomId):#11개
 
 def mudo_game_start(request, roomId, count):
     if roomId == 0:
-        quiz_id_int_list = random.sample(range(1,10),count)
+        quiz_id_int_list = random.sample(range(1,21),count)
     else:
         room = GameRoom.objects.get(id=roomId)
         quiz_id_list = room.ran_mudo
