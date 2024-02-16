@@ -45,6 +45,7 @@ async def join(sid, room_name):
     else:
         rooms[room_name] = 1 
     print(rooms[room_name])
+    await sio.emit('message', ["-------------------1번문제-------------------",""], room=room_name)
     await sio.emit("count", rooms[room_name], room=room_name)  
     print('join')
     
