@@ -169,9 +169,9 @@ def detail(request,pk):
 
   # 로컬코드
   qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
+  # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
   # qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
-  #qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
+  qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
   # qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
   # qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #우진
   ctx = {
