@@ -47,6 +47,7 @@
 {% endblock %} {% block script %}
 
 <script>
+
   function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== "") {
@@ -172,7 +173,6 @@
       quizOrder.innerText = intext+"/{{count}}";
       }
   });
-
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState == XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {

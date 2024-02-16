@@ -23,11 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
   chatToggle.addEventListener("change", function () {
     if (this.checked) {
       quizContainer.classList.add("animate-slide-to-center");
-      quizContainer.classList.remove('slideInFromRight');
-
+      quizContainer.classList.remove("slideInFromRight");
     } else {
       quizContainer.classList.remove("animate-slide-to-center");
-      quizContainer.classList.add('slideInFromRight');
+      quizContainer.classList.add("slideInFromRight");
     }
   });
 });
@@ -37,7 +36,6 @@ function reset_animation() {
   quizContainer.offsetHeight; /* trigger reflow */
   quizContainer.style.animation = null;
 }
-
 
 console.log(room_num);
 console.log(room_name);
@@ -79,7 +77,6 @@ socket.on("message", function (data) {
 
   // Scroll to the latest message
   scrollToLatestMessage();
-
 });
 
 // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
@@ -100,7 +97,6 @@ document.getElementById("input").addEventListener("keydown", function (e) {
   }
 });
 function scrollToLatestMessage() {
-  var messages = document.getElementById('messages');
+  var messages = document.getElementById("messages");
   messages.scrollTop = messages.scrollHeight;
 }
-
