@@ -38,13 +38,15 @@ async def connect(sid, environ):
     
 
 @sio.event
-async def join(sid, room_name):
+async def join(sid, room_name,check):
     await sio.enter_room(sid, room_name)
     if room_name in rooms:
         rooms[room_name] += 1  
     else:
         rooms[room_name] = 1 
     print(rooms[room_name])
+    if check == 1:
+        await sio.emit('message', ["-------------------1번문제-------------------",""], room=room_name)
     await sio.emit("count", rooms[room_name], room=room_name)  
     print('join')
     

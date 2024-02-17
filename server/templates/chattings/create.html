@@ -1,11 +1,11 @@
 {% extends 'base.html' %} {% load static %} {%block head%} {% endblock %}
 {%block content%}
 <div class="game-main-container">
-  <div class="title">
+  <!-- <div class="title">
     <span class="text2">요즘</span>
     <span class="text1">MT</span>
-  </div>
-  <div class="sub-title text3">방이름을 입력하세요.</div>
+  </div> -->
+  <!-- <div class="sub-title text3">방이름을 입력하세요.</div> -->
   {% if error %}
   <h2 style="color: red" class="text3">이미 존재하는 방이름입니다!</h2>
   {% endif %}
@@ -34,8 +34,6 @@
           class="order-check"
         />
         <label for="selectedMusic">음악 게임</label>
-      </div>
-      <div class="order-check-list">
         <input
           id="selectedFigure"
           type="checkbox"
@@ -70,8 +68,6 @@
           class="order-check"
         />
         <label for="selectedBody">몸으로 말하기 게임</label>
-      </div>
-      <div class="order-check-list">
         <input
           id="selectedMudo"
           type="checkbox"
@@ -80,9 +76,16 @@
           class="order-check"
         />
         <label for="selectedMudo">무한도전 게임</label>
+        <input
+          id="selectedChat"
+          type="checkbox"
+          name="selected"
+          value="Chat"
+          class="order-check"
+        />
+        <label for="selectedChat">채팅 빨리보내기 게임</label>
       </div>
     </div>
-
     <div class="text3">게임 진행순서!!!</div>
     {% if non_error %}
     <h2 style="color: red" class="text3">게임을 한 개 이상 선택해주세요</h2>

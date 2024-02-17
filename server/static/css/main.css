@@ -16,37 +16,36 @@
   align-items: flex-start;
 }
 
-.Topic_button>a{
+.Topic_button > a {
   font-size: 20px;
   font-family: var(--randing-font);
   margin: 10px;
 }
 .sub-title {
-  font-size: 6rem;
-  margin-bottom: 4rem;
+  font-size: 4.5rem;
+  margin-bottom: 1rem;
 }
 .title {
   font-size: 10rem;
 }
-.log-in-sign-up-btn, .landing-game-btn {
+.log-in-sign-up-btn,
+.landing-game-btn {
   display: flex;
   justify-content: space-around;
   text-align: center;
   align-items: center;
   width: 100%;
 }
-.log-in-sign-up-btn{
+.log-in-sign-up-btn {
   margin-bottom: 4rem;
-
 }
 .landing-game-btn {
   flex-wrap: wrap;
 }
 
-.landing-game-btn>a{
-  font-size: 40px;
+.landing-game-btn > a {
+  font-size: 25px;
 }
-
 /* .landing-game-btn a{
   flex-basis: 50%;
   box-sizing: border-box;
@@ -75,9 +74,9 @@ form {
 }
 
 form label {
-  font-size: 4rem;
+  font-size: 3rem;
   color: black;
-  margin-right:20px;
+  /* margin-right: 20px; */
 }
 
 form input {
@@ -96,7 +95,6 @@ form input {
   margin-right: 2rem;
 }
 
-
 /* answer page css*/
 .answer_container {
   display: grid;
@@ -108,34 +106,32 @@ form input {
   .answer_container {
     grid-template-columns: 1fr 1fr;
   }
-
 }
 
 @media screen and (min-width: 1024px) {
   .answer_container {
     grid-template-columns: repeat(4, 1fr);
   }
-
 }
 .answer_box {
   font-size: large;
   padding: 20px;
   display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.answer_box > p{
+.answer_box > p {
   padding-bottom: 3px;
   margin-bottom: 3px;
   border-bottom: 1px solid black;
 }
 
-.room-answer{
+.room-answer {
   color: var(--primary-color);
   font-size: 20px;
 }
 
-.room_container{
+.room_container {
   width: 250px;
   height: 70px;
   display: flex;
@@ -153,8 +149,7 @@ form input {
   align-items: center;
 }
 
-.bef_clicked{
+.bef_clicked {
   background-color: gray;
-  box-shadow:none;
+  box-shadow: none;
 }
-
