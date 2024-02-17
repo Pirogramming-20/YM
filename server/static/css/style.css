@@ -86,7 +86,7 @@ html, body {
 }
 
 main {
-    height: calc(100vh - 20vh); 
+    /* height: calc(100vh - 20vh);  */
     margin: 2rem;
 }
 header{
