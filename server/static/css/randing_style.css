@@ -1,4 +1,4 @@
-body{
+body {
   font-family: var(--randing-font);
 }
 
@@ -31,8 +31,8 @@ body{
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   text-align: center;
 }
 
@@ -50,7 +50,7 @@ body{
   height: 5px;
   background-color: #30ae69;
   -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 /*header section*/
@@ -103,7 +103,8 @@ body{
   background-color: #ffffff;
 }
 
-.custom_nav-container.navbar-expand-lg .navbar-nav .nav-item.active a::after, .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item:hover a::after {
+.custom_nav-container.navbar-expand-lg .navbar-nav .nav-item.active a::after,
+.custom_nav-container.navbar-expand-lg .navbar-nav .nav-item:hover a::after {
   display: block;
 }
 
@@ -122,7 +123,7 @@ a:focus {
 .btn:focus {
   outline: none !important;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .user_option {
@@ -130,8 +131,8 @@ a:focus {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .user_option a {
@@ -155,8 +156,8 @@ a:focus {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   position: relative;
 }
 
@@ -194,13 +195,14 @@ a:focus {
 
 /*end header section*/
 .slider_section {
-  height:  100%;
+  height: 100%;
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   color: #ffffff;
 }
 
@@ -210,8 +212,8 @@ a:focus {
 
 .slider_section .row {
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .slider_section .box {
@@ -248,21 +250,21 @@ a:focus {
 
 .slider_section .detail-box a:hover {
   -webkit-transform: translateY(-3px);
-          transform: translateY(-3px);
+  transform: translateY(-3px);
   -webkit-box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .slider_section .img-box img {
-  width: 100%;
+  width: 85%;
 }
 
 .slider_section #carouselExampleIndicators .carousel-indicators {
   bottom: -15px;
   margin: 0;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .slider_section #carouselExampleIndicators .carousel-indicators li {
@@ -283,11 +285,11 @@ a:focus {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   padding: 45px 60px;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .how_section .how_container .box {
@@ -302,8 +304,8 @@ a:focus {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   height: 200px;
   background-color: #f6f5f7;
 }
@@ -332,7 +334,7 @@ a:focus {
   height: 2px;
   background-color: #30ae69;
   -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  transform: translateX(-50%);
 }
 
 .how_section .how_container .box .detail-box p {
@@ -364,8 +366,8 @@ a:focus {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .how_section .btn-box a {
@@ -383,9 +385,9 @@ a:focus {
 
 .how_section .btn-box a:hover {
   -webkit-transform: translateY(-3px);
-          transform: translateY(-3px);
+  transform: translateY(-3px);
   -webkit-box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .about_section {
@@ -398,11 +400,11 @@ a:focus {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .about_section .box .img-box {
@@ -410,15 +412,15 @@ a:focus {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin-top: 25px;
 }
 
 .about_section .box .img-box img {
   max-width: 100%;
   -webkit-filter: drop-shadow(0px 36px 13px rgba(0, 0, 0, 0.3));
-          filter: drop-shadow(0px 36px 13px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0px 36px 13px rgba(0, 0, 0, 0.3));
 }
 
 .about_section .btn-box {
@@ -426,8 +428,8 @@ a:focus {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .about_section .btn-box a {
@@ -446,21 +448,27 @@ a:focus {
 
 .about_section .btn-box a:hover {
   -webkit-transform: translateY(-3px);
-          transform: translateY(-3px);
+  transform: translateY(-3px);
   -webkit-box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 section.app_section {
   color: #ffffff;
-  background: -webkit-gradient(linear, left top, right top, from(#30ae69), to(#072e85));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#30ae69),
+    to(#072e85)
+  );
   background: linear-gradient(to right, #30ae69, #072e85);
 }
 
 section.app_section .row {
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 section.app_section .detail-box h2 {
@@ -475,8 +483,8 @@ section.app_section .detail-box .download_box {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 section.app_section .detail-box .download_box h5 {
@@ -505,10 +513,10 @@ section.app_section .img-box {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-transform: scale(1.07) translateY(-14px);
-          transform: scale(1.07) translateY(-14px);
+  transform: scale(1.07) translateY(-14px);
 }
 
 section.app_section .img-box img {
@@ -525,11 +533,11 @@ section.app_section .img-box img {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .auto_section .box .img-box {
@@ -537,8 +545,8 @@ section.app_section .img-box img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   margin-top: 5px;
 }
 
@@ -551,8 +559,8 @@ section.app_section .img-box img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .auto_section .btn-box a {
@@ -571,9 +579,9 @@ section.app_section .img-box img {
 
 .auto_section .btn-box a:hover {
   -webkit-transform: translateY(-3px);
-          transform: translateY(-3px);
+  transform: translateY(-3px);
   -webkit-box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .client_section .box {
@@ -581,8 +589,8 @@ section.app_section .img-box img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   width: 65%;
   margin: 45px auto;
 }
@@ -593,11 +601,11 @@ section.app_section .img-box img {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 50px 40px 5px 15px;
   text-align: center;
   position: relative;
@@ -634,8 +642,24 @@ section.app_section .img-box img {
   height: 100%;
   background-color: #ffffff;
   z-index: -1;
-  -webkit-clip-path: polygon(0 14%, 89% 14%, 89% 48%, 100% 53%, 89% 58%, 89% 100%, 0 100%);
-          clip-path: polygon(0 14%, 89% 14%, 89% 48%, 100% 53%, 89% 58%, 89% 100%, 0 100%);
+  -webkit-clip-path: polygon(
+    0 14%,
+    89% 14%,
+    89% 48%,
+    100% 53%,
+    89% 58%,
+    89% 100%,
+    0 100%
+  );
+  clip-path: polygon(
+    0 14%,
+    89% 14%,
+    89% 48%,
+    100% 53%,
+    89% 58%,
+    89% 100%,
+    0 100%
+  );
 }
 
 .client_section .box .client_id:after {
@@ -648,7 +672,7 @@ section.app_section .img-box img {
   background-color: rgba(0, 0, 0, 0.2);
   z-index: -2;
   -webkit-filter: blur(25px);
-          filter: blur(25px);
+  filter: blur(25px);
 }
 
 .client_section .btn-box {
@@ -656,8 +680,8 @@ section.app_section .img-box img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .client_section .btn-box a {
@@ -676,9 +700,9 @@ section.app_section .img-box img {
 
 .client_section .btn-box a:hover {
   -webkit-transform: translateY(-3px);
-          transform: translateY(-3px);
+  transform: translateY(-3px);
   -webkit-box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .info_section {
@@ -721,8 +745,8 @@ section.app_section .img-box img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .info_section .info_contact p {
@@ -734,8 +758,8 @@ section.app_section .img-box img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   margin: 20px 0;
 }
 
@@ -801,9 +825,9 @@ section.app_section .img-box img {
 
 .info_section .info_form form button:hover {
   -webkit-transform: translateY(-3px);
-          transform: translateY(-3px);
+  transform: translateY(-3px);
   -webkit-box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* footer section*/
@@ -814,8 +838,8 @@ section.app_section .img-box img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 .footer_section p {
@@ -832,15 +856,15 @@ section.app_section .img-box img {
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
 
-.client_id{
+.client_id {
   padding-top: 50px;
 }
 
-section{
+section {
   padding: 30px 0;
 }
 
-.Topic{
+.Topic {
   font-size: 60px;
   font-weight: bold;
   color: black;
