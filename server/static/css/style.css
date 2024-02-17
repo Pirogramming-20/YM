@@ -86,7 +86,6 @@ html, body {
 }
 
 main {
-    position: absolute;
     /* height: calc(100vh - 20vh); */
     margin: 2rem;
 }
