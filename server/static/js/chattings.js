@@ -44,7 +44,7 @@ console.log(username);
 let socket = io.connect(
   location.protocol + "//" + document.domain + ":" + location.port
 );
-socket.emit("join", room_name);
+socket.emit("join", room_name, 1);
 // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
 socket.on("message", function (data) {
   console.log("Message received: ", data);
