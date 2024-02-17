@@ -18,8 +18,12 @@
             </div>
         </div>
     </div>
-    <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">다음게임 <i
-            class="fa-solid fa-chevron-right"></i>
+    <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
+        {% if roomId == 0 %}
+            다른 게임 <i class="fa-solid fa-chevron-right"></i>
+        {% else %}
+            다음 게임 <i class="fa-solid fa-chevron-right"></i>
+        {% endif %}
     </a>
 </div>
 
@@ -110,6 +114,8 @@
                 cnt++;
                 if(cnt === parseInt("{{ count }}")){
                     nextBtn.innerHTML = "마지막 문제";
+                    nextBtn.style.backgroundColor="gray";
+                    nextBtn.style.boxShadow= "none";
                 }
             }
         }
