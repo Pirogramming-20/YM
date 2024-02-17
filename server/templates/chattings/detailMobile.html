@@ -105,7 +105,7 @@
   let socket = io.connect(
     location.protocol + "//" + document.domain + ":" + location.port
   );
-  socket.emit("join", room_name);
+  socket.emit("join", room_name,0);
 
   // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
   socket.on("message", function (data) {
@@ -146,7 +146,7 @@
     console.log("clk");
     let text = document.getElementById("input").value;
     console.log("clk2");
-    socket.emit("join", room_name);
+    socket.emit("join", room_name,0);
     socket.emit("message", text, username, room_name);
     
     document.getElementById("input").value = "";
@@ -158,7 +158,7 @@
         const username = document.getElementById("info_username").innerText;
         // 'Enter'키의 keyCode는 13입니다.
         let text = e.target.value;
-        socket.emit("join", room_name);
+        socket.emit("join", room_name,0);
         socket.emit("message", text, username, room_name);
       
         e.target.value = "";
