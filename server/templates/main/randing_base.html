@@ -29,8 +29,8 @@
   <header>
     <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
     <div class="navbar2">
-        <a href="#help">Help</a>
-        <a href="{% url 'main:login' %}">Login</a>
+      <a href="#help">Help</a>
+      <a href="{% url 'main:login' %}" class = "main-btn btn-text">로그인</a>
     <div>
     {% comment %} {% if user.is_authenticated %}
     <div class="header-container">
@@ -45,7 +45,7 @@
     </div>    
     {% endif %} {% endcomment %}
   </header>
-  <main>
+  <main style="margin:0;">
     {%block content%}
   
 

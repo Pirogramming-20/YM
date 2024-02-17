@@ -2,18 +2,21 @@
 {% block head %}
 <title>finish</title>
 {% endblock %} {% block content %}
-<h1>게임 종료 페이지</h1>
-<div>
-  게임 설명 <br />
-  '시작' 버튼을 누르면 인물 사진이 나옵니다! <br />
-  3초 안에 해당 인물의 이름을 외치세요 <br />
-  시간 내에 말하지 못 하거나 잘못된 이름을 말하면 자비없이 땡!!
-</div>
+<div class="game-end-container">
+  <h1 class="text1">게임 종료 페이지</h1>
+  <div class="game-explain text3">
+    <p>!!방 상태를 결정해주세요!!</p>
+    <p>게임 방만 유지, 게임 순서, 퀴즈 내용 변화를 원하시면 "게임 다시 선택하기" 클릭!</p>
+    <p>게임 방, 게임 순서, 퀴즈 내용 유지를 원하시면 "게임 동일하게 다시하기" 클릭!</p>
+    <p>게임 방 삭제를 원하시면 "메인페이지" 클릭!</p>
+  </div>
+  <div class="rule text2">더 플레이 하시겠습니까?</div>
 
 <div class="select-container">
-  <div class="rule">더 플레이 하시겠습니까?</div>
-  <a href="{% url 'rooms:recreate' roomId %}">게임 다시 선택하기</a>
-  <a href="{%url 'rooms:next_game' roomId %}">게임 동일하게 다시하기</a>
-  <a href="{%url 'rooms:delete' roomId %}">메인 페이지</a>
+  <a href="{% url 'rooms:recreate' roomId %}" class="main-btn btn-text">게임 다시 선택하기</a>
+  <a href="{%url 'rooms:re_game' roomId %}" class="main-btn btn-text">게임 동일하게 다시하기</a>
+  <a href="{%url 'rooms:delete' roomId %}" class="main-btn btn-text">메인 페이지</a>
 </div>
+</div>
+
 {% endblock %}

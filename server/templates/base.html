@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href='/static/image/main/favicon.png'>
+  <link rel="icon" type="image/png" href='/static/image/main/favicon_logo.png'>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="{%static 'css/game.css'%}">  
   <link rel="stylesheet" href="{%static 'css/chattings.css'%}">
   <link rel="stylesheet" href="{%static 'css/game-choose.css'%}">
+  <link rel="stylesheet" href="{%static 'css/responsive.css'%}">
 
   
   {%block head%}
@@ -30,9 +31,6 @@
   <header>
     <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
     {% if user.is_authenticated %}
-    <div class="header-container">
-      <a href={% url 'main:answer' %} class="logout-btn main-btn btn-text"> 정답확인 </a>
-    </div>
     {% comment %} <div class="header-container">
       {% url 'main:answer' %}
     </div> {% endcomment %}

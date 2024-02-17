@@ -14,6 +14,26 @@
     .client_section .box {
         width: 90%;
     }
+    .message-input svg {
+        width: 3.5rem; 
+        height: 3.5rem; 
+    }
+    .chatroom-container .chat .user,.chatroom-container .chat .message{
+        font-size: 1rem;
+    }
+    .photo-container img{
+        height: 30rem;
+    }
+    #player{
+        width: 80%;
+    }
+    .game-main-container form input{
+        width: 35rem;
+    }
+    .chatroom-container .info_room_num{
+        font-size: 2rem;
+    }
+    
 }
 
 @media (max-width: 768px) {
@@ -59,6 +79,51 @@
 
     .info_section .info_form form input {
         text-align: center;
+    }
+    .log-in-sign-up-btn a, .landing-game-btn a {
+        font-size: 4rem; 
+        padding: 1rem; 
+    }
+    .explain-container .btn-text, .game-main-container .btn-text{
+        font-size: 4rem;
+    }
+    .answer-container .text2{
+        font-size: 3rem;
+    }
+    .message-input svg {
+        width: 3rem; 
+        height: 3rem; 
+    }
+    input[type = "checkbox"].toggle + label{
+        font-size: 1.5em;
+    }
+    #chatRoom{
+        padding: 0.5rem;
+    }
+    .answer-container .text1{
+        font-size: 5rem;
+    }
+    .photo-container img{
+        height: 20rem;
+    
+    }
+    .game-btn{
+        font-size: 3rem;
+    }
+    .music-container .btn-text{
+        font-size: 4rem;
+    }
+    .game-main-container form input{
+        width: 25rem;
+    }
+    .game-main-container > form > label{
+        font-size: 2.5rem;
+    }
+    .game-main-container .text3{
+        font-size: 4rem;
+    }
+    .chatroom-container .info_room_num{
+        font-size: 1rem;
     }
 }
 
@@ -108,9 +173,124 @@
         filter: blur(10px);
 
     }
+    .log-in-sign-up-btn a, .landing-game-btn a {
+        font-size: 2rem; 
+        padding: 0.8rem; 
+    }
+    form label{
+        font-size: 3rem;
+    }
+    .form-container .sub-title{
+        font-size: 4rem;
+    }
+    .qr-image .header-btn{
+        font-size: 4rem;
+    }
+    .qr-image img{
+        width: 80%;
+    }
+    .image-cover .countdown{
+        font-size: 6rem;
+    }
+    input[type = "checkbox"].toggle + label{
+        font-size: 1.2em;
+    }
+    .four-container{
+        font-size: 4rem;
+    }
+    .two-box{
+        width: 8rem;
+    }
+    .answer-container .text1{
+        font-size: 4rem;
+    }
+    .music-container .btn-text{
+        font-size: 3rem;
+    }
+    #player{
+        height: 30rem;
+    }
+    /* .game-main-container form input{
+        width: 15rem;
+    } */
+    .game-main-container .text3{
+        font-size: 3rem;
+    }
+    #game-order{
+        width: 20rem;
+    }
 }
 
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+    .navigate{
+        font-size: 2.5rem;
+    }
+    form input {
+        width: 100%; /* Adjust the width of the input field for smaller screens */
+        /* max-width: 20rem;  */
+    }
+    .individual > .sub-title, .team > .sub-title{
+        font-size: 4rem;
+    }
+    .room-create, .room-list {
+        font-size: 3rem;
+    }
+    .room-name {
+        font-size: 2rem;
+    }
+    .explain-container .text1{
+        font-size: 4rem;
+    }
+    .explain-container .text2, .problem .rule, .time .rule{
+        font-size: 3rem;
+    }
+    .explain-container .btn-text, .game-main-container .btn-text{
+        font-size: 3.5rem;
+    }
+    
+    .answer-container .text1{
+        font-size: 3rem;
+    }
+    .answer-container .text2{
+        font-size: 2.5rem;
+        line-height: 1.5;
+    }
+    input[type = "checkbox"].toggle + label{
+        font-size: 1em;
+    }
+    .message-input svg {
+        width: 2rem; 
+        height: 2rem; 
+    }
+    .game-btn {
+        font-size: 2rem;
+    }
+    .four-container{
+        font-size: 3rem;
+    }
+    .two-box{
+        width: 6rem;
+    }
+    .photo-container img{
+        height: 16rem;
+    }
+    .music-container .btn-text{
+        font-size: 2.5rem;
+    }
+    #player{
+        height: 25rem;
+    }
+    /* .game-main-container form input{
+        width: 12rem;
+    } */
+    .order-check-list label{
+        font-size: 1.5rem;
+    }
+    .username-input-container .text3, .username-input-container .btn-text, .mobile-chatroom-container .info_room_num{
+        font-size: 2.5rem;
+    }
+    
+}
 
 @media (max-width: 420px) {
     .slider_section .detail-box h1 {
@@ -120,10 +300,117 @@
     .slider_section .detail-box h2 {
         font-size: 1.8rem;
     }
+    .navigate{
+        font-size: 2rem;
+    }
+    .room-create, .room-list {
+        font-size: 2rem;
+    }
+    .room-name {
+        font-size: 1.8rem;
+    }
+    .logout-btn {
+        font-size: 2rem;
+    }
+    .chatroom-container .chat .user,.chatroom-container .chat .message{
+        font-size: 0.8rem;
+    }
+    .photo-container img{
+        height: 12rem;
+    }
+    .music-container .btn-text, .game-main-container .btn-text{
+        font-size: 2rem;
+    }
+    .game-main-container form input{
+        width: 15rem;
+    }
+    .game-main-container .text3{
+        font-size: 2.5rem;
+    }
+    .chatroom-container .info_room_num{
+        font-size: 0.8rem;
+    }
 }
 
-@media (max-width: 360px) {}
-
+@media (max-width: 360px) {
+    .log-in-sign-up-btn a, .landing-game-btn a {
+        font-size: 1rem; 
+        padding: 0.5rem; 
+    }
+    .form-row {
+        margin-bottom: 1rem; 
+        font-size: 1rem;
+    }
+    .room-create, .room-list {
+        font-size: 2rem;
+    }
+    .room-name {
+        font-size: 1.5rem;
+    }
+    .logout-btn {
+        font-size: 1.5rem;
+    }
+    .explain-container .btn-text{
+        font-size: 3rem;
+    }
+    .explain-container .text1{
+        font-size: 3.5rem;
+    }
+    .explain-container .text2, .problem .rule, .time .rule{
+        font-size: 2.5rem;
+    }
+    .game-explain p{
+        font-size: 1.5rem;
+    }
+    .photo-container img{
+        height: 10rem;
+    }
+    .answer-container .text2{
+        font-size: 1.8rem;
+        line-height: 1.5;
+        padding: 1rem;
+    }
+    .game-btn, .music-container .btn-text{
+        font-size: 1.5rem;
+    }
+    input[type = "checkbox"].toggle + label{
+        font-size: 0.8em;
+    }
+    #player{
+        height: 20rem;
+    }
+    /* .game-main-container form input{
+        width: 12rem;
+    } */
+    .game-main-container .text3{
+        font-size: 2rem;
+    }
+    .game-main-container .text2{
+        font-size: 3rem;
+    }
+    .game-main-container .text1{
+        font-size: 5rem;
+    }
+    .username-input-container .text3, .username-input-container .btn-text, .mobile-chatroom-container .info_room_num{
+        font-size: 2rem;
+    }
+    
+    
+}
+@media (max-height: 700px) {
+    #player{
+        height: 8rem;
+    }
+    .mobile-chatroom-container .chat .user,.mobile-chatroom-container .chat .message{
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 320px) {
+    .chatroom-container .info_room_num{
+        font-size: 0.5rem;
+    }
+    
+}
 @media (min-width: 1200px) {
     .container {
         max-width: 1170px;

@@ -1,16 +1,37 @@
 .game-choose-container{
+    margin-top: 6rem;
     display: flex;
     justify-content: space-around;
-    align-items: center;
     min-height: 100vh;
 }
 
 .team, .individual{
-    padding: 6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4rem;
+}
+.team .btn, .individual .btn{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.room-create {
+    /* flex: 0 0 calc(50% - 4rem);  */
+    height: min-content;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.team .rooms{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+
 }
 
 /* .game-btn{

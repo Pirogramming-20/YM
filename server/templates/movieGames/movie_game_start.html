@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-
+<h2>영화 명대사 맞추기 게임</h2>
 <div class="game">
   <div class="quiz">
     <div class="quiz-container">
@@ -7,7 +7,7 @@
         <span class="countdown text2">사진</span>
       </div>
       <div class="photo-container">
-        <img src="{{ quiz.movie_game_id.scene }}" alt="이미지" class="photo" />
+        <img src="{{ quiz.scene }}" alt="이미지" class="photo" />
       </div>
     </div>
     <div class="answer-container">
@@ -15,28 +15,34 @@
       <div class="line text2"></div>
     </div>
     <div class="game-btn-container">
-      <button class="game-btn main-btn btn-text" onclick="startCountdown()">
+      <button class="game-btn main-btn btn-text start-btn">
         시작
         <i class="fa-solid fa-play"></i>
       </button>
-      <div
-        class="game-btn next-btn main-btn btn-text"
-        onclick="reset_animation()"
-      >
-        다음 문제
-        <i class="fa-solid fa-chevron-right"></i>
+      <div class="game-change">
+        <!-- 이전문제 -->
+        <div class="before-btn"></div>
+        <!-- 게임순서 -->
+        <div class="game-btn btn-text main-btn quiz-order">1/{{count}}</div>
+        <div class="game-btn answer-btn main-btn btn-text bef_clicked">
+          <i class="fa-solid fa-circle-check"></i> 정답
+        </div>
+        <div class="game-btn next-btn main-btn btn-text bef_clicked">
+          다음문제
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
       </div>
-      <div class="game-btn answer-btn main-btn btn-text">
-        <i class="fa-solid fa-circle-check"></i> 정답
-      </div>
-      <a
-        class="game-btn game-over main-btn btn-text"
-        href="/chatting-room/next_game/{{roomId}}"
-        >다음게임 <i class="fa-solid fa-chevron-right"></i>
-      </a>
     </div>
   </div>
-  {% if user.is_authenticated %}
+  <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
+    {% if roomId == 0 %}
+      다른 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% else %}
+      다음 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% endif %}
+  </a>
+
+  {% if user.is_authenticated and not roomId == 0 %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
   {% endif %}
 </div>
@@ -60,32 +66,54 @@
     return cookieValue;
   }
   const csrftoken = getCookie("csrftoken");
+  //버튼 정리
+  const beforeBtn = document.querySelector(".before-btn");
+  const nextBtn = document.querySelector(".next-btn");
+  const answerBtn = document.querySelector(".answer-btn");
+  const startBtn = document.querySelector(".start-btn");
+  startBtn.addEventListener('click', startCountdown, {once:true});
+  let cnt = 1;
+
 
   //카운트다운
   const imageCover = document.querySelector(".image-cover");
   const countdownElement = document.querySelector(".countdown");
   let countdownInterval;
+  const countAudio = new Audio('/static/audio/countdown/countdown.mp3');
 
   function startCountdown() {
     imageCover.style.display = "flex";
     let count = 3;
-    clearInterval(countdownInterval);
 
     countdownInterval = setInterval(() => {
       if (count <= 0) {
         clearInterval(countdownInterval);
         imageCover.style.display = "none";
+        //다음문제,정답 버튼 두개 활성화
+        nextBtn.addEventListener('click', nextFunction, {once:true});
+        nextBtn.addEventListener('click', reset_animation, {once:true});
+        nextBtn.style.backgroundColor="var(--tertiary-color)";
+        nextBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+        if (cnt === parseInt("{{ count }}")) {
+          nextBtn.style.backgroundColor="gray";
+          nextBtn.style.boxShadow= "none";
+        }
+        answerBtn.addEventListener('click', answerFunction, {once:true});
+        answerBtn.style.backgroundColor="var(--tertiary-color)";
+        answerBtn.style.boxShadow= "0px 5px 0px 0px #007144";
       } else {
         countdownElement.textContent = count;
         count--;
+        countAudio.play();
       }
     }, 1000);
   }
 
   const requestQuiz = new XMLHttpRequest();
-  let currentQuizId = "{{ quiz.id }}";
-  const nextBtn = document.querySelector(".next-btn");
-  let cnt = 1;
+  let gameList = {{movie_game}};
+  let currentQuizId = {{quiz.id}};
+  const quizOrder = document.querySelector('.quiz-order');
+
   function reset_animation() {
     const quizContainer = document.querySelector(".quiz");
     quizContainer.style.animation = "none";
@@ -93,31 +121,83 @@
     quizContainer.style.animation = null;
   }
 
-  nextBtn.addEventListener("click", function () {
+  function nextFunction() {
+    if (cnt < parseInt("{{ count }}")){
     imageCover.style.display = "flex";
     countdownElement.textContent = "사진";
     const url = "/movie/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+    requestQuiz.send(
+      JSON.stringify({ id: currentQuizId, game_list: gameList })
+    );
+    //이전문제 버튼 만들기
+    if(cnt == 1){
+      beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+    }
     const title_element = document.querySelector(".title");
     title_element.innerHTML = "";
 
     const line_element = document.querySelector(".line");
     line_element.innerHTML = "";
-  });
+    //시작버튼 재활성화, 정답 버튼 비활성화
+    startBtn.addEventListener('click', startCountdown, {once:true});
+
+    nextBtn.style.backgroundColor="gray";
+    nextBtn.style.boxShadow= "none";
+    answerBtn.style.backgroundColor="gray";
+    answerBtn.style.boxShadow= "none";
+    answerBtn.removeEventListener('click', answerFunction);
+    //퀴즈 순서
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
+  }};
+  //이전으로 가기 버튼
+  beforeBtn.addEventListener("click", function () {
+    if (cnt > 1){
+    imageCover.style.display = "flex";
+    if (cnt === parseInt("{{ count }}")) {
+      nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+    }
+    else if (cnt === 2) {
+      beforeBtn.innerHTML = "";
+    }
+    cnt--;
+    cnt--;
+    countdownElement.textContent = "사진";
+    const url = "/movie/before/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(
+      JSON.stringify({ id: currentQuizId, game_list: gameList })
+    );
+    const title_element = document.querySelector(".title");
+    title_element.innerHTML = "";
+
+    const line_element = document.querySelector(".line");
+    line_element.innerHTML = "";
+    //시작버튼 재활성화
+    startBtn.addEventListener('click', startCountdown, {once:true})
+    //퀴즈 순서
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
+  }});
+
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, scene } = JSON.parse(requestQuiz.response);
+        const { id, scene, game_list } = JSON.parse(requestQuiz.response);
 
+        gameList = game_list;
         const photo_element = document.querySelector(".photo");
         photo_element.src = scene;
-
         currentQuizId = id;
         cnt++;
+        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerText = "마지막 문제";
         }
@@ -125,16 +205,15 @@
     }
   };
 
-  const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
-  answerBtn.addEventListener("click", function () {
+  function answerFunction() {
     const url = "/movie/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
     requestAnswer.send(JSON.stringify({ id: currentQuizId }));
-  });
+  };
 
   requestAnswer.onreadystatechange = () => {
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {

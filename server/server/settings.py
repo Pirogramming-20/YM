@@ -23,7 +23,7 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = 'true'
 SECRET_KEY = 'django-insecure-g3r!cjkx7op%fkc43*oh96x^!*=u@eap^omoa7vgfj9kp05=)1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'apps.chattings',
     'apps.figure',
     'apps.fourWords',
+    'apps.lookInside',
+    'apps.chatGames',
+    'apps.mudoGames',
+    'apps.bodyGames',
 ]
 
 AUTH_USER_MODEL='main.User' # 유저모델 위치
@@ -126,20 +130,21 @@ USE_TZ = True
 
 SILENCED_SYSTEM_CHECKS = ['urls.W002', 'security.W019'] # URL WARNING 무시
 
-STATIC_URL = 'static/'
-# STATIC_ROOT=os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+#STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-#STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 # if DEBUG==True:
 #     STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 # else:
 #     STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
-# STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # runserver시 사용
+#STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
+STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # runserver시 사용 #배포시 사용
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

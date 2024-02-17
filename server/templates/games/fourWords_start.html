@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-
+<h2>네글자 게임</h2>
 <div class="game">
   <div class="quiz">
     <div class="quiz-container">
@@ -7,7 +7,7 @@
         <span class="countdown text2">문제</span>
       </div>
       <div class="four-container">
-        <span class="two-container">{{quiz_four.four_quiz_id.two}}</span>
+        <span class="two-container">{{quiz_four.two}}</span>
         <span class="two-box"></span>
         {% comment %} <span class="two-box"></span> {% endcomment %}
       </div>
@@ -16,79 +16,41 @@
       <div class="answer text1"></div>
     </div>
     <div class="game-btn-container">
-      <button class="game-btn main-btn btn-text" onclick="startCountdown()">
+      <button class="game-btn main-btn btn-text start-btn">
         시작
         <i class="fa-solid fa-play"></i>
       </button>
-      <div
-        class="game-btn next-btn main-btn btn-text"
-        onclick="reset_animation()"
-      >
-        다음 문제
-        <i class="fa-solid fa-chevron-right"></i>
+      <div class="game-change">
+        <!-- 이전문제 -->
+        <div class="before-btn"></div>
+        <!-- 게임순서 -->
+        <div class="game-btn btn-text main-btn quiz-order">1/{{count}}</div>
+        <div class="game-btn answer-btn main-btn btn-text bef_clicked">
+          <i class="fa-solid fa-circle-check"></i> 정답
+        </div>
+        <div class="game-btn next-btn main-btn btn-text bef_clicked">
+          다음 문제
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
       </div>
-      <div class="game-btn answer-btn main-btn btn-text">
-        <i class="fa-solid fa-circle-check"></i> 정답
-      </div>
-      <a
-        class="game-btn game-over main-btn btn-text"
-        href="/chatting-room/next_game/{{roomId}}"
-        >다음게임 <i class="fa-solid fa-chevron-right"></i>
-      </a>
     </div>
   </div>
-  {% if user.is_authenticated %}
+  <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
+    {% if roomId == 0 %}
+      다른 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% else %}
+      다음 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% endif %}
+  </a>
+  {% if user.is_authenticated and not roomId == 0 %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
   {% endif %}
 </div>
 
 {% endblock %} {%block script%}
 <script>
-  // 카운트다운 js
-  const imageCover = document.querySelector(".image-cover");
-  const countdownElement = document.querySelector(".countdown");
-  let countdownInterval;
-
-  function startCountdown() {
-    imageCover.style.display = "flex";
-    let count = 3;
-    clearInterval(countdownInterval);
-
-    countdownInterval = setInterval(() => {
-      if (count <= 0) {
-        clearInterval(countdownInterval);
-        imageCover.style.display = "none";
-      } else {
-        countdownElement.textContent = count;
-        count--;
-      }
-    }, 1000);
-  }
-  // 정답 보기 js
-  let currentFourId = "{{quiz_four.id}}";
-  const answer_element = document.querySelector(".answer");
-  const answerBtn = document.querySelector(".answer-btn");
-  const requestAnswer = new XMLHttpRequest();
-
-  answerBtn.addEventListener("click", function () {
-    const url = "/fourWords/answer/";
-    requestAnswer.open("POST", url, true);
-    requestAnswer.setRequestHeader("Content-Type", "application/json");
-    requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
-    requestAnswer.send(JSON.stringify({ id: currentFourId }));
-  });
-
-  requestAnswer.onreadystatechange = () => {
-    if (requestAnswer.readyState === XMLHttpRequest.DONE) {
-      if (requestAnswer.status < 400) {
-        const { id, answer } = JSON.parse(requestAnswer.response);
-
-        answer_element.innerHTML = answer;
-      }
-    }
-  };
-  //csrf token 생성, 주입
-  function getCookie(name) {
+    //csrf token 생성, 주입
+    function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== "") {
       var cookies = document.cookie.split(";");
@@ -103,19 +65,84 @@
     }
     return cookieValue;
   }
-
   const csrftoken = getCookie("csrftoken");
+
+  //버튼정리
+  const beforeBtn = document.querySelector(".before-btn");
+  const answerBtn = document.querySelector(".answer-btn");
+  const nextBtn = document.querySelector(".next-btn");
+  const startBtn = document.querySelector(".start-btn");
+  startBtn.addEventListener('click', startCountdown, {once:true});
+  let cnt = 1;
+
+  // 카운트다운 js
+  const imageCover = document.querySelector(".image-cover");
+  const countdownElement = document.querySelector(".countdown");
+  let countdownInterval;
+  const countAudio = new Audio('/static/audio/countdown/countdown.mp3');
+
+  function startCountdown() {
+    imageCover.style.display = "flex";
+    let count = 3;
+    countdownInterval = setInterval(() => {
+      if (count <= 0) {
+        clearInterval(countdownInterval);
+        imageCover.style.display = "none";
+        //다음문제, 정답버튼 두개 활성화
+        nextBtn.addEventListener('click', nextFunction, {once:true});
+        nextBtn.addEventListener('click', reset_animation, {once:true});
+        nextBtn.style.backgroundColor="var(--tertiary-color)";
+        nextBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+        if (cnt === parseInt("{{ count }}")) {
+          nextBtn.style.backgroundColor="gray";
+          nextBtn.style.boxShadow= "none";
+        }
+        answerBtn.addEventListener('click', answerFunction, {once:true});
+        answerBtn.style.backgroundColor="var(--tertiary-color)";
+        answerBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+      } else {
+        countdownElement.textContent = count;
+        count--;
+        countAudio.play();
+      }
+    }, 1000);
+  }
+  // 정답 보기 js
+  let currentFourId = {{quiz_four.id}};
+  const answer_element = document.querySelector(".answer");
+  const requestAnswer = new XMLHttpRequest();
+
+  function answerFunction() {
+    const url = "/fourWords/answer/";
+    requestAnswer.open("POST", url, true);
+    requestAnswer.setRequestHeader("Content-Type", "application/json");
+    requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
+    requestAnswer.send(JSON.stringify({ id: currentFourId }));
+  };
+
+  requestAnswer.onreadystatechange = () => {
+    if (requestAnswer.readyState === XMLHttpRequest.DONE) {
+      if (requestAnswer.status < 400) {
+        const { id, answer } = JSON.parse(requestAnswer.response);
+
+        answer_element.innerHTML = answer;
+      }
+    }
+  };
+
   // 다음문제로 넘어가는 ajax
   const requestNextQuiz = new XMLHttpRequest();
-  const nextBtn = document.querySelector(".next-btn");
-  let cnt = 1;
+  let gameList = {{four_game}};
+  const quizOrder = document.querySelector('.quiz-order');
+
   function reset_animation() {
     const quizContainer = document.querySelector(".quiz");
     quizContainer.style.animation = "none";
     quizContainer.offsetHeight; /* trigger reflow */
     quizContainer.style.animation = null;
   }
-  nextBtn.addEventListener("click", function () {
+  function nextFunction() {
+    if (cnt < parseInt("{{ count }}")){
     imageCover.style.display = "flex";
 
     countdownElement.textContent = "문제";
@@ -124,18 +151,60 @@
     requestNextQuiz.setRequestHeader("Content-Type", "application/json");
     requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
 
-    requestNextQuiz.send(JSON.stringify({ id: currentFourId }));
+    requestNextQuiz.send(JSON.stringify({ id: currentFourId, game_list: gameList }));
+    if(cnt == 1){
+      beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+    }
     answer_element.innerHTML = "";
-  });
+    //시작버튼 재활성화, 정답 버튼 비활성화
+    startBtn.addEventListener('click', startCountdown, {once:true});
+    nextBtn.style.backgroundColor="gray";
+    nextBtn.style.boxShadow= "none";
+    answerBtn.style.backgroundColor="gray";
+    answerBtn.style.boxShadow= "none";
+    answerBtn.removeEventListener('click', answerFunction);
+    //퀴즈 순서
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
+  }};
+
+  beforeBtn.addEventListener("click", function () {
+    if (cnt > 1){
+    imageCover.style.display = "flex";
+    if (cnt === parseInt("{{ count }}")) {
+      nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+    }
+    else if (cnt === 2) {
+      beforeBtn.innerHTML = "";
+    }
+    cnt--;
+    cnt--;
+    countdownElement.textContent = "문제";
+    const url = "/fourWords/before/";
+    requestNextQuiz.open("POST", url, true);
+    requestNextQuiz.setRequestHeader("Content-Type", "application/json");
+    requestNextQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+
+    requestNextQuiz.send(JSON.stringify({ id: currentFourId, game_list: gameList }));
+    answer_element.innerHTML = "";
+    //시작버튼 재활성화
+    startBtn.addEventListener('click', startCountdown, {once:true})
+    //퀴즈 순서
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
+  }});
 
   requestNextQuiz.onreadystatechange = () => {
     if (requestNextQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestNextQuiz.status < 400) {
-        const { id, two, answer } = JSON.parse(requestNextQuiz.response);
+        const { id, two, answer, game_list } = JSON.parse(requestNextQuiz.response);
         const twoElement = document.querySelector(".two-container");
+        gameList = game_list;
         twoElement.innerHTML = two;
         currentFourId = id;
         cnt++;
+        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerHTML = "마지막 문제";
         }

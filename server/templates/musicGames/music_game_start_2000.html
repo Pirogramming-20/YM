@@ -1,18 +1,12 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-
+<h2>전주 듣고 노래 맞추기 게임</h2>
 <div class="game">
   <div class="quiz">
     <div class="music-container">
-      <button
-        class="btn-05 main-btn btn-text"
-        data-music="{{ quiz.music_game_id.music }}"
-      >
+      <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
         0.5초 듣기
       </button>
-      <button
-        class="btn-10 main-btn btn-text"
-        data-music="{{ quiz.music_game_id.music }}"
-      >
+      <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
         1초 듣기
       </button>
     </div>
@@ -22,31 +16,37 @@
       <div class="singer text2"></div>
     </div>
     <div class="game-btn-container">
-      <div
-        class="game-btn next-btn main-btn btn-text"
-        onclick="reset_animation()"
-      >
-        다음 문제
-        <i class="fa-solid fa-chevron-right"></i>
+      <div class="game-change">
+        <!-- 이전문제 -->
+        <div class="before-btn"></div>
+        <div class="game-btn btn-text main-btn quiz-order">1/{{count}}</div>
+        <div class="game-btn answer-btn main-btn btn-text bef_clicked">
+          <i class="fa-solid fa-circle-check"></i> 정답
+        </div>
+        <div class="game-btn next-btn main-btn btn-text bef_clicked">
+          다음 문제
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
       </div>
-      <div class="game-btn answer-btn main-btn btn-text">
-        <i class="fa-solid fa-circle-check"></i> 정답
-      </div>
-      <a
-        class="game-btn game-over main-btn btn-text"
-        href="/chatting-room/next_game/{{roomId}}"
-        >다음게임 <i class="fa-solid fa-chevron-right"></i>
-      </a>
     </div>
   </div>
-  {% if user.is_authenticated %}
+  <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
+    {% if roomId == 0 %}
+      다른 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% else %}
+      다음 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% endif %}
+  </a>
+  {% if user.is_authenticated and not roomId == 0 %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
   {% endif %}
 </div>
 
 {% endblock %} {% block script %}
+
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
+
   //csrf 토큰 생성 함수
   function getCookie(name) {
     let cookieValue = null;
@@ -66,13 +66,28 @@
 
   //csrf 토큰 생성
   const csrftoken = getCookie("csrftoken");
-
+  //버튼 정리
+  const nextBtn = document.querySelector(".next-btn");
+  const answerBtn = document.querySelector(".answer-btn");
+  let cnt = 1;
   //0.5초 듣기
   document.querySelector(".btn-05").addEventListener("click", function () {
     const audioPath = this.dataset.music;
     const audio = new Audio(audioPath);
     audio.loop = false;
     const play = audio.play();
+    //다음문제, 정답 버튼 두개 활성화
+    nextBtn.addEventListener('click', nextFunction, {once:true});
+    nextBtn.addEventListener('click', reset_animation, {once:true});
+    nextBtn.style.backgroundColor="var(--tertiary-color)";
+    nextBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+    if (cnt === parseInt("{{ count }}")) {
+          nextBtn.style.backgroundColor="gray";
+          nextBtn.style.boxShadow= "none";
+    }
+    answerBtn.addEventListener('click', answerFunction, {once:true});
+    answerBtn.style.backgroundColor="var(--tertiary-color)";
+    answerBtn.style.boxShadow= "0px 5px 0px 0px #007144";
 
     if (play !== undefined) {
       play
@@ -93,6 +108,8 @@
     const audio = new Audio(audioPath);
     audio.loop = false;
     const play = audio.play();
+    //다음문제 정답버튼 활성화
+    answerBtn.addEventListener('click', answerFunction, {once:true});
 
     if (play !== undefined) {
       play
@@ -108,10 +125,12 @@
   });
 
   const requestQuiz = new XMLHttpRequest();
-  let currentQuizId = "{{ quiz.id }}";
-  const nextBtn = document.querySelector(".next-btn");
-  let cnt = 1;
-  let youtube_src = "{{ quiz.music_game_id.youtube }}";
+  let gameList = {{music_game}};
+  let currentQuizId = {{quiz.id}};
+  let currentYear = {{year}};
+  const beforeBtn = document.querySelector(".before-btn");
+  const quizOrder = document.querySelector('.quiz-order');
+  let youtube_src = "{{ quiz.youtube }}";
 
   //정답 보기
   let player;
@@ -130,37 +149,25 @@
       },
     });
   }
-
   //준비되면 자동 재생
   function onPlayerReady(event) {
     if (player) {
       player.playVideo();
     }
-    setTimeout(function () {
-      if (player) {
-        player.stopVideo();
-      }
-    }, 6000);
   }
 
-  function stopVideo() {
-    if (player) {
-      player.stopVideo();
-    }
-  }
 
   //정답 버튼
-  const answerBtn = document.querySelector(".answer-btn");
   const requestAnswer = new XMLHttpRequest();
 
-  document.querySelector(".answer-btn").addEventListener("click", function () {
+  function answerFunction() {
     createPlayer();
     const url = "/music/answer/";
     requestAnswer.open("POST", url, true);
     requestAnswer.setRequestHeader("Content-Type", "application/json");
     requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
-    requestAnswer.send(JSON.stringify({ id: currentQuizId }));
-  });
+    requestAnswer.send(JSON.stringify({ id: currentQuizId, year: currentYear}));
+  };
 
   requestAnswer.onreadystatechange = () => {
     if (requestAnswer.readyState === XMLHttpRequest.DONE) {
@@ -175,15 +182,56 @@
       }
     }
   };
-
+  nextBtn.addEventListener('click', nextFunction, {once:true});
   //다음 문제로 넘어가기
-  nextBtn.addEventListener("click", function () {
+  function nextFunction() {
+    if (cnt < parseInt("{{ count }}")){
     const url = "/music/next/";
     requestQuiz.open("POST", url, true);
     requestQuiz.setRequestHeader("Content-Type", "application/json");
     requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
-    requestQuiz.send(JSON.stringify({ id: currentQuizId }));
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList, year: currentYear }));
 
+    if(cnt == 1){
+      beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+    }
+
+    if (player) {
+      player.destroy();
+      player = null;
+    }
+    const title_element = document.querySelector(".title");
+    title_element.innerHTML = "";
+
+    const singer_element = document.querySelector(".singer");
+    singer_element.innerHTML = "";
+    //정답 버튼 비활성화
+    answerBtn.removeEventListener('click', answerFunction);
+    nextBtn.style.backgroundColor="gray";
+    nextBtn.style.boxShadow= "none";
+    answerBtn.style.backgroundColor="gray";
+    answerBtn.style.boxShadow= "none";
+    //퀴즈 순서
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
+  }};
+
+  beforeBtn.addEventListener("click", function beforeFunction() {
+    if (cnt > 1){
+    const url = "/music/before/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList, year: currentYear}));
+
+    if (cnt === parseInt("{{ count }}")) {
+      nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+    }
+    else if (cnt === 2) {
+      beforeBtn.innerHTML = "";
+    }
+    cnt--;
+    cnt--;
     if (player) {
       player.destroy();
       player = null;
@@ -194,12 +242,16 @@
 
     const singer_element = document.querySelector(".singer");
     singer_element.innerHTML = "";
-  });
+    //퀴즈 순서
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
+  }});
 
   requestQuiz.onreadystatechange = () => {
     if (requestQuiz.readyState === XMLHttpRequest.DONE) {
       if (requestQuiz.status < 400) {
-        const { id, music, youtube } = JSON.parse(requestQuiz.response);
+        const { id, music, youtube, game_list } = JSON.parse(requestQuiz.response);
+        gameList = game_list;
 
         const music_element_05 = document.querySelector(".btn-05");
         music_element_05.dataset.music = music;
@@ -211,6 +263,8 @@
 
         currentQuizId = id;
         cnt++;
+        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerText = "마지막 문제";
         }
