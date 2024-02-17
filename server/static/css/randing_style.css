@@ -194,7 +194,7 @@ a:focus {
 
 /*end header section*/
 .slider_section {
-  height: 90%;
+  height:  100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

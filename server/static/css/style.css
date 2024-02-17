@@ -86,7 +86,7 @@ html, body {
 }
 
 main {
-    /* height: calc(100vh - 20vh); */
+    height: calc(100vh - 20vh); 
     margin: 2rem;
 }
 header{
@@ -99,9 +99,9 @@ header{
     background-color: #ece0fa;
     /* box-shadow: 0rem 1px 1px black; */
 }
-footer{
+/* footer{
     height: 10vh;
-}
+} */
 header img{
     padding: 2rem 0;
     height: 100%;
