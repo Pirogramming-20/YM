@@ -26,32 +26,23 @@
   {% endblock %}    
 </head>
 <body>
-  <header>
-    <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
-    <div class="navbar2">
-      <a href="#help">Help</a>
-      <a href="{% url 'main:login' %}" class = "main-btn btn-text">로그인</a>
-    <div>
-    {% comment %} {% if user.is_authenticated %}
-    <div class="header-container">
-      <a href={% url 'main:answer' %} class="logout-btn main-btn text3"> 정답확인 </a>
-    </div>
-    <div class="header-container">
-      <a href={% url 'main:logout' %} class="logout-btn main-btn text3"> 로그아웃</a>
-    </div>   
-    {% else %}
-    <div class="header-container">
-      <a href={% url 'main:login' %} class="logout-btn main-btn text3"> 로그인 </a>
-    </div>    
-    {% endif %} {% endcomment %}
-  </header>
+  <!-- 3d animation -->
+  <canvas id="bg"></canvas>
+  <canvas id="bg1"></canvas>
   <main style="margin:0;">
+    <header>
+      <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
+      <div class="navbar2">
+        <a href="#help">Help</a>
+        <a href="{% url 'main:login' %}" class = "main-btn btn-text">로그인</a>
+      <div>
+    </header>
     {%block content%}
   
 
     {%endblock%}
-  </main>
   <footer></footer>
+  </main>
   <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
@@ -68,6 +59,120 @@
       src="https://cdn.socket.io/4.0.1/socket.io.min.js"
       crossorigin="anonymous"
     ></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r133/three.min.js"></script>
+    <script>
+      //초기 설정
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const camera1 = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({
+          canvas: document.querySelector('#bg'),
+          alpha: true, // 투명도 위해
+      });
+      const renderer1 = new THREE.WebGLRenderer({
+          canvas: document.querySelector('#bg1'),
+          alpha: true, // 투명도 위해
+      });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0); // 투명도 위해
+      renderer1.setPixelRatio(window.devicePixelRatio);
+      renderer1.setSize(window.innerWidth, window.innerHeight);
+      renderer1.setClearColor(0x000000, 0); // 투명도 위해
+      camera.position.setZ(30);
+      camera.position.setX(-3);
+      camera1.position.setZ(30);
+      camera1.position.setX(-3);
+  
+      // Initialize layers
+      const layer1 = 0; // Default layer
+      const layer2 = 1; // New layer for the second camera
+
+      
+  
+      // 도형 추가
+      const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+      const material = new THREE.MeshStandardMaterial({ color: 0xEAEEFF });
+      const torus = new THREE.Mesh(geometry, material);
+      torus.layers.set(0);
+      scene.add(torus); 
+      
+      // Add icosahedron on top left
+      const cubeTexture = new THREE.TextureLoader().load('/static/image/main/favicon_logo.png');
+      //top left
+      const icosahedron1 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
+      icosahedron1.position.set(-36, 20, 0); // Adjust position as needed
+      icosahedron1.layers.set(1);
+      scene.add(icosahedron1); 
+
+      // top right 
+      const icosahedron2 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
+      icosahedron2.position.set(30, 20, 0); // Adjust position as needed
+      icosahedron2.layers.set(1);
+      scene.add(icosahedron2);
+
+
+  
+      // top left right
+      const icosahedron3 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
+      icosahedron3.position.set(30, -15, 0); // Adjust position as needed
+      icosahedron3.layers.set(1);
+      scene.add(icosahedron3);
+
+      //top left
+      const icosahedron4 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
+      icosahedron4.position.set(-36, -15, 0); // Adjust position as needed
+      icosahedron4.layers.set(1);
+      scene.add(icosahedron4); 
+
+      
+
+ 
+
+      
+  
+      // 라이트
+      const pointLight = new THREE.PointLight(0xffffff); // 안쪽 빛
+      pointLight.position.set(5, 5, 5);
+      const ambientLight = new THREE.AmbientLight(0xffffff);
+      scene.add( pointLight,ambientLight);
+  
+      camera.layers.enable(0);
+      camera1.layers.disableAll();
+      camera1.layers.enable(1);
+      // Scroll Animation
+      function moveCamera() {
+          const t = document.body.getBoundingClientRect().top;
+          camera.position.z = t * -0.01;
+          camera.position.x = t * -0.0002;
+          camera.rotation.y = t * -0.0002;
+      }
+  
+      document.body.onscroll = moveCamera;
+      moveCamera();
+      // Animation Loop
+  
+      function animate() {
+          requestAnimationFrame(animate);
+          torus.rotation.x += 0.01;
+          torus.rotation.y += 0.005;
+          torus.rotation.z += 0.01;
+          icosahedron1.rotation.x += 0.01;
+          icosahedron1.rotation.y += 0.01;
+          icosahedron2.rotation.x += 0.01;
+          icosahedron2.rotation.y += 0.01;
+          icosahedron3.rotation.x += 0.01;
+          icosahedron3.rotation.y += 0.01;
+          icosahedron4.rotation.x += 0.01;
+          icosahedron4.rotation.y += 0.01;
+
+          renderer.render(scene, camera);
+          renderer1.render(scene, camera1);
+      }
+      animate();
+
+  </script>
+  
   {%block script%}
     
     
