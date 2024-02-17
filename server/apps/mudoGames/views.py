@@ -5,19 +5,7 @@ import random
 import json
 from django.http import JsonResponse
 
-def mudo_main(request, roomId):#40개
-    line_list = ['세브란스 병원엔 왜', '제발 가랑이 밑으로 들어가게 해주세요', '어 그래', '차씨 차씨 차씨 연예인을 대보자', '두 분은 연인이세요', '실례가 안 된다면 아이스크림 하나만 사주십시오', '해정발산기슭곰발냄새타령부인인사잘해',
-                 '700만 대추인들이 만든거야', '싸브레', '북쪽에 계신', '차이나타운은 온통 빡빡이야', '필승 Yes I can', '아우 장난치지말고 빨리 자장면 주세요!!', '아버지 나를낳으시고 바지적삼 다적시셨네',
-                 '늦었다고 생각할 때가 진짜 너무 늦었다', '입 닫고 빵이나 먹어', '장모 거세게 반데라스', '나온다 그랬더라 어떻게 됐더라', '바나나맛 우유 그만 먹으라고', '농약 안 쳤을 걸', '야 남자가 무슨 빨간 머리냐', '날 동정하지 마세요', '나 이런 게 무서워하네', 
-                 '하모예 와이러는데 이카는데', '우리 할아버진 할머니가 두 분이셨어', '형보다 잘할걸', '무야호', '건방지게 끼어들었네요', '십 년이 지났다 주나야 년 뭐했냐', '인생을 판 사람을 어떻게 이겨요', '나 이제 그만할 건데', '스프', '술 마시고 뭘 타는지 보라고',
-                 '치열하겠는데', '민서를 올바르게 키울 생각이 없다', '면일어나지 못했더라면', '특별히 공부도 못하고 대가리만 큰 사람', '아픈척해서 인기 끌려고 그러시는 거죠', '아유... 하기싫어...', '내가 뭣땜에 대체 뭘 위해서']
-    print(len(line_list))
-    for i in range(len(line_list)):
-        Mudo.objects.get_or_create(line=line_list[i])
-        mudo = Mudo.objects.get(line=line_list[i])
-        mudo.image_path = f"/static/image/mudo/{mudo.line}.jpg"
-        mudo.save()
-    
+def mudo_main(request, roomId):#40개    
     if roomId == 0:
         ctx = {
             'roomId' : roomId,

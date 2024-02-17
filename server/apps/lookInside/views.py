@@ -6,14 +6,6 @@ import json
 from django.http import JsonResponse
 
 def lookInside_main(request, roomId): #60개
-    name_list = [
-'목장갑','고무장갑','컵','텀블러','마우스','키보드','휴지','물티슈','가습기','베개','이불','빨래건조대','스탠드','젓가락','숟가락','전자레인지','가스레인지','부탄가스','책상','의자','연필','지우게','볼펜','노트북','핸드폰','지갑','토스트기','후라이팬','냄비','접시']
-    for i in range(len(name_list)):
-        LookInside.objects.get_or_create(name=name_list[i])
-        lookInside = LookInside.objects.get(name=name_list[i])
-        lookInside.image_path = f"/static/image/lookInside/{lookInside.name}.jpg"
-        lookInside.save()
-
     if roomId == 0:
         ctx = {
         'roomId' : roomId,
