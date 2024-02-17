@@ -92,46 +92,44 @@
   
       // 도형 추가
       const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-      const material = new THREE.MeshStandardMaterial({ color: 0xA1F3C7 });
+      const material = new THREE.MeshStandardMaterial({ color: 0xEAEEFF });
       const torus = new THREE.Mesh(geometry, material);
       torus.layers.set(0);
       scene.add(torus); 
       
       // Add icosahedron on top left
-      const icosahedronGeometryLeft = new THREE.IcosahedronGeometry(2, 0);
-      const icosahedronMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
-      const icosahedronLeft = new THREE.Mesh(icosahedronGeometryLeft, icosahedronMaterial);
-      icosahedronLeft.position.set(-40, 20, 0); // Adjust position as needed
-      //icosahedronLeft.position.set(-36, 20, 0);;
-      icosahedronLeft.layers.set(1);
-      scene.add(icosahedronLeft); 
-      
+      const cubeTexture = new THREE.TextureLoader().load('/static/image/main/favicon_logo.png');
+      //top left
+      const icosahedron1 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
+      icosahedron1.position.set(-36, 20, 0); // Adjust position as needed
+      icosahedron1.layers.set(1);
+      scene.add(icosahedron1); 
+
+      // top right 
+      const icosahedron2 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
+      icosahedron2.position.set(30, 20, 0); // Adjust position as needed
+      icosahedron2.layers.set(1);
+      scene.add(icosahedron2);
+
+
   
-      // Add icosahedron on bottom right
-      const icosahedronGeometryRight = new THREE.IcosahedronGeometry(2, 0);
-      const icosahedronRight = new THREE.Mesh(icosahedronGeometryRight, icosahedronMaterial);
-      icosahedronRight.position.set(34, 20, 0); // Adjust position as needed
-      //icosahedronRight.position.set(30, -15, 0); // Adjust position as needed
-      icosahedronRight.layers.set(1);
-      scene.add(icosahedronRight); 
+      // top left right
+      const icosahedron3 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
+      icosahedron3.position.set(30, -15, 0); // Adjust position as needed
+      icosahedron3.layers.set(1);
+      scene.add(icosahedron3);
 
-      // Add icosahedron on bottom left
-      /*
-      const icosahedronGeometryBLeft = new THREE.IcosahedronGeometry(2, 0);
-      const icosahedronBLeft = new THREE.Mesh(icosahedronGeometryBLeft, icosahedronMaterial);
-      icosahedronBLeft.position.set(-36, -15, 0); // Adjust position as needed
-      icosahedronBLeft.layers.set(1);
-      scene.add(icosahedronBLeft); 
-      */
+      //top left
+      const icosahedron4 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
+      icosahedron4.position.set(-36, -15, 0); // Adjust position as needed
+      icosahedron4.layers.set(1);
+      scene.add(icosahedron4); 
 
-      // Add icosahedron on bottom right
-      /*
-      const icosahedronGeometryBRight = new THREE.IcosahedronGeometry(2, 0);
-      const icosahedronBRight = new THREE.Mesh(icosahedronGeometryBRight, icosahedronMaterial);
-      icosahedronBRight.position.set(30, 20, 0); // Adjust position as needed
-      icosahedronBRight.layers.set(1);
-      scene.add(icosahedronBRight); 
-      */
+      
+
+ 
+
+      
   
       // 라이트
       const pointLight = new THREE.PointLight(0xffffff); // 안쪽 빛
@@ -159,16 +157,14 @@
           torus.rotation.x += 0.01;
           torus.rotation.y += 0.005;
           torus.rotation.z += 0.01;
-          icosahedronLeft.rotation.x += 0.01;
-          icosahedronLeft.rotation.y += 0.01;
-          icosahedronRight.rotation.x += 0.01;
-          icosahedronRight.rotation.y += 0.01;
-          /*
-          icosahedronBLeft.rotation.x += 0.01;
-          icosahedronBLeft.rotation.y += 0.01;
-          icosahedronBRight.rotation.x += 0.01;
-          icosahedronBRight.rotation.y += 0.01;
-          */
+          icosahedron1.rotation.x += 0.01;
+          icosahedron1.rotation.y += 0.01;
+          icosahedron2.rotation.x += 0.01;
+          icosahedron2.rotation.y += 0.01;
+          icosahedron3.rotation.x += 0.01;
+          icosahedron3.rotation.y += 0.01;
+          icosahedron4.rotation.x += 0.01;
+          icosahedron4.rotation.y += 0.01;
 
           renderer.render(scene, camera);
           renderer1.render(scene, camera1);
