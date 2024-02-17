@@ -26,19 +26,8 @@
   {% endblock %}    
 </head>
 <body>
-    
-    {% comment %} {% if user.is_authenticated %}
-    <div class="header-container">
-      <a href={% url 'main:answer' %} class="logout-btn main-btn text3"> 정답확인 </a>
-    </div>
-    <div class="header-container">
-      <a href={% url 'main:logout' %} class="logout-btn main-btn text3"> 로그아웃</a>
-    </div>   
-    {% else %}
-    <div class="header-container">
-      <a href={% url 'main:login' %} class="logout-btn main-btn text3"> 로그인 </a>
-    </div>    
-    {% endif %} {% endcomment %}
+  <!-- 3d animation -->
+  <canvas id="bg"></canvas>
   <main style="margin:0;">
     <header>
       <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
@@ -69,6 +58,54 @@
       src="https://cdn.socket.io/4.0.1/socket.io.min.js"
       crossorigin="anonymous"
     ></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r133/three.min.js"></script>
+    <script>
+      //초기 설정
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({
+        canvas: document.querySelector('#bg'),
+        alpha: true, // 투명도 위해
+      });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0); // 투명도 위해
+      camera.position.setZ(30);
+      camera.position.setX(-3);
+
+      renderer.render(scene, camera);
+
+      // 도형 추가
+      const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+      const material = new THREE.MeshStandardMaterial({ color: 0xe1e6fc });
+      const torus = new THREE.Mesh(geometry, material);
+      scene.add(torus);
+      // 라이트
+      const pointLight = new THREE.PointLight(0xe1e6fc); // 안쪽 빛
+      pointLight.position.set(5, 5, 5);
+      const ambientLight = new THREE.AmbientLight(0xffffff);
+      scene.add( pointLight,ambientLight);    
+      // Scroll Animation
+      function moveCamera() {
+        const t = document.body.getBoundingClientRect().top;
+        camera.position.z = t * -0.01;
+        camera.position.x = t * -0.0002;
+        camera.rotation.y = t * -0.0002;
+      }
+
+      document.body.onscroll = moveCamera;
+      moveCamera();
+      // Animation Loop
+
+      function animate() {
+        requestAnimationFrame(animate);
+        torus.rotation.x += 0.01;
+        torus.rotation.y += 0.005;
+        torus.rotation.z += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+    </script>
   {%block script%}
     
     
