@@ -41,8 +41,8 @@
   </a>
   {% if user.is_authenticated and not roomId == 0 %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
-  <!-- {% else %}
-  <div class="chat-container">
+  
+  {% comment %} <div class="chat-container">
     <div id="chatRoom" class="show">
       <div class="info_room_num text1">채점 결과</div>
       <ul id="messages"></ul>
@@ -64,7 +64,7 @@
         </span>
       </div>
     </div>
-  </div> -->
+  </div>  {% endcomment %}
   {% endif %}
 </div>
 
