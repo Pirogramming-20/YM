@@ -9,10 +9,6 @@ from django.http import JsonResponse
 #0. create figure db
 #1. figure_game main page
 def chatGames_main(request, roomId): #60개
-    for i in range(1,16,1):
-        img_path = f"/static/image/chatGames/{i}.jpg"
-        ChatGame.objects.get_or_create(chatText=img_path)
-
     if roomId == 0:
         ctx = {
         'roomId' : roomId,
