@@ -28,6 +28,7 @@
 <body>
   <!-- 3d animation -->
   <canvas id="bg"></canvas>
+  <canvas id="bg1"></canvas>
   <main style="margin:0;">
     <header>
       <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
@@ -63,49 +64,119 @@
       //초기 설정
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const camera1 = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({
-        canvas: document.querySelector('#bg'),
-        alpha: true, // 투명도 위해
+          canvas: document.querySelector('#bg'),
+          alpha: true, // 투명도 위해
+      });
+      const renderer1 = new THREE.WebGLRenderer({
+          canvas: document.querySelector('#bg1'),
+          alpha: true, // 투명도 위해
       });
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setClearColor(0x000000, 0); // 투명도 위해
+      renderer1.setPixelRatio(window.devicePixelRatio);
+      renderer1.setSize(window.innerWidth, window.innerHeight);
+      renderer1.setClearColor(0x000000, 0); // 투명도 위해
       camera.position.setZ(30);
       camera.position.setX(-3);
+      camera1.position.setZ(30);
+      camera1.position.setX(-3);
+  
+      // Initialize layers
+      const layer1 = 0; // Default layer
+      const layer2 = 1; // New layer for the second camera
 
-      renderer.render(scene, camera);
-
+      
+  
       // 도형 추가
       const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-      const material = new THREE.MeshStandardMaterial({ color: 0xe1e6fc });
+      const material = new THREE.MeshStandardMaterial({ color: 0xA1F3C7 });
       const torus = new THREE.Mesh(geometry, material);
-      scene.add(torus);
+      torus.layers.set(0);
+      scene.add(torus); 
+      
+      // Add icosahedron on top left
+      const icosahedronGeometryLeft = new THREE.IcosahedronGeometry(2, 0);
+      const icosahedronMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+      const icosahedronLeft = new THREE.Mesh(icosahedronGeometryLeft, icosahedronMaterial);
+      icosahedronLeft.position.set(-40, 20, 0); // Adjust position as needed
+      //icosahedronLeft.position.set(-36, 20, 0);;
+      icosahedronLeft.layers.set(1);
+      scene.add(icosahedronLeft); 
+      
+  
+      // Add icosahedron on bottom right
+      const icosahedronGeometryRight = new THREE.IcosahedronGeometry(2, 0);
+      const icosahedronRight = new THREE.Mesh(icosahedronGeometryRight, icosahedronMaterial);
+      icosahedronRight.position.set(34, 20, 0); // Adjust position as needed
+      //icosahedronRight.position.set(30, -15, 0); // Adjust position as needed
+      icosahedronRight.layers.set(1);
+      scene.add(icosahedronRight); 
+
+      // Add icosahedron on bottom left
+      /*
+      const icosahedronGeometryBLeft = new THREE.IcosahedronGeometry(2, 0);
+      const icosahedronBLeft = new THREE.Mesh(icosahedronGeometryBLeft, icosahedronMaterial);
+      icosahedronBLeft.position.set(-36, -15, 0); // Adjust position as needed
+      icosahedronBLeft.layers.set(1);
+      scene.add(icosahedronBLeft); 
+      */
+
+      // Add icosahedron on bottom right
+      /*
+      const icosahedronGeometryBRight = new THREE.IcosahedronGeometry(2, 0);
+      const icosahedronBRight = new THREE.Mesh(icosahedronGeometryBRight, icosahedronMaterial);
+      icosahedronBRight.position.set(30, 20, 0); // Adjust position as needed
+      icosahedronBRight.layers.set(1);
+      scene.add(icosahedronBRight); 
+      */
+  
       // 라이트
-      const pointLight = new THREE.PointLight(0xe1e6fc); // 안쪽 빛
+      const pointLight = new THREE.PointLight(0xffffff); // 안쪽 빛
       pointLight.position.set(5, 5, 5);
       const ambientLight = new THREE.AmbientLight(0xffffff);
-      scene.add( pointLight,ambientLight);    
+      scene.add( ambientLight);
+  
+      camera.layers.enable(0);
+      camera1.layers.disableAll();
+      camera1.layers.enable(1);
       // Scroll Animation
       function moveCamera() {
-        const t = document.body.getBoundingClientRect().top;
-        camera.position.z = t * -0.01;
-        camera.position.x = t * -0.0002;
-        camera.rotation.y = t * -0.0002;
+          const t = document.body.getBoundingClientRect().top;
+          camera.position.z = t * -0.01;
+          camera.position.x = t * -0.0002;
+          camera.rotation.y = t * -0.0002;
       }
-
+  
       document.body.onscroll = moveCamera;
       moveCamera();
       // Animation Loop
-
+  
       function animate() {
-        requestAnimationFrame(animate);
-        torus.rotation.x += 0.01;
-        torus.rotation.y += 0.005;
-        torus.rotation.z += 0.01;
-        renderer.render(scene, camera);
+          requestAnimationFrame(animate);
+          torus.rotation.x += 0.01;
+          torus.rotation.y += 0.005;
+          torus.rotation.z += 0.01;
+          icosahedronLeft.rotation.x += 0.01;
+          icosahedronLeft.rotation.y += 0.01;
+          icosahedronRight.rotation.x += 0.01;
+          icosahedronRight.rotation.y += 0.01;
+          /*
+          icosahedronBLeft.rotation.x += 0.01;
+          icosahedronBLeft.rotation.y += 0.01;
+          icosahedronBRight.rotation.x += 0.01;
+          icosahedronBRight.rotation.y += 0.01;
+          */
+
+          renderer.render(scene, camera);
+          renderer1.render(scene, camera1);
       }
       animate();
-    </script>
+
+  </script>
+  
   {%block script%}
     
     
