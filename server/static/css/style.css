@@ -220,6 +220,8 @@ header img{
 }
 canvas {
     position: fixed;
+    pointer-events: none;
+    z-index: 0;
     top: 10vh;
     left: 0;
 }
