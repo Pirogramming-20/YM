@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %}
+<div class="explain-container">
+  <div class="text1">영화 명대사 게임</div>
+  <div class="text2">영화 장면을 보고 해당 장면의 명대사를 맞춰주세요!</div>
+  <div class="game-explain text3">
+    <p>게임 설명</p>
+    <p>'시작' 버튼을 누르면 영화장면 사진이 나옵니다!</p>
+    <p>3초 안에 해당 영화장면의 명대사를 외치세요</p>
+    <p>시간 내에 말하지 못 하거나 잘못된 명대사를 말하면 자비없이 땡!!</p>
+  </div>
+  <form method="POST" action="{% url 'movieGames:movie_game_main' roomId %}">
+    {% csrf_token %}
+    <div class="problem">
+      <div class="rule text3">문제 개수를 선택해주세요!</div>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="5" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">5 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="10" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">10 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="15" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">15 문제</span>
+      </label>
+    </div>
+    <button type="submit" class="main-btn btn-text">게임 시작</button>
+  </form>
+</div>
+
+{% endblock %}

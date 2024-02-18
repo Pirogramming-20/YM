@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block head %}
+<title>chatGames_main</title>
+{% endblock %} {% block content %}
+
+<div class="explain-container">
+  <div class="text1">채팅 빨리보내기 게임</div>
+  <div class="text2">주어진 채팅을 보고 가장 빨리 적어 채팅방에 보내세요!!</div>
+  <div class="game-explain text3">
+    <p>게임 설명</p>
+    <p>'시작' 버튼을 누르면 문장이 나옵니다!</p>
+    <p>최대한 빨리 문장을 입력해 채팅방에 보내세요!</p>
+    <p>가장 빨리 가장 정확하게 보낸 사람이 정답입니다!</p>
+  </div>
+  <form method="POST" action="{% url 'chatGames:chatGames_main' roomId %}">
+    {% csrf_token %}
+    <div class="problem">
+      <div class="rule text3">문제 개수를 선택해주세요!</div>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="5" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">5 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="10" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">10 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="15" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">15 문제</span>
+      </label>
+    </div>
+    <button type="submit" class="main-btn btn-text">게임 시작</button>
+  </form>
+</div>
+{% endblock %}
