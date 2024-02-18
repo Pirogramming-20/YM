@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>원하는 모드를 선택해주세요</h2>
+<h2 class="text1 h2">원하는 모드를 선택해주세요 <i class="fa-solid fa-hand-pointer"></i></h2>
   <div class="game-choose-container">
     <div class="individual">
       <div class="sub-title text3">개인</div>
@@ -24,11 +24,10 @@
       {% for room in rooms %}
           <div class="room_container">
             <a class="room-name text3" href="{% url 'rooms:detail' room.pk %}">
-            <i class="fa-solid fa-house"></i>
-            {{room.room_name}}
+              {{room.room_name}}
             </a>
-            <a class="room-answer" href="{% url 'main:answer' room.pk %}">정답 확인</a>
-            <a class="room-answer" style = "color:gray" href="{% url 'rooms:delete' room.pk %}"><i class="fa-solid fa-xmark"></i></a>
+            <a class="room-delete" href="{% url 'rooms:delete' room.pk %}"><i class="fa-regular fa-trash-can"></i></a>
+            <a class="room-answer text3" href="{% url 'main:answer' room.pk %}">정답 확인</a>
           </div>
         {% endfor %}
       </div>
