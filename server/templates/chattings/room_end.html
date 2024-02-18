@@ -8,14 +8,14 @@
     <p>!!방 상태를 결정해주세요!!</p>
     <p>게임 방만 유지, 게임 순서, 퀴즈 내용 변화를 원하시면 "게임 다시 선택하기" 클릭!</p>
     <p>게임 방, 게임 순서, 퀴즈 내용 유지를 원하시면 "게임 동일하게 다시하기" 클릭!</p>
-    <p>게임 방 삭제를 원하시면 "메인페이지" 클릭!</p>
+    <p>게임 방 삭제를 원하시면 "게임방 삭제하기" 클릭!</p>
   </div>
   <div class="rule text2">더 플레이 하시겠습니까?</div>
 
 <div class="select-container">
   <a href="{% url 'rooms:recreate' roomId %}" class="main-btn btn-text">게임 다시 선택하기</a>
   <a href="{%url 'rooms:re_game' roomId %}" class="main-btn btn-text">게임 동일하게 다시하기</a>
-  <a href="{%url 'rooms:delete' roomId %}" class="main-btn btn-text">메인 페이지</a>
+  <a href="{%url 'rooms:delete' roomId %}" class="main-btn btn-text">게임방 삭제하기</a>
 </div>
 </div>
 
