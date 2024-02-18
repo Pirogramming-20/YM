@@ -22,7 +22,7 @@
   margin: 10px;
 }
 .sub-title {
-  font-size: 4.5rem;
+  font-size: 4rem;
   margin-bottom: 1rem;
 }
 .title {
@@ -132,16 +132,26 @@ form input {
 }
 
 .room-answer{
-  color: var(--primary-color);
-  font-size: 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 10%;
+  border: 0.2rem solid black;
+  font-size: 2rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+.room-delete{
+  font-size: 2rem;
+  color: black;
 }
 
 .room_container{
-  width: 250px;
-  height: 70px;
+  /* width: 250px;
+  height: 70px; */
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
+  column-gap: 1rem;
 }
 
 /* qr image */
