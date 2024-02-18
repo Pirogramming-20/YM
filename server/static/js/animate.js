@@ -123,6 +123,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         icosahedron4.rotation.x += 0.01;
         icosahedron4.rotation.y += 0.01;
         renderer.render(scene, camera);
-        renderer1.render(scene, camera1);
+        //renderer1.render(scene, camera1);
     }
     animate();});
