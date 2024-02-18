@@ -51,14 +51,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
               <div class="log-in-sign-up-btn">
 
               </div>
-              <div class="landing-game-btn">
-                <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">무한도전(개인)</a>
-              </div>
+              <a href="{% url 'main:help' %}">레크레이션을 준비하시나요?</a>
+              <a href="#single-game">아뇨, 저는 개인 사용자입니다</a>
             </div>
           </div>
         </div>
@@ -216,7 +210,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
       </div>
       <div class="client_detail">
         <p>
-          사이트에서 제공하는 여러 게임들 중 원하는 게임을 선택해 방을 생성하고 함께할 인원들을 초대하세요!
+          사이트에서 제공하는 여러 게임들 중 원하는 게임만을 선택해 방을 생성하고 함께할 인원들을 초대하세요!
         </p>
       </div>
     </div>
@@ -349,12 +343,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
 
 <!-- auto section -->
 
-<section class="auto_section layout_padding">
+<section class="auto_section layout_padding" id="single-game">
   <div class="container">
     <div class="heading_container">
       <h2>
         지금 바로 플레이하세요
       </h2>
+      <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
+      <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
+      <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
+      <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
+      <a class="main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방(개인)</a>
+      <a class="main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">무한도전(개인)</a>
     </div>
     <div class="box">
       <div class="img-box">
@@ -514,4 +514,29 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
     }
   });
 </script>
+{% comment %} <script type="module">
+  import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  document.body.appendChild( renderer.domElement );
+  const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+const cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+
+camera.position.z = 5;
+
+function animate() {
+	requestAnimationFrame( animate );
+	renderer.render( scene, camera );
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+}
+animate();
+
+  // Our Javascript will go here.
+</script> {% endcomment %}
 {%endblock%}
