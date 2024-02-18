@@ -225,8 +225,12 @@ header img{
     padding: 10px;
     font-size: 2rem;
     font-weight: 700;
-    /* color: black; */
+    color: black; 
 }
+.navbar2 > a:last-of-type {
+    color: white; 
+}
+
 canvas {
     position: fixed;
     pointer-events: none;
