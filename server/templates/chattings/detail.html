@@ -1,7 +1,7 @@
 {% extends 'base.html' %}{% load static %}
     {% block content %}
 
-    
+    <div class="detail">
     <div class="qr-image">
       <!-- 연습 -->
       <img src="{% static 'image/qrcode/qr' %}{{room.id}}.png" />
@@ -11,12 +11,11 @@
         alt="이미지"
         class="photo"
       /> -->
-      <a href="{% url 'rooms:next_game' room.id %}">
         <div class="header-btn main-btn btn-text">게임시작  <i class="fa-solid fa-gamepad"></i>
         </div>
     </div>
-    
-    
+    <div class="chat-container">{%include "chat-base.html"%}</div>
+  </div>
     {% endblock %}
   </body>
 </html>

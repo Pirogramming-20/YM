@@ -78,7 +78,10 @@ socket.on("message", function (data) {
   // Scroll to the latest message
   scrollToLatestMessage();
 });
-
+socket.on("count", function (data) {
+  console.log(data);
+  document.getElementById("people_count").innerText = data;
+});
 // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
 function click1() {
   console.log("clk");
