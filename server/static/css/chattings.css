@@ -74,7 +74,7 @@
 
 .message{
     display: inline-block;
-    background-color: var(--secondary-color);
+    background-color: #ece0fa;
     padding: 0.8rem;
     white-space: nowrap; /* prevent text wrapping */
     border-radius: 0.8rem;
@@ -139,13 +139,13 @@
     border-radius: 10px 0 10px 10px; 
 }
 .other_chat  .message {
-    background-color: var(--secondary-color);
+    background-color: gray;
     border-radius: 10px 0 10px 10px; 
     color: black;
 }
 
 .other-message {
-    background-color: var(--secondary-color);
+    background-color: gray;
     border-radius: 0 10px 10px 10px; 
 }
 
