@@ -23,7 +23,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
       <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
       <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -64,24 +63,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="detail-box">
                   <div>
                     <div class= "title-container">
-                      <div class="sub-title text2">전주만 듣고 </br> 노래 맞추기</div>
+                      <div class="Topic1">로그인후 팀전용 게임들에서</br>즐기 수 있는 채팅방 기능</div>
+                      
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-5">
                 <div class="img-box">
-                  <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                  <img src="{% static 'image/main/chatting.jpg' %}" alt="" />
                 </div>
-              </div>
-              {% comment %} <div class="log-in-sign-up-btn">
-                <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">게임하기</a>
-              </div> {% endcomment %}
-              <div class="landing-game-btn">
-                <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
               </div>
             </div>
           </div>
@@ -95,7 +86,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="detail-box">
                   <div>
                     <div class= "title-container">
-                      <div class="sub-title text2">사진만 보고 </br>명대사 맞추기</div>
+                      <div class="Topic1">채팅없이 개인이 혼자 즐기는</br> 다양한 개인용 게임들</div>
                     </div>
                   </div>
                 </div>
@@ -104,15 +95,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="img-box">
                   <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
                 </div>
-              </div>
-              {% comment %} <div class="log-in-sign-up-btn">
-                <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">게임하기</a>
-              </div> {% endcomment %}
-              <div class="landing-game-btn">
-                <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
               </div>
             </div>
           </div>
@@ -126,7 +108,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="detail-box">
                   <div>
                     <div class= "title-container">
-                      <div class="sub-title text2">앞에 두 단어로 </br>4글자 채우기</div>
+                      <div class="Topic1">친구들 초대해서 채팅으로 즐기는</br>다양한 팀전용 게임들</div>
                     </div>
                   </div>
                 </div>
@@ -135,15 +117,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="img-box">
                   <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
                 </div>
-              </div>
-              {% comment %} <div class="log-in-sign-up-btn">
-                <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">게임하기</a>
-              </div> {% endcomment %}
-              <div class="landing-game-btn">
-                <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
-              <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
               </div>
             </div>
           </div>
@@ -324,11 +297,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
             혼자여도 괜찮습니다!
           </h2>
           <p>
-            신서유기에 등장하는 노래 맞추기, 네글자 게임 등을 로그인하고 자유롭게 플레이하세요!
+            신서유기에 등장하는 노래 맞추기, 네글자 게임 등을 로그인 필요없이 자유롭게 플레이하세요!
+          </p>
+          <p>
+            무한도전 장면을 보고 대사맞추는 게임까지 즐길 수 있습니다!!!
           </p>
           <div class="download_box">
             <div class="btn-box">
               <img src="{% static 'image/main/신서유기.jpg' %}" width="200px" alt="">
+              <img src="{% static 'image/main/무도로고.jpg' %}" width="200px" alt="">
             </div>
           </div>
         </div>
@@ -398,7 +375,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
           </div>
           <div>
             <div class="img-box">
-              <img src="images/location.png" width="18px" alt="" />
+              <i class="fa-solid fa-location-dot"></i>
             </div>
             <p>
               연락처
@@ -406,7 +383,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
           </div>
           <div>
             <div class="img-box">
-              <img src="images/phone.png" width="18px" alt="" />
+              <i class="fa-solid fa-phone"></i>         
             </div>
             <p>
               010 1234 5678
@@ -414,7 +391,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
           </div>
           <div>
             <div class="img-box">
-              <img src="images/envelope.png" width="18px" alt="" />
+              <i class="fa-solid fa-envelope"></i>
             </div>
             <p>
               yozmt@gmail.com
@@ -432,9 +409,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
             in some form, by injected humour,
           </p>
         </div>
-      </div>
+      </div> 
 
-      <div class="col-md-3">
+       <div class="col-md-3">
         <div class="info_links">
           <h5>
             Useful Links
@@ -477,7 +454,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
             </li>
           </ul>
         </div>
-      </div>
+      </div> 
+
       <div class="col-md-3">
         <div class="info_form ">
           <h5>
@@ -490,7 +468,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
             </button>
           </form>
         </div>
-      </div>
+      </div> 
+      
     </div>
   </div>
 </section>

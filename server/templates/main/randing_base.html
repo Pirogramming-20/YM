@@ -33,7 +33,7 @@
     <header>
       <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
       <div class="navbar2">
-        <a href="#help">이용방법</a>
+        <a href="{% url 'main:help' %}">이용방법</a>
         <a href="">문의</a>        
         <a href="{% url 'main:signup' %}">회원가입</a>
         <a href="{% url 'main:login' %}" class = "main-btn-div btn-text">로그인</a>

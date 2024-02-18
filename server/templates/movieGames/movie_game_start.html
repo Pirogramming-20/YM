@@ -95,15 +95,15 @@
         //다음문제,정답 버튼 두개 활성화
         nextBtn.addEventListener('click', nextFunction, {once:true});
         nextBtn.addEventListener('click', reset_animation, {once:true});
-        nextBtn.style.backgroundColor="var(--tertiary-color)";
-        nextBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+        nextBtn.style.backgroundColor="var(--quinary-color)";
+        nextBtn.style.boxShadow= "0px 5px 0px 0px #7d9885";
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.style.backgroundColor="gray";
           nextBtn.style.boxShadow= "none";
         }
         answerBtn.addEventListener('click', answerFunction, {once:true});
-        answerBtn.style.backgroundColor="var(--tertiary-color)";
-        answerBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+        answerBtn.style.backgroundColor="var(--quinary-color)";
+        answerBtn.style.boxShadow= "0px 5px 0px 0px #7d9885";
       } else {
         countdownElement.textContent = count;
         count--;

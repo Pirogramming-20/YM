@@ -233,7 +233,7 @@ header img{
     color: black; 
 }
 .navbar2 > a:last-of-type {
-    color: white; 
+    /* color: white;  */
 }
 
 canvas {

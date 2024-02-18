@@ -496,6 +496,7 @@ section.app_section .detail-box .download_box .btn-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 6rem;
 }
 
 section.app_section .detail-box .download_box .btn-box a {
@@ -871,4 +872,9 @@ section {
   font-size: 60px;
   font-weight: bold;
   color: black;
+}
+.Topic1{
+    font-size: 45px;
+    font-weight: bold;
+    color: black;
 }
