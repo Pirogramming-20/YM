@@ -246,6 +246,23 @@ canvas {
     margin-bottom: 1rem;
 }
 
+@keyframes moveArrow {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(1rem);
+    }
+}
+
+.btn-text i.fa-arrow-right-long {
+    display: inline-block; 
+    margin-left: 0.5rem; 
+    padding: 0 0.5rem;
+    animation: moveArrow 1s ease-in-out infinite;
+}
+
+
 .help-container{
     display: flex;
     align-items: center;
