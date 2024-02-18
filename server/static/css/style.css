@@ -57,7 +57,7 @@
     --secondary-color: #FFDE7A;
     --tertiary-color: #20ca6e;
     --quaternary-color: #B95A9B;
-    --quinary-color: #9730C3; 
+    --quinary-color: #cdf9da; 
     --bg-color: #F1F5F8;
 
     /* Font settings */
@@ -133,21 +133,26 @@ header img{
     line-height: normal;
 }
 .btn-text, .message{
-    color: white;
+    color: black;
     font-family: var(--text-font);
     font-style: normal;
     /* font-weight: 400; */
     line-height: normal;
 }
+/* .main-btn:hover,
+.main-btn:focus {
+    color: #20ca6e;
+    
+} */
 
 .main-btn{
     flex-shrink: 0;
     /* box-shadow: 0rem 1rem 1rem black; */
-    background: var(--tertiary-color);
+    background: var(--quinary-color);
     font-size: 3rem;
     white-space: nowrap; /* prevent text wrapping */
     font-weight: 500;
-    box-shadow: 0px 5px 0px 0px #007144;
+    box-shadow: 0px 5px 0px 0px #7d9885;
     border-radius: 5px;
     transition: all 0.2s ;
     padding: 5px 10px;
@@ -158,7 +163,7 @@ header img{
 }
 
 .main-btn-div{
-    background: var(--tertiary-color);
+    background: var(--quinary-color);
     padding: 1rem;
     font-weight: 500;
     font-size: 6rem;
@@ -251,14 +256,13 @@ canvas {
         transform: translateX(0);
     }
     50% {
-        transform: translateX(1rem);
+        transform: translateX(-1rem);
     }
 }
 
-.btn-text i.fa-arrow-right-long {
+.btn-text i.fa-arrow-left-long {
     display: inline-block; 
-    margin-left: 0.5rem; 
-    padding: 0 0.5rem;
+    margin-left: 3rem; 
     animation: moveArrow 1s ease-in-out infinite;
 }
 
