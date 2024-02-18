@@ -1,233 +1,254 @@
 @font-face {
-    font-family: 'CWDangamAsac-Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/CWDangamAsac-Bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "CWDangamAsac-Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/CWDangamAsac-Bold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'BMJUA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "BMJUA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
-@font-face{
-    font-family:'DNFForgedBlade';font-style:normal;font-weight:300;
-    src:url('//cdn.df.nexon.com/img/common/font/DNFForgedBlade-Light.otf')format('opentype')
+@font-face {
+  font-family: "DNFForgedBlade";
+  font-style: normal;
+  font-weight: 300;
+  src: url("//cdn.df.nexon.com/img/common/font/DNFForgedBlade-Light.otf")
+    format("opentype");
 }
-@font-face{
-    font-family:'DNFForgedBlade';font-style:normal;font-weight:500;
-    src:url('//cdn.df.nexon.com/img/common/font/DNFForgedBlade-Medium.otf')format('opentype')
-}    
-    
-@font-face{
-    font-family:'DNFForgedBlade';font-style:normal;font-weight:700;
-    src:url('//cdn.df.nexon.com/img/common/font/DNFForgedBlade-Bold.otf')format('opentype')
+@font-face {
+  font-family: "DNFForgedBlade";
+  font-style: normal;
+  font-weight: 500;
+  src: url("//cdn.df.nexon.com/img/common/font/DNFForgedBlade-Medium.otf")
+    format("opentype");
 }
 
 @font-face {
-    font-family: 'KartriderExtraBold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/KartriderExtraBold.woff2') format('woff2');
-    font-weight: 800; /* 500, 700  */
-    font-style: normal;
+  font-family: "DNFForgedBlade";
+  font-style: normal;
+  font-weight: 700;
+  src: url("//cdn.df.nexon.com/img/common/font/DNFForgedBlade-Bold.otf")
+    format("opentype");
 }
 
 @font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "KartriderExtraBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/KartriderExtraBold.woff2")
+    format("woff2");
+  font-weight: 800; /* 500, 700  */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'JalnanGothic';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "JalnanGothic";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 :root {
-    /* color scheme */
-    --text-color:   #FFF;
-    --primary-color: #3D19D8;
-    --secondary-color: #FFDE7A;
-    --tertiary-color: #20ca6e;
-    --quaternary-color: #B95A9B;
-    --quinary-color: #9730C3; 
-    --bg-color: #F1F5F8;
+  /* color scheme */
+  --text-color: #fff;
+  --primary-color: #3d19d8;
+  --secondary-color: #ffde7a;
+  --tertiary-color: #20ca6e;
+  --quaternary-color: #b95a9b;
+  --quinary-color: #9730c3;
+  --bg-color: #f1f5f8;
 
-    /* Font settings */
-    --primary-font: 'JalnanGothic', sans-serif;
-    --secondary-font: 'KartriderExtraBold', sans-serif;
-    --text-font: 'KartriderExtraBold', sans-serif;
+  /* Font settings */
+  --primary-font: "JalnanGothic", sans-serif;
+  --secondary-font: "KartriderExtraBold", sans-serif;
+  --text-font: "KartriderExtraBold", sans-serif;
 
-    --randing-font: 'GmarketSansMedium';
+  --randing-font: "GmarketSansMedium";
 
-    /* Spacing scale */
-    --spacing-small: 4rem;
-    --spacing-large: 6rem;
-
+  /* Spacing scale */
+  --spacing-small: 4rem;
+  --spacing-large: 6rem;
 }
 
-html { font-size: 62.5%; } /* 1rem = 10px */
+html {
+  font-size: 62.5%;
+} /* 1rem = 10px */
 
 body {
-    background-image: url('../image/main/bg3.png');
-    background-size: cover; 
-    background-attachment: fixed; /* img fixed during scroll */
-    font-family: var(--primary-font);
+  background-image: url("../image/main/bg3.png");
+  background-size: cover;
+  background-attachment: fixed; /* img fixed during scroll */
+  font-family: var(--primary-font);
 }
-html, body {
-    overflow-x: hidden;
+html,
+body {
+  overflow-x: hidden;
 }
 
 main {
-    /* height: calc(100vh - 20vh);  */
-    margin: 2rem;
+  /* height: calc(100vh - 20vh);  */
+  margin: 2rem;
 }
-header{
-    height: 10vh;
-    /* border-bottom: 0.3rem solid rgba(75, 78, 155, 0.1); */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 4rem;
-    background-color: #ece0fa;
-    /* box-shadow: 0rem 1px 1px black; */
+header {
+  height: 10vh;
+  /* border-bottom: 0.3rem solid rgba(75, 78, 155, 0.1); */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+  background-color: #ece0fa;
+  /* box-shadow: 0rem 1px 1px black; */
 }
 /* footer{
     height: 10vh;
 } */
-header img{
-    padding: 2rem 0;
-    height: 100%;
+header img {
+  padding: 2rem 0;
+  height: 100%;
 }
-.text1, form label{
-    color: var(--primary-color);
-    font-family: var(--primary-font);
-    font-size: 6rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.text2, form input{
-    color: black;
-    font-family: var(--secondary-font);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 4rem;
-    line-height: normal;
+.text1,
+form label {
+  color: var(--primary-color);
+  font-family: var(--primary-font);
+  font-size: 6rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-.text3{
-    color: black;
-    font-family: var(--text-font);
-    font-style: normal;
-    /* font-weight: 400; */
-    font-size: 3rem;
-    line-height: normal;
-}
-.btn-text, .message{
-    color: white;
-    font-family: var(--text-font);
-    font-style: normal;
-    /* font-weight: 400; */
-    line-height: normal;
+.text2,
+form input {
+  color: black;
+  font-family: var(--secondary-font);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 4rem;
+  line-height: normal;
 }
 
-.main-btn{
-    flex-shrink: 0;
-    /* box-shadow: 0rem 1rem 1rem black; */
-    background: var(--tertiary-color);
-    font-size: 3rem;
-    white-space: nowrap; /* prevent text wrapping */
-    font-weight: 500;
-    box-shadow: 0px 5px 0px 0px #007144;
-    border-radius: 5px;
-    transition: all 0.2s ;
-    padding: 5px 10px;
-    margin: 10px 20px 10px 0;
-    border: 0;
-    padding: 1rem;
-    /* height: min-content; */
+.text3 {
+  color: black;
+  font-family: var(--text-font);
+  font-style: normal;
+  /* font-weight: 400; */
+  font-size: 3rem;
+  line-height: normal;
+}
+.btn-text,
+.message {
+  color: white;
+  font-family: var(--text-font);
+  font-style: normal;
+  /* font-weight: 400; */
+  line-height: normal;
 }
 
-.main-btn-div{
-    background: var(--tertiary-color);
-    padding: 1rem;
-    font-weight: 500;
-    font-size: 6rem;
-    white-space: nowrap;
-    border-radius: 5px;
-    margin: 10px 20px 10px 0;
+.main-btn {
+  flex-shrink: 0;
+  /* box-shadow: 0rem 1rem 1rem black; */
+  background: var(--tertiary-color);
+  font-size: 3rem;
+  white-space: nowrap; /* prevent text wrapping */
+  font-weight: 500;
+  box-shadow: 0px 5px 0px 0px #007144;
+  border-radius: 5px;
+  transition: all 0.2s;
+  padding: 5px 10px;
+  margin: 10px 20px 10px 0;
+  border: 0;
+  padding: 1rem;
+  /* height: min-content; */
+}
+
+.main-btn-div {
+  background: var(--tertiary-color);
+  padding: 1rem;
+  font-weight: 500;
+  font-size: 6rem;
+  white-space: nowrap;
+  border-radius: 5px;
+  margin: 10px 20px 10px 0;
 }
 
 .main-btn:hover {
-    margin-top: 15px;
-    margin-bottom: 5px;
-    box-shadow: 0px 0px 0px 0px
-  }
-
-.sub-btn{
-    flex-shrink: 0;
-    border: 0.2rem solid black;
-    background: transparent;
-    font-size: 2rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    white-space: nowrap; /* prevent text wrapping */
-    border-radius: 1.8rem;
-    /* box-shadow: 0.2rem 0.2rem 0.2rem var(--secondary-color); */
+  margin-top: 15px;
+  margin-bottom: 5px;
+  box-shadow: 0px 0px 0px 0px;
 }
 
-
-.box-no-fill, form input[type="text"]#roomName,form input[type="text"]#orderListInput,.form-row input[type="text"],
-.form-row input[type="password"]{
-    background-color: transparent;
-    flex-shrink: 0;
-    border: 0.5rem inset var(--secondary-color); /* width, style, color */
-    box-shadow: 0.3rem 0.3rem 1rem black
+.sub-btn {
+  flex-shrink: 0;
+  border: 0.2rem solid black;
+  background: transparent;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  white-space: nowrap; /* prevent text wrapping */
+  border-radius: 1.8rem;
+  /* box-shadow: 0.2rem 0.2rem 0.2rem var(--secondary-color); */
 }
 
-.header-container{
-    height: 100%;   
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    font-size: 2.5rem;
-}
-.header-container span:first-child{
-    margin-right: 2rem;
-}
-.logout-btn{
-    font-size: 2.5rem;
+.box-no-fill,
+form input[type="text"]#roomName,
+form input[type="text"]#orderListInput,
+.form-row input[type="text"],
+.form-row input[type="password"] {
+  background-color: transparent;
+  flex-shrink: 0;
+  border: 0.5rem inset var(--secondary-color); /* width, style, color */
+  box-shadow: 0.3rem 0.3rem 1rem black;
 }
 
+.header-container {
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 2.5rem;
+}
+.header-container span:first-child {
+  margin-right: 2rem;
+}
+.logout-btn {
+  font-size: 2.5rem;
+}
 
 /* landing page 용 */
-.navbar2 > a{
-    margin-right: 20px;
-    font-family:var(--primary-font);
-    padding: 10px;
-    font-size: 2rem;
-    font-weight: 700;
-    /* color: black; */
+.navbar2 > a {
+  margin-right: 20px;
+  font-family: var(--primary-font);
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: 700;
+  /* color: black; */
 }
 canvas {
-    position: fixed;
-    pointer-events: none;
-    z-index: 0;
-    top: 10vh;
-    left: 0;
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  top: 10vh;
+  left: 0;
 }
 
-.h2{
-    font-size: 3rem;
-    font-weight: 500;
-    text-align: center;
+.h2 {
+  font-size: 3rem;
+  font-weight: 500;
+  text-align: center;
 }

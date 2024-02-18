@@ -30,15 +30,84 @@
 <body>
   <header>
     <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
+    <style>
+        
+      .btn_open {
+        font-weight: bold;
+        margin: 5px;
+        padding: 4px 6px;
+        background: #000;
+        color: #fff;
+      }
+      .pop_wrap {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        font-size: 0;
+        text-align: center;
+      }
+      .pop_wrap:after {
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        content: "";
+      }
+      .pop_wrap .pop_inner {
+        display: inline-block;
+        padding: 20px 30px;
+        background: #fff;
+        width: 300px;
+        vertical-align: middle;
+        font-size: 15px;
+      }
+      
+            </style>
     {% if user.is_authenticated %}
     {% comment %} <div class="header-container">
       {% url 'main:answer' %}
     </div> {% endcomment %}
     <div class="header-container">
+      <a href="#pop_info_1" class="btn_open">문의하기</a>
+        <div class="wrap">
+          <div id="pop_info_1" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <p class="dsc">문의 내용을 입력해주세요.</p>
+              <input type="text" id="qna">
+              <a href="#pop_info_2" class="btn_open"><button type="button" class="btn_close">제출</button></a>
+            </div>
+          </div>
+        
+          <div id="pop_info_2" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <p class="dsc">문의사항이 전달되었습니다.</p>
+              <button type="button" class="btn_close">닫기</button>
+            </div>
+          </div>
+        </div>
       <a href={% url 'main:logout' %} class="logout-btn main-btn btn-text"> 로그아웃</a>
     </div>   
     {% else %}
     <div class="header-container">
+
+        <a href="#pop_info_1" class="btn_open">문의하기</a>
+        <div class="wrap">
+          <div id="pop_info_1" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <p class="dsc">문의 내용을 입력해주세요.</p>
+              <input type="text" id="qna">
+              <a href="#pop_info_2" class="btn_open"><button type="button" class="btn_close">제출</button></a>
+            </div>
+          </div>
+        
+          <div id="pop_info_2" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <p class="dsc">문의사항이 전달되었습니다.</p>
+              <button type="button" class="btn_close">닫기</button>
+            </div>
+          </div>
+        </div>
       <a href={% url 'main:login' %} class="logout-btn main-btn btn-text"> 로그인 </a>
     </div>    
     {% endif %}
@@ -55,20 +124,71 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
-    <script defer src="{%static '/js/script.js'%}"></script>
-    <script defer src="{%static '/js/chattings.js'%}"></script>
+    
+    <script src="{%static '/js/script.js'%}"></script>
     <script
       src="https://kit.fontawesome.com/26acdb4290.js"
       crossorigin="anonymous"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script
-      src="https://cdn.socket.io/4.0.1/socket.io.min.js"
-      crossorigin="anonymous"
-    ></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r133/three.min.js"></script>
     <script defer src="{%static '/js/torusani.js'%}"></script>
     <script defer src="{%static '/js/dice.js'%}"></script>
+    <script>
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      
+      //csrf 토큰 생성
+      const csrftoken = getCookie("csrftoken");
+      
+      let target = document.querySelectorAll(".btn_open");
+      let btnPopClose = document.querySelectorAll(".pop_wrap .btn_close");
+      let qnaBtn = document.getElementById("qna");
+      let qnamsg = "";
+      const requestQuiz = new XMLHttpRequest();
+      
+      // 팝업 열기
+      target[0].addEventListener("click", function () {
+        targetID = this.getAttribute("href");
+        document.querySelector(targetID).style.display = "block";
+      });
+      target[1].addEventListener("click", function () {
+        targetID = this.getAttribute("href");
+        document.querySelector(targetID).style.display = "block";
+      });
+      
+      // 팝업 닫기
+      btnPopClose[0].addEventListener("click", function () {
+        const qnamsg = document.getElementById("qna").value;
+        const url = "/qna/";
+        requestQuiz.open("POST", url, true);
+        requestQuiz.setRequestHeader("Content-Type", "application/json");
+        requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+        requestQuiz.send(JSON.stringify({ qna: qnamsg }));
+        document.getElementById("qna").value = "";
+      
+        this.parentNode.parentNode.parentNode.style.display = "none";
+      });
+      
+      btnPopClose[1].addEventListener("click", function () {
+        this.parentNode.parentNode.style.display = "none";
+      });
+      
+    </script>
   {%block script%}
     
     

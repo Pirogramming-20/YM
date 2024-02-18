@@ -1,5 +1,5 @@
 <!-- 채팅 입력 칸 생성 -->
-{% if not roomId == 0 %}
+{% load static %} {% if not roomId == 0 %}
 <div class="chatroom-container">
   <input type="checkbox" id="chatToggle" class="toggle" />
   <label for="chatToggle">채팅창 없애기</label>
@@ -33,3 +33,8 @@
   const room_name = "{{ room.room_name }}";
   const username = "{{ user.username }}";
 </script>
+<script defer src="{%static '/js/chattings.js'%}"></script>
+<script
+  src="https://cdn.socket.io/4.0.1/socket.io.min.js"
+  crossorigin="anonymous"
+></script>
