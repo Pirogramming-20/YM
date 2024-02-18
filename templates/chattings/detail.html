@@ -1,0 +1,22 @@
+{% extends 'base.html' %}{% load static %}
+    {% block content %}
+
+    
+    <div class="qr-image">
+      <!-- 연습 -->
+      <img src="{% static 'image/qrcode/qr' %}{{room.id}}.png" />
+      <!-- 배포 -->
+      <!-- <img
+        src="{% static 'image/qr' %}{{room.id}}.png"
+        alt="이미지"
+        class="photo"
+      /> -->
+      <a href="{% url 'rooms:next_game' room.id %}">
+        <div class="header-btn main-btn btn-text">게임시작  <i class="fa-solid fa-gamepad"></i>
+        </div>
+    </div>
+    
+    
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,319 @@
+.game-main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    background: #FFF;
+    box-shadow: 0px 10px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 4rem;
+    margin-bottom: 4rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.game-main-container > form > label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* gap: 2rem; */
+
+}
+input[type="text"]#roomName{
+    margin-bottom: 4rem;
+}
+input[type="checkbox"].order-check{
+    width: auto;
+    height: auto;
+}
+
+.order-check-container{
+    gap: 2rem;
+    /* margin: 4rem; */
+}
+.order-check-list {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.order-check-container label{
+    font-size: 2rem;
+    margin-left: 1rem;
+}
+
+#game-order{
+    border: 0.5rem inset var(--secondary-color);
+    font-size: 2rem;
+    margin: 2rem 0;
+}
+
+.explain-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 4rem;
+}
+.game-explain p{
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+/* radio button */
+/* Hide the default radio button */
+.custom-radio input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+/* custom radio button */
+.custom-radio .checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 2rem;
+    width: 2rem;
+    background-color: #eee;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.1rem;
+    vertical-align: middle;
+}
+
+/* grey bg on hover */
+.custom-radio:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, change the checkmark background */
+.custom-radio input:checked ~ .checkmark {
+    background-color: var(--tertiary-color);
+}
+
+/* Create dot when checked */
+.custom-radio .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    top: 0.6rem;
+    left: 0.6rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: white;
+}
+
+/* show dot when checked */
+.custom-radio input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the label text */
+.custom-radio .label-text {
+    font-size: 2rem; 
+}
+
+/* Style the label for better cursor interaction */
+.custom-radio {
+    display: block;
+    position: relative;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* movie game start */
+.game{
+    display: flex;
+    justify-content: center;
+    /* justify-content: space-between; */
+    height: calc(100vh - 20vh);
+}
+
+
+  .quiz{
+    width: 70%;
+    border-radius: 6rem 6rem 6rem 6rem;
+    background: var(--bg-color);
+    box-shadow: 1rem 1rem 0.4rem 0rem rgba(0, 0, 0, 0.20);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    animation: slideInFromLeft 1s ease-out forwards;
+    /* animation: slideInFromRight 1s ease-in-out forwards; */
+    will-change: transform;
+    height: 90%;
+    position: relative;
+  }
+  /* .next-btn-container{
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  } */
+  .chat-container{
+    width: 28%;
+    padding-left: 4rem;
+  }
+  .game-btn-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-left: 1.4rem;
+    align-items: center;
+  }
+  .game-btn{
+    font-size: 3rem;
+    position: relative;
+  }
+  .game-over{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+.photo-container{
+    display: flex;
+    justify-content: center;
+}
+.photo-container img{
+    max-height: 40rem;
+    max-width: 30rem;
+    border-radius: 6rem;
+    height: 60%;
+    width: 80%;
+    object-fit: contain;
+
+}
+.quiz-container {
+    position: relative;
+    display: inline-block; 
+  }
+  .image-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
+.countdown{
+    font-size: 10rem;
+}
+.answer-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    /* margin: 0 6rem; */
+}
+.title,.line{
+    font-size: 4rem;
+}
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .quiz.slideInFromRight {
+    animation: slideInFromRight 1s ease-out forwards;
+  }
+  
+.animate-slide-in {
+    animation: slideInFromLeft 1s ease-out forwards;
+}
+
+.music-container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 4rem;
+    margin-left: 2rem;
+}
+.music-container .btn-text{
+    font-size: 5rem;
+}
+#player{
+    border-radius: 6rem;
+}
+.four-container{
+    display: flex;
+    justify-content: center;
+    font-size: 6rem;
+    width: 100%;
+    gap: 4rem;
+}
+.two-container{
+    border: 0.4rem solid var(--primary-color); /* Stroke width and color */
+}
+.two-box{
+    border: 0.4rem solid var(--primary-color); 
+    width: 10rem;
+}
+
+@keyframes slideToCenter {
+    0% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(calc(50vw - 50%)); 
+      opacity: 1;
+    }
+}
+
+.animate-slide-to-center {
+    animation: slideToCenter 1s ease-out forwards;
+}
+
+/* game-end page */
+.game-end-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+.select-container{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.game-change{
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  align-items: center;
+}
+
+.game-change > div{
+  margin: 0 10px;
+}
+
+.game-change div:first-child , .game-change div:last-child{
+  width: 130px;
+}

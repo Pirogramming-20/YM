@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<canvas class="dice3D"></canvas>
+<div class="form-container">
+    <div class="sub-title text1">로그인</div>
+    {% if form.errors %}
+    <div class="errorlist" style="font-size:20px; color:red;">
+        ID 혹은 비밀번호를 다시 확인해주세요
+    </div>
+    {% endif %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-row">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}
+        <a href={% url 'main:signup' %} class="navigate text2">
+            <span >아직 회원이 아니신가요? </span>
+            <span >회원가입하기</span>
+        </a>
+            
+        <button type="submit" value="SignUp" class="main-btn btn-text">로그인</button>
+    </form>
+</div>
+{% endblock content %}
