@@ -134,11 +134,12 @@ form input {
 .room-answer{
   background-color: var(--primary-color);
   color: white;
-  border-radius: 10%;
+  border-radius: 0.5rem;
   border: 0.2rem solid black;
   font-size: 2rem;
   padding: 1rem;
   cursor: pointer;
+  transition: all 0.2s;
 }
 .room-delete{
   font-size: 2rem;
