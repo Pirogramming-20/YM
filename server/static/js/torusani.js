@@ -28,6 +28,21 @@ const renderer = new THREE.WebGLRenderer({
       const ambientLight = new THREE.AmbientLight(0xffffff);
       scene.add( pointLight,ambientLight);
   
+      // Resize Handler
+    function onWindowResize() {
+        // Update camera aspect ratios to match new window size
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        // Adjust renderer sizes
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    // Listen for window resize events
+    window.addEventListener('resize', onWindowResize, false);
+
+    // Call resize handler once to set initial sizes
+    onWindowResize();
 
       // Scroll Animation
       function moveCamera() {

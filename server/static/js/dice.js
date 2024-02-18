@@ -53,6 +53,21 @@ const diceRenderer = new THREE.WebGLRenderer({
       const diceAmbientLight = new THREE.AmbientLight(0xffffff);
       diceScene.add( dicePointLight,diceAmbientLight);
 
+      // Resize Handler
+    function onWindowResize() {
+        // Update camera aspect ratios to match new window size
+        diceCamera.aspect = window.innerWidth / window.innerHeight;
+        diceCamera.updateProjectionMatrix();
+
+        // Adjust renderer sizes
+        diceRenderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    // Listen for window resize events
+    window.addEventListener('resize', onWindowResize, false);
+
+    // Call resize handler once to set initial sizes
+    onWindowResize();
       
       // Animation Loop
   
