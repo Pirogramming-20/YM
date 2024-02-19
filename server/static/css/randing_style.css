@@ -567,7 +567,7 @@ section.app_section .img-box img {
 
 .auto_section .btn-box a {
   display: inline-block;
-  padding: 10px 45px;
+  /* padding: 10px 45px; */
   background-color: #cdf9da;
   border: 1px solid #cdf9da;
   color: #171717;
