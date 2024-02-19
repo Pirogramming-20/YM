@@ -221,7 +221,6 @@ def before_quiz(request):
     return JsonResponse({'id' : quiz_id, 'music' : music, 'youtube' : youtube, 'game_list':game_list})
 
 def answer(request):
-    print("here")
     req = json.loads(request.body)
     quiz_id = (req['id'])
     year = int(req['year'])

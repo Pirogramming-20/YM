@@ -44,11 +44,9 @@ async def join(sid, room_name,check):
         rooms[room_name] += 1  
     else:
         rooms[room_name] = 1 
-    print(rooms[room_name])
     if check == 1:
         await sio.emit('message', ["-------------------1번문제-------------------",""], room=room_name)
     await sio.emit("count", rooms[room_name], room=room_name)  
-    print('join')
     
     
 
@@ -61,12 +59,10 @@ async def leave(sid, room_name):
     #     userList.replace((username+' , '),'')    
     # print('leave')
     # print(userList)
-    print('leave')
     await sio.leave_room(sid, room_name)
     
 @sio.event
 async def message(sid, data,user,room_name):
-    print('message ', data, user, room_name)
     await sio.emit('message', [data,user], room=room_name)
 
 # 이벤트 핸들러(메세지 전송)
@@ -90,7 +86,6 @@ async def disconnect(sid):
     #     print(chat_room)
     #     print("탈출성공")
     #     del rooms[room_name]
-    print('disconnect')
 
 
 
