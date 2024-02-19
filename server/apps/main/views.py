@@ -146,7 +146,8 @@ def answer(request,pk):
     }    
     return render(request, 'main/answer_list.html', ctx)
         
-
+def help(request):
+    return render(request, 'main/help.html')
 def qna(request):
     req = json.loads(request.body)
     qnatext = req['qna']

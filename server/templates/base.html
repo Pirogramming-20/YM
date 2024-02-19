@@ -32,13 +32,7 @@
     <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
     <style>
         
-      .btn_open {
-        font-weight: bold;
-        margin: 5px;
-        padding: 4px 6px;
-        background: #000;
-        color: #fff;
-      }
+      
       .pop_wrap {
         position: fixed;
         top: 0;
@@ -69,7 +63,7 @@
       {% url 'main:answer' %}
     </div> {% endcomment %}
     <div class="header-container">
-      <a href="#pop_info_1" class="btn_open">문의하기</a>
+      <a href="#pop_info_1" class="btn_open main-btn btn-text">문의하기</a>
         <div class="wrap">
           <div id="pop_info_1" class="pop_wrap" style="display:none;">
             <div class="pop_inner">

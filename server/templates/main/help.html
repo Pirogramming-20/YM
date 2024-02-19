@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block head %}
+<title>chatGames_main</title>
+{% endblock %} {% block content %}
+<h1>레크레이션 템플릿 만들기</h1>
+<p>가장 먼저! 계정을 만든 후 로그인 해주세요</p>
+<img src="static/image/help/game_list.png" alt="이미지" class="photo" />
+<p>게임방 만들기를 클릭 해주세요</p>
+<img src="static/image/help/room_name.png" alt="이미지" class="photo" />
+<p>게임방 이름 입력 후 진행할 게임을 골라주세요
+    <br>목록에 들어간 순서대로 게임이 진행됩니다
+</p>
+<img src="static/image/help/qr.png" alt="이미지" class="photo" />
+<p>메인 페이지로 돌아가시거나 서브 핸드폰으로 로그인 해주시면 선택한 게임의 정답 확인이 가능합니다</p>
+<img src="static/image/help/answer.png" alt="이미지" class="photo" />
+<div>
+    <a href="{% url 'main:signup' %}">회원가입</a>
+    <a href="{% url 'main:login' %}">로그인</a>
+</div>
+{% endblock %}
