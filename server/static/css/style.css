@@ -166,7 +166,7 @@ header img{
     background: var(--quinary-color);
     padding: 1rem;
     font-weight: 500;
-    font-size: 6rem;
+    /* font-size: 6rem; */
     white-space: nowrap;
     border-radius: 5px;
     margin: 10px 20px 10px 0;
