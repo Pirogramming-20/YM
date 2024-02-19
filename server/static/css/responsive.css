@@ -40,6 +40,9 @@
 }
 
 @media (max-width: 768px) {
+    .auto_section .main-btn{
+        font-size: 1.6rem;
+    }
     .slider_section .detail-box {
         text-align: center;
         margin-bottom: 45px;
@@ -160,6 +163,11 @@
     }
 }
 
+@media (max-width: 600px){
+    .navbar2 a {
+        display: none;
+    }
+}
 
 @media (max-width: 576px) {
     .slider_section .detail-box h1 {
@@ -177,6 +185,9 @@
     section.app_section .detail-box .download_box .btn-box {
         margin-top: 15px;
     }
+
+    section.app_section .detail-box .download_box .btn-box img{
+        }
 
     .client_section .box {
         flex-direction: column;
@@ -347,9 +358,7 @@
     .title-container{
         align-items: center;
     }
-    header img{
-        width: 40%;
-    }
+    
     .navbar2 > a {
         margin-right: 0.5rem;
         padding: 0rem;
@@ -360,7 +369,7 @@
     
     }
     .auto_section .main-btn{
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
     .help-title .text1{
         font-size: 3rem;
@@ -512,7 +521,7 @@
         font-size: 2rem;
     }
     .auto_section .main-btn{
-        font-size: 1.6rem;
+        font-size: 1.2rem;
     }
     .figure-photo-container{
         height: auto;
