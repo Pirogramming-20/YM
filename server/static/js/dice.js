@@ -21,24 +21,24 @@ const diceRenderer = new THREE.WebGLRenderer({
       const cubeTexture = new THREE.TextureLoader().load('/static/image/main/favicon_logo.png');
       //top left
       const icosahedron1 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
-      icosahedron1.position.set(-40, 20, 0); // Adjust position as needed
+      icosahedron1.position.set(-40, 15, 0); // Adjust position as needed
       diceScene.add(icosahedron1); 
 
       // top right 
       const icosahedron2 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
-      icosahedron2.position.set(34, 20, 0); // Adjust position as needed
+      icosahedron2.position.set(34, 15, 0); // Adjust position as needed
       diceScene.add(icosahedron2);
 
 
   
       // top left right
       const icosahedron3 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
-      icosahedron3.position.set(34, -15, 0); // Adjust position as needed
+      icosahedron3.position.set(34, -20, 0); // Adjust position as needed
       diceScene.add(icosahedron3);
 
       //top left
       const icosahedron4 = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), new THREE.MeshBasicMaterial({ map: cubeTexture }));
-      icosahedron4.position.set(-40, -15, 0); // Adjust position as needed
+      icosahedron4.position.set(-40, -20, 0); // Adjust position as needed
       diceScene.add(icosahedron4); 
 
       

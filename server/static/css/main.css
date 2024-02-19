@@ -137,6 +137,7 @@ form input {
   padding: 1rem;
   cursor: pointer;
   transition: all 0.2s;
+  margin-left: 1rem;
 }
 .room-delete {
   font-size: 2rem;
