@@ -170,6 +170,7 @@ input[type="checkbox"].order-check{
   .game-btn{
     font-size: 3rem;
     position: relative;
+    cursor: pointer;
   }
   .game-over{
     position: absolute;

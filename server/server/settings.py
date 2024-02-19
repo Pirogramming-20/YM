@@ -131,7 +131,7 @@ USE_TZ = True
 SILENCED_SYSTEM_CHECKS = ['urls.W002', 'security.W019'] # URL WARNING 무시
 
 STATIC_URL = '/static/'
-#STATIC_ROOT=os.path.join(BASE_DIR, 'static')
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
@@ -142,8 +142,8 @@ STATICFILES_DIRS = [
 # else:
 #     STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
-# STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # runserver시 사용 #배포시 사용
+#STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
+STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # runserver시 사용 #배포시 사용
 
 
 # Default primary key field type

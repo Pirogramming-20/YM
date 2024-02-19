@@ -49,7 +49,7 @@ def mudo_main(request, roomId):#40개
 
 def mudo_game_start(request, roomId, count):
     if roomId == 0:
-        quiz_id_int_list = random.sample(range(1,10),count)
+        quiz_id_int_list = random.sample(range(1,21),count) #최대 20개
     else:
         room = GameRoom.objects.get(id=roomId)
         quiz_id_list = room.ran_mudo
