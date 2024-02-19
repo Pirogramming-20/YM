@@ -1,11 +1,12 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-<style>
+ {% comment %} <style>
   .image-cover {
     height: 75%;
   }
-</style>
-<h2>철가방 게임</h2>
+</style>  {% endcomment %}
 <div class="game">
+  <div class="quiz-title-container">
+  <h2>철가방 게임</h2>  
   <div class="quiz">
     <div class="quiz-container">
       <div class="music-container">
@@ -41,6 +42,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
   <a
     class="game-btn game-over main-btn btn-text"
