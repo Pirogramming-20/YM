@@ -149,7 +149,7 @@ def recreate(request, roomId):
 
 def delete(request, roomId):
   GameRoom.objects.get(id=roomId).delete()
-  image_path = os.path.join("C:/Users/user/Desktop/YM/server/static/image/qrcode", 'qr{}.png'.format(roomId))
+  image_path = os.path.join("/home/ubuntu/YM/server/staticfiles/image/",'qr{}.png'.format(roomId))
   if os.path.isfile(image_path):
         os.remove(image_path)
   return redirect('/chatting-room')
@@ -174,6 +174,7 @@ def detail(request,pk):
   # qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
   # qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
   # qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #우진
+
   ctx = {
     "room" : room,
   }
