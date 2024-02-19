@@ -255,8 +255,11 @@ a:focus {
   box-shadow: 0px 3px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
-.slider_section .img-box img {
+.slider_section .img-box {
   width: 85%;
+}
+.randing-img1 {
+  height: 100%;
 }
 
 .slider_section #carouselExampleIndicators .carousel-indicators {
@@ -873,12 +876,11 @@ section {
   font-weight: bold;
   color: black;
 }
-.Topic1{
-    font-size: 45px;
-    font-weight: bold;
-    color: black;
+.Topic1 {
+  font-size: 45px;
+  font-weight: bold;
+  color: black;
 }
 
-#help{
-  
+#help {
 }
