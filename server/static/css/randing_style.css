@@ -565,9 +565,9 @@ section.app_section .img-box img {
   justify-content: center;
 }
 
-.auto_section .btn-box a {
+/* .auto_section .btn-box a {
   display: inline-block;
-  /* padding: 10px 45px; */
+  padding: 10px 45px; 
   background-color: #cdf9da;
   border: 1px solid #cdf9da;
   color: #171717;
@@ -578,7 +578,7 @@ section.app_section .img-box img {
   transition: transform 0.3s, -webkit-transform 0.3s;
   margin-top: 35px;
   box-shadow: 0rem 0.5rem 0rem 0rem #7d9885;
-}
+} */
 
 .auto_section .btn-box a:hover {
   -webkit-transform: translateY(-3px);
