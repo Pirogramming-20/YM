@@ -79,14 +79,13 @@
   const room_num = "{{ room.id }}";
     const room_name = "{{ room.room_name }}";
     const username = "{{ user.username }}";
-
+  let chatBox = document.querySelector(".mobile-chatroom-container");
   // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
   function clickUser() {
     
     let text = document.getElementById("username").value;
     document.getElementById("info_username").innerText = text;
-    document.querySelector(".chat").removeAttribute("id");
-    document.querySelector(".chat").id = "chat";
+    chatBox.style.display="flex";
   }
 
   document
@@ -97,8 +96,8 @@
         let text = e.target.value;
         document.getElementById("info_username").innerText = text;
         
-        document.querySelector(".chat").removeAttribute("id");
-        document.querySelector(".chat").id = "chat";
+        chatBox.style.display="flex";
+
       }
     });
 

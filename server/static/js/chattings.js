@@ -44,7 +44,15 @@ console.log(username);
 let socket = io.connect(
   location.protocol + "//" + document.domain + ":" + location.port
 );
-socket.emit("join", room_name, 1);
+let checkDetail = document.getElementsByClassName("detail");
+console.log(checkDetail);
+console.log("!11111");
+console.log(checkDetail.length);
+if (checkDetail.length > 0) {
+  socket.emit("join", room_name, 0);
+} else {
+  socket.emit("join", room_name, 1);
+}
 // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
 socket.on("message", function (data) {
   console.log("Message received: ", data);
@@ -78,7 +86,10 @@ socket.on("message", function (data) {
   // Scroll to the latest message
   scrollToLatestMessage();
 });
-
+socket.on("count", function (data) {
+  console.log(data);
+  document.getElementById("people_count").innerText = data;
+});
 // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
 function click1() {
   console.log("clk");
