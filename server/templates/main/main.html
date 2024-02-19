@@ -43,8 +43,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 </div>
               </div>
               <div class="col-md-5">
-                <div class="img-box">
-                  <img id="main-logo" src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                <div class="img-box img-box11" id="img-box11">
+                  <img class="randing-img1" id="main-logo" src="{% static 'image/main/favicon_logo.png' %}" alt="" />
                 </div>
               </div>
               <div class="log-in-sign-up-btn">
@@ -63,15 +63,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="detail-box">
                   <div>
                     <div class= "title-container">
-                      <div class="Topic1">로그인후 팀전용 게임들에서</br>즐기 수 있는 채팅방 기능</div>
+                      <div class="Topic1">로그인후 팀전용 게임들에서</br>즐길 수 있는 채팅방 기능</div>
                       
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-5">
-                <div class="img-box">
-                  <img src="{% static 'image/main/chatting.jpg' %}" alt="" />
+                <div class="img-box img-box11">
+                  <img class="randing-img1" src="{% static 'image/main/testPhone.png' %}" alt="" />
                 </div>
               </div>
             </div>
@@ -86,14 +86,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="detail-box">
                   <div>
                     <div class= "title-container">
-                      <div class="Topic1">채팅없이 개인이 혼자 즐기는</br> 다양한 개인용 게임들</div>
+                      <div class="Topic1">혼자서 혹은 친구와 즐기는</br>타임킬링용 게임들</div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-5">
-                <div class="img-box">
-                  <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                <div class="img-box img-box11">
+                  <img class="randing-img1" src="{% static 'image/main/testYoutube2.png' %}" alt="" />
                 </div>
               </div>
             </div>
@@ -108,14 +108,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="detail-box">
                   <div>
                     <div class= "title-container">
-                      <div class="Topic1">친구들 초대해서 채팅으로 즐기는</br>다양한 팀전용 게임들</div>
+                      <div class="Topic1">레크레이션에서 빛을 발하는</br>다양한 팀전용 게임들</div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-5">
-                <div class="img-box">
-                  <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                <div class="img-box img-box11">
+                  <img class="randing-img1" src="{% static 'image/main/multi-game.png' %}" alt="" />
                 </div>
               </div>
             </div>
@@ -136,8 +136,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 </div>
               </div>
               <div class="col-md-5">
-                <div class="img-box">
-                  <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                <div class="img-box img-box11">
+                  <img class="randing-img1" src="{% static 'image/main/favicon_logo.png' %}" alt="" />
                 </div>
               </div>
               <div class="landing-game-btn">
@@ -304,8 +304,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
           </p>
           <div class="download_box">
             <div class="btn-box">
-              <img src="{% static 'image/main/신서유기.jpg' %}" width="200px" alt="">
-              <img src="{% static 'image/main/무도로고.jpg' %}" width="200px" alt="">
+              <img src="{% static 'image/main/신서유기.jpg' %}" width="300px" alt="">
+              <img src="{% static 'image/main/무도로고.jpg' %}" width="150px" alt="">
             </div>
           </div>
         </div>
@@ -336,16 +336,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
         <img src="images/auto-img.png" alt="">
       </div>
       <div class="detail-box">
-        <div class="btn-box">
-          <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
-      <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
-      <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
+        <div class="d-box">
+          <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화 명장면 게임</a>
+          <a class=" main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">전주 듣고 노래 맞추기</a>
+          <a class=" main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물 퀴즈</a>
         </div>
-        <div class="btn-box">
+        <div class="d-box">
 
-      <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
-      <a class="main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방(개인)</a>
-      <a class="main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">무한도전(개인)</a>
+          <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자 게임</a>
+          <a class="main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방 게임</a>
+          <a class="main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">없는 게 없는 무도 게임</a>
         </div>
       </div>
     </div>
@@ -381,92 +381,88 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
               연락처
             </p>
           </div>
-          <div>
+          {% comment %} <div>
             <div class="img-box">
               <i class="fa-solid fa-phone"></i>         
             </div>
             <p>
               010 1234 5678
             </p>
-          </div>
+          </div> {% endcomment %}
           <div>
             <div class="img-box">
               <i class="fa-solid fa-envelope"></i>
             </div>
             <p>
-              yozmt@gmail.com
+              yyozmt@gmail.com
             </p>
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      {% comment %} <div class="col-md-3">
         <div class="info_info">
           <h5>
-            Invest Money
+            팀원
           </h5>
           <p>
             There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
             in some form, by injected humour,
           </p>
         </div>
-      </div> 
+      </div>  {% endcomment %}
+      <div class="col-md-3">
+        <div class="info_info">
+          <div>
+            <p>
+              <i class="fa-regular fa-user"></i>
+              PM: 석우진
+            </p>
+          </div>
+          <div>
+            <div class="img-box">
+              <p>
+                <i class="fa-regular fa-user"></i>
+                FE: 킨웨이얀
+              </p>
+            </div>
+            
+          </div> 
+          <div>
+            <p>
+              <i class="fa-regular fa-user"></i>
+              BE: 오기택
+            </p>
+          </div>
+          <div>
+            <p>
+              <i class="fa-regular fa-user"></i>
+              BE: 정현정
+            </p>
+          </div>
+          <div>
+            <p>
+              <i class="fa-regular fa-user"></i>
+              BE: 최윤서
+            </p>
+          </div>
+        </div>
+      </div>
 
        <div class="col-md-3">
         <div class="info_links">
-          <h5>
-            Useful Links
-          </h5>
-          <ul>
-            <li>
-              <a href="">
-                There are many
-              </a>
-            </li>
-            <li>
-              <a href="">
-                variations of
-              </a>
-            </li>
-            <li>
-              <a href="">
-                passages of
-              </a>
-            </li>
-            <li>
-              <a href="">
-                Lorem Ipsum
-              </a>
-            </li>
-            <li>
-              <a href="">
-                available, but the
-              </a>
-            </li>
-            <li>
-              <a href="">
-                majority have
-              </a>
-            </li>
-            <li>
-              <a href="">
-                suffered
-              </a>
-            </li>
-          </ul>
+          <h5 style="color: white; border-bottom: 1px solid white; padding-bottom: 5px;">
+            버그제보
+        </h5>
+        
+        
         </div>
       </div> 
 
       <div class="col-md-3">
         <div class="info_form ">
-          <h5>
-            Newsletter
-          </h5>
-          <form action="">
-            <input type="email" placeholder="Enter your email" />
-            <button>
-              Subscribe
-            </button>
-          </form>
+          <h5 style="color: white;">
+            @Copyright
+        </h5>
         </div>
       </div> 
       

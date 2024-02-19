@@ -7,15 +7,14 @@
       <div class="sub-title text3">개인</div>
       <div class="btn">
         <a class="room-create main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화 명장면 게임</a>
-    <a class="room-create main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">전주 듣고 노래 맞추기</a>
-    <a class="room-create main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물 퀴즈</a>
-    </div>
-    <div class="btn">
-      <a class="room-create main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자 게임</a>
-    <a class="room-create main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방 게임</a>
-    <a class="room-create main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">없는 게 없는 무도 게임</a>
+        <a class="room-create main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">전주 듣고 노래 맞추기</a>
+        <a class="room-create main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물 퀴즈</a>
       </div>
-      
+      <div class="btn">
+        <a class="room-create main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자 게임</a>
+        <a class="room-create main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방 게임</a>
+        <a class="room-create main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">없는 게 없는 무도 게임</a>
+      </div>
     </div>
     <div class="team">
       <div class="sub-title text3">팀</div>
@@ -44,7 +43,6 @@
 {% block script %}
 <script>
   function make_room(){
-    console.log("hi")
     const number={{rooms.count}};
     
     if (number==5){
