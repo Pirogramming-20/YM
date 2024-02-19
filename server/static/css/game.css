@@ -424,3 +424,6 @@ input[type="checkbox"].order-check{
   gap: 2rem;
   margin-bottom: 6rem;
 }
+.rule{
+  margin-bottom: 2rem;
+}
