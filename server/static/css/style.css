@@ -133,17 +133,17 @@ header img{
     line-height: normal;
 }
 .btn-text, .message{
-    color: black;
+    color: white;
     font-family: var(--text-font);
     font-style: normal;
     /* font-weight: 400; */
     line-height: normal;
 }
-/* .main-btn:hover,
+.main-btn:hover,
 .main-btn:focus {
-    color: #20ca6e;
+    color: black;
     
-} */
+} 
 
 .main-btn{
     flex-shrink: 0;
