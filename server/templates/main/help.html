@@ -1,44 +1,54 @@
 {% extends 'base.html' %} {% block head %}
 <title>chatGames_main</title>
 {% endblock %} {% block content %}
-<h1>레크레이션 템플릿 만들기</h1>
-<h2>이용 방법 안내</h2>
+<div class="help-title">
+    <div class="text1">레크레이션 템플릿 만들기</div>
+    <div class="text2">이용 방법 안내</div>
+</div>
 <div class="help-container">
     <div class="first help-box">
-        <p>1. 회원가입 후 로그인 하기</p>
+        <div class="text3">1. 회원가입 후 로그인 하기</div>
     </div>
+    <i class="fa-regular fa-hand-point-right icon-between"></i>
     <div class="second help-box">
-        <p>2. 게임방 만들기 클릭하기</p>
+        <p class="text3">2. 게임방 만들기 클릭하기</p>
         <img style="width:300px; height: 200px;" src="static/image/help/create.png" alt="이미지" class="photo" />
-        <p>게임방은 최대 5개까지 생성 가능합니다</p>
+        <p class="help-text">게임방은 최대 5개까지 생성 가능합니다</p>
     </div>
+    <i class="fa-regular fa-hand-point-right icon-between"></i>
     <div class="third help-box">
-        <p>3. 방이름, 게임 진행 순서를 설정하기</p>
+        <p class="text3">3. 방이름, 게임 진행 순서를 설정하기</p>
         <img style="width:300px; height: 200px;" src="static/image/help/room_name.png" alt="이미지" class="photo" />
-        <p>목록에 들어간 순서대로 게임이 진행됩니다</p>
+        <p class="help-text">목록에 들어간 순서대로 게임이 진행됩니다</p>
     </div>
+</div>
+<div class="help-container">
     <div class="fourth help-box">
-        <p>4. 게임방 디테일 페이지</p>
+        <p class="text3">4. 게임방 디테일 페이지</p>
         <img style="width:300px; height: 200px;" src="static/image/help/qr.png" alt="이미지" class="photo" />
-        <p>1) QR코드를 통해 팀원들을 초대해보세요
+        <p class="help-text">1) QR코드를 통해 팀원들을 초대해보세요
             초대된 팀원들은 게임방의 채팅룸으로 들어오게 됩니다
             <br>2) 게임 시작을 누르면 게임이 시작 됩니다
             <br>3) 정답을 미리 확인하길 원하시면 메인 페이지 버튼을 누르세요
             <br>   정답 확인은 서브 휴대폰을 통해 계정에 로그인 하여 확인하는 방법도 있습니다
         </p>
     </div>
+    <i class="fa-regular fa-hand-point-right icon-between"></i>
     <div class="fifth help-box">
-        <p>5. 게임 시작하기</p>
+        <p class="text3">5. 게임 시작하기</p>
         <img style="width:300px; height: 200px;" src="static/image/help/start.png" alt="이미지" class="photo" />
-        <p>퀴즈 개수를 선택 후 게임시작을 눌러주세요
+        <p class="help-text">퀴즈 개수를 선택 후 게임시작을 눌러주세요
             <br>각 게임방 마다 기호에 따라 채팅방 on/off가 가능합니다
         </p>
     </div>
 </div>
 
-<p>계정을 만든 후 게임을 즐겨보세요!</p>
-<div>
-    <a href="{% url 'main:signup' %}">회원가입</a>
-    <a href="{% url 'main:login' %}">로그인</a>
+<div class="help-footer">
+    <p class="text2">계정을 만든 후 게임을 즐겨보세요!<i class="fa-solid fa-puzzle-piece"></i><i class="fa-solid fa-puzzle-piece"></i></p>
+    <div class="help-btn">
+        <a href="{% url 'main:signup' %}" class="main-btn btn-text">회원가입</a>
+        <a href="{% url 'main:login' %}" class="main-btn btn-text">로그인</a>
+    </div>
 </div>
+
 {% endblock %}
