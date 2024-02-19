@@ -70,6 +70,7 @@
               <p class="dsc">문의 내용을 입력해주세요.</p>
               <input type="text" id="qna">
               <a href="#pop_info_2" class="btn_open"><button type="button" class="btn_close">제출</button></a>
+              <button type="button" class="btn_close">닫기</button>
             </div>
           </div>
         
@@ -148,13 +149,13 @@
       }
       
       //csrf 토큰 생성
-      const csrftoken1 = getCookie("csrftoken");
+      const csrftoken1 = getCookie("csrftoken1");
       
       let target = document.querySelectorAll(".btn_open");
       let btnPopClose = document.querySelectorAll(".pop_wrap .btn_close");
       let qnaBtn = document.getElementById("qna");
       let qnamsg = "";
-      const requestQuiz = new XMLHttpRequest();
+      const requestQuiz1 = new XMLHttpRequest();
       
       // 팝업 열기
       target[0].addEventListener("click", function () {
@@ -170,10 +171,10 @@
       btnPopClose[0].addEventListener("click", function () {
         const qnamsg = document.getElementById("qna").value;
         const url = "/qna/";
-        requestQuiz.open("POST", url, true);
-        requestQuiz.setRequestHeader("Content-Type", "application/json");
-        requestQuiz.setRequestHeader("X-CSRFToken", csrftoken1);
-        requestQuiz.send(JSON.stringify({ qna: qnamsg }));
+        requestQuiz1.open("POST", url, true);
+        requestQuiz1.setRequestHeader("Content-Type", "application/json");
+        requestQuiz1.setRequestHeader("X-CSRFToken", csrftoken1);
+        requestQuiz1.send(JSON.stringify({ qna: qnamsg }));
         document.getElementById("qna").value = "";
       
         this.parentNode.parentNode.parentNode.style.display = "none";
