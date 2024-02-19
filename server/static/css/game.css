@@ -179,8 +179,9 @@ input[type="checkbox"].order-check{
   }
 
 .photo-container{
-    width: 500px;
-    height: 400px;
+    width: 70%;
+    /* width: 700px; */
+    /* height: 400px; */
     display: flex;
     justify-content: center;
 }
@@ -194,6 +195,19 @@ input[type="checkbox"].order-check{
     height: 60%;
     width: 80%;
     object-fit: contain; */
+
+}
+.figure-photo-container{
+  width: 70%;
+  /* width: 700px; */
+  height: 400px; 
+  display: flex;
+  justify-content: center;
+}
+.figure-photo-container img{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 
 }
 .quiz-container {
@@ -264,10 +278,11 @@ input[type="checkbox"].order-check{
     margin-left: 2rem;
 }
 .music-container .btn-text{
-    font-size: 5rem;
+    font-size: 3.5rem;
 }
 .player-container{
-  width: 500px;
+    width: 70%;
+  /* width: 500px; */
     height: 400px;
     display: flex;
     justify-content: center;
@@ -321,6 +336,8 @@ input[type="checkbox"].order-check{
     display: flex;
     align-items: center;
     gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .game-change{
@@ -373,7 +390,7 @@ input[type="checkbox"].order-check{
   display: flex;
   justify-content: center; 
   flex-wrap: wrap; 
-  gap: 2rem; 
+  gap: 6rem; 
 }
 .help-box {
   flex: 1; 
