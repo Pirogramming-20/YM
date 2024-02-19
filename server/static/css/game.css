@@ -359,3 +359,50 @@ input[type="checkbox"].order-check{
   justify-content: center;
 }
 
+
+/* help */
+.help-title{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.help-container {
+  margin: 4rem ;
+  display: flex;
+  justify-content: center; 
+  flex-wrap: wrap; 
+  gap: 2rem; 
+}
+.help-box {
+  flex: 1; 
+  background-color: var(--bg-color);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  border-radius: 6rem 6rem 6rem 6rem;
+  box-shadow: 1rem 1rem 0.4rem 0rem rgba(0, 0, 0, 0.20);
+}
+
+
+.fa-hand-point-right{
+  font-size: 3rem;
+  align-self: center;
+}
+.help-text{
+  color: black;
+  font-family: var(--text-font);
+  font-style: normal;
+  font-size: 2rem;
+  line-height: 2;
+}
+.help-footer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 6rem;
+}

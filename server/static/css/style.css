@@ -267,11 +267,3 @@ canvas {
 }
 
 
-.help-container{
-    display: flex;
-    align-items: center;
-}
-
-.help-box{
-    background-color: white;
-}
