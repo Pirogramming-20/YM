@@ -524,12 +524,10 @@ section.app_section .img-box {
   transform: scale(1.07) translateY(-14px);
 }
 
-section.app_section .img-box {
+section.app_section .img-box img {
   width: 85%;
 }
-img {
-  height: 100%;
-}
+
 .auto_section {
   text-align: center;
 }
