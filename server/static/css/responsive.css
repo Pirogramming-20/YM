@@ -533,7 +533,7 @@
 }
 @media (max-height: 982px) {
     .player-container{
-        height: 25rem;
+        height: 10rem;
     }
 }
 @media (max-height: 700px) {
