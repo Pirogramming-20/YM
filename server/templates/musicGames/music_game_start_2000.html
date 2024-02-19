@@ -1,7 +1,8 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-<h2>전주 듣고 노래 맞추기 게임</h2>
 <div class="game">
-  <div class="quiz">
+  <div class="quiz-title-container">
+    <h2>전주 듣고 노래 맞추기 게임</h2>
+    <div class="quiz">
     <div class="music-container">
       <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
         0.5초 듣기
@@ -16,10 +17,9 @@
       <div class="singer text2"></div>
     </div>
     <div class="game-btn-container">
-      <div class="game-change">
+      <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
         <!-- 이전문제 -->
         <div class="before-btn"></div>
-        <div class="game-btn btn-text main-btn quiz-order">1/{{count}}</div>
         <div class="game-btn answer-btn main-btn btn-text bef_clicked">
           <i class="fa-solid fa-circle-check"></i> 정답
         </div>
@@ -27,8 +27,8 @@
           다음 문제
           <i class="fa-solid fa-chevron-right"></i>
         </div>
-      </div>
     </div>
+  </div>
   </div>
   <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
     {% if roomId == 0 %}
@@ -79,15 +79,15 @@
     //다음문제, 정답 버튼 두개 활성화
     nextBtn.addEventListener('click', nextFunction, {once:true});
     nextBtn.addEventListener('click', reset_animation, {once:true});
-    nextBtn.style.backgroundColor="var(--tertiary-color)";
-    nextBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+    nextBtn.style.backgroundColor="var(--quinary-color)";
+    nextBtn.style.boxShadow= "0px 5px 0px 0px #7d9885";
     if (cnt === parseInt("{{ count }}")) {
           nextBtn.style.backgroundColor="gray";
           nextBtn.style.boxShadow= "none";
     }
     answerBtn.addEventListener('click', answerFunction, {once:true});
-    answerBtn.style.backgroundColor="var(--tertiary-color)";
-    answerBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+    answerBtn.style.backgroundColor="var(--quinary-color)";
+    answerBtn.style.boxShadow= "0px 5px 0px 0px #7d9885";
 
     if (play !== undefined) {
       play

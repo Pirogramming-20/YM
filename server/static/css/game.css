@@ -131,12 +131,12 @@ input[type="checkbox"].order-check{
     display: flex;
     justify-content: center;
     /* justify-content: space-between; */
-    height: calc(100vh - 20vh);
+    height: calc(100vh - 20vh); 
 }
 
 
   .quiz{
-    width: 70%;
+    /* width: 70%; */
     border-radius: 6rem 6rem 6rem 6rem;
     background: var(--bg-color);
     box-shadow: 1rem 1rem 0.4rem 0rem rgba(0, 0, 0, 0.20);
@@ -158,6 +158,7 @@ input[type="checkbox"].order-check{
   .chat-container{
     width: 28%;
     padding-left: 4rem;
+    height: calc(100vh - 18vh);
   }
   .game-btn-container{
     display: flex;
@@ -328,4 +329,14 @@ input[type="checkbox"].order-check{
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+/* movie */
+.quiz-title-container{
+  width: 70%;
+}
+
+.word-container{
+  display: flex;
+  justify-content: center;
 }
