@@ -8,9 +8,12 @@
     }
 
     .slider_section .box {
-        margin: 75px 0 125px 0;
+        margin: 0
     }
-
+    
+    .img-box{
+        width: max(30vh, 300px);
+    }
     .client_section .box {
         width: 90%;
     }
