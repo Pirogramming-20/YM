@@ -15,6 +15,7 @@
       <div class="chatGames-name text1"></div>
     </div>
     <div class="game-btn-container">
+      <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
       <button class="game-btn main-btn btn-text start-btn">
         시작
         <i class="fa-solid fa-play"></i>
@@ -22,7 +23,6 @@
       <!-- 이전문제 -->
       <div class="before-btn"></div>
       <!-- 게임순서 -->
-      <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
       <div
         class="game-btn next-btn main-btn btn-text bef_clicked"
       >
@@ -87,8 +87,8 @@
         //다음문제 활성화
         nextBtn.addEventListener('click', nextFunction, {once:true});
         nextBtn.addEventListener('click', reset_animation, {once:true});
-        nextBtn.style.backgroundColor="var(--tertiary-color)";
-        nextBtn.style.boxShadow= "0px 5px 0px 0px #007144";
+        nextBtn.style.backgroundColor="var(--quinary-color)";
+        nextBtn.style.boxShadow= "0px 5px 0px 0px #7d9885";
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.style.backgroundColor="gray";
           nextBtn.style.boxShadow= "none";
