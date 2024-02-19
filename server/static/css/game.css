@@ -335,3 +335,8 @@ input[type="checkbox"].order-check{
 .quiz-title-container{
   width: 70%;
 }
+
+.word-container{
+  display: flex;
+  justify-content: center;
+}
