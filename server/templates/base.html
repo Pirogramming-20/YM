@@ -92,6 +92,7 @@
               <p class="dsc">문의 내용을 입력해주세요.</p>
               <input type="text" id="qna">
               <a href="#pop_info_2" class="btn_open"><button type="button" class="btn_close">제출</button></a>
+              <button type="button" class="btn_close">닫기</button>
             </div>
           </div>
         
@@ -147,7 +148,7 @@
       }
       
       //csrf 토큰 생성
-      const csrftoken = getCookie("csrftoken");
+      const csrftoken1 = getCookie("csrftoken");
       
       let target = document.querySelectorAll(".btn_open");
       let btnPopClose = document.querySelectorAll(".pop_wrap .btn_close");
@@ -171,7 +172,7 @@
         const url = "/qna/";
         requestQuiz.open("POST", url, true);
         requestQuiz.setRequestHeader("Content-Type", "application/json");
-        requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+        requestQuiz.setRequestHeader("X-CSRFToken", csrftoken1);
         requestQuiz.send(JSON.stringify({ qna: qnamsg }));
         document.getElementById("qna").value = "";
       
@@ -179,6 +180,9 @@
       });
       
       btnPopClose[1].addEventListener("click", function () {
+        this.parentNode.parentNode.style.display = "none";
+      });
+      btnPopClose[2].addEventListener("click", function () {
         this.parentNode.parentNode.style.display = "none";
       });
       
