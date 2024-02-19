@@ -156,7 +156,8 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-e.kr","https://hello.chattest.p-e.kr","http://hello.chattest.p-e.kr"]
+CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-e.kr","https://hello.chattest.p-e.kr","http://hello.chattest.p-e.kr", 
+                        "https://yozmt.com"]
 
 # import mimetypes
 # mimetypes.add_type("text/css", ".css", True)
