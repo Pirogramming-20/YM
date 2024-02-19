@@ -1,7 +1,7 @@
 {% extends 'base.html' %}{% load static %}
     {% block content %}
 
-    
+    <div class="detail">
     <div class="qr-image">
       <!-- 연습 -->
       <img src="{% static 'image/qrcode/qr' %}{{room.id}}.png" />
@@ -20,8 +20,9 @@
         </div>
       </a>
     </div>
-    
-    
+    <div class="chat-container">{%include "chat-base.html"%}</div>
+  </div>
+  
     {% endblock %}
   </body>
 </html>
