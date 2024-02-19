@@ -270,3 +270,10 @@ canvas {
 .pop_wrap{position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.5); font-size:0; text-align:center;}
 .pop_wrap:after{display:inline-block; height:100%; vertical-align:middle; content:'';}
 .pop_wrap .pop_inner{display:inline-block; padding:20px 30px; background:#fff; width:200px; vertical-align:middle; font-size:15px;}
+
+.d-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+}
