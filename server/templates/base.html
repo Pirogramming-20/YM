@@ -35,11 +35,11 @@
       {% url 'main:answer' %}
     </div> {% endcomment %}
     <div class="header-container">
-      <a href={% url 'main:logout' %} class="logout-btn main-btn btn-text"> 로그아웃</a>
+      <a href={% url 'main:logout' %} class="logout-btn main-btn-div btn-text"> 로그아웃</a>
     </div>   
     {% else %}
     <div class="header-container">
-      <a href={% url 'main:login' %} class="logout-btn main-btn btn-text"> 로그인 </a>
+      <a href={% url 'main:login' %} class="logout-btn main-btn-div btn-text"> 로그인 </a>
     </div>    
     {% endif %}
   </header>

@@ -22,6 +22,7 @@
 
 
 .room-name{
+    margin-right: 1rem;
     font-size: 2.5rem;
 }
 
@@ -38,7 +39,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 95%;
+    height: 100%;
     /* align-items: center; */
     align-items: flex-end;
 }
@@ -73,7 +74,7 @@
 
 .message{
     display: inline-block;
-    background-color: var(--secondary-color);
+    background-color: #ece0fa;
     padding: 0.8rem;
     white-space: nowrap; /* prevent text wrapping */
     border-radius: 0.8rem;
@@ -117,9 +118,12 @@
 .chat{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    /* align-items: flex-end; */
     margin-bottom: 0.5rem;
     margin-right: 0.5rem;
+}
+.my_chat .chat{
+    align-items: flex-end;
 }
 .my_chat{
     display: flex;
@@ -135,13 +139,13 @@
     border-radius: 10px 0 10px 10px; 
 }
 .other_chat  .message {
-    background-color: var(--secondary-color);
+    background-color: gray;
     border-radius: 10px 0 10px 10px; 
     color: black;
 }
 
 .other-message {
-    background-color: var(--secondary-color);
+    background-color: gray;
     border-radius: 0 10px 10px 10px; 
 }
 
@@ -224,7 +228,7 @@ input[type = "checkbox"].toggle + label{
     align-items: center;
     cursor: pointer;
     color: var(--tertiary-color);
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-size: 2em;
 }
 
