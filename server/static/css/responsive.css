@@ -304,7 +304,7 @@
     .explain-container .text1{
         font-size: 4rem;
     }
-    .explain-container .text2, .problem .rule, .time .rule{
+    .explain-container .text2, .problem  .time {
         font-size: 3rem;
     }
     .explain-container .btn-text, .game-main-container .btn-text{
