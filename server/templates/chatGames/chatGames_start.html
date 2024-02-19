@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-<h2>채팅 빨리 보내기 게임</h2>
 <div class="game">
+  <div class="quiz-title-container">
+  <h2>채팅 빨리 보내기 게임</h2>
   <div class="quiz">
     <div class="quiz-container">
       <div class="image-cover">
@@ -29,6 +30,7 @@
         <i class="fa-solid fa-chevron-right"></i>
       </div>
     </div>
+  </div>
   </div>
   <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
     {% if roomId == 0 %}

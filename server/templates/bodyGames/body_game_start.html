@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
-<h2>몸으로 말해요 게임</h2>
 <div class="game">
+    <div class="quiz-title-container">
+    <h2>몸으로 말해요 게임</h2>    
     <div class="quiz">
         <div class="word-container">
             <div class="text1 word">{{quiz.word}}</div>
@@ -18,6 +19,7 @@
             </div>
         </div>
     </div>
+</div>
     <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
         {% if roomId == 0 %}
             다른 게임 <i class="fa-solid fa-chevron-right"></i>
