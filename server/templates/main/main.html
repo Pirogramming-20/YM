@@ -43,7 +43,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 </div>
               </div>
               <div class="col-md-5">
-                <div class="img-box">
+                <div class="img-box" id="img-box11">
                   <img id="main-logo" src="{% static 'image/main/favicon_logo.png' %}" alt="" />
                 </div>
               </div>
@@ -63,7 +63,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="detail-box">
                   <div>
                     <div class= "title-container">
-                      <div class="Topic1">로그인후 팀전용 게임들에서</br>즐기 수 있는 채팅방 기능</div>
+                      <div class="Topic1">로그인후 팀전용 게임들에서</br>즐길 수 있는 채팅방 기능</div>
                       
                     </div>
                   </div>
@@ -86,14 +86,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="detail-box">
                   <div>
                     <div class= "title-container">
-                      <div class="Topic1">채팅없이 개인이 혼자 즐기는</br> 다양한 개인용 게임들</div>
+                      <div class="Topic1">혼자서 혹은 친구와 즐기는</br>타임킬링용 게임들</div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-5">
                 <div class="img-box">
-                  <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                  <img src="{% static 'image/main/solo-games.png' %}" alt="" />
                 </div>
               </div>
             </div>
@@ -108,14 +108,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
                 <div class="detail-box">
                   <div>
                     <div class= "title-container">
-                      <div class="Topic1">친구들 초대해서 채팅으로 즐기는</br>다양한 팀전용 게임들</div>
+                      <div class="Topic1">레크레이션에서 빛을 발하는</br>다양한 팀전용 게임들</div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-5">
                 <div class="img-box">
-                  <img src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                  <img src="{% static 'image/main/multi-game.png' %}" alt="" />
                 </div>
               </div>
             </div>
@@ -304,8 +304,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
           </p>
           <div class="download_box">
             <div class="btn-box">
-              <img src="{% static 'image/main/신서유기.jpg' %}" width="200px" alt="">
-              <img src="{% static 'image/main/무도로고.jpg' %}" width="200px" alt="">
+              <img src="{% static 'image/main/신서유기.jpg' %}" width="300px" alt="">
+              <img src="{% static 'image/main/무도로고.jpg' %}" width="150px" alt="">
             </div>
           </div>
         </div>
@@ -336,16 +336,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
         <img src="images/auto-img.png" alt="">
       </div>
       <div class="detail-box">
-        <div class="btn-box">
-          <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
-      <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
-      <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
+        <div class="d-box">
+          <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화 명장면 게임</a>
+          <a class=" main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">전주 듣고 노래 맞추기</a>
+          <a class=" main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물 퀴즈</a>
         </div>
-        <div class="btn-box">
+        <div class="d-box">
 
-      <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
-      <a class="main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방(개인)</a>
-      <a class="main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">무한도전(개인)</a>
+          <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자 게임</a>
+          <a class="main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방 게임</a>
+          <a class="main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">없는 게 없는 무도 게임</a>
         </div>
       </div>
     </div>
