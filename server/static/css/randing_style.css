@@ -195,7 +195,7 @@ a:focus {
 
 /*end header section*/
 .slider_section {
-  height: 100%;
+  height: 90vh;
 
   display: -webkit-box;
   display: -ms-flexbox;
@@ -381,6 +381,7 @@ a:focus {
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
   transition: transform 0.3s, -webkit-transform 0.3s;
+  font-size: 1.5rem;
 }
 
 .how_section .btn-box a:hover {
@@ -495,6 +496,7 @@ section.app_section .detail-box .download_box .btn-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 6rem;
 }
 
 section.app_section .detail-box .download_box .btn-box a {
@@ -563,19 +565,20 @@ section.app_section .img-box img {
   justify-content: center;
 }
 
-.auto_section .btn-box a {
+/* .auto_section .btn-box a {
   display: inline-block;
-  padding: 10px 45px;
-  background-color: #171717;
-  border: 1px solid #171717;
-  color: #ffffff;
+  padding: 10px 45px; 
+  background-color: #cdf9da;
+  border: 1px solid #cdf9da;
+  color: #171717;
   border-radius: 5px;
   -webkit-transition: -webkit-transform 0.3s;
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
   transition: transform 0.3s, -webkit-transform 0.3s;
   margin-top: 35px;
-}
+  box-shadow: 0rem 0.5rem 0rem 0rem #7d9885;
+} */
 
 .auto_section .btn-box a:hover {
   -webkit-transform: translateY(-3px);
@@ -696,6 +699,7 @@ section.app_section .img-box img {
   transition: transform 0.3s;
   transition: transform 0.3s, -webkit-transform 0.3s;
   margin-top: 25px;
+  font-size: 1.5rem;
 }
 
 .client_section .btn-box a:hover {
@@ -868,4 +872,13 @@ section {
   font-size: 60px;
   font-weight: bold;
   color: black;
+}
+.Topic1{
+    font-size: 45px;
+    font-weight: bold;
+    color: black;
+}
+
+#help{
+  
 }

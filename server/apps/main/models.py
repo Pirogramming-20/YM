@@ -8,3 +8,7 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+
+class Qna(models.Model):
+    text = models.TextField()

@@ -26,48 +26,147 @@
   {% endblock %}    
 </head>
 <body>
-  <header>
-    <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
-    <div class="navbar2">
-      <a href="#help">Help</a>
-      <a href="{% url 'main:login' %}" class = "main-btn btn-text">로그인</a>
-    <div>
-    {% comment %} {% if user.is_authenticated %}
-    <div class="header-container">
-      <a href={% url 'main:answer' %} class="logout-btn main-btn text3"> 정답확인 </a>
-    </div>
-    <div class="header-container">
-      <a href={% url 'main:logout' %} class="logout-btn main-btn text3"> 로그아웃</a>
-    </div>   
-    {% else %}
-    <div class="header-container">
-      <a href={% url 'main:login' %} class="logout-btn main-btn text3"> 로그인 </a>
-    </div>    
-    {% endif %} {% endcomment %}
-  </header>
+  <!-- 3d animation -->
+  <canvas id="bg"></canvas>
+  <canvas id="bg1"></canvas>
   <main style="margin:0;">
+    <header>
+      <a href={% url 'main:main' %} class="header-logo-url"> <img src="{%static 'image/main/logo.png'%}" alt="logo" class="logo"> </a>
+      <div class="navbar2">
+        <style>
+          .warp{
+            z-index: 10;
+          }
+
+.pop_wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 0;
+  text-align: center;
+  z-index: 10;
+}
+.pop_wrap:after {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  content: "";
+  z-index: 10;
+}
+.pop_wrap .pop_inner {
+  display: inline-block;
+  padding: 20px 30px;
+  background: #fff;
+  width: 300px;
+  vertical-align: middle;
+  font-size: 15px;
+  z-index: 10;
+}
+
+        </style>
+        
+        <div class="wrap">
+          <div id="pop_info_1" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <p class="dsc">문의 내용을 입력해주세요.</p>
+              <input type="text" id="qna">
+              <a href="#pop_info_2" class="btn_open"><button type="button" class="btn_close">제출</button></a>
+            </div>
+          </div>
+        
+          <div id="pop_info_2" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <p class="dsc">문의사항이 전달되었습니다.</p>
+              <button type="button" class="btn_close">닫기</button>
+            </div>
+          </div>
+        </div>
+        <a href="{% url 'main:help' %}">이용방법</a>
+        <a href="#pop_info_1" class="btn_open">문의</a>
+        <a href="{% url 'main:signup' %}">회원가입</a>
+        <a href="{% url 'main:login' %}">로그인</a>
+      <div>
+    </header>
     {%block content%}
   
 
     {%endblock%}
-  </main>
   <footer></footer>
+  </main>
+  <script>
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === name + "=") {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    
+    //csrf 토큰 생성
+    const csrftoken = getCookie("csrftoken");
+    
+    let target = document.querySelectorAll(".btn_open");
+    let btnPopClose = document.querySelectorAll(".pop_wrap .btn_close");
+    let qnaBtn = document.getElementById("qna");
+    let qnamsg = "";
+    const requestQuiz = new XMLHttpRequest();
+    
+    // 팝업 열기
+    target[0].addEventListener("click", function () {
+      targetID = this.getAttribute("href");
+      document.querySelector(targetID).style.display = "block";
+    });
+    target[1].addEventListener("click", function () {
+      targetID = this.getAttribute("href");
+      document.querySelector(targetID).style.display = "block";
+    });
+    
+    // 팝업 닫기
+    btnPopClose[0].addEventListener("click", function () {
+      const qnamsg = document.getElementById("qna").value;
+      const url = "/qna/";
+      requestQuiz.open("POST", url, true);
+      requestQuiz.setRequestHeader("Content-Type", "application/json");
+      requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+      requestQuiz.send(JSON.stringify({ qna: qnamsg }));
+      document.getElementById("qna").value = "";
+    
+      this.parentNode.parentNode.parentNode.style.display = "none";
+    });
+    
+    btnPopClose[1].addEventListener("click", function () {
+      this.parentNode.parentNode.style.display = "none";
+    });
+    
+  </script>
   <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
-    <script defer src="{%static '/js/script.js'%}"></script>
-    <script defer src="{%static '/js/chattings.js'%}"></script>
+    
+   
+    
+    <script defer src="{%static '/js/animate.js'%}"></script>
     <script
       src="https://kit.fontawesome.com/26acdb4290.js"
       crossorigin="anonymous"
     ></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script
-      src="https://cdn.socket.io/4.0.1/socket.io.min.js"
-      crossorigin="anonymous"
-    ></script>
+  
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r133/three.min.js"></script>
+    
+  
   {%block script%}
     
     
