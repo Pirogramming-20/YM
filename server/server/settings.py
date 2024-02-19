@@ -136,14 +136,14 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # if DEBUG==True:
 #     STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 # else:
 #     STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
 
 # STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
-STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # runserver시 사용 #배포시 사용
+#STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # runserver시 사용 #배포시 사용
 
 
 # Default primary key field type
@@ -157,7 +157,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-e.kr","https://hello.chattest.p-e.kr","http://hello.chattest.p-e.kr", 
-                        "https://yozmt.com"]
+                        "https://yozmt.com", "https://hello.piro-ym.o-r.kr/", "http://hello.piro-ym.o-r.kr/"]
 
 # import mimetypes
 # mimetypes.add_type("text/css", ".css", True)
