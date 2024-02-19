@@ -278,12 +278,3 @@ canvas {
   margin-left: 3rem;
   animation: moveArrow 1s ease-in-out infinite;
 }
-
-.help-container {
-  display: flex;
-  align-items: center;
-}
-
-.help-box {
-  background-color: white;
-}

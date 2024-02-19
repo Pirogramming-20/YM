@@ -37,14 +37,7 @@
           .warp{
             z-index: 10;
           }
-.btn_open {
-  font-weight: bold;
-  margin: 5px;
-  padding: 4px 6px;
-  background: #000;
-  color: #fff;
-  z-index: 10;
-}
+
 .pop_wrap {
   position: fixed;
   top: 0;
@@ -73,7 +66,7 @@
 }
 
         </style>
-        <a href="#pop_info_1" class="btn_open">문의하기</a>
+        
         <div class="wrap">
           <div id="pop_info_1" class="pop_wrap" style="display:none;">
             <div class="pop_inner">
@@ -91,6 +84,7 @@
           </div>
         </div>
         <a href="#help">Help</a>
+        <a href="#pop_info_1" class="btn_open main-btn btn-text">문의하기</a>
         <a href="{% url 'main:login' %}" class = "main-btn btn-text">로그인</a>
       <div>
     </header>
