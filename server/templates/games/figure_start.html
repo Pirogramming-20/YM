@@ -1,25 +1,27 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
 <div class="game">
   <div class="quiz-title-container">
-  <h2>인물 맞추기 게임</h2>
-  <div class="quiz">
-    <div class="quiz-container">
-      <div class="image-cover">
-        <span class="countdown text2">사진</span>
+    <h2>인물 맞추기 게임</h2>
+    <div class="quiz">
+      <div class="quiz-container">
+        <div class="image-cover">
+          <span class="countdown text2">사진</span>
+        </div>
+        <div class="figure-photo-container">
+          <img src="{{quiz_figure.image_path}}" alt="이미지" class="photo" />
+        </div>
       </div>
-      <div class="figure-photo-container">
-        <img src="{{quiz_figure.image_path}}" alt="이미지" class="photo" />
+      <div class="answer-container">
+        <div class="figure-name text1"></div>
       </div>
-    </div>
-    <div class="answer-container">
-      <div class="figure-name text1"></div>
-    </div>
-    <div class="game-btn-container">
-      <div class="game-btn btn-text main-btn-div quiz-order">1/{{ count }}</div>
-      <button class="game-btn main-btn btn-text start-btn">
-        시작
-        <i class="fa-solid fa-play"></i>
-      </button>
+      <div class="game-btn-container">
+        <div class="game-btn btn-text main-btn-div quiz-order">
+          1/{{ count }}
+        </div>
+        <button class="game-btn main-btn btn-text start-btn">
+          시작
+          <i class="fa-solid fa-play"></i>
+        </button>
         <!-- 이전문제 -->
         <div class="before-btn"></div>
         <!-- 게임순서 -->
@@ -30,21 +32,21 @@
           다음 문제
           <i class="fa-solid fa-chevron-right"></i>
         </div>
+      </div>
     </div>
-  </div>
   </div>
   <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
     {% if roomId == 0 %}
-      다른 게임 <i class="fa-solid fa-chevron-right"></i>
+        다른 게임 <i class="fa-solid fa-chevron-right"></i>
     {% else %}
-      다음 게임 <i class="fa-solid fa-chevron-right"></i>
+        다음 게임 <i class="fa-solid fa-chevron-right"></i>
     {% endif %}
   </a>
   {% if user.is_authenticated and not roomId == 0 %}
-  <div class="chat-container">{%include "chat-base.html"%}
-  </div>
-  
-  {% comment %} <div class="chat-container">
+  <div class="chat-container">{%include "chat-base.html"%}</div>
+
+  {% comment %}
+  <div class="chat-container">
     <div id="chatRoom" class="show">
       <div class="info_room_num text1">채점 결과</div>
       <ul id="messages"></ul>
@@ -66,8 +68,8 @@
         </span>
       </div>
     </div>
-  </div>  {% endcomment %}
-  {% endif %}
+  </div>
+  {% endcomment %} {% endif %}
 </div>
 
 {% endblock %} {% block script %}
@@ -172,7 +174,7 @@
       quizOrder.innerText = intext + "/{{count}}";
     }};
 
-    beforeBtn.addEventListener("click", function () {
+    beforeBtn.addEventListener ('click', function () {
       if (cnt > 1){
       if (cnt === parseInt("{{ count }}")) {
         nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
@@ -193,7 +195,14 @@
       const name_element = document.querySelector(".figure-name");
       name_element.innerHTML = "";
       //시작버튼 재활성화
-      startBtn.addEventListener('click', startCountdown, {once:true})
+      startBtn.addEventListener('click', startCountdown, {once:true});
+      nextBtn.addEventListener('click', nextFunction, {once:true});
+      nextBtn.addEventListener('click', reset_animation, {once:true});
+      nextBtn.style.backgroundColor = "var(--quinary-color)";
+      nextBtn.style.boxShadow = "0px 5px 0px 0px #7d9885";
+      answerBtn.addEventListener('click', answerFunction, {once:true});
+      answerBtn.style.backgroundColor = "var(--quinary-color)";
+      answerBtn.style.boxShadow = "0px 5px 0px 0px #7d9885";
       //퀴즈 순서
       intext=1+cnt
       quizOrder.innerText = intext+"/{{count}}";
@@ -208,11 +217,11 @@
           photo_element.src = image_path;
           currentQuizId = id;
           cnt++;
-          let text = '-------------------' + cnt +'번문제' +'-------------------';
-          socket.emit("message", text, "", room_name);
+          let text = cnt +'번문제';
           if (cnt === parseInt("{{ count }}")) {
             nextBtn.innerText = "마지막 문제";
           }
+          socket.emit("message", text, "", room_name);
         }
       }
     };
