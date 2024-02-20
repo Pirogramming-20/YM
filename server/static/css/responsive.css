@@ -246,7 +246,7 @@
     width: 8rem;
   }
   .answer-container .text1 {
-    font-size: 4rem;
+    font-size: 3rem;
   }
   .music-container .btn-text {
     font-size: 3rem;
@@ -550,6 +550,9 @@
   .answer-container .text2 {
     font-size: 2rem;
   }
+  .photo-container{
+    height: 300px;
+  }
 }
 @media (max-height: 820px) {
   .player-container {
@@ -565,6 +568,9 @@
   .mobile-chatroom-container .chat .user,
   .mobile-chatroom-container .chat .message {
     font-size: 1.2rem;
+  }
+  .photo-container{
+    height: 200px;
   }
 }
 @media (max-width: 320px) {

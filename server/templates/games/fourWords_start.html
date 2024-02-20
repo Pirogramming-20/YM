@@ -1,27 +1,27 @@
 {% extends 'base.html' %} {% block content %}{% load static %}
 <div class="game">
   <div class="quiz-title-container">
-  <h2>네글자 게임</h2>
-  <div class="quiz">
-    <div class="quiz-container">
-      <div class="image-cover">
-        <span class="countdown text2">문제</span>
+    <h2>네글자 게임</h2>
+    <div class="quiz">
+      <div class="quiz-container">
+        <div class="image-cover">
+          <span class="countdown text2">문제</span>
+        </div>
+        <div class="four-container">
+          <span class="two-container">{{quiz_four.two}}</span>
+          <span class="two-box"></span>
+          {% comment %} <span class="two-box"></span> {% endcomment %}
+        </div>
       </div>
-      <div class="four-container">
-        <span class="two-container">{{quiz_four.two}}</span>
-        <span class="two-box"></span>
-        {% comment %} <span class="two-box"></span> {% endcomment %}
+      <div class="answer-container">
+        <div class="answer text1"></div>
       </div>
-    </div>
-    <div class="answer-container">
-      <div class="answer text1"></div>
-    </div>
-    <div class="game-btn-container">
-      <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
-      <button class="game-btn main-btn btn-text start-btn">
-        시작
-        <i class="fa-solid fa-play"></i>
-      </button>
+      <div class="game-btn-container">
+        <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
+        <button class="game-btn main-btn btn-text start-btn">
+          시작
+          <i class="fa-solid fa-play"></i>
+        </button>
         <!-- 이전문제 -->
         <div class="before-btn"></div>
         <!-- 게임순서 -->
@@ -32,14 +32,14 @@
           다음 문제
           <i class="fa-solid fa-chevron-right"></i>
         </div>
+      </div>
     </div>
-  </div>
   </div>
   <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
     {% if roomId == 0 %}
-      다른 게임 <i class="fa-solid fa-chevron-right"></i>
+        다른 게임 <i class="fa-solid fa-chevron-right"></i>
     {% else %}
-      다음 게임 <i class="fa-solid fa-chevron-right"></i>
+        다음 게임 <i class="fa-solid fa-chevron-right"></i>
     {% endif %}
   </a>
   {% if user.is_authenticated and not roomId == 0 %}
@@ -189,6 +189,13 @@
     answer_element.innerHTML = "";
     //시작버튼 재활성화
     startBtn.addEventListener('click', startCountdown, {once:true})
+    nextBtn.addEventListener('click', nextFunction, {once:true});
+    nextBtn.addEventListener('click', reset_animation, {once:true});
+    nextBtn.style.backgroundColor = "var(--quinary-color)";
+    nextBtn.style.boxShadow = "0px 5px 0px 0px #7d9885";
+    answerBtn.addEventListener('click', answerFunction, {once:true});
+    answerBtn.style.backgroundColor = "var(--quinary-color)";
+    answerBtn.style.boxShadow = "0px 5px 0px 0px #7d9885";
     //퀴즈 순서
     intext=1+cnt
     quizOrder.innerText = intext+"/{{count}}";
@@ -203,11 +210,12 @@
         twoElement.innerHTML = two;
         currentFourId = id;
         cnt++;
-        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        let text = cnt +'번문제';
         socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerHTML = "마지막 문제";
         }
+        socket.emit("message", text, "", room_name);
       }
     }
   };

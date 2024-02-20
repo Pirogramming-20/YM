@@ -69,6 +69,9 @@ socket.on("message", function (data) {
   if (data[1] === username) {
     listDiv.className += " my_chat"; // Note the space before the class name
   }
+  if (data[1] === "") {
+    chatItem.className = "num_chat"; // Note the space before the class name
+  }
   listDiv.appendChild(chatItem);
 
   // Append the list item to the messages list
