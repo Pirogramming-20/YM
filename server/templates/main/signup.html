@@ -61,7 +61,6 @@
   const p2=document.querySelector("#id_password2");
 
   function checkPassword(){
-    console.log(p1.value);
 
     if(p1.value!=p2.value){
       alert("패스워드가 일치하지 않습니다!");
@@ -69,7 +68,6 @@
       p2.value='';
     }
     else if(p0.value=='' || p1.value=='' || p2.value==''){
-      console.log("pass");
     }
 
     else{ //조건 만족할 때만 POST 요청
