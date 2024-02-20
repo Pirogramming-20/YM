@@ -53,6 +53,13 @@
   >
     다른 게임 <i class="fa-solid fa-chevron-right"></i>
   </a>
+  <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
+    {% if roomId == 0 %}
+        다른 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% else %}
+        다음 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% endif %}
+  </a>
   {% if user.is_authenticated and not roomId == 0 %}
   <div class="chat-container">{%include "chat-base.html"%}</div>
   {% endif %}
