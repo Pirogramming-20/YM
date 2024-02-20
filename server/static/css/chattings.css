@@ -70,7 +70,7 @@
 
 .message {
   display: inline-block;
-  background-color: #ece0fa;
+  background-color: gray;
   padding: 0.8rem;
   white-space: nowrap; /* prevent text wrapping */
   border-radius: 0.8rem;
@@ -112,16 +112,26 @@
 .chat {
   display: flex;
   flex-direction: column;
-  /* align-items: flex-end; */
+  align-items: flex-start;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
 }
-.my_chat .chat {
+.my_chat {
   align-items: flex-end;
 }
 .my_chat {
   display: flex;
   justify-content: flex-end;
+}
+.num_chat {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+}
+.num_chat .message {
+  background-color: #ffde7a;
 }
 .other_chat {
   display: flex;

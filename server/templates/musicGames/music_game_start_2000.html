@@ -3,23 +3,23 @@
   <div class="quiz-title-container">
     <h2>전주 듣고 노래 맞추기 게임</h2>
     <div class="quiz">
-    <div class="music-container">
-      <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
-        0.5초 듣기
-      </button>
-      <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
-        1초 듣기
-      </button>
-    </div>
-    <div class="answer-container">
-      <div class="player-container">
-        <div id="player"></div>
+      <div class="music-container">
+        <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
+          0.5초 듣기
+        </button>
+        <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
+          1초 듣기
+        </button>
       </div>
-      <div class="title text1"></div>
-      <div class="singer text2"></div>
-    </div>
-    <div class="game-btn-container">
-      <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
+      <div class="answer-container">
+        <div class="player-container">
+          <div id="player"></div>
+        </div>
+        <div class="title text1"></div>
+        <div class="singer text2"></div>
+      </div>
+      <div class="game-btn-container">
+        <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
         <!-- 이전문제 -->
         <div class="before-btn"></div>
         <div class="game-btn answer-btn main-btn btn-text bef_clicked">
@@ -29,14 +29,15 @@
           다음 문제
           <i class="fa-solid fa-chevron-right"></i>
         </div>
+      </div>
     </div>
   </div>
-  </div>
-  <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
-    {% if roomId == 0 %}
-      다른 게임 <i class="fa-solid fa-chevron-right"></i>
-    {% else %}
-      다음 게임 <i class="fa-solid fa-chevron-right"></i>
+  <a
+    class="game-btn game-over main-btn btn-text"
+    href="/chatting-room/next_game/{{roomId}}"
+  >
+    {% if roomId == 0 %} 다른 게임 <i class="fa-solid fa-chevron-right"></i> {%
+    else %} 다음 게임 <i class="fa-solid fa-chevron-right"></i>
     {% endif %}
   </a>
   {% if user.is_authenticated and not roomId == 0 %}
@@ -273,7 +274,8 @@
 
         currentQuizId = id;
         cnt++;
-        let text = '-------------------' + cnt +'번문제' +'-------------------';
+        let text =  cnt +'번문제';
+        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerText = "마지막 문제";
         }
