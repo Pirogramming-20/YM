@@ -246,7 +246,7 @@
     width: 8rem;
   }
   .answer-container .text1 {
-    font-size: 4rem;
+    font-size: 3rem;
   }
   .music-container .btn-text {
     font-size: 3rem;
@@ -536,9 +536,29 @@
     height: 15rem;
   }
 }
-@media (max-height: 982px) {
+@media (max-height: 1032px) {
   .player-container {
-    height: 10rem;
+    width: 50%;
+    height: 30rem;
+    /* width: fit-content;
+    height: fit-content; */
+
+  }
+  .answer-container{
+    gap: 0.5rem;
+  }
+  .answer-container .text2 {
+    font-size: 2rem;
+  }
+  .photo-container{
+    height: 300px;
+  }
+}
+@media (max-height: 820px) {
+  .player-container {
+    width: 30%;
+    height: 20rem;
+    
   }
 }
 @media (max-height: 700px) {
@@ -548,6 +568,9 @@
   .mobile-chatroom-container .chat .user,
   .mobile-chatroom-container .chat .message {
     font-size: 1.2rem;
+  }
+  .photo-container{
+    height: 200px;
   }
 }
 @media (max-width: 320px) {
