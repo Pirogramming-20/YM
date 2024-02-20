@@ -541,13 +541,15 @@ section.app_section {
         height: 100%;
         background-color: $white;
         z-index: -1;
-        clip-path: polygon(0 14%,
-            89% 14%,
-            89% 48%,
-            100% 53%,
-            89% 58%,
-            89% 100%,
-            0 100%);
+        clip-path: polygon(
+          0 14%,
+          89% 14%,
+          89% 48%,
+          100% 53%,
+          89% 58%,
+          89% 100%,
+          0 100%
+        );
       }
 
       &:after {
@@ -577,8 +579,6 @@ section.app_section {
 
 // end client section
 
-
-
 // info section
 .info_section {
   background-color: #171717;
@@ -590,9 +590,7 @@ section.app_section {
     font-size: 22px;
   }
 
-
   .info_contact {
-
     .info_logo {
       a {
         position: relative;
@@ -616,8 +614,6 @@ section.app_section {
           z-index: 2;
         }
       }
-
-
     }
 
     .img-box {
@@ -630,7 +626,7 @@ section.app_section {
       margin: 0;
     }
 
-    >div {
+    > div {
       display: flex;
       align-items: center;
       margin: 20px 0;
@@ -643,7 +639,6 @@ section.app_section {
   }
 
   .info_links {
-
     ul {
       padding: 0;
 
@@ -658,7 +653,6 @@ section.app_section {
       }
     }
   }
-
 
   .info_form {
     form {
@@ -683,13 +677,9 @@ section.app_section {
       }
     }
   }
-
 }
 
 // end info section
-
-
-
 
 /* footer section*/
 .footer_section {

@@ -10,7 +10,9 @@ from ..movieGames.models import *
 from ..fourWords.models import *
 from ..lookInside.models import *
 from ..mudoGames.models import *
-
+from .models import *
+from django.http import JsonResponse
+import json
 # Create your views here.
 
 def main(request):
@@ -144,5 +146,11 @@ def answer(request,pk):
     }    
     return render(request, 'main/answer_list.html', ctx)
         
+def help(request):
+    return render(request, 'main/help.html')
+def qna(request):
+    req = json.loads(request.body)
+    qnatext = req['qna']
 
-    
+    Qna.objects.get_or_create(text = qnatext)
+    return JsonResponse({'qna' : qnatext})

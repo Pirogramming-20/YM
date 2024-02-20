@@ -42,8 +42,6 @@ def body_game_start_animal(request, roomId, count):
 
     word = BodyGame_animal.objects.all()
     body_game = []
-    print(quiz_id_int_list)
-    print(word)
     for quiz_id in quiz_id_int_list:
         body_game.append(word[quiz_id-1].id)
     

@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>원하는 모드를 선택해주세요</h2>
+<h2 class="text1 h2">원하는 모드를 선택해주세요 <i class="fa-regular fa-hand-point-down"></i></i></h2>
   <div class="game-choose-container">
     <div class="individual">
       <div class="sub-title text3">개인</div>
       <div class="btn">
-        <a class="room-create main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
-    <a class="room-create main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
-    <a class="room-create main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
-    <a class="room-create main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
-    <a class="room-create main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방(개인)</a>
-    <a class="room-create main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">무한도전(개인)</a>
+        <a class="room-create main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화 명장면 게임</a>
+        <a class="room-create main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">전주 듣고 노래 맞추기</a>
+        <a class="room-create main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물 퀴즈</a>
       </div>
-      
+      <div class="btn">
+        <a class="room-create main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자 게임</a>
+        <a class="room-create main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방 게임</a>
+        <a class="room-create main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">없는 게 없는 무도 게임</a>
+      </div>
     </div>
     <div class="team">
       <div class="sub-title text3">팀</div>
@@ -24,11 +25,10 @@
       {% for room in rooms %}
           <div class="room_container">
             <a class="room-name text3" href="{% url 'rooms:detail' room.pk %}">
-            <i class="fa-solid fa-house"></i>
-            {{room.room_name}}
+              {{room.room_name}}
             </a>
-            <a class="room-answer" href="{% url 'main:answer' room.pk %}">정답 확인</a>
-            <a class="room-answer" style = "color:gray" href="{% url 'rooms:delete' room.pk %}"><i class="fa-solid fa-xmark"></i></a>
+            <a class="room-delete" href="{% url 'rooms:delete' room.pk %}"><i class="fa-regular fa-trash-can"></i></a>
+            <a class="room-answer text3" href="{% url 'main:answer' room.pk %}">정답 확인</a>
           </div>
         {% endfor %}
       </div>
@@ -43,7 +43,6 @@
 {% block script %}
 <script>
   function make_room(){
-    console.log("hi")
     const number={{rooms.count}};
     
     if (number==5){

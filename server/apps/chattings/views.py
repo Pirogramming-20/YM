@@ -6,7 +6,6 @@ import os
 # Create your views here.
 
 def main(request):
-  print(request.user.id)
   
   rooms = GameRoom.objects.filter(user_id=request.user.id).order_by('id')
   
@@ -37,43 +36,34 @@ def create(request):
       room.order_num = ','.join(map(str,order_num_list))
       for game in order_game_list:
           if game == "Figure": #1~30 사이 20개
-            print('figure')
             ran_quiz_list = random.sample(range(1,61),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))###
-            print(ran_quiz_str)
             room.ran_figure = ran_quiz_str
           elif game == "Four":
-            print('four')
             ran_quiz_list = random.sample(range(1,51),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_four = ran_quiz_str
           elif game == "Look":
-            print('look')
             ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_look = ran_quiz_str
           elif game == "Movie":
-            print('movie')
             ran_quiz_list = random.sample(range(1,51),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_movie = ran_quiz_str
           elif game == "Mudo":
-            print('mudo')
             ran_quiz_list = random.sample(range(1,41),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_mudo = ran_quiz_str
           elif game == "Music":
-            print('music')
             ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_music = ran_quiz_str
           elif game == "Body":
-            print('body')
             ran_quiz_list = random.sample(range(1,31),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_body = ran_quiz_str
           elif game == "Chat":
-            print('chat')
             ran_quiz_list = random.sample(range(1,16),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_chat = ran_quiz_str
@@ -125,7 +115,6 @@ def next_game(request, roomId):
     return redirect(f"/chatting-room/finish/{roomId}", ctx)
 
 def finish(request, roomId):
-  print(roomId)
   room = GameRoom.objects.get(id=roomId)
   ctx = {
     'roomId':roomId
@@ -149,7 +138,7 @@ def recreate(request, roomId):
 
 def delete(request, roomId):
   GameRoom.objects.get(id=roomId).delete()
-  image_path = os.path.join("C:/Users/user/Desktop/YM/server/static/image/qrcode", 'qr{}.png'.format(roomId))
+  image_path = os.path.join("/home/ubuntu/YM/server/staticfiles/image/",'qr{}.png'.format(roomId))
   if os.path.isfile(image_path):
         os.remove(image_path)
   return redirect('/chatting-room')
@@ -174,6 +163,7 @@ def detail(request,pk):
   #qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
   qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
   # qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #우진
+
   ctx = {
     "room" : room,
   }

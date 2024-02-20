@@ -24,7 +24,6 @@ SECRET_KEY = 'django-insecure-g3r!cjkx7op%fkc43*oh96x^!*=u@eap^omoa7vgfj9kp05=)1
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -86,6 +85,18 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'HOST': '54.180.115.196',
+#         'PORT': '5432',
+#         'NAME': 'database-11',
+#         'USER': 'postgres',
+#         'PASSWORD': 'dhrlxor12*',
+#     }
+# }
+ 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -131,7 +142,7 @@ USE_TZ = True
 SILENCED_SYSTEM_CHECKS = ['urls.W002', 'security.W019'] # URL WARNING 무시
 
 STATIC_URL = '/static/'
-#STATIC_ROOT=os.path.join(BASE_DIR, 'static')
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
@@ -156,7 +167,8 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-e.kr","https://hello.chattest.p-e.kr","http://hello.chattest.p-e.kr"]
+CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-e.kr","https://hello.chattest.p-e.kr","http://hello.chattest.p-e.kr", 
+                        "https://yozmt.com"]
 
 # import mimetypes
 # mimetypes.add_type("text/css", ".css", True)
