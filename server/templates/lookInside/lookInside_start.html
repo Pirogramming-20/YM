@@ -195,6 +195,14 @@
 
     intext=1+cnt
     quizOrder.innerText = intext+"/{{count}}";
+
+    nextBtn.addEventListener('click', nextFunction, {once:true});
+    nextBtn.addEventListener('click', reset_animation, {once:true});
+    nextBtn.style.backgroundColor = "var(--quinary-color)";
+    nextBtn.style.boxShadow = "0px 5px 0px 0px #7d9885";
+    answerBtn.addEventListener('click', answerFunction, {once:true});
+    answerBtn.style.backgroundColor = "var(--quinary-color)";
+    answerBtn.style.boxShadow = "0px 5px 0px 0px #7d9885";
   }});
 
 
