@@ -70,7 +70,7 @@
 
 .message {
   display: inline-block;
-  background-color: #ece0fa;
+  background-color: gray;
   padding: 0.8rem;
   white-space: nowrap; /* prevent text wrapping */
   border-radius: 0.8rem;
@@ -112,7 +112,7 @@
 .chat {
   display: flex;
   flex-direction: column;
-  /* align-items: flex-end; */
+  align-items: flex-start;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
 }
@@ -135,7 +135,7 @@
 .other_chat .message {
   background-color: gray;
   border-radius: 10px 0 10px 10px;
-  color: black;
+  color: white;
 }
 
 .other-message {
