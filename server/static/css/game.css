@@ -142,12 +142,14 @@ input[type="checkbox"].order-check{
     box-shadow: 1rem 1rem 0.4rem 0rem rgba(0, 0, 0, 0.20);
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
+    justify-content: center;
     animation: slideInFromLeft 1s ease-out forwards;
     /* animation: slideInFromRight 1s ease-in-out forwards; */
     will-change: transform;
     height: 90%;
     position: relative;
+    gap: 2rem;
   }
   /* .next-btn-container{
     position: relative;
@@ -240,7 +242,7 @@ input[type="checkbox"].order-check{
     /* margin: 0 6rem; */
 }
 .title,.line{
-    font-size: 4rem;
+    font-size: 3rem;
 }
 @keyframes slideInFromLeft {
     0% {
