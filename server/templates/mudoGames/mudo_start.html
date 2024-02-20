@@ -192,7 +192,6 @@
         currentQuizId = id;
         cnt++;
         let text = cnt + '번문제';
-        socket.emit("message", text, "", room_name);
         if (cnt === parseInt("{{ count }}")) {
           nextBtn.innerText = "마지막 문제";
         }
