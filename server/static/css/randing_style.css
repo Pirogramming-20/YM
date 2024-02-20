@@ -500,6 +500,8 @@ section.app_section .detail-box .download_box .btn-box {
   display: -ms-flexbox;
   display: flex;
   gap: 6rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 section.app_section .detail-box .download_box .btn-box a {
