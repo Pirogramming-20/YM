@@ -1,35 +1,39 @@
-{% extends 'base.html' %} {% block content %}{% load static %}
- {% comment %} <style>
+{% extends 'base.html' %} {% block content %}{% load static %} {% comment %}
+<style>
   .image-cover {
     height: 75%;
   }
-</style>  {% endcomment %}
+</style>
+{% endcomment %}
 <div class="game">
   <div class="quiz-title-container">
-  <h2>철가방 게임</h2>  
-  <div class="quiz">
-    <div class="music-container">
-      <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
-        0.02초 보기
-      </button>
-      <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
-        0.05초 보기
-      </button>
-    </div>
-    <div class="quiz-container">
-      
-      <div class="image-cover">
-        <span class="countdown text2">사진</span>
+    <h2>철가방 게임</h2>
+    <div class="quiz">
+      <div class="music-container">
+        <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
+          0.02초 보기
+        </button>
+        <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
+          0.05초 보기
+        </button>
       </div>
-      <div class="photo-container">
-        <img src="{{quiz_lookInside.image_path}}" alt="이미지" class="photo" />
+      <div class="quiz-container">
+        <div class="image-cover">
+          <span class="countdown text2">사진</span>
+        </div>
+        <div class="photo-container">
+          <img
+            src="{{quiz_lookInside.image_path}}"
+            alt="이미지"
+            class="photo"
+          />
+        </div>
       </div>
-    </div>
-    <div class="answer-container">
-      <div class="lookInside-name text1"></div>
-    </div>
-    <div class="game-btn-container">
-      <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
+      <div class="answer-container">
+        <div class="lookInside-name text1"></div>
+      </div>
+      <div class="game-btn-container">
+        <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
         <!-- 이전문제 -->
         <div class="before-btn"></div>
         <!-- 게임순서 -->
@@ -40,8 +44,8 @@
           다음 문제
           <i class="fa-solid fa-chevron-right"></i>
         </div>
+      </div>
     </div>
-  </div>
   </div>
   <a
     class="game-btn game-over main-btn btn-text"
@@ -106,7 +110,6 @@
         answerBtn.style.boxShadow= "0px 5px 0px 0px #7d9885";
       } else {
         count--;
-        console.log(count);
         imageCover.style.display = "none";
       }
     }, 20);
@@ -121,7 +124,6 @@
         imageCover.style.display = "flex";
       } else {
         count--;
-        console.log(count);
         imageCover.style.display = "none";
       }
     }, 50);

@@ -110,8 +110,6 @@
   socket.on("message", function (data) {
     
     const username = document.getElementById("info_username").innerText;
-    console.log("msg");
-    console.log(data);
     // Create the main chat item container
     let chatItem = document.createElement("div");
     chatItem.className = "chat";
@@ -137,14 +135,15 @@
 
     // Append the list item to the messages list
     document.getElementById("messages").appendChild(listDiv);
+
+    // Scroll to the latest message
+    scrollToLatestMessage();
   });
 
   // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
   function click1() {
     const username = document.getElementById("info_username").innerText;
-    console.log("clk");
     let text = document.getElementById("input").value;
-    console.log("clk2");
     socket.emit("join", room_name,0);
     socket.emit("message", text, username, room_name);
     
@@ -163,6 +162,10 @@
         e.target.value = "";
       }
     });
+    function scrollToLatestMessage() {
+      var messages = document.getElementById("messages");
+      messages.scrollTop = messages.scrollHeight;
+    }
 </script>
 
   

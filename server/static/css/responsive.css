@@ -536,9 +536,26 @@
     height: 15rem;
   }
 }
-@media (max-height: 982px) {
+@media (max-height: 1032px) {
   .player-container {
-    height: 10rem;
+    width: 50%;
+    height: 30rem;
+    /* width: fit-content;
+    height: fit-content; */
+
+  }
+  .answer-container{
+    gap: 0.5rem;
+  }
+  .answer-container .text2 {
+    font-size: 2rem;
+  }
+}
+@media (max-height: 820px) {
+  .player-container {
+    width: 30%;
+    height: 20rem;
+    
   }
 }
 @media (max-height: 700px) {
