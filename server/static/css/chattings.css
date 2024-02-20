@@ -116,12 +116,22 @@
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
 }
-.my_chat .chat {
+.my_chat {
   align-items: flex-end;
 }
 .my_chat {
   display: flex;
   justify-content: flex-end;
+}
+.num_chat {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+}
+.num_chat .message {
+  background-color: #ffde7a;
 }
 .other_chat {
   display: flex;
