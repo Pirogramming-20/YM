@@ -37,18 +37,17 @@ function reset_animation() {
   quizContainer.style.animation = null;
 }
 
-console.log(room_num);
-console.log(room_name);
-console.log(username);
-
 let socket = io.connect(
   location.protocol + "//" + document.domain + ":" + location.port
 );
-socket.emit("join", room_name, 1);
+let checkDetail = document.getElementsByClassName("detail");
+if (checkDetail.length > 0) {
+  socket.emit("join", room_name, 0);
+} else {
+  socket.emit("join", room_name, 1);
+}
 // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
 socket.on("message", function (data) {
-  console.log("Message received: ", data);
-
   // Create the main chat item container
   let chatItem = document.createElement("div");
   chatItem.className = "chat";
@@ -70,6 +69,9 @@ socket.on("message", function (data) {
   if (data[1] === username) {
     listDiv.className += " my_chat"; // Note the space before the class name
   }
+  if (data[1] === "") {
+    chatItem.className = "num_chat"; // Note the space before the class name
+  }
   listDiv.appendChild(chatItem);
 
   // Append the list item to the messages list
@@ -78,12 +80,12 @@ socket.on("message", function (data) {
   // Scroll to the latest message
   scrollToLatestMessage();
 });
-
+socket.on("count", function (data) {
+  document.getElementById("people_count").innerText = data;
+});
 // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
 function click1() {
-  console.log("clk");
   let text = document.getElementById("input").value;
-  console.log("clk2");
   socket.emit("message", text, username, room_name);
   document.getElementById("input").value = "";
 }

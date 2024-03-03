@@ -53,9 +53,7 @@ def movie_game_start(request,roomId, count):
         room = GameRoom.objects.get(id=roomId)
         quiz_id_list = room.ran_movie
         # quiz_id_list = quiz_id_list[1:-1]
-        print("quiz_id_list",quiz_id_list)
         quiz_id_str_list = quiz_id_list.split(",")
-        print("quiz_id_str_list_split",quiz_id_str_list)
         quiz_id_str_list = quiz_id_str_list[:count]
         quiz_id_int_list = [int(quiz_id_str) for quiz_id_str in quiz_id_str_list]
 
@@ -119,7 +117,6 @@ def before_quiz(request):
 def answer(request):
     req = json.loads(request.body)
     quiz_id = (req['id'])
-    print("answr11")
     quiz = MovieGame.objects.get(id=quiz_id)
     title = quiz.title
     line = quiz.line
