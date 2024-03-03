@@ -64,6 +64,7 @@
       {% url 'main:answer' %}
     </div> {% endcomment %}
     <div class="header-container">
+      <a href={% url 'main:help' %} class="logout-btn "> 이용방법 </a>
       <a href="#pop_info_1" class="logout-btn btn_open ">문의</a>
         <div class="wrap">
           <div id="pop_info_1" class="pop_wrap" style="display:none;">
@@ -86,7 +87,6 @@
     </div>   
     {% else %}
     <div class="header-container">
-
         <a href="#pop_info_1" class="btn_open logout-btn">문의</a>
         <div class="wrap">
           <div id="pop_info_1" class="pop_wrap" style="display:none;">
