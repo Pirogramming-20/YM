@@ -151,14 +151,15 @@ def delete(request, roomId):
 
 import qrcode
 def detail(request,pk):
+  randInt = random.randrange(1,1000)
   room = get_object_or_404(GameRoom, pk=pk)
   # # 배포코드
-  qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
+  # qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
+  # qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
 
   # 로컬코드
-  # qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
-  # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
+  qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(randInt)+'/'+str(pk))
+  qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
   # qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
   #qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
   # qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
@@ -171,7 +172,7 @@ def detail(request,pk):
   return render(request, "chattings/detail.html", ctx)
 
 
-def detailMobile(request,pk):
+def detailMobile(request,mobile,pk):
   room = get_object_or_404(GameRoom, pk=pk)
   user = request.user.username
   ctx = {
