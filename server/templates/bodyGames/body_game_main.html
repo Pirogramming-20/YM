@@ -1,61 +1,62 @@
-{% extends 'base.html' %} {% block content %}
+{% if roomId != 0 and room.user_id != user.id %} {% extends '404.html' %} {%
+else %} {% extends 'base.html' %} {% block content %}
 <div class="explain-container">
-    <div class="text1">몸으로 말해요 게임</div>
-    <div class="text2">팀원이 몸짓으로 설명하는 제시어를 맞춰주세요!</div>
-    <div class="game-explain text3">
-        <p>게임 설명</p>
-        <p>돌아가면서 팀원 중 한명이 나와 제시어를 몸동작으로 설명합니다</p>
-        <p>나머지 팀원들이 추정되는 제시어를 외치세요</p>
+  <div class="text1">몸으로 말해요 게임</div>
+  <div class="text2">팀원이 몸짓으로 설명하는 제시어를 맞춰주세요!</div>
+  <div class="game-explain text3">
+    <p>게임 설명</p>
+    <p>돌아가면서 팀원 중 한명이 나와 제시어를 몸동작으로 설명합니다</p>
+    <p>나머지 팀원들이 추정되는 제시어를 외치세요</p>
+  </div>
+  <form method="POST" action="{% url 'bodyGames:body_game_main' roomId %}">
+    {% csrf_token %}
+    <div class="problem">
+      <div class="rule text3">문제 개수를 선택해주세요!</div>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="5" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">5 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="10" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">10 문제</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="count" value="15" />
+        <span class="checkmark"></span>
+        <span class="label-text text3">15 문제</span>
+      </label>
     </div>
-    <form method="POST" action="{% url 'bodyGames:body_game_main' roomId %}">
-        {% csrf_token %}
-        <div class="problem">
-            <div class="rule text3">문제 개수를 선택해주세요!</div>
-            <label class="custom-radio">
-                <input type="radio" name="count" value="5" required />
-                <span class="checkmark"></span>
-                <span class="label-text text3">5 문제</span>
-            </label>
-            <label class="custom-radio">
-                <input type="radio" name="count" value="10" />
-                <span class="checkmark"></span>
-                <span class="label-text text3">10 문제</span>
-            </label>
-            <label class="custom-radio">
-                <input type="radio" name="count" value="15" />
-                <span class="checkmark"></span>
-                <span class="label-text text3">15 문제</span>
-            </label>
-        </div>
-        <div class="type">
-            <div class="rule text3">주제를 선택해주세요!</div>
-            <label class="custom-radio">
-                <input type="radio" name="type" value="animal" required />
-                <span class="checkmark"></span>
-                <span class="label-text text3">동물</span>
-            </label>
-            <label class="custom-radio">
-                <input type="radio" name="type" value="food" required />
-                <span class="checkmark"></span>
-                <span class="label-text text3">음식</span>
-            </label>
-            <label class="custom-radio">
-                <input type="radio" name="type" value="thing" required />
-                <span class="checkmark"></span>
-                <span class="label-text text3">사물</span>
-            </label>
-            <label class="custom-radio">
-                <input type="radio" name="type" value="job" required />
-                <span class="checkmark"></span>
-                <span class="label-text text3">직업</span>
-            </label>
-            <label class="custom-radio">
-                <input type="radio" name="type" value="proverb" required />
-                <span class="checkmark"></span>
-                <span class="label-text text3">속담</span>
-            </label>
-        </div>
-        <button type="submit" class="main-btn btn-text">게임 시작</button>
-    </form>
+    <div class="type">
+      <div class="rule text3">주제를 선택해주세요!</div>
+      <label class="custom-radio">
+        <input type="radio" name="type" value="animal" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">동물</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="type" value="food" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">음식</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="type" value="thing" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">사물</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="type" value="job" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">직업</span>
+      </label>
+      <label class="custom-radio">
+        <input type="radio" name="type" value="proverb" required />
+        <span class="checkmark"></span>
+        <span class="label-text text3">속담</span>
+      </label>
+    </div>
+    <button type="submit" class="main-btn btn-text">게임 시작</button>
+  </form>
 </div>
-{% endblock %}
+{% endblock %} {% endif %}

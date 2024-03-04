@@ -15,7 +15,6 @@ import site
 
 
 
-
 rooms = {}
 site.addsitedir(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
@@ -26,7 +25,7 @@ from apps.chattings.models import GameRoom
 
 # socketio.AsyncServer 인스턴스를 생성하고, 비동기식으로 작동하도록 설정
 sio = socketio.AsyncServer(async_mode='asgi')
-
+# sio = socketio.AsyncServer(client_manager=socketio.RedisManager('redis://'))
 asgi_app = get_asgi_application()
 application = get_asgi_application()
 application = socketio.ASGIApp(sio, application)
@@ -34,8 +33,8 @@ application = socketio.ASGIApp(sio, application)
 # 이벤트 핸들러(연결)
 @sio.event
 async def connect(sid, environ):
-    print('connect111111', sid)
-    
+    await sio.emit("connect", "connect")  
+
 
 @sio.event
 async def join(sid, room_name,check):
@@ -43,12 +42,14 @@ async def join(sid, room_name,check):
     if room_name in rooms:
         rooms[room_name] += 1  
     else:
-        rooms[room_name] = 1 
+        rooms[room_name] = 1
     if check == 1:
         await sio.emit('message', ["1번문제",""], room=room_name)
     await sio.emit("count", rooms[room_name], room=room_name)  
     
-    
+@sio.event
+async def join_again(sid, room_name):
+    await sio.enter_room(sid, room_name)
 
 @sio.event
 async def leave(sid, room_name):
@@ -63,7 +64,8 @@ async def leave(sid, room_name):
     
 @sio.event
 async def message(sid, data,user,room_name):
-    await sio.emit('message', [data,user], room=room_name)
+    # join_again(sid,room_name)
+    await sio.emit('message', [data,user,sid], room=room_name)
 
 # 이벤트 핸들러(메세지 전송)
 # @sio.event
