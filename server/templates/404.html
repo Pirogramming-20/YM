@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{%static 'css/nomalize.css'%}">
+  </head>
+  <style>
+    .container{
+      text-align: center;
+    }
+
+    .img-404{
+      height: 80vh;
+    }
+
+    .btn-container{
+      display: flex;
+      justify-content: center;
+    }
+
+    .main-btn{
+      color: white;
+      background-color: black;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <img src="/static/image/error/404.png" alt="" class="img-404">
+      <a href="{% url 'main:main'%}" class="btn-container">
+        <h1 class="main-btn">메인 페이지로 이동하기</h1>
+      </a>
+    </div>
+  </body>
+</html>

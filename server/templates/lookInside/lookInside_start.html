@@ -1,0 +1,260 @@
+{% extends 'base.html' %} {% block content %}{% load static %} {% comment %}
+<style>
+  .image-cover {
+    height: 75%;
+  }
+</style>
+{% endcomment %}
+<div class="game">
+  <div class="quiz-title-container">
+    <h2>철가방 게임</h2>
+    <div class="quiz">
+      <div class="music-container">
+        <button class="btn-05 main-btn btn-text" data-music="{{ quiz.music }}">
+          0.02초 보기
+        </button>
+        <button class="btn-10 main-btn btn-text" data-music="{{ quiz.music }}">
+          0.05초 보기
+        </button>
+      </div>
+      <div class="quiz-container">
+        <div class="image-cover">
+          <span class="countdown text2">사진</span>
+        </div>
+        <div class="photo-container">
+          <img
+            src="{{quiz_lookInside.image_path}}"
+            alt="이미지"
+            class="photo"
+          />
+        </div>
+      </div>
+      <div class="answer-container">
+        <div class="lookInside-name text1"></div>
+      </div>
+      <div class="game-btn-container">
+        <div class="game-btn btn-text main-btn-div quiz-order">1/{{count}}</div>
+        <!-- 이전문제 -->
+        <div class="before-btn"></div>
+        <!-- 게임순서 -->
+        <div class="game-btn answer-btn main-btn btn-text bef_clicked">
+          <i class="fa-solid fa-circle-check"></i> 정답
+        </div>
+        <div class="game-btn next-btn main-btn btn-text bef_clicked">
+          다음 문제
+          <i class="fa-solid fa-chevron-right"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a
+    class="game-btn game-over main-btn btn-text"
+    href="/chatting-room/next_game/{{roomId}}"
+  >
+    다른 게임 <i class="fa-solid fa-chevron-right"></i>
+  </a>
+  <a class="game-btn game-over main-btn btn-text" href="/chatting-room/next_game/{{roomId}}">
+    {% if roomId == 0 %}
+        다른 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% else %}
+        다음 게임 <i class="fa-solid fa-chevron-right"></i>
+    {% endif %}
+  </a>
+  {% if user.is_authenticated and not roomId == 0 %}
+  <div class="chat-container">{%include "chat-base.html"%}</div>
+  {% endif %}
+</div>
+
+{% endblock %} {% block script %}
+
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  const csrftoken = getCookie("csrftoken");
+
+  //버튼 정리
+  const nextBtn = document.querySelector(".next-btn");
+  const answerBtn = document.querySelector(".answer-btn");
+  //const startBtn = document.querySelector(".start-btn");
+  //startBtn.addEventListener('click', startCountdown, {once:true})//한 번만 작동하도록
+  const imgPath = document.querySelector(".btn-05");
+  const imageCover = document.querySelector(".image-cover");
+  const countdownElement = document.querySelector(".countdown");
+  let countdownInterval;
+  let cnt = 1;
+
+  //0.02초 보기
+  document.querySelector(".btn-05").addEventListener("click", function () {
+    let count = 1;
+    countdownInterval = setInterval(() => {
+      if (count <= 0) {
+        clearInterval(countdownInterval);
+        imageCover.style.display = "flex";
+        //다음문제 정답버튼 활성화
+        nextBtn.addEventListener('click', nextFunction, {once:true});
+        nextBtn.addEventListener('click', reset_animation, {once:true});
+        nextBtn.style.backgroundColor="var(--quinary-color)";
+        nextBtn.style.boxShadow= "0px 5px 0px 0px #7d9885";
+        if (cnt === parseInt("{{ count }}")) {
+          nextBtn.style.backgroundColor="gray";
+          nextBtn.style.boxShadow= "none";
+        }
+        answerBtn.addEventListener('click', answerFunction, {once:true});
+        answerBtn.style.backgroundColor="var(--quinary-color)";
+        answerBtn.style.boxShadow= "0px 5px 0px 0px #7d9885";
+      } else {
+        count--;
+        imageCover.style.display = "none";
+      }
+    }, 20);
+  });
+
+  //0.05초 보기
+  document.querySelector(".btn-10").addEventListener("click", function () {
+    let count = 1;
+    countdownInterval = setInterval(() => {
+      if (count <= 0) {
+        clearInterval(countdownInterval);
+        imageCover.style.display = "flex";
+      } else {
+        count--;
+        imageCover.style.display = "none";
+      }
+    }, 50);
+  });
+
+
+  const requestQuiz = new XMLHttpRequest();
+  let gameList = {{lookInside_game}};
+  let currentQuizId = {{quiz_lookInside.id}};
+
+  const beforeBtn = document.querySelector(".before-btn");
+  const quizOrder = document.querySelector('.quiz-order');
+
+  function reset_animation() {
+    clearInterval(countdownInterval);
+    const quizContainer = document.querySelector(".quiz");
+    quizContainer.style.animation = "none";
+    quizContainer.offsetHeight; /* trigger reflow */
+    quizContainer.style.animation = null;
+  }
+
+  function nextFunction() {
+    if (cnt < parseInt("{{ count }}")){
+    imageCover.style.display = "flex";
+    countdownElement.textContent = "사진";
+    const url = "/lookInside/next/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList}));
+    //이전문제 버튼 만들기
+    if(cnt == 1){
+      beforeBtn.innerHTML = "<div class='game-btn before-btn-play main-btn btn-text' onclick='reset_animation()'><i class='fa-solid fa-chevron-left'></i>이전문제</div>"
+    }
+    const name_element = document.querySelector(".lookInside-name");
+    name_element.innerHTML = "";
+    //시작버튼 재활성화, 정답 버튼 비활성화
+    //startBtn.addEventListener('click', startCountdown, {once:true});
+    nextBtn.style.backgroundColor="gray";
+    nextBtn.style.boxShadow= "none";
+    answerBtn.style.backgroundColor="gray";
+    answerBtn.style.boxShadow= "none";
+    answerBtn.removeEventListener('click', answerFunction);
+
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
+  }};
+
+  beforeBtn.addEventListener("click", function () {
+    if (cnt > 1){
+    if (cnt === parseInt("{{ count }}")) {
+      nextBtn.innerHTML = "다음문제<i class='fa-solid fa-chevron-right'></i>";
+    }
+    else if (cnt === 2) {
+      beforeBtn.innerHTML = "";
+    }
+    cnt--;
+    cnt--;
+    imageCover.style.display = "flex";
+    countdownElement.textContent = "사진";
+    const url = "/lookInside/before/";
+    requestQuiz.open("POST", url, true);
+    requestQuiz.setRequestHeader("Content-Type", "application/json");
+    requestQuiz.setRequestHeader("X-CSRFToken", csrftoken);
+    requestQuiz.send(JSON.stringify({ id: currentQuizId, game_list: gameList}));
+
+    const name_element = document.querySelector(".lookInside-name");
+    name_element.innerHTML = "";
+
+    intext=1+cnt
+    quizOrder.innerText = intext+"/{{count}}";
+
+    nextBtn.addEventListener('click', nextFunction, {once:true});
+    nextBtn.addEventListener('click', reset_animation, {once:true});
+    nextBtn.style.backgroundColor = "var(--quinary-color)";
+    nextBtn.style.boxShadow = "0px 5px 0px 0px #7d9885";
+    answerBtn.addEventListener('click', answerFunction, {once:true});
+    answerBtn.style.backgroundColor = "var(--quinary-color)";
+    answerBtn.style.boxShadow = "0px 5px 0px 0px #7d9885";
+  }});
+
+
+  requestQuiz.onreadystatechange = () => {
+    if (requestQuiz.readyState === XMLHttpRequest.DONE) {
+      if (requestQuiz.status < 400) {
+        const { id, image_path, game_list } = JSON.parse(requestQuiz.response);
+        gameList = game_list;
+        const photo_element = document.querySelector(".photo");
+        photo_element.src = image_path;
+
+        currentQuizId = id;
+        cnt++;
+        let text =cnt +'번문제';
+        if (cnt === parseInt("{{ count }}")) {
+          console.log('마지막');
+          nextBtn.innerText = "마지막 문제";
+        }
+        socket.emit("message", text, "", room_name);
+      }
+    }
+  };
+
+  // 정답 보기 js
+
+  const requestAnswer = new XMLHttpRequest();
+
+  function answerFunction() {
+    const url = "/lookInside/answer/";
+    requestAnswer.open("POST", url, true);
+    requestAnswer.setRequestHeader("Content-Type", "application/json");
+    requestAnswer.setRequestHeader("X-CSRFToken", csrftoken);
+    requestAnswer.send(JSON.stringify({ id: currentQuizId }));
+  };
+
+  requestAnswer.onreadystatechange = () => {
+    if (requestAnswer.readyState === XMLHttpRequest.DONE) {
+      if (requestAnswer.status < 400) {
+        const { id, name } = JSON.parse(requestAnswer.response);
+        const name_element = document.querySelector(".lookInside-name");
+        name_element.innerHTML = name;
+        imageCover.style.display = "none";
+      }
+    }
+  };
+</script>
+
+{% endblock %}

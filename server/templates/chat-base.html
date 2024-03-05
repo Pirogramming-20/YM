@@ -1,0 +1,41 @@
+<!-- 채팅 입력 칸 생성 -->
+{% load static %} {% if not roomId == 0 %}
+<div class="chatroom-container">
+  <input type="checkbox" id="chatToggle" class="toggle" />
+  <label for="chatToggle">채팅창 없애기</label>
+  <div id="chatRoom" class="show">
+    <span>참가자수 : <span id="people_count"></span></span>
+    <div class="info_room_num text1">{{ room.room_name }}</div>
+    <!-- 입력된 채팅들이 기록될 공간 -->
+    <ul id="messages"></ul>
+    <!-- 채팅 입력 칸 생성 -->
+    <div class="message-input">
+      <input id="input" autocomplete="off" />
+      <span onclick="click1()">
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.25 41.6667V8.33337L45.8333 25L6.25 41.6667ZM10.4167 35.4167L35.1042 25L10.4167 14.5834V21.875L22.9167 25L10.4167 28.125V35.4167Z"
+            fill="black"
+          />
+        </svg>
+      </span>
+    </div>
+  </div>
+</div>
+{% endif %}
+<script>
+  const room_num = "{{ room.id }}";
+  const room_name = "{{ room.room_name }}";
+  const username = "{{ user.username }}";
+</script>
+<script defer src="{%static '/js/chattings.js'%}"></script>
+<script
+  src="https://cdn.socket.io/4.0.1/socket.io.min.js"
+  crossorigin="anonymous"
+></script>

@@ -4,17 +4,77 @@
 {% endblock %}
 
 {%block content%}
-<div class="content-wrapper">
-  <div class="wrapper-header">
-    <h2>Post Register</h2>
-    <p>회원가입 페이지입니다!</p>
-  </div>
+<canvas class="dice3D"></canvas>
+
+
+<div class="form-container">
+  <div class="sub-title text1">회원가입</div>
   <form
-    action="{% url 'main:signup' %}"
-    method="post"
-    enctype="multipart/form-data"
+  action="{% url 'main:signup' %}"
+  method="post"
+  enctype="multipart/form-data"
   >
-    {%csrf_token%} {{form.as_p}}
-    <button class="btn btn-success">등록하기</button>
+      {% csrf_token %}
+      {% if form.errors %}
+      <div class="errorlist" style="font-size:20px;">
+          {% for field, errors in form.errors.items %}
+              {{ errors.0 }}<br>
+          {% endfor %}
+      </div>
+      {% endif %}
+      {% for field in form %}
+          <div class="form-row">
+              {{ field.label_tag }}
+              {{ field }}
+          </div>
+      {% endfor %}
+      <a href={% url 'main:login' %} class="navigate text2">
+          <span >이미 회원이신가요?  </span>
+          <span >로그인하기</span>
+      </a>
+      <button class="main-btn btn-text" onclick="checkPassword()">등록하기</button>
+  </form>
 </div>
+{%endblock%}
+{% block script %}
+<script>
+  // 토큰 주입
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      var cookies = document.cookie.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  const csrftoken = getCookie("csrftoken");
+  const p0=document.querySelector("#id_username");
+  const p1=document.querySelector("#id_password1");
+  const p2=document.querySelector("#id_password2");
+
+  function checkPassword(){
+
+    if(p1.value!=p2.value){
+      alert("패스워드가 일치하지 않습니다!");
+      p1.value='';
+      p2.value='';
+    }
+    else if(p0.value=='' || p1.value=='' || p2.value==''){
+    }
+
+    else{ //조건 만족할 때만 POST 요청
+      const url = '/signup';
+
+      location.assign(url)
+    }
+  };
+</script>
 {%endblock%}

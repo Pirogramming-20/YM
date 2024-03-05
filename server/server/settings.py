@@ -39,8 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.main',
+    'apps.movieGames',
+    'apps.musicGames',
     'apps.chattings',
-    'apps.games',
+    'apps.figure',
+    'apps.fourWords',
+    'apps.lookInside',
+    'apps.chatGames',
+    'apps.mudoGames',
+    'apps.bodyGames',
 ]
 
 AUTH_USER_MODEL='main.User' # 유저모델 위치
@@ -79,10 +86,33 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'HOST': '54.180.115.196',
+#         'PORT': '5432',
+#         'NAME': 'database-11',
+#         'USER': 'postgres',
+#         'PASSWORD': 'dhrlxor12*',
+#     }
+# }
+ 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'project',
+#         'USER': 'root',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -109,7 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -121,16 +151,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-import os
+SILENCED_SYSTEM_CHECKS = ['urls.W002', 'security.W019'] # URL WARNING 무시
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    BASE_DIR / 'static',
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+# if DEBUG==True:
+#     STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 # else:
 #     STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
+# STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # runserver시 사용 #배포시 사용
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -140,4 +177,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+CSRF_TRUSTED_ORIGINS = ["http://hello.piro-ym.p-e.kr", "https://hello.piro-ym.p-e.kr","https://hello.chattest.p-e.kr","http://hello.chattest.p-e.kr", 
+                        "https://yozmt.com"]
+# import mimetypes
+# mimetypes.add_type("text/css", ".css", True)
+
+SILENCED_SYSTEM_CHECKS = ['urls.W002', 'security.W019']

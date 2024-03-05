@@ -1,9 +1,495 @@
-{% extends 'base.html' %}
+{% extends 'main/randing_base.html' %}
 {% load static %}
 {%block head%}
-  <title>요즘MT</title>
+<link rel="stylesheet" type="text/css"
+href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+<!-- bootstrap core css -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+<!-- fonts style -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
+<!-- Custom styles for this template -->
+<link href="{% static 'css/randing_style.css' %}" rel="stylesheet" />
+<!-- responsive style -->
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {%block content%}
-    
+<section class=" slider_section position-relative">
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="container">
+          <div class="box">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="detail-box">
+                  <div>
+                    <div class= "title-container">
+                      <div class="Topic">쉽고 빠른 </br>레크레이션 준비 </div>
+                      <div class="Topic_button">
+                        <a href="{% url 'main:help' %}" class="btn-text">레크레이션을 준비하시나요?<i class="fa-solid fa-arrow-left-long"></i></a>
+                        <a href="#single-game" class="btn-text">아뇨, 저는 개인 사용자입니다<i class="fa-solid fa-arrow-left-long"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="img-box img-box11" id="img-box11">
+                  <img class="randing-img1" id="main-logo" src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                </div>
+              </div>
+              <div class="log-in-sign-up-btn">
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="container">
+          <div class="box">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="detail-box">
+                  <div>
+                    <div class= "title-container">
+                      <div class="Topic1">로그인후 팀전용 게임들에서</br>즐길 수 있는 채팅방 기능</div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="img-box img-box11">
+                  <img class="randing-img1" src="{% static 'image/main/testPhone.png' %}" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="container">
+          <div class="box">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="detail-box">
+                  <div>
+                    <div class= "title-container">
+                      <div class="Topic1">혼자서 혹은 친구와 즐기는</br>타임킬링용 게임들</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="img-box img-box11">
+                  <img class="randing-img1" src="{% static 'image/main/testYoutube2.png' %}" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="container">
+          <div class="box">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="detail-box">
+                  <div>
+                    <div class= "title-container">
+                      <div class="Topic1">레크레이션에서 빛을 발하는</br>다양한 팀전용 게임들</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="img-box img-box11">
+                  <img class="randing-img1" src="{% static 'image/main/multi-game2.png' %}" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %} <div class="carousel-item">
+        <div class="container">
+          <div class="box">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="detail-box">
+                  <div>
+                    <div class= "title-container">
+                      <div class="sub-title text2">사진 보고 </br>이름 맞추기</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="img-box img-box11">
+                  <img class="randing-img1" src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                </div>
+              </div>
+              <div class="landing-game-btn">
+                <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화(개인)</a>
+              <a class="main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">노래(개인)</a>
+              <a class="main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물(개인)</a>
+              <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자(개인)</a>
+              </div>
+                
+            </div>
+          </div>
+        </div>
+      </div> {% endcomment %}
+    </div>
+  </div>
+</section>
+<section class="client_section layout_padding-bottom" id="help">
+  <div class="container">
+    <div class="heading_container">
+      <h2>
+        목적이 어떻게 되시나요?
+      </h2>
+    </div>
+    <div class="box">
+      <div class="b-1">
+        <div class="client_id">
+          <div class="img-box">
+            <img src="{% static 'image/main/group.jpg' %}" alt="">
+          </div>
+          <div class="name">
+            <h5>
+              단체 유저
+            </h5>
+            <h6>
+              채팅기능 포함
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="client_detail">
+        <p>
+          사이트에서 제공하는 여러 게임들 중 원하는 게임만을 선택해 방을 생성하고 함께할 인원들을 초대하세요!
+        </p>
+      </div>
+    </div>
+    <div class="box">
+      <div class="client_id">
+        <div class="img-box">
+          <img src="{% static 'image/main/solo.jpg' %}" alt="">
+        </div>
+        <div class="name">
+          <h5>
+            개인 유저
+          </h5>
+          <h6>
+            채팅기능 미포함
+          </h6>
+        </div>
+      </div>
+      <div class="client_detail">
+        <p>
+          회원가입 없이 제공되는 게임을 진행할 수 있습니다!
+        </p>
+      </div>
+    </div>
+    <div class="btn-box">
+      <a href="#help-room">
+        계속보기
+      </a>
+    </div>
+  </div>
+</section>
+<section class="how_section layout_padding" id="help-room">
+  <div class="heading_container">
+    <h2>
+      레크레이션을 준비하시나요?
+    </h2>
+  </div>
+  <div class="how_container">
+    <a href="{% url 'main:login' %}" class="box-link">
+    <div class="box">
+      <div class="img-box">
+        <svg fill="#000000" width="510px" height="510px" viewBox="0 0 22.00 22.00" xmlns="http://www.w3.org/2000/svg" id="memory-login" transform="matrix(1, 0, 0, 1, 0, 0)" stroke="#000000" stroke-width="0.00022"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.44000000000000006"></g><g id="SVGRepo_iconCarrier"><path d="M5 1H17V2H18V20H17V21H5V20H4V14H6V19H16V3H6V8H4V2H5V1M8 6H10V7H11V8H12V9H13V10H14V12H13V13H12V14H11V15H10V16H8V14H9V13H10V12H2V10H10V9H9V8H8V6Z"></path></g></svg>
+      </div>
+      <div class="detail-box">
+        <h5>
+          로그인
+        </h5>
+        <p>
+          아이디와 비밀번호면 충분합니다
+        </p>
+      </div>
+    </div>
+    </a>
+    <a href="{% url 'main:login' %}" class="box-link">
+    <div class="box">
+      <div class="img-box">
+        <svg fill="#000000" width="256px" height="256px" viewBox="-0.26 0 33.549 33.549" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g transform="translate(-607.873 -577.167)"> <path d="M638.546,610.716a1,1,0,0,1-.942-1.334c1.785-5.044,1.745-8.637-.12-10.679-3.26-3.568-11.186-1.6-11.266-1.574l-1.247.318V586l.016-.087a3.188,3.188,0,0,0-.274-2.085.7.7,0,0,0-.609-.226.774.774,0,0,0-.657.247,3.155,3.155,0,0,0-.346,2.033l.011.144v15.115l-1.155-.18c-1.766-.279-2.336.02-2.408.158-.459.9,2.05,4.66,5.264,7.888a1,1,0,0,1-1.418,1.412c-1.681-1.689-7.053-7.412-5.627-10.208.645-1.265,2.182-1.425,3.344-1.359V586.094a4.926,4.926,0,0,1,.822-3.55,2.768,2.768,0,0,1,2.17-.939,2.678,2.678,0,0,1,2.144.944,4.94,4.94,0,0,1,.723,3.624v8.757c2.643-.466,8.781-1.085,11.987,2.42,2.406,2.629,2.585,6.9.532,12.7A1,1,0,0,1,638.546,610.716Z"></path> <path d="M612.733,586.792a2.2,2.2,0,0,1-1.562-.646l-3.005-3.005a1,1,0,0,1,1.414-1.414l3.006,3.005a.211.211,0,0,0,.3,0l6.522-6.521a1,1,0,0,1,1.414,1.414l-6.523,6.522A2.2,2.2,0,0,1,612.733,586.792Z"></path> <path d="M639.392,587.543a1,1,0,0,1-.707-.293l-8.376-8.376a1,1,0,0,1,1.414-1.414l8.376,8.376a1,1,0,0,1-.707,1.707Z"></path> <path d="M631.016,587.543a1,1,0,0,1-.707-1.707l8.376-8.376a1,1,0,0,1,1.414,1.414l-8.376,8.376A1,1,0,0,1,631.016,587.543Z"></path> </g> </g></svg>
+      </div>
+      <div class="detail-box">
+        <h5>
+          게임방 생성
+        </h5>
+        <p>
+          원하는 게임을 골라 자신만의 PPT를 생성하세요
+        </p>
+      </div>
+    </div>
+    </a>
+    <a href="{% url 'main:login' %}" class="box-link">
+    <div class="box">
+      <div class="img-box">
+        <svg width="256px" height="256px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M19.6495 0.799565C18.4834 -0.72981 16.0093 0.081426 16.0093 1.99313V3.91272C12.2371 3.86807 9.65665 5.16473 7.9378 6.97554C6.10034 8.9113 5.34458 11.3314 5.02788 12.9862C4.86954 13.8135 5.41223 14.4138 5.98257 14.6211C6.52743 14.8191 7.25549 14.7343 7.74136 14.1789C9.12036 12.6027 11.7995 10.4028 16.0093 10.5464V13.0069C16.0093 14.9186 18.4834 15.7298 19.6495 14.2004L23.3933 9.29034C24.2022 8.2294 24.2022 6.7706 23.3933 5.70966L19.6495 0.799565ZM7.48201 11.6095C9.28721 10.0341 11.8785 8.55568 16.0093 8.55568H17.0207C17.5792 8.55568 18.0319 9.00103 18.0319 9.55037L18.0317 13.0069L21.7754 8.09678C22.0451 7.74313 22.0451 7.25687 21.7754 6.90322L18.0317 1.99313V4.90738C18.0317 5.4567 17.579 5.90201 17.0205 5.90201H16.0093C11.4593 5.90201 9.41596 8.33314 9.41596 8.33314C8.47524 9.32418 7.86984 10.502 7.48201 11.6095Z" fill="#0F0F0F"></path> <path d="M7 1.00391H4C2.34315 1.00391 1 2.34705 1 4.00391V20.0039C1 21.6608 2.34315 23.0039 4 23.0039H20C21.6569 23.0039 23 21.6608 23 20.0039V17.0039C23 16.4516 22.5523 16.0039 22 16.0039C21.4477 16.0039 21 16.4516 21 17.0039V20.0039C21 20.5562 20.5523 21.0039 20 21.0039H4C3.44772 21.0039 3 20.5562 3 20.0039V4.00391C3 3.45162 3.44772 3.00391 4 3.00391H7C7.55228 3.00391 8 2.55619 8 2.00391C8 1.45162 7.55228 1.00391 7 1.00391Z" fill="#0F0F0F"></path> </g></svg>
+      </div>
+      <div class="detail-box">
+        <h5>
+          친구 초대
+        </h5>
+        <p>
+          주어진 QR코드를 이용해 팀원들을 채팅방에 초대하세요
+        </p>
+      </div>
+    </div>
+    </a>
+    <a href="#single-game" class="box-link">
+    <div class="box">
+      <div class="img-box">
+        <svg width="256px" height="256px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.75 6V3.75H11.25V6L9 6C6.10051 6 3.75 8.3505 3.75 11.25V17.909C3.75 19.2019 4.7981 20.25 6.09099 20.25C6.71186 20.25 7.3073 20.0034 7.74632 19.5643L10.8107 16.5H13.1893L16.2537 19.5643C16.6927 20.0034 17.2881 20.25 17.909 20.25C19.2019 20.25 20.25 19.2019 20.25 17.909V11.25C20.25 8.3505 17.8995 6 15 6L12.75 6ZM18.75 11.25C18.75 9.17893 17.0711 7.5 15 7.5L9 7.5C6.92893 7.5 5.25 9.17893 5.25 11.25V17.909C5.25 18.3735 5.62652 18.75 6.09099 18.75C6.31403 18.75 6.52794 18.6614 6.68566 18.5037L10.1893 15H13.8107L17.3143 18.5037C17.4721 18.6614 17.686 18.75 17.909 18.75C18.3735 18.75 18.75 18.3735 18.75 17.909V11.25ZM6.75 12.75V11.25H8.25V9.75H9.75V11.25H11.25V12.75H9.75V14.25H8.25V12.75H6.75ZM15 10.875C15 11.4963 14.4963 12 13.875 12C13.2537 12 12.75 11.4963 12.75 10.875C12.75 10.2537 13.2537 9.75 13.875 9.75C14.4963 9.75 15 10.2537 15 10.875ZM16.125 14.25C16.7463 14.25 17.25 13.7463 17.25 13.125C17.25 12.5037 16.7463 12 16.125 12C15.5037 12 15 12.5037 15 13.125C15 13.7463 15.5037 14.25 16.125 14.25Z" fill="#080341"></path> </g></svg>
+      </div>
+      <div class="detail-box">
+        <h5>
+          게임 시작!!
+        </h5>
+        <p>
+          선택한 게임들과 채팅방을 이용해 레크레이션을 진행하면 됩니다!
+        </p>
+      </div>
+    </div>
+    </a>
+  </div>
+  <div class="btn-box">
+    <a href="#single-game">
+      계속보기
+    </a>
+  </div>
+</section>
+<!-- end how section -->
+
+
+<!-- auto section -->
+
+<section class="auto_section layout_padding" id="single-game">
+  <div class="container">
+    <div class="heading_container">
+      <h2>
+        혼자여도 괜찮습니다!<br>
+        지금 바로 플레이하세요
+      </h2>
+    </div>
+    <div class="box">
+      <div class="img-box">
+        <img src="images/auto-img.png" alt="">
+      </div>
+      <div class="detail-box">
+        <div class="d-box">
+          <a class="main-btn btn-text" href="{% url 'movieGames:movie_game_main' 0 %}">영화 명장면 게임</a>
+          <a class=" main-btn btn-text" href="{% url 'musicGames:music_game_main' 0 %}">전주 듣고 노래 맞추기</a>
+          <a class=" main-btn btn-text" href="{% url 'figure:figure_main' 0 %}">인물 퀴즈</a>
+        </div>
+        <div class="d-box">
+
+          <a class="main-btn btn-text" href="{% url 'fourWords:fourWords_main' 0  %}">네글자 게임</a>
+          <a class="main-btn btn-text" href="{% url 'lookInside:lookInside_main' 0  %}">철가방 게임</a>
+          <a class="main-btn btn-text" href="{% url 'mudoGames:mudo_main' 0  %}">없는 게 없는 무도 게임</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end auto section -->
+
+<!-- client section -->
+
+
+
+
+<!-- end client section -->
+
+<!-- info section -->
+<section class="info_section layout_padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="info_contact">
+          <div class="info_logo">
+            <a href="index.html">
+              <span>
+                요즘MT
+              </span>
+            </a>
+          </div>
+          <div>
+            <div class="img-box">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <p>
+              연락처
+            </p>
+          </div>
+          {% comment %} <div>
+            <div class="img-box">
+              <i class="fa-solid fa-phone"></i>         
+            </div>
+            <p>
+              010 1234 5678
+            </p>
+          </div> {% endcomment %}
+          <div>
+            <div class="img-box">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <p>
+              yyozmt@gmail.com
+            </p>
+          </div>
+          <div>
+            <div class="img-box">
+              <i class="fa-brands fa-instagram"></i>
+            </div>
+            <p>
+              @ym_yozumt
+            </p>
+          </div>
+        </div>
+      </div>
+      {% comment %} <div class="col-md-3">
+        <div class="info_info">
+          <h5>
+            팀원
+          </h5>
+          <p>
+            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
+            in some form, by injected humour,
+          </p>
+        </div>
+      </div>  {% endcomment %}
+      <div class="col-md-3">
+        <div class="info_info">
+          <div>
+            <p>
+              <i class="fa-regular fa-user"></i>
+              PM: 석우진
+            </p>
+          </div>
+          <div>
+            <div class="img-box">
+              <p>
+                <i class="fa-regular fa-user"></i>
+                FE: 킨웨이얀
+              </p>
+            </div>
+            
+          </div> 
+          <div>
+            <p>
+              <i class="fa-regular fa-user"></i>
+              BE: 오기택
+            </p>
+          </div>
+          <div>
+            <p>
+              <i class="fa-regular fa-user"></i>
+              BE: 정현정
+            </p>
+          </div>
+          <div>
+            <p>
+              <i class="fa-regular fa-user"></i>
+              BE: 최윤서
+            </p>
+          </div>
+        </div>
+      </div>
+
+       <div class="col-md-3">
+        <div class="info_links">
+          <h5 style="color: white; border-bottom: 1px solid white; padding-bottom: 5px;">
+            버그제보
+        </h5>
+        
+        
+        </div>
+      </div> 
+
+      <div class="col-md-3">
+        <div class="info_form ">
+          <h5 style="color: white;">
+            © 2024 요즘MT, Inc. All rights reserved.
+          </h5>
+        </div>
+      </div> 
+      
+    </div>
+  </div>
+</section>
+{%endblock%}
+{%block script%}
+<script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+</script>
+<script type="text/javascript">
+  $(".owl-carousel").owlCarousel({
+    loop: true,
+    margin: 0,
+    navText: [],
+    center: true,
+    autoplay: true,
+    autoplayHoverPause: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      1000: {
+        items: 3
+      }
+    }
+  });
+</script>
+{% comment %} <script type="module">
+  import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  document.body.appendChild( renderer.domElement );
+  const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+const cube = new THREE.Mesh( geometry, material );
+scene.add( cube );
+
+camera.position.z = 5;
+
+function animate() {
+	requestAnimationFrame( animate );
+	renderer.render( scene, camera );
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+}
+animate();
+
+  // Our Javascript will go here.
+</script> {% endcomment %}
 {%endblock%}
