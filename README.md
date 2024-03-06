@@ -40,13 +40,18 @@ www.yozmt.com<br>
 
 | 랜딩 페이지 | 이용방법 페이지 |
 | :---:         |     :---:      |
-| <img src="" width="450px;" height="450px" alt=""/>   | <img src="" width="450px;" height="450px" alt=""/>     |
-| <p>www.yozmt.com<br>부트르스랩을 사용해 개발하였으며, 사이트에 처음 입장하는 유저들이 해매지 않도록 설계한 페이지입니다.</p>     | <p>/help<br>요즘MT를 이용해 레크레이션을 진행하는 방법을 자세하게 설명해주는 페이지입니다.</p>     | 
+| <img src="" width="350px;" height="350px" alt=""/>   | <img src="" width="350px;" height="350px" alt=""/>     |
+| <p>www.yozmt.com<br>부트스트랩을 사용해 개발하였으며, 사이트에 처음 입장하는 유저들이 해매지 않도록 설계한 페이지입니다.</p>     | <p>/help<br>요즘MT를 이용해 레크레이션을 진행하는 방법을 자세하게 설명해주는 페이지입니다.</p>     | 
 
 | 회원가입 페이지 | 로그인 페이지 |
 | :---:         |     :---:      |
-| <img src="" width="450px;" height="450px" alt=""/>   | <img src="" width="450px;" height="450px" alt=""/>     |
+| <img src="" width="350px;" height="350px" alt=""/>   | <img src="" width="350px;" height="350px" alt=""/>     |
 | <p>/signup <br>회원가입을 진행할 수 있는 페이지로 유효성과 중복을 체크합니다. </p>     | <p>/login<br>가입한 아이디를 이용해 로그인할 수 있는 페이지입니다.</p>     | 
+
+| 단체계정 페이지 | 방 생성 페이지 |
+| :---:         |     :---:      |
+| <img src="" width="350px;" height="350px" alt=""/>   | <img src="" width="350px;" height="350px" alt=""/>     |
+| <p>/signup <br>회원가입을 진행할 수 있는 페이지로 유효성과 중복을 체크합니다. </p>     | <p>/login<br>가입한 아이디를 이용해 로그인할 수 있는 페이지입니다.</p>  | 
 
 
 <table>
@@ -58,8 +63,8 @@ www.yozmt.com<br>
   </tbody>
 </table>
 
-## 주요 기능
-⭐️
+## 주요 기능⭐️
+
 - 노래 전주 듣고 맞추기 게임
 - 사진보고 인물 맞추기 게임
 - 0.02초, 0.05초간 제시한 사진을 맞추는 철가방 게임
