@@ -1,5 +1,7 @@
 {% extends 'base.html' %}{% load static %}
-    {% block content %}
+{% block content %} 
+
+{% if roomId == 0 or room.user_id.username == user.username %} 
 
     <div class="detail">
     <div class="qr-image">
@@ -22,7 +24,10 @@
     </div>
     <div class="chat-container">{%include "chat-base.html"%}</div>
   </div>
-  
-    {% endblock %}
-  </body>
+
+{% else %}
+<a href="/">메인 페이지로 돌아가기</a>
+{% endif %}
+{% endblock %}
+</body>
 </html>

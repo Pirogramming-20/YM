@@ -11,5 +11,5 @@ urlpatterns = [
     path("answer/<int:pk>", answer, name="answer"),
     path("help", help, name="help"),
     path("qna/", qna, name="qna"),
-
+    path("bug/", bug, name="bug"),
 ]

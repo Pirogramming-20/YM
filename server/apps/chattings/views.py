@@ -151,6 +151,7 @@ def delete(request, roomId):
 
 import qrcode
 def detail(request,pk):
+  randInt = random.randrange(1,1000)
   room = get_object_or_404(GameRoom, pk=pk)
   # # 배포코드
   # qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
@@ -171,7 +172,7 @@ def detail(request,pk):
   return render(request, "chattings/detail.html", ctx)
 
 
-def detailMobile(request,pk):
+def detailMobile(request,mobile,pk):
   room = get_object_or_404(GameRoom, pk=pk)
   user = request.user.username
   ctx = {
