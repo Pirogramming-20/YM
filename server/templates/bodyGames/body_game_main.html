@@ -1,5 +1,9 @@
 {% if roomId != 0 and room.user_id != user.id %} {% extends '404.html' %} {%
-else %} {% extends 'base.html' %} {% block content %}
+else %} {% extends 'base.html' %} 
+{% block head %}
+<title>몸으로 말해요</title>
+{% endblock %}
+{% block content %}
 <div class="explain-container">
   <div class="text1">몸으로 말해요 게임</div>
   <div class="text2">팀원이 몸짓으로 설명하는 제시어를 맞춰주세요!</div>

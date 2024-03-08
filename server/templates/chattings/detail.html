@@ -1,4 +1,7 @@
 {% extends 'base.html' %}{% load static %}
+{% block head %}
+<title>채팅방 QR</title>
+{% endblock %}
 {% block content %} 
 
 {% if roomId == 0 or room.user_id.username == user.username %} 
