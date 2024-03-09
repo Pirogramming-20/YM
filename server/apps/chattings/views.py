@@ -77,7 +77,7 @@ def create(request):
 
 def next_game(request, roomId):
   if roomId == 0:
-    return redirect('main:main')
+    return redirect('/#single-game')
   room = GameRoom.objects.get(id=roomId)
   ctx = {
     'roomId':roomId
