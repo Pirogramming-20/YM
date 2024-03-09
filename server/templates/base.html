@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="{%static 'css/game-choose.css'%}">
   <link rel="stylesheet" href="{%static 'css/responsive.css'%}">
 
+
   
   {%block head%}
 
@@ -65,21 +66,22 @@
       {% url 'main:answer' %}
     </div> {% endcomment %}
     <div class="header-container">
+      <a href={% url 'main:help' %} class="logout-btn "> 이용방법 </a>
       <a href="#pop_info_1" class="logout-btn btn_open ">문의</a>
         <div class="wrap">
           <div id="pop_info_1" class="pop_wrap" style="display:none;">
             <div class="pop_inner">
               <p class="dsc">문의 내용을 입력해주세요.</p>
               <input type="text" id="qna">
-              <a href="#pop_info_2" class="btn_open"><button type="button" class="btn_close">제출</button></a>
-              <button type="button" class="btn_close">닫기</button>
+              <a href="#pop_info_2" class="btn_open"><button type="button" class="btn_close" onclick="submit()">제출</button></a>
+              <button type="button" class="btn_close" onclick="close()">닫기</button>
             </div>
           </div>
         
           <div id="pop_info_2" class="pop_wrap" style="display:none;">
             <div class="pop_inner">
               <p class="dsc">문의사항이 전달되었습니다.</p>
-              <button type="button" class="btn_close">닫기</button>
+              <button type="button" class="btn_close" onclick="close()">닫기</button>
             </div>
           </div>
         </div>
@@ -87,22 +89,21 @@
     </div>   
     {% else %}
     <div class="header-container">
-
         <a href="#pop_info_1" class="btn_open logout-btn">문의</a>
         <div class="wrap">
           <div id="pop_info_1" class="pop_wrap" style="display:none;">
             <div class="pop_inner">
               <p class="dsc">문의 내용을 입력해주세요.</p>
               <input type="text" id="qna">
-              <a href="#pop_info_2" class="btn_open"><button type="button" class="btn_close">제출</button></a>
-              <button type="button" class="btn_close">닫기</button>
+              <a href="#pop_info_2" class="btn_open"><button type="button" class="btn_close" onclick="submit()">제출</button></a>
+              <button type="button" class="btn_close" onclick="close()">닫기</button>
             </div>
           </div>
         
           <div id="pop_info_2" class="pop_wrap" style="display:none;">
             <div class="pop_inner">
               <p class="dsc">문의사항이 전달되었습니다.</p>
-              <button type="button" class="btn_close">닫기</button>
+              <button type="button" class="btn_close" onclick="close()">닫기</button>
             </div>
           </div>
         </div>
@@ -152,7 +153,7 @@
       }
       
       //csrf 토큰 생성
-      const csrftoken1 = getCookie("csrftoken1");
+      const csrftoken1 = getCookie("csrftoken");
       
       let target = document.querySelectorAll(".btn_open");
       let btnPopClose = document.querySelectorAll(".pop_wrap .btn_close");
@@ -179,7 +180,6 @@
         requestQuiz1.setRequestHeader("X-CSRFToken", csrftoken1);
         requestQuiz1.send(JSON.stringify({ qna: qnamsg }));
         document.getElementById("qna").value = "";
-      
         this.parentNode.parentNode.parentNode.style.display = "none";
       });
       
@@ -189,7 +189,7 @@
       btnPopClose[2].addEventListener("click", function () {
         this.parentNode.parentNode.style.display = "none";
       });
-      
+
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r133/three.min.js"></script>
   {%block script%}

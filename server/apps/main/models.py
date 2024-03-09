@@ -12,3 +12,6 @@ class User(AbstractUser):
 
 class Qna(models.Model):
     text = models.TextField()
+
+class Bug(models.Model):
+    text = models.TextField()

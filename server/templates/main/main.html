@@ -13,6 +13,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
 <link href="{% static 'css/randing_style.css' %}" rel="stylesheet" />
 <!-- responsive style -->
 <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+<meta name="description" content="요즘MT는 레크레이션 PPT 준비를 웹서비스를 통해 단축해주는 서비스입니다.
+게임방을 생성하여 최대 8종류의 레크레이션 전용 게임을 진행할 수 있으며, 여러 사람이 동시에 참여할 수 있는 실시간 채팅방을 제공하고 있습니다.
+개인 유저들도 로그인 없이 다양한 게임을 진행할 수 있습니다." />
+<title>요즘MT</title>
 {% endblock %}
 
 {%block content%}
@@ -44,7 +48,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
               </div>
               <div class="col-md-5">
                 <div class="img-box img-box11" id="img-box11">
-                  <img class="randing-img1" id="main-logo" src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                  <img class="randing-img1" id="main-logo" src="{% static 'image/main/favicon_logo.png' %}" alt="randing-img1" />
                 </div>
               </div>
               <div class="log-in-sign-up-btn">
@@ -71,7 +75,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
               </div>
               <div class="col-md-5">
                 <div class="img-box img-box11">
-                  <img class="randing-img1" src="{% static 'image/main/testPhone.png' %}" alt="" />
+                  <img class="randing-img1" src="{% static 'image/main/testPhone.png' %}" alt="randing-img1" />
                 </div>
               </div>
             </div>
@@ -93,7 +97,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
               </div>
               <div class="col-md-5">
                 <div class="img-box img-box11">
-                  <img class="randing-img1" src="{% static 'image/main/testYoutube2.png' %}" alt="" />
+                  <img class="randing-img1" src="{% static 'image/main/testYoutube2.png' %}" alt="randing-img1" />
                 </div>
               </div>
             </div>
@@ -115,7 +119,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
               </div>
               <div class="col-md-5">
                 <div class="img-box img-box11">
-                  <img class="randing-img1" src="{% static 'image/main/multi-game2.png' %}" alt="" />
+                  <img class="randing-img1" src="{% static 'image/main/multi-game2.png' %}" alt="randing-img1" />
                 </div>
               </div>
             </div>
@@ -137,7 +141,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
               </div>
               <div class="col-md-5">
                 <div class="img-box img-box11">
-                  <img class="randing-img1" src="{% static 'image/main/favicon_logo.png' %}" alt="" />
+                  <img class="randing-img1" src="{% static 'image/main/favicon_logo.png' %}" alt="randing-img1" />
                 </div>
               </div>
               <div class="landing-game-btn">
@@ -165,7 +169,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
       <div class="b-1">
         <div class="client_id">
           <div class="img-box">
-            <img src="{% static 'image/main/group.jpg' %}" alt="">
+            <img src="{% static 'image/main/group.jpg' %}" alt="randing-img1">
           </div>
           <div class="name">
             <h5>
@@ -186,7 +190,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
     <div class="box">
       <div class="client_id">
         <div class="img-box">
-          <img src="{% static 'image/main/solo.jpg' %}" alt="">
+          <img src="{% static 'image/main/solo.jpg' %}" alt="solo_user">
         </div>
         <div class="name">
           <h5>
@@ -299,7 +303,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
     </div>
     <div class="box">
       <div class="img-box">
-        <img src="images/auto-img.png" alt="">
+        <img src="images/auto-img.png" alt="promo">
       </div>
       <div class="detail-box">
         <div class="d-box">
@@ -425,9 +429,25 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
        <div class="col-md-3">
         <div class="info_links">
           <h5 style="color: white; border-bottom: 1px solid white; padding-bottom: 5px;">
-            버그제보
+            <a href="#pop_info_3" class="btn_open" >버그제보</a>
         </h5>
+        <div class="wrap">
+          <div id="pop_info_3" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <p class="dsc" style="color: black">버그 내용을 입력해주세요.</p>
+              <input type="text" id="bug">
+              <a href="#pop_info_4" class="btn_open"><button type="button" class="btn_close">제출</button></a>
+              <button type="button" class="btn_close">닫기</button>
+            </div>
+          </div>
         
+          <div id="pop_info_4" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <p class="dsc" style="color: black">버그사항이 전달되었습니다.</p>
+              <button type="button" class="btn_close">닫기</button>
+            </div>
+          </div>
+        </div>
         
         </div>
       </div> 
@@ -449,6 +469,39 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
 <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
 </script>
+<script>
+  const csrftoken2 = getCookie("csrftoken");
+  
+  // 팝업 열기
+  target[2].addEventListener("click", function () {
+    targetID = this.getAttribute("href");
+    document.querySelector(targetID).style.display = "block";
+  });
+  target[3].addEventListener("click", function () {
+    targetID = this.getAttribute("href");
+    document.querySelector(targetID).style.display = "block";
+  });
+  
+  // 팝업 닫기
+  btnPopClose[3].addEventListener("click", function () {
+    const bugmsg = document.getElementById("bug").value;
+    const url = "/bug/";
+    requestQuiz1.open("POST", url, true);
+    requestQuiz1.setRequestHeader("Content-Type", "application/json");
+    requestQuiz1.setRequestHeader("X-CSRFToken", csrftoken2);
+    requestQuiz1.send(JSON.stringify({ bug: bugmsg }));
+    document.getElementById("bug").value = "";
+  
+    this.parentNode.parentNode.parentNode.style.display = "none";
+  });
+  
+  btnPopClose[4].addEventListener("click", function () {
+    this.parentNode.parentNode.style.display = "none";
+  });
+  btnPopClose[5].addEventListener("click", function () {
+    this.parentNode.parentNode.style.display = "none";
+  });
+</script>
 <script type="text/javascript">
   $(".owl-carousel").owlCarousel({
     loop: true,
@@ -466,6 +519,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carou
       }
     }
   });
+  
 </script>
 {% comment %} <script type="module">
   import * as THREE from 'https://unpkg.com/three/build/three.module.js';

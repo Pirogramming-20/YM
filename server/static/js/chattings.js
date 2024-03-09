@@ -40,12 +40,23 @@ function reset_animation() {
 let socket = io.connect(
   location.protocol + "//" + document.domain + ":" + location.port
 );
+
+let cnt_join = 0;
 let checkDetail = document.getElementsByClassName("detail");
-if (checkDetail.length > 0) {
-  socket.emit("join", room_name, 0);
-} else {
-  socket.emit("join", room_name, 1);
-}
+
+socket.on("connect", function (data) {
+  if (cnt_join == 0) {
+    if (checkDetail.length > 0) {
+      socket.emit("join", room_name, 0);
+    } else {
+      socket.emit("join", room_name, 1);
+    }
+  } else {
+    socket.emit("join_again", room_name);
+  }
+  cnt_join++;
+});
+
 // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
 socket.on("message", function (data) {
   // Create the main chat item container
@@ -86,6 +97,7 @@ socket.on("count", function (data) {
 // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
 function click1() {
   let text = document.getElementById("input").value;
+  //socket.emit("join_again", room_name);
   socket.emit("message", text, username, room_name);
   document.getElementById("input").value = "";
 }
@@ -93,7 +105,7 @@ document.getElementById("input").addEventListener("keydown", function (e) {
   if (e.keyCode === 13) {
     // 'Enter'키의 keyCode는 13입니다.
     let text = e.target.value;
-
+    //socket.emit("join_again", room_name);
     socket.emit("message", text, username, room_name);
     e.target.value = "";
   }

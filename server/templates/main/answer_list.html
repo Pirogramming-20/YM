@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block head %}
+<title>정답 확인</title>
+{% endblock %} 
 {% block content %}
 <div>
     <div class="text2">{{room_name}} 방 - 정답 확인 페이지 </div>
@@ -8,7 +10,7 @@
             {% if order == 'Figure' %}
             
             <div class="answer_box">
-                <h1>인물 퀴즈 정답</h1>
+                <h2>인물 퀴즈 정답</h2>
                 {% for figure in figure_answer %}
                 <p>{{ forloop.counter }}번 : {{figure}} </p>
                 {% endfor %}
@@ -16,7 +18,7 @@
             {% elif order == 'Movie' %}
             
             <div class="answer_box">
-                <h1>명대사 퀴즈 정답</h1>
+                <h2>명대사 퀴즈 정답</h2>
                 {% for movie in movie_answer %}
                 <p>{{ forloop.counter}}번 : {{movie.0}},  {{movie.1}} </p>
                 {% endfor %}
@@ -24,7 +26,7 @@
             {% elif order == 'Four' %}
             
             <div class="answer_box">
-                <h1>네글자 퀴즈 정답</h1>
+                <h2>네글자 퀴즈 정답</h2>
                 {% for four in four_answer %}
                 <p>{{ forloop.counter }}번 : {{four}} </p>
                 {% endfor %}
@@ -33,21 +35,21 @@
             {% elif order == 'Music' %}
             
             <div class="answer_box">
-                <h1>음악 퀴즈 정답 (2000년대)</h1>
+                <h2>음악 퀴즈 정답 (2000년대)</h2>
                 {% for music in music_2000_answer %}
                 <p>{{ forloop.counter }}번 : {{music.0}},  {{music.1}}</p>
                 {% endfor %}
             </div>
             
             <div class="answer_box">
-                <h1>음악 퀴즈 정답 (2010년대)</h1>
+                <h2>음악 퀴즈 정답 (2010년대)</h2>
                 {% for music in music_2010_answer %}
                 <p>{{ forloop.counter }}번 : {{music.0}},  {{music.1}}</p>
                 {% endfor %}
             </div>
             
             <div class="answer_box">
-                <h1>음악 퀴즈 정답 (2020년대)</h1>
+                <h2>음악 퀴즈 정답 (2020년대)</h2>
                 {% for music in music_2020_answer %}
                 <p>{{ forloop.counter }}번 : {{music.0}},  {{music.1}}</p>
                 {% endfor %}
@@ -56,7 +58,7 @@
             {% elif order == 'Look' %}
             
             <div class="answer_box">
-                <h1>철가방 퀴즈 정답</h1>
+                <h2>철가방 퀴즈 정답</h2>
                 {% for look in look_answer %}
                 <p>{{ forloop.counter }}번 : {{look}} </p>
                 {% endfor %}
@@ -65,7 +67,7 @@
             {% elif order == 'Mudo' %}
             
             <div class="answer_box">
-                <h1>무한도전 퀴즈 정답</h1>
+                <h2>무한도전 퀴즈 정답</h2>
                 {% for mudo in mudo_answer %}
                 <p>{{ forloop.counter }}번 : {{mudo}} </p>
                 {% endfor %}
