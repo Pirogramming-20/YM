@@ -112,12 +112,15 @@
 .chat {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
 }
 .my_chat {
   align-items: flex-end;
+}
+.my_chat .user{
+  align-self: flex-end;
 }
 .my_chat {
   display: flex;
