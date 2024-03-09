@@ -1,9 +1,6 @@
-{% if roomId != 0 and room.user_id != user.id %} {% extends '404.html' %} {%
-else %} {% extends 'base.html' %} 
-{% block head %}
+{% extends 'base.html' %} {% block head %}
 <title>몸으로 말해요</title>
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 <div class="explain-container">
   <div class="text1">몸으로 말해요 게임</div>
   <div class="text2">팀원이 몸짓으로 설명하는 제시어를 맞춰주세요!</div>
@@ -31,36 +28,37 @@ else %} {% extends 'base.html' %}
         <span class="checkmark"></span>
         <span class="label-text text3">15 문제</span>
       </label>
-    </div>
-    <div class="type">
-      <div class="rule text3">주제를 선택해주세요!</div>
-      <label class="custom-radio">
-        <input type="radio" name="type" value="animal" required />
-        <span class="checkmark"></span>
-        <span class="label-text text3">동물</span>
-      </label>
-      <label class="custom-radio">
-        <input type="radio" name="type" value="food" required />
-        <span class="checkmark"></span>
-        <span class="label-text text3">음식</span>
-      </label>
-      <label class="custom-radio">
-        <input type="radio" name="type" value="thing" required />
-        <span class="checkmark"></span>
-        <span class="label-text text3">사물</span>
-      </label>
-      <label class="custom-radio">
-        <input type="radio" name="type" value="job" required />
-        <span class="checkmark"></span>
-        <span class="label-text text3">직업</span>
-      </label>
-      <label class="custom-radio">
-        <input type="radio" name="type" value="proverb" required />
-        <span class="checkmark"></span>
-        <span class="label-text text3">속담</span>
-      </label>
+
+      <div class="type">
+        <div class="rule text3">주제를 선택해주세요!</div>
+        <label class="custom-radio">
+          <input type="radio" name="type" value="animal" required />
+          <span class="checkmark"></span>
+          <span class="label-text text3">동물</span>
+        </label>
+        <label class="custom-radio">
+          <input type="radio" name="type" value="food" required />
+          <span class="checkmark"></span>
+          <span class="label-text text3">음식</span>
+        </label>
+        <label class="custom-radio">
+          <input type="radio" name="type" value="thing" required />
+          <span class="checkmark"></span>
+          <span class="label-text text3">사물</span>
+        </label>
+        <label class="custom-radio">
+          <input type="radio" name="type" value="job" required />
+          <span class="checkmark"></span>
+          <span class="label-text text3">직업</span>
+        </label>
+        <label class="custom-radio">
+          <input type="radio" name="type" value="proverb" required />
+          <span class="checkmark"></span>
+          <span class="label-text text3">속담</span>
+        </label>
+      </div>
     </div>
     <button type="submit" class="main-btn btn-text">게임 시작</button>
   </form>
 </div>
-{% endblock %} {% endif %}
+{% endblock %}
