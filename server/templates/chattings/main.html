@@ -1,24 +1,4 @@
-<<<<<<< HEAD
-{% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Chat Room</title>
-  </head>
-  <body>
-    {% if user.is_authenticated %}
-    <div class="connect-user-hi">
-      <span>{{user.username}} </span> 님이 로그인중
-    </div>
-    <a class="menu-btn" href="{% url 'rooms:create' %}">게임방 만들기</a>
-    <a class="menu-btn" href="{% url 'games:main' %}">게임방 예제</a>
-    <a href="{% url 'main:logout' %}">
-      <div class="header-btn">로그아웃</div>
-    </a>
-    {% endif %}
-=======
 {% extends 'base.html' %}
->>>>>>> master
 
 {% block content %}
 <h2 class="text1 h2">원하는 모드를 선택해주세요 <i class="fa-regular fa-hand-point-down"></i></i></h2>
