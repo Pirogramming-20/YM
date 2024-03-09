@@ -154,3 +154,10 @@ def qna(request):
 
     Qna.objects.get_or_create(text = qnatext)
     return JsonResponse({'qna' : qnatext})
+
+def bug(request):
+    req = json.loads(request.body)
+    bugtext = req['bug']
+
+    Bug.objects.get_or_create(text = bugtext)
+    return JsonResponse({'bug' : bugtext})

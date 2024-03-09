@@ -24,6 +24,7 @@ SECRET_KEY = 'django-insecure-g3r!cjkx7op%fkc43*oh96x^!*=u@eap^omoa7vgfj9kp05=)1
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -97,6 +98,17 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # }
  
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'project',
+#         'USER': 'root',
+#         'PASSWORD': 'password',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -104,7 +116,7 @@ DATABASES = {
         'USER': 'ymfinal',
         'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': ''
     }
 }
 
@@ -157,7 +169,7 @@ STATICFILES_DIRS = [
 # else:
 #     STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
 
-#STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
+# STATIC_ROOT=os.path.join(BASE_DIR, 'static') # daphne 사용시 스테틱 루트를 스테틱으로 설정해야 css 파일 안깨지고 사용 가능
 STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') # runserver시 사용 #배포시 사용
 
 

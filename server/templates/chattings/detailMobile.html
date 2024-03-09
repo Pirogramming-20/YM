@@ -21,10 +21,9 @@
   <link rel="stylesheet" href="{%static 'css/responsive.css'%}">
 
   
-  {%block head%}
-
-
-  {% endblock %}    
+  {% block head %}
+<title>모바일 채팅방</title>
+{% endblock %}
 </head>
 <body>
   <header>
@@ -77,8 +76,8 @@
 ></script>
 <script>
   const room_num = "{{ room.id }}";
-    const room_name = "{{ room.room_name }}";
-    const username = "{{ user.username }}";
+  const room_name = "{{ room.room_name }}";
+  const username = "{{ user.username }}";
   let chatBox = document.querySelector(".mobile-chatroom-container");
   // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
   function clickUser() {
@@ -104,11 +103,19 @@
   let socket = io.connect(
     location.protocol + "//" + document.domain + ":" + location.port
   );
-  socket.emit("join", room_name,0);
+
+  let cnt_join = 0;
+  socket.on("connect", function (data) {
+    if (cnt_join == 0) {
+      socket.emit("join", room_name, 0);
+    } else {
+      socket.emit("join_again", room_name);
+    }
+    cnt_join++;
+  });
 
   // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
   socket.on("message", function (data) {
-    
     const username = document.getElementById("info_username").innerText;
     // Create the main chat item container
     let chatItem = document.createElement("div");
@@ -144,7 +151,7 @@
   function click1() {
     const username = document.getElementById("info_username").innerText;
     let text = document.getElementById("input").value;
-    socket.emit("join", room_name,0);
+    //socket.emit("join_again", room_name);
     socket.emit("message", text, username, room_name);
     
     document.getElementById("input").value = "";
@@ -156,7 +163,7 @@
         const username = document.getElementById("info_username").innerText;
         // 'Enter'키의 keyCode는 13입니다.
         let text = e.target.value;
-        socket.emit("join", room_name,0);
+        //socket.emit("join_again", room_name);
         socket.emit("message", text, username, room_name);
       
         e.target.value = "";

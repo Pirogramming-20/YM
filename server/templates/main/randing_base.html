@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="요즘MT는 빠른 레크레이션 준비를 위한 웹서비스입니다.">
+  <meta name="og:description" content="요즘MT는 빠른 레크레이션 준비를 위한 웹서비스입니다.">
   <link rel="icon" type="image/png" href='/static/image/main/favicon_logo.png'>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,11 +22,9 @@
   <link rel="stylesheet" href="{%static 'css/game.css'%}">  
   <link rel="stylesheet" href="{%static 'css/chattings.css'%}">
   <link rel="stylesheet" href="{%static 'css/game-choose.css'%}">
-
-  
+  <meta name="naver-site-verification" content="8563477af84c174d8ba53f262b0f3c61922cfc05" />
+  <meta name="google-site-verification" content="4zi9QbV3ziNU-46lbfHz2aA_k39BjARj3PQPrzrCyxI" />
   {%block head%}
-
-
   {% endblock %}    
 </head>
 <body>
@@ -116,7 +116,7 @@
     }
     
     //csrf 토큰 생성
-    const csrftoken1 = getCookie("csrftoken1");
+    const csrftoken1 = getCookie("csrftoken");
     
     let target = document.querySelectorAll(".btn_open");
     let btnPopClose = document.querySelectorAll(".pop_wrap .btn_close");

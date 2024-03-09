@@ -52,7 +52,7 @@ def create(request):
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_movie = ran_quiz_str
           elif game == "Mudo":
-            ran_quiz_list = random.sample(range(1,41),15)#각 게임 자료수에 맞게 고치기
+            ran_quiz_list = random.sample(range(1,51),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_mudo = ran_quiz_str
           elif game == "Music":
@@ -77,7 +77,7 @@ def create(request):
 
 def next_game(request, roomId):
   if roomId == 0:
-    return redirect('main:main')
+    return redirect('/#single-game')
   room = GameRoom.objects.get(id=roomId)
   ctx = {
     'roomId':roomId
@@ -151,17 +151,18 @@ def delete(request, roomId):
 
 import qrcode
 def detail(request,pk):
+  randInt = random.randrange(1,1000)
   room = get_object_or_404(GameRoom, pk=pk)
   # # 배포코드
-  qrimg = qrcode.make("https//yozmt.com/chatting-room/detail-mobile/"+str(pk))
-  qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
+  # qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
+  # qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
 
   # 로컬코드
-  # qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
+  qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
   #qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
   # qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
-  # qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
-  # qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
+  #qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
+  qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/ym2/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
   # qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #우진
 
   ctx = {
@@ -171,7 +172,7 @@ def detail(request,pk):
   return render(request, "chattings/detail.html", ctx)
 
 
-def detailMobile(request,pk):
+def detailMobile(request,mobile,pk):
   room = get_object_or_404(GameRoom, pk=pk)
   user = request.user.username
   ctx = {
