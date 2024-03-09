@@ -72,11 +72,11 @@
   display: inline-block;
   background-color: gray;
   padding: 0.8rem;
-  white-space: nowrap; /* prevent text wrapping */
-  border-radius: 0.8rem;
-  font-size: 1.5rem;
-  word-wrap: break-word; /*so that long words don't cause overflow */
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; /* Ensure long words do not cause overflow */
   border-radius: 0 10px 10px 10px;
+  font-size: 1.5rem;
+  max-width: 100%; /* Ensure it doesn't exceed the container's width */
 }
 
 .info_room_num {
@@ -112,7 +112,7 @@
 .chat {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
 }
