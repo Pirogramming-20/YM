@@ -50,6 +50,9 @@ async def join(sid, room_name,check):
 @sio.event
 async def join_again(sid, room_name):
     await sio.enter_room(sid, room_name)
+    if not(room_name in rooms):
+        rooms[room_name] = 1  
+    await sio.emit("count", rooms[room_name], room=room_name)  
 
 @sio.event
 async def leave(sid, room_name):

@@ -51,10 +51,10 @@ socket.on("connect", function (data) {
     } else {
       socket.emit("join", room_name, 1);
     }
+    cnt_join++;
   } else {
     socket.emit("join_again", room_name);
   }
-  cnt_join++;
 });
 
 // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
