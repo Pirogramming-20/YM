@@ -1,7 +1,3 @@
-// const room_num = "{{ room.id }}";
-// const room_name = "{{ room.room_name }}";
-// const username = "{{ user.username }}";
-
 document.addEventListener("DOMContentLoaded", function () {
   const chatToggle = document.getElementById("chatToggle");
   const chatRoom = document.getElementById("chatRoom");
