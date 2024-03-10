@@ -37,7 +37,7 @@ www.yozmt.com
 - 단순히 게임만을 플레이 하고싶은 개인 유저들운 로그인 없이 다양한 게임을 진행할 수 있습니다.
 
 ## 아키텍쳐 설계도 🔧
-<img width="614" alt="image" src="https://github.com/Pirogramming-20/YM/assets/121532823/010c84e9-a51a-4b9d-883b-d52111db3b94">
+<img width="614" alt="image" src="https://github.com/Pirogramming-20/YM/assets/121532823/9ad25ac8-f109-4720-a438-887a18696f38">
 
 ## 주요 기능⭐️
 - 8가지 게임 (노래 전주 듣고 맞추기, 사진보고 인물 맞추기, 철가방 게임, 없는 게 없는 무한도전 대사 퀴즈, 영화 명장면 맞추기, 몸으로 말해요, 네글자 맞추기, 채팅 빨리보내기) 제공
