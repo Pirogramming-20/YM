@@ -154,7 +154,7 @@ def detail(request,pk):
   randInt = random.randrange(1,1000)
   room = get_object_or_404(GameRoom, pk=pk)
   # # 배포코드
-  qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(pk))
+  qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(randInt)+"/"+str(pk))
   qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
 
   # 로컬코드

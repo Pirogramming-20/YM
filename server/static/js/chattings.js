@@ -38,7 +38,7 @@ let socket = io.connect(
 );
 
 let cnt_join = 0;
-let checkDetail = document.getElementsByClassName("detail");
+let checkDetail = document.getElementsByClassName("detail-check");
 
 socket.on("connect", function (data) {
   if (cnt_join == 0) {
