@@ -168,6 +168,7 @@ form input {
   justify-content: space-around;
   align-items: center;
 }
+
 .bef_clicked {
   background-color: gray;
   box-shadow: none;
