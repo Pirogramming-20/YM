@@ -43,7 +43,6 @@ socket.on("connect", function (data) {
   if (cnt_join == 0) {
     if (checkDetail == 0) {
       socket.emit("join", room_name, 0);
-      checkDetail++;
     } else {
       socket.emit("join", room_name, 1);
     }
