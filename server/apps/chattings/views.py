@@ -153,6 +153,8 @@ import qrcode
 def detail(request,pk):
   randInt = random.randrange(1,1000)
   room = get_object_or_404(GameRoom, pk=pk)
+  room.rand_int = randInt
+  room.save()
   # # 배포코드
   qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(randInt)+"/"+str(pk))
   qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
@@ -175,6 +177,8 @@ def detail(request,pk):
 
 def detailMobile(request,mobile,pk):
   room = get_object_or_404(GameRoom, pk=pk)
+  if(room.rand_int != mobile):
+    return render(request,"404.html")
   user = request.user.username
   ctx = {
     "room" : room,

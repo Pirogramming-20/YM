@@ -17,6 +17,7 @@ class GameRoom(models.Model):
     ran_chat = models.CharField(max_length=50, null = True, blank = True)
     ran_mudo = models.CharField(max_length=50, null = True, blank = True)
     ran_body = models.CharField(max_length=50, null = True, blank = True)
+    rand_int = models.IntegerField(default = 0)
 
     participants = models.IntegerField(default = 0)
     
