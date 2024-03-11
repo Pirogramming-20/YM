@@ -57,11 +57,24 @@ www.yozmt.com
 | <img width="480px;" height="300px" alt="image" src="https://github.com/Pirogramming-20/YM/assets/121532823/68c4ae23-c765-403a-96ce-42777774da8b"> | <img src="https://github.com/Pirogramming-20/YM/assets/121532823/b019ce37-453f-417d-8a41-aa99c0df0181" width="480px;" height="300px" alt=""/>     |
 | <p>/signup <br>회원가입을 진행할 수 있는 페이지로 유효성과 중복을 체크합니다. </p>     | <p>/login<br>가입한 아이디를 이용해 로그인할 수 있는 페이지입니다.</p>     | 
 
-| 회원 전용 페이지 | 방 생성 페이지 |
+| 회원 전용 페이지 | 게임방 생성 페이지 |
 | :---:         |     :---:      |
-| <img width="480px;" height="300px" src="https://github.com/Pirogramming-20/YM/assets/121532823/6b1ff4bf-1bae-4df5-910a-e72819a74673" alt=""/>   | <img src="" width="350px;" height="350px" alt=""/>     |
-| <p>/signup <br>회원가입을 진행할 수 있는 페이지로 유효성과 중복을 체크합니다. </p>     | <p>/login<br>가입한 아이디를 이용해 로그인할 수 있는 페이지입니다.</p>  | 
+| <img width="480px;" height="300px" src="https://github.com/Pirogramming-20/YM/assets/121532823/6b1ff4bf-1bae-4df5-910a-e72819a74673" alt=""/>   | <img src="https://github.com/Pirogramming-20/YM/assets/121532823/609445f5-97c2-4639-9522-43b351bd2957" width="480px;" height="300px" alt=""/>     |
+| <p>/chatting-room <br>회원 전용 메인 페이지로, 레크레이션 전용 방을 삭제,생성, 정답 확인을 할 수 있습니다. </p>     | <p>/chatting-room/create<br>방 이름과 원하는 게임, 원하는 순서대로 정하여 방을 생성하는 페이지입니다.</p>  | 
 
+| 게임방 최초 페이지 | 정답 확인 페이지 |
+| :---:         |     :---:      |
+| <img width="480px;" height="300px" src="https://github.com/Pirogramming-20/YM/assets/121532823/301c6e4f-ea86-48e6-94e1-f4f2702d0c1e" alt=""/>   | <img src="https://github.com/Pirogramming-20/YM/assets/121532823/a68ad60d-6178-4d17-94c8-2bfd90178282" width="480px;" height="300px" alt=""/>     |
+| <p>/chatting-room/detail/<int:pk> <br>방을 처음 들어가면 보여주는 화면으로 QRcode를 통해 레크 인원들을 초대합니다. </p>     | <p>/answer/<int:pk><br>진행하는 게임방의 정답을 확인하는 페이지입니다.</p>  | 
 
+| 게임 시작 페이지 | 게임 진행 페이지 |
+| :---:         |     :---:      |
+| <img width="480px;" height="300px" src="https://github.com/Pirogramming-20/YM/assets/121532823/4530bd94-d2d7-488f-bb91-d2ea0ad5f828" alt=""/>   | <img src="https://github.com/Pirogramming-20/YM/assets/121532823/a6bf7bca-a644-4d39-aaf0-c59b9ba55c8e" width="480px;" height="300px" alt=""/>     |
+| <p>/<str:game>/<int:pk> <br>게임을 시작하기전, 문제 갯수와 추가사항을 선택하는 페이지입니다. </p>     | <p>/<str:game>/<int:pk>/<str:game-detail>/<int:num><br>게임 진행과 정답 확인 등을 할 수 있는 페이지입니다.</p>  | 
+
+| 게임 종료 페이지 |
+| :---:       |
+| <img width="480px;" height="300px" src="https://github.com/Pirogramming-20/YM/assets/121532823/ac7b5d63-54a1-432a-a200-dff7b14d62e2" alt=""/>   | 
+| <p>/chatting-room/finish/<int:pk> <br>모든 게임이 끝나면 재선택, 재시작, 삭제 3가지 중 선택하는 페이지입니다. </p>     | 
 
 
