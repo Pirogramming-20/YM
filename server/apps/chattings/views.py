@@ -160,7 +160,7 @@ def detail(request,pk):
   qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
 
   # 로컬코드
-  # qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(pk))
+  # qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(randInt)+"/"+str(pk))
   # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
   # qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
   # qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
