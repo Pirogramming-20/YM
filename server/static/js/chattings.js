@@ -55,7 +55,7 @@ socket.on("connect", function (data) {
 
 // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
 socket.on("message", function (data) {
-  if (!data[0]) {
+  if (data[0]) {
     // Create the main chat item container
     let chatItem = document.createElement("div");
     chatItem.className = "chat";
