@@ -100,22 +100,16 @@
       }
     });
 
-  let socket = io.connect(
-    location.protocol + "//" + document.domain + ":" + location.port
-  );
+  let socket = io.connect();
 
-  let cnt_join = 0;
   socket.on("connect", function (data) {
-    if (cnt_join == 0) {
-      socket.emit("join", room_name, 0);
-    } else {
-      socket.emit("join_again", room_name);
-    }
-    cnt_join++;
+    socket.emit("join", room_name);
+    socket.emit("message", "", "", room_name);
   });
 
   // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
   socket.on("message", function (data) {
+    if (data[0]) {
     const username = document.getElementById("info_username").innerText;
     // Create the main chat item container
     let chatItem = document.createElement("div");
@@ -135,8 +129,8 @@
     if (data[1] === username) {
       listDiv.className += " my_chat"; // Note the space before the class name
     }
-    else{
-      listDiv.className += " other_chat"; // Note the space before the class name
+    if (data[1] === "") {
+      chatItem.className = "num_chat"; // Note the space before the class name
     }
     listDiv.appendChild(chatItem);
 
@@ -145,7 +139,7 @@
 
     // Scroll to the latest message
     scrollToLatestMessage();
-  });
+  }});
 
   // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
   function click1() {

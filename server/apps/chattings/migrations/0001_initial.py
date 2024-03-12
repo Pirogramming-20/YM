@@ -29,6 +29,7 @@ class Migration(migrations.Migration):
                 ('ran_chat', models.CharField(blank=True, max_length=50, null=True)),
                 ('ran_mudo', models.CharField(blank=True, max_length=50, null=True)),
                 ('ran_body', models.CharField(blank=True, max_length=50, null=True)),
+                ('rand_int', models.IntegerField(default=0)),
                 ('participants', models.IntegerField(default=0)),
                 ('user_id', models.ForeignKey(db_column='user_id', on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],

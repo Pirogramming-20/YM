@@ -37,22 +37,8 @@ async def connect(sid, environ):
 
 
 @sio.event
-async def join(sid, room_name,check):
+async def join(sid, room_name):
     await sio.enter_room(sid, room_name)
-    if room_name in rooms:
-        rooms[room_name] += 1  
-    else:
-        rooms[room_name] = 1
-    if check == 1:
-        await sio.emit('message', ["1번문제",""], room=room_name)
-    await sio.emit("count", rooms[room_name], room=room_name)  
-    
-@sio.event
-async def join_again(sid, room_name):
-    await sio.enter_room(sid, room_name)
-    if not(room_name in rooms):
-        rooms[room_name] = 1  
-    await sio.emit("count", rooms[room_name], room=room_name)  
 
 @sio.event
 async def leave(sid, room_name):
@@ -79,10 +65,9 @@ async def message(sid, data,user,room_name):
 # 이벤트 핸들러(연결 끊기)
 @sio.event
 async def disconnect(sid):
-    for room_name in rooms:
-        if sio.rooms(sid).__contains__(room_name):
-            rooms[room_name] -= 1
-            await sio.emit('count', rooms[room_name], room=room_name)
+    print("disconnect")
+
+            
     #몇초이상 접속 안할 경우 종료시킨다?
     # if rooms[room_name] == 0:
     #     print('탈출시도')
