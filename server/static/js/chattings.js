@@ -42,14 +42,14 @@ let cnt_join = 0;
 socket.on("connect", function (data) {
   if (cnt_join == 0) {
     if (checkDetail == 0) {
-      socket.emit("join", room_name, 0);
+      socket.emit("join", room_name);
     } else {
-      socket.emit("join", room_name, 1);
+      socket.emit("join", room_name);
       socket.emit("message", "1번문제", "", room_name);
     }
     cnt_join++;
   } else {
-    socket.emit("join_again", room_name);
+    socket.emit("join", room_name);
   }
 });
 
