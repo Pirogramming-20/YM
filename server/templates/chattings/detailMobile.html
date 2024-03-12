@@ -100,18 +100,10 @@
       }
     });
 
-  let socket = io.connect(
-    location.protocol + "//" + document.domain + ":" + location.port
-  );
+  let socket = io.connect();
 
-  let cnt_join = 0;
   socket.on("connect", function (data) {
-    if (cnt_join == 0) {
-      socket.emit("join", room_name, 0);
-    } else {
-      socket.emit("join_again", room_name);
-    }
-    cnt_join++;
+    socket.emit("join", room_name);
   });
 
   // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가

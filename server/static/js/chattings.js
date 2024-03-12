@@ -33,9 +33,7 @@ function reset_animation() {
   quizContainer.style.animation = null;
 }
 
-let socket = io.connect(
-  location.protocol + "//" + document.domain + ":" + location.port
-);
+let socket = io.connect();
 
 let cnt_join = 0;
 
