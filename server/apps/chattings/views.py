@@ -67,6 +67,18 @@ def create(request):
             ran_quiz_list = random.sample(range(1,16),15)#각 게임 자료수에 맞게 고치기
             ran_quiz_str=','.join(map(str,ran_quiz_list))
             room.ran_chat = ran_quiz_str
+      randInt = random.randrange(1,1000)
+      room.rand_int = randInt
+      # # 배포코드
+      qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(randInt)+"/"+str(room.id))
+      qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(room.id))
+      # 로컬코드
+      # qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(randInt)+"/"+str(room.id))
+      # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(room.id)) #기택
+      # qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(room.id)) #윤서
+      # qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(room.id)) #웨이
+      # qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(room.id)) #현정
+      # qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(room.id)) #우진
       room.save()
       roomId = room.id
       
@@ -151,21 +163,8 @@ def delete(request, roomId):
 
 import qrcode
 def detail(request,pk):
-  randInt = random.randrange(1,1000)
   room = get_object_or_404(GameRoom, pk=pk)
-  room.rand_int = randInt
-  room.save()
-  # # 배포코드
-  qrimg = qrcode.make("http://hello.chattest.p-e.kr/chatting-room/detail-mobile/"+str(randInt)+"/"+str(pk))
-  qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
-
-  # 로컬코드
-  # qrimg = qrcode.make("http://127.0.0.1:8000//chatting-room/detail-mobile/"+str(randInt)+"/"+str(pk))
-  # qrimg.save("C:/Users/user/Desktop/YM/server/static/image/qrcode/qr{}.png".format(pk)) #기택
-  # qrimg.save("C:/Users/chldb/YM/server/static/image/qrcode/qr{}.png".format(pk)) #윤서
-  # qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
-  # qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/YM/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
-  # qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #우진
+  randInt = room.rand_int
 
   ctx = {
     "room" : room,
