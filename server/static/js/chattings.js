@@ -44,6 +44,7 @@ socket.on("connect", function (data) {
       socket.emit("message", "", "", room_name);
     } else {
       socket.emit("join", room_name);
+      socket.emit("message", "", "", room_name);
       socket.emit("message", "1번문제", "", room_name);
     }
     cnt_join++;
