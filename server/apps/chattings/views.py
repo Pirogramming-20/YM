@@ -164,7 +164,6 @@ def delete(request, roomId):
 import qrcode
 def detail(request,pk):
   room = get_object_or_404(GameRoom, pk=pk)
-<<<<<<< HEAD
   # 배포코드
   qrimg = qrcode.make("https://yozmt.com/chatting-room/detail-mobile/"+str(randInt)+"/"+str(pk))
   qrimg.save("/home/ubuntu/YM/server/staticfiles/image/qr{}.png".format(pk))
@@ -176,9 +175,7 @@ def detail(request,pk):
   #qrimg.save("/Users/khinwaiyan/YM/server/static/image/qrcode/qr{}.png".format(pk)) #웨이
   #qrimg.save("C:/Users/cathy/OneDrive/바탕 화면/ym2/YM/server/static/image/qrcode/qr{}.png".format(pk)) #현정
   # qrimg.save("C:/UOS/YM/server/static/image/qrcode/qr{}.png".format(pk)) #우진
-=======
   randInt = room.rand_int
->>>>>>> ba60a9b8913de47f64a1e55b5bcc1e582345af5c
 
   ctx = {
     "room" : room,
