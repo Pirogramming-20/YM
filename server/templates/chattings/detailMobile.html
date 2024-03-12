@@ -104,10 +104,12 @@
 
   socket.on("connect", function (data) {
     socket.emit("join", room_name);
+    socket.emit("message", "", "", room_name);
   });
 
   // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
   socket.on("message", function (data) {
+    if (!data[0]) {
     const username = document.getElementById("info_username").innerText;
     // Create the main chat item container
     let chatItem = document.createElement("div");
@@ -137,7 +139,7 @@
 
     // Scroll to the latest message
     scrollToLatestMessage();
-  });
+  }});
 
   // 메시지 전송버튼이 눌렸을때 입력된 메세지를 소켓을 통해 보내고 메세지 입력창을 비움
   function click1() {

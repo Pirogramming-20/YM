@@ -41,6 +41,7 @@ socket.on("connect", function (data) {
   if (cnt_join == 0) {
     if (checkDetail == 0) {
       socket.emit("join", room_name);
+      socket.emit("message", "", "", room_name);
     } else {
       socket.emit("join", room_name);
       socket.emit("message", "1번문제", "", room_name);
@@ -48,42 +49,45 @@ socket.on("connect", function (data) {
     cnt_join++;
   } else {
     socket.emit("join", room_name);
+    socket.emit("message", "", "", room_name);
   }
 });
 
 // 소켓서버에서 받은 데이터를 기반으로 html에 코드 추가
 socket.on("message", function (data) {
-  // Create the main chat item container
-  let chatItem = document.createElement("div");
-  chatItem.className = "chat";
+  if (!data[0]) {
+    // Create the main chat item container
+    let chatItem = document.createElement("div");
+    chatItem.className = "chat";
 
-  // Create and append the user div
-  let userDiv = document.createElement("div");
-  userDiv.className = "user";
-  userDiv.textContent = data[1]; // Assuming data[1] contains the username
-  chatItem.appendChild(userDiv);
+    // Create and append the user div
+    let userDiv = document.createElement("div");
+    userDiv.className = "user";
+    userDiv.textContent = data[1]; // Assuming data[1] contains the username
+    chatItem.appendChild(userDiv);
 
-  // Create and append the message div
-  let messageDiv = document.createElement("div");
-  messageDiv.className = "message";
-  messageDiv.textContent = data[0]; // Assuming data[0] contains the message
-  chatItem.appendChild(messageDiv);
+    // Create and append the message div
+    let messageDiv = document.createElement("div");
+    messageDiv.className = "message";
+    messageDiv.textContent = data[0]; // Assuming data[0] contains the message
+    chatItem.appendChild(messageDiv);
 
-  // Create the list item and append the chat item to it
-  let listDiv = document.createElement("div");
-  if (data[1] === username) {
-    listDiv.className += " my_chat"; // Note the space before the class name
+    // Create the list item and append the chat item to it
+    let listDiv = document.createElement("div");
+    if (data[1] === username) {
+      listDiv.className += " my_chat"; // Note the space before the class name
+    }
+    if (data[1] === "") {
+      chatItem.className = "num_chat"; // Note the space before the class name
+    }
+    listDiv.appendChild(chatItem);
+
+    // Append the list item to the messages list
+    document.getElementById("messages").appendChild(listDiv);
+
+    // Scroll to the latest message
+    scrollToLatestMessage();
   }
-  if (data[1] === "") {
-    chatItem.className = "num_chat"; // Note the space before the class name
-  }
-  listDiv.appendChild(chatItem);
-
-  // Append the list item to the messages list
-  document.getElementById("messages").appendChild(listDiv);
-
-  // Scroll to the latest message
-  scrollToLatestMessage();
 });
 socket.on("count", function (data) {
   document.getElementById("people_count").innerText = data[0];
